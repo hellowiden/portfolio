@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 
+// Create a new user (POST)
 export async function POST(req: Request) {
   try {
     await connectToDatabase();
@@ -33,6 +34,18 @@ export async function POST(req: Request) {
     );
   } catch (error) {
     console.error('Error in POST /users:', error);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+  }
+}
+
+// Get all users (GET)
+export async function GET() {
+  try {
+    await connectToDatabase();
+    const users = await User.find().select('-password');
+    return NextResponse.json({ users }, { status: 200 });
+  } catch (error) {
+    console.error('Error in GET /users:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }
