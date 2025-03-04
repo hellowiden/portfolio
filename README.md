@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Portfolio
 
-## Getting Started
+**Name:** Marcus Widén  
+**School:** Folkuniversitetet i Göteborg  
+**Program:** JavaScriptutvecklare  
+**Supervisor:** Christoffer Wallenberg, ZoCom AB
 
-First, run the development server:
+## About the Program
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**JavaScriptutvecklare – Folkuniversitetet i Göteborg**  
+A 2-year, full-time distance learning program (400 YH-poäng) focused on fullstack JavaScript development. The curriculum covers frontend frameworks (Next.js, React.js, Vue.js), backend development (AWS, Node.js), UX/UI principles, TypeScript, and scalable system design.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+It also emphasizes Agile methodologies (Scrum, Kanban) and software development quality standards. Graduates will be equipped to plan, develop, and deploy fullstack applications, solve complex frontend and backend challenges, and communicate development processes effectively. The program fosters independent application development, real-world project execution, and continuous skill enhancement in fullstack development.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Summary
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This web application serves as the central platform for my personal portfolio, designed to showcase my technical expertise, projects, and professional growth. It functions as both an interactive resume and a dynamic workspace, facilitating project management and deployment. The application integrates advanced web development features, including user authentication, an administrative dashboard, and full CRUD functionality, demonstrating proficiency in fullstack JavaScript development.
 
-## Learn More
+As my final thesis project for the JavaScriptutvecklare program at Folkuniversitetet i Göteborg, this portfolio exemplifies a structured and scalable approach to software development. It not only reflects my ability to design and implement robust web applications but also serves as a foundation for continuous learning and professional advancement in the field.
 
-To learn more about Next.js, take a look at the following resources:
+## Project Goals
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Develop a fully functional and responsive portfolio.
+- Demonstrate deep fullstack development skills.
+- Serve as my future hub and operational workspace for incoming projects or future job opportunities.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Features
 
-## Deploy on Vercel
+- User authentication and profile management
+- Full CRUD operations
+- Admin dashboard
+- Theme switch functionality
+- Database management
+- Advanced contact form
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Tech Stack
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Frontend:** Next.js, Tailwind, Motion Framer
+- **Backend:** Next.js, mongoDB, bcrypt, JWT, UUID etc...
+
+## Deployment
+
+This project is deployed on versel  
+Check out the live demo:
+
+## Contact
+
+- Email: hellowiden@gmail.com
+- LinkedIn: https://www.linkedin.com/in/marcuswiden/
