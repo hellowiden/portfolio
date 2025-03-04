@@ -1,4 +1,4 @@
-// Connect to
+//libs/mongodb.tsx
 
 import mongoose from 'mongoose';
 

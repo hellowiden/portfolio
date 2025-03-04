@@ -1,4 +1,6 @@
-import Header from './components/Header/header';
+// src/app/page.tsx
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import About from './components/About/About';
 
 export default async function Home() {
@@ -6,6 +8,7 @@ export default async function Home() {
     <>
       <Header />
       <About />
+      <Footer />
     </>
   );
 }

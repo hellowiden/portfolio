@@ -1,3 +1,5 @@
+// src/app/components/Header/Header.tsx
+
 import React from 'react';
 
 function Header() {
