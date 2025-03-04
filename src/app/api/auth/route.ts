@@ -1,5 +1,4 @@
 // src/app/api/auth/route.tsx
-
 import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
@@ -16,7 +15,6 @@ declare module 'next-auth' {
       id: string;
       name: string;
       email: string;
-      image?: string | null;
       roles: string[];
     };
   }
@@ -73,7 +71,7 @@ export const authOptions: AuthOptions = {
     }),
   ],
   session: {
-    strategy: 'jwt' as const,
+    strategy: 'jwt' as const, // ✅ Fixing the "SessionStrategy" error
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {

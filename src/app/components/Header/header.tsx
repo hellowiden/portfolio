@@ -1,15 +1,41 @@
 // src/app/components/Header/Header.tsx
+'use client';
 
-import React from 'react';
+import { signOut, useSession } from 'next-auth/react';
+import Link from 'next/link';
 
-function Header() {
+export default function Header() {
+  const { data: session } = useSession();
+
   return (
-    <div className="bg-amber-100 p-2">
-      <h1 className="text-2xl font-bold tracking-tight text-amber-600">
-        MW-Portfolio
-      </h1>
+    <div className="grid grid-cols-2 items-center bg-zinc-900 text-zinc-100 p-4">
+      {/* Title */}
+      <h1 className="text-2xl font-bold tracking-tight">MW-Portfolio</h1>
+
+      {/* Authentication Buttons */}
+      <div className="grid grid-flow-col gap-4 justify-end">
+        {session?.user ? (
+          <button
+            onClick={() => signOut()}
+            className="bg-zinc-700 text-zinc-100 px-4 py-2 rounded hover:bg-zinc-600 transition"
+          >
+            Logout
+          </button>
+        ) : (
+          <>
+            <Link href="/login">
+              <button className="bg-zinc-700 text-zinc-100 px-4 py-2 rounded hover:bg-zinc-600 transition">
+                Login
+              </button>
+            </Link>
+            <Link href="/register">
+              <button className="bg-zinc-800 text-zinc-100 px-4 py-2 rounded hover:bg-zinc-700 transition">
+                Register
+              </button>
+            </Link>
+          </>
+        )}
+      </div>
     </div>
   );
 }
-
-export default Header;

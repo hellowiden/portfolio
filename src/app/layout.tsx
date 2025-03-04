@@ -1,7 +1,11 @@
-// src/app/layout.tsx
+//src/app/layout.tsx
+
 import type { Metadata } from 'next';
 import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
+import AuthProvider from '@/app/components/SessionProvider';
+import Header from '@/app/components/Header/Header';
+import Footer from '@/app/components/Footer/Footer';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -16,13 +20,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={`${spaceGrotesk.className} antialiased`}>
-        {children}
+      <body
+        className={`${spaceGrotesk.className} grid grid-rows-[auto_1fr_auto] min-h-screen bg-zinc-900 text-zinc-100`}
+      >
+        <AuthProvider>
+          <Header /> {/* ✅ Header is always rendered */}
+          <main className="p-4">{children}</main> {/* ✅ Page content */}
+          <Footer /> {/* ✅ Footer is always rendered */}
+        </AuthProvider>
       </body>
     </html>
   );

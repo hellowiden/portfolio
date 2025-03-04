@@ -1,7 +1,6 @@
-// models/user.ts
-import mongoose from 'mongoose';
+//models/user.ts
 
-// Define the User interface
+import mongoose from 'mongoose';
 export interface IUser extends mongoose.Document {
   name: string;
   email: string;
@@ -11,7 +10,6 @@ export interface IUser extends mongoose.Document {
   updatedAt: Date;
 }
 
-// Define the User schema
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -41,7 +39,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-// Create or retrieve the model
 const User = mongoose.models.User || mongoose.model<IUser>('User', UserSchema);
 
 export default User;
