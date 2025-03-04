@@ -1,3 +1,5 @@
+// src/app/api/users/[id]/route.tsx
+
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import User from '@/models/user';

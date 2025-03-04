@@ -1,3 +1,5 @@
+// src/app/api/auth/route.tsx
+
 import NextAuth, { AuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
