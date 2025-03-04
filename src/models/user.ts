@@ -1,3 +1,4 @@
+// models/user.ts
 import mongoose from 'mongoose';
 
 // Define the User interface
