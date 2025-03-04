@@ -1,11 +1,16 @@
 import Header from './components/Header/header';
+import { GET_USER } from './api/users/route';
+export default async function Home() {
+  const users = await GET_USER();
 
-export default function Typography() {
   return (
     <>
       <Header />
+
       <div className="space-y-4 p-6">
-        <h1 className="text-6xl font-bold tracking-tight">Hello Georgius!</h1>
+        <h1 className="text-6xl font-bold tracking-tight">
+          Hello {users.name}!
+        </h1>
         <h2 className="text-5xl font-semibold tracking-tight">
           Elegant Simplicity
         </h2>
