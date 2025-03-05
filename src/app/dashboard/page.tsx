@@ -93,8 +93,7 @@ export default function Dashboard() {
 
   return (
     <div className="">
-      <h1 className="text-2xl font-bold mb-4">Welcome, {session.user.name}</h1>
-      <p className="mb-4">Your email: {session.user.email}</p>
+      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
 
       <h2 className="text-xl font-semibold mt-6 mb-2">All Users</h2>
       <div className="overflow-x-auto">
