@@ -26,10 +26,19 @@ export async function GET(
 // Update user
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id?: string } } // Ensure params is optional
 ) {
   try {
     await connectToDatabase();
+
+    const { params } = context;
+    if (!params?.id) {
+      return NextResponse.json(
+        { error: 'User ID is required' },
+        { status: 400 }
+      );
+    }
+
     const { name, email, password, roles } = await req.json();
 
     const updateFields: Partial<{

@@ -6,16 +6,11 @@ import { useSession, signOut } from 'next-auth/react';
 
 export default function Profile() {
   const { data: session, status } = useSession();
-  const [formData, setFormData] = useState<{
-    name: string;
-    email: string;
-    newPassword: string;
-    roles: string[];
-  }>({
+  const [formData, setFormData] = useState({
     name: '',
     email: '',
     newPassword: '',
-    roles: [],
+    roles: [] as string[],
   });
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -45,6 +40,7 @@ export default function Profile() {
     setMessage('');
     setError('');
     setLoading(true);
+
     try {
       const res = await fetch(`/api/users/${session.user.id}`, {
         method: 'PUT',
@@ -58,6 +54,7 @@ export default function Profile() {
             : session.user.roles,
         }),
       });
+
       if (!res.ok) throw new Error('Update failed');
       setMessage('Profile updated successfully!');
     } catch (err) {
@@ -74,12 +71,14 @@ export default function Profile() {
       )
     )
       return;
+
     setLoading(true);
     try {
       const res = await fetch(`/api/users/${session.user.id}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Failed to delete account');
+
       alert('Your account has been deleted.');
       signOut();
     } catch (err) {
@@ -133,7 +132,7 @@ export default function Profile() {
         )}
         <button
           type="submit"
-          className="w-full py-3 rounded-md border bg-gray-900 text-white hover:bg-gray-700"
+          className="w-full py-3 rounded-md border bg-gray-900 text-white hover:bg-gray-700 transition"
           disabled={loading}
         >
           {loading ? 'Updating...' : 'Update Profile'}
@@ -142,7 +141,7 @@ export default function Profile() {
       <hr className="border-t border-gray-300" />
       <button
         onClick={handleDeleteAccount}
-        className="w-full py-3 rounded-md border bg-red-600 text-white hover:bg-red-500"
+        className="w-full py-3 rounded-md border bg-red-600 text-white hover:bg-red-500 transition"
         disabled={loading}
       >
         {loading ? 'Processing...' : 'Remove Account'}

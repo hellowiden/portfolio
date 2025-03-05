@@ -16,40 +16,36 @@ export default function Register() {
   const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (!agreed) {
+      setError('You must agree to the legal terms.');
+      return;
+    }
+
     try {
       const response = await fetch('/api/users', {
-        // Updated API route
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          password: formData.password,
-        }),
+        body: JSON.stringify(formData),
       });
 
       const responseData = await response.json();
-      console.log('Registration Response:', responseData); // Debugging log
-
-      if (!response.ok) {
+      if (!response.ok)
         throw new Error(responseData.error || 'Registration failed');
-      }
 
       router.push('/login');
     } catch (err) {
-      console.error('Registration Error:', err);
       setError(err instanceof Error ? err.message : 'Something went wrong');
     }
   };
 
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleSubmit}
         className="w-80 p-6 bg-white shadow-md rounded-lg"
@@ -97,7 +93,7 @@ export default function Register() {
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded"
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
         >
           Register
         </button>

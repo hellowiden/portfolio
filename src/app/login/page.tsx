@@ -8,39 +8,34 @@ import Link from 'next/link';
 
 export default function Login() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     try {
       const result = await signIn('credentials', {
         redirect: false,
-        email: formData.email,
-        password: formData.password,
+        ...formData,
       });
 
       if (result?.error) {
-        console.error('Login Error:', result.error);
         setError(result.error);
       } else {
         router.push('/');
       }
-    } catch (err) {
-      console.error('Unexpected Login Error:', err);
+    } catch {
       setError('Something went wrong');
     }
   };
 
   return (
-    <div className="flex justify-center items-center ">
+    <div className="flex justify-center items-center h-screen">
       <form
         onSubmit={handleSubmit}
         className="w-80 p-6 bg-white shadow-md rounded-lg"
@@ -65,7 +60,7 @@ export default function Login() {
         />
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded"
+          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
         >
           Login
         </button>
