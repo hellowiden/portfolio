@@ -16,7 +16,7 @@ export default function About() {
           initial={{ scale: 0.8 }}
           animate={{ scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="grid gap-4 text-center bg-white dark:bg-black text-black dark:text-white"
+          className="grid gap-4 text-center "
         >
           <h1 className="text-3xl font-medium">About me</h1>
           <p>
