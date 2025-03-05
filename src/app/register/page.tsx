@@ -12,6 +12,7 @@ export default function Register() {
     email: '',
     password: '',
   });
+  const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,7 +49,7 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center ">
       <form
         onSubmit={handleSubmit}
         className="w-80 p-6 bg-white shadow-md rounded-lg"
@@ -79,6 +80,21 @@ export default function Register() {
           className="w-full p-2 mb-2 border rounded"
           required
         />
+        <div className="flex items-center mt-3">
+          <input
+            type="checkbox"
+            id="agree"
+            checked={agreed}
+            onChange={() => setAgreed(!agreed)}
+            className="mr-2"
+          />
+          <label htmlFor="agree" className="text-sm">
+            I agree to the{' '}
+            <Link href="/legal" className="text-blue-500 hover:underline">
+              legal terms
+            </Link>
+          </label>
+        </div>
         <button
           type="submit"
           className="w-full bg-blue-500 text-white p-2 rounded"

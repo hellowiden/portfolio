@@ -1,7 +1,7 @@
 // src/app/components/Header/Header.tsx
 'use client';
 
-import { signOut, useSession } from 'next-auth/react';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 export default function Header() {
@@ -34,7 +34,13 @@ export default function Header() {
 
         {status !== 'loading' && (
           <button
-            onClick={status === 'authenticated' ? () => signOut() : undefined}
+            onClick={() => {
+              if (status === 'authenticated') {
+                signOut({ callbackUrl: '/' });
+              } else {
+                signIn();
+              }
+            }}
             className="rounded-md border px-2 py-1 transition border-zinc-400 bg-zinc-100 text-zinc-900 
                 hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 
                 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
