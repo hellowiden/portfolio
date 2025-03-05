@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import About from './components/About/About';
 
 export default function Home() {
-  const { status } = useSession(); // Remove `session`
+  const { status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
