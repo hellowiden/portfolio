@@ -23,16 +23,14 @@ export async function GET(
   }
 }
 
-// Update user
-export async function PUT(
-  req: Request,
-  context: { params: { id?: string } } // Ensure params is optional
-) {
+export async function PUT(req: Request, context: { params: { id: string } }) {
   try {
     await connectToDatabase();
 
-    const { params } = context;
-    if (!params?.id) {
+    // ✅ Explicitly await params before using them
+    const { id } = await context.params;
+
+    if (!id) {
       return NextResponse.json(
         { error: 'User ID is required' },
         { status: 400 }
@@ -56,7 +54,7 @@ export async function PUT(
       updateFields.password = await bcrypt.hash(password, 10);
     }
 
-    const updatedUser = await User.findByIdAndUpdate(params.id, updateFields, {
+    const updatedUser = await User.findByIdAndUpdate(id, updateFields, {
       new: true,
     }).select('-password');
 
