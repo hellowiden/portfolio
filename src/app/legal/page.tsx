@@ -2,7 +2,7 @@
 
 export default function LegalPage() {
   return (
-    <div className="grid gap-6 p-6 text-zinc-900 bg-zinc-100 min-h-screen">
+    <div className="grid gap-6 p-6 text-zinc-900 bg-zinc-100 ">
       {/* Title */}
       <header className="grid gap-2">
         <h1 className="text-3xl font-bold" aria-label="Legal Information Page">
