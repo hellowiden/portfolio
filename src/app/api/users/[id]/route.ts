@@ -6,20 +6,31 @@ import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 
 // Fetch a user by ID
-export async function GET(
-  req: Request,
-  { params }: { params: { id: string } }
-) {
+export async function GET(req: Request, context: { params: { id: string } }) {
   try {
     await connectToDatabase();
-    const user = await User.findById(params.id).select('-password');
+    const { id } = context.params;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'User ID is required' },
+        { status: 400 }
+      );
+    }
+
+    const user = await User.findById(id).select('-password');
+
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
+
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
     console.error('Error fetching user:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
 
@@ -27,7 +38,6 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
   try {
     await connectToDatabase();
 
-    // ✅ Explicitly await params before using them
     const { id } = await context.params;
 
     if (!id) {
@@ -75,11 +85,21 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
 // Delete user
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     await connectToDatabase();
-    const deletedUser = await User.findByIdAndDelete(params.id);
+
+    const id = context.params?.id;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: 'User ID is required' },
+        { status: 400 }
+      );
+    }
+
+    const deletedUser = await User.findByIdAndDelete(id);
 
     if (!deletedUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
