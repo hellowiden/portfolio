@@ -27,7 +27,7 @@ export default function Profile() {
         name: session.user.name || '',
         email: session.user.email || '',
         newPassword: '',
-        roles: session.user.roles || [],
+        roles: Array.isArray(session.user.roles) ? session.user.roles : [],
       });
     }
   }, [session]);
@@ -96,6 +96,9 @@ export default function Profile() {
       )}
       {error && <p className="text-center font-bold text-red-600">{error}</p>}
       <h1 className="text-2xl font-bold text-center">Profile Page</h1>
+      <p className="text-center text-gray-700">
+        Role: {formData.roles.join(', ') || 'User'}
+      </p>
       <hr className="border-t border-gray-300" />
       <form onSubmit={handleUpdate} className="space-y-4">
         <FormField
