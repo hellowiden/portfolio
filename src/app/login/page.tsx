@@ -35,13 +35,13 @@ export default function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center ">
       <form
         onSubmit={handleSubmit}
         className="w-80 p-6 bg-white shadow-md rounded-lg"
       >
         <h2 className="text-2xl font-bold text-center mb-4">Login</h2>
-        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+        {error && <p className="text-red-500 text-sm ">{error}</p>}
         <input
           type="email"
           name="email"
