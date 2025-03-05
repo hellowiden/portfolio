@@ -6,10 +6,16 @@ import { useSession, signOut } from 'next-auth/react';
 
 export default function Profile() {
   const { data: session, status } = useSession();
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    email: string;
+    newPassword: string;
+    roles: string[];
+  }>({
     name: '',
     email: '',
     newPassword: '',
+    roles: [],
   });
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
@@ -21,86 +27,77 @@ export default function Profile() {
         name: session.user.name || '',
         email: session.user.email || '',
         newPassword: '',
+        roles: session.user.roles || [],
       });
     }
   }, [session]);
 
-  if (status === 'loading')
-    return <p className="grid place-items-center">Loading...</p>;
+  if (status === 'loading') return <p className="text-center">Loading...</p>;
   if (status !== 'authenticated')
-    return (
-      <p className="grid place-items-center">
-        You need to log in to view this page.
-      </p>
-    );
+    return <p className="text-center">You need to log in to view this page.</p>;
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   const handleUpdate = async (e: FormEvent) => {
     e.preventDefault();
     setMessage('');
     setError('');
+    setLoading(true);
     try {
-      setLoading(true);
       const res = await fetch(`/api/users/${session.user.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name: formData.name.trim(),
           email: formData.email.trim(),
-          password: formData.newPassword
-            ? formData.newPassword.trim()
-            : undefined,
+          password: formData.newPassword.trim() || undefined,
+          roles: session.user.roles.includes('admin')
+            ? formData.roles
+            : session.user.roles,
         }),
       });
-      setLoading(false);
       if (!res.ok) throw new Error('Update failed');
       setMessage('Profile updated successfully!');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
       setLoading(false);
     }
   };
 
   const handleDeleteAccount = async () => {
     if (
-      !window.confirm(
+      !confirm(
         'Are you sure you want to permanently delete your account? This action cannot be undone.'
       )
-    ) {
+    )
       return;
-    }
+    setLoading(true);
     try {
-      setLoading(true);
       const res = await fetch(`/api/users/${session.user.id}`, {
         method: 'DELETE',
       });
-      setLoading(false);
       if (!res.ok) throw new Error('Failed to delete account');
       alert('Your account has been deleted.');
       signOut();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="grid gap-6 p-8 border rounded-lg max-w-4xl mx-auto bg-zinc-100  border-zinc-300 ">
+    <div className="max-w-4xl mx-auto p-8 border rounded-lg bg-gray-100 border-gray-300 space-y-6">
       {message && (
-        <p className="grid place-items-center font-bold text-zinc-600 ">
-          {message}
-        </p>
+        <p className="text-center font-bold text-green-600">{message}</p>
       )}
-      {error && (
-        <p className="grid place-items-center font-bold text-red-600">
-          {error}
-        </p>
-      )}
-      <h1 className="text-2xl font-bold text-center ">Profile Page</h1>
-      <hr className="border-t border-zinc-300 " />
-      <form onSubmit={handleUpdate} className="grid gap-4 ">
+      {error && <p className="text-center font-bold text-red-600">{error}</p>}
+      <h1 className="text-2xl font-bold text-center">Profile Page</h1>
+      <hr className="border-t border-gray-300" />
+      <form onSubmit={handleUpdate} className="space-y-4">
         <FormField
           label="Name"
           type="text"
@@ -122,18 +119,27 @@ export default function Profile() {
           value={formData.newPassword}
           onChange={handleChange}
         />
+        {session.user.roles.includes('admin') && (
+          <FormField
+            label="Roles"
+            type="text"
+            name="roles"
+            value={formData.roles.join(', ')}
+            onChange={handleChange}
+          />
+        )}
         <button
           type="submit"
-          className="grid place-items-center py-3 rounded-md border border-zinc-400 bg-zinc-100 text-zinc-900 hover:bg-zinc-200 hover:text-zinc-700 "
+          className="w-full py-3 rounded-md border bg-gray-900 text-white hover:bg-gray-700"
           disabled={loading}
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>
-      <hr className="border-t border-zinc-300 " />
+      <hr className="border-t border-gray-300" />
       <button
         onClick={handleDeleteAccount}
-        className="grid place-items-center py-3 rounded-md border border-zinc-400 bg-zinc-100 text-zinc-900 hover:bg-zinc-200 hover:text-zinc-700 "
+        className="w-full py-3 rounded-md border bg-red-600 text-white hover:bg-red-500"
         disabled={loading}
       >
         {loading ? 'Processing...' : 'Remove Account'}
@@ -155,14 +161,14 @@ const FormField = ({
   value?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <div className="grid gap-2">
-    <label className="text-sm font-semibold text-zinc-700 ">{label}</label>
+  <div className="space-y-2">
+    <label className="text-sm font-semibold text-gray-700">{label}</label>
     <input
       type={type}
       name={name}
       value={value || ''}
       onChange={onChange}
-      className="grid p-2 border rounded-md border-zinc-400 bg-zinc-100 text-zinc-900 focus:ring-2 focus:ring-zinc-500 "
+      className="w-full p-2 border rounded-md bg-white text-gray-900 focus:ring-2 focus:ring-gray-500"
     />
   </div>
 );
