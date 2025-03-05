@@ -5,16 +5,20 @@ import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 export default function Header() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <div className="grid grid-cols-2 items-center bg-zinc-900 text-zinc-100 p-4">
-      {/* Title */}
-      <h1 className="text-2xl font-bold tracking-tight">MW-Portfolio</h1>
+      {/* Title or Welcome Message */}
+      <h1 className="text-2xl font-bold tracking-tight">
+        {status === 'authenticated'
+          ? `Welcome ${session.user?.name}`
+          : 'MW-Portfolio'}
+      </h1>
 
       {/* Authentication Buttons */}
       <div className="grid grid-flow-col gap-4 justify-end">
-        {session?.user ? (
+        {status === 'loading' ? null : status === 'authenticated' ? (
           <button
             onClick={() => signOut()}
             className="bg-zinc-700 text-zinc-100 px-4 py-2 rounded hover:bg-zinc-600 transition"
@@ -22,18 +26,11 @@ export default function Header() {
             Logout
           </button>
         ) : (
-          <>
-            <Link href="/login">
-              <button className="bg-zinc-700 text-zinc-100 px-4 py-2 rounded hover:bg-zinc-600 transition">
-                Login
-              </button>
-            </Link>
-            <Link href="/register">
-              <button className="bg-zinc-800 text-zinc-100 px-4 py-2 rounded hover:bg-zinc-700 transition">
-                Register
-              </button>
-            </Link>
-          </>
+          <Link href="/login">
+            <button className="bg-zinc-700 text-zinc-100 px-4 py-2 rounded hover:bg-zinc-600 transition">
+              Login
+            </button>
+          </Link>
         )}
       </div>
     </div>

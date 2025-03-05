@@ -1,5 +1,4 @@
 // src/app/login/page.tsx
-
 'use client';
 
 import { useState } from 'react';
@@ -29,11 +28,13 @@ export default function Login() {
       });
 
       if (result?.error) {
-        setError('Invalid email or password');
+        console.error('Login Error:', result.error);
+        setError(result.error);
       } else {
-        router.push('/dashboard');
+        router.push('/');
       }
-    } catch {
+    } catch (err) {
+      console.error('Unexpected Login Error:', err);
       setError('Something went wrong');
     }
   };
@@ -69,9 +70,9 @@ export default function Login() {
           Login
         </button>
         <p className="text-center text-sm mt-4">
-          Don&apos;t have an account?{' '}
-          <Link href="/register" className="text-blue-500">
-            Register here
+          Not an account?{' '}
+          <Link href="/register" className="text-blue-500 hover:underline">
+            Sign up here
           </Link>
         </p>
       </form>
