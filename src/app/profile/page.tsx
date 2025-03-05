@@ -87,9 +87,9 @@ export default function Profile() {
   };
 
   return (
-    <div className="grid gap-6 p-8 border rounded-lg max-w-4xl mx-auto bg-zinc-100 dark:bg-zinc-900 border-zinc-300 dark:border-zinc-700">
+    <div className="grid gap-6 p-8 border rounded-lg max-w-4xl mx-auto bg-zinc-100  border-zinc-300 ">
       {message && (
-        <p className="grid place-items-center font-bold text-zinc-600 dark:text-zinc-400">
+        <p className="grid place-items-center font-bold text-zinc-600 ">
           {message}
         </p>
       )}
@@ -98,7 +98,8 @@ export default function Profile() {
           {error}
         </p>
       )}
-      <h1 className="text-2xl font-bold text-center mb-4">Profile Page</h1>
+      <h1 className="text-2xl font-bold text-center ">Profile Page</h1>
+      <hr className="border-t border-zinc-300 " />
       <form onSubmit={handleUpdate} className="grid gap-4 ">
         <FormField
           label="Name"
@@ -123,16 +124,16 @@ export default function Profile() {
         />
         <button
           type="submit"
-          className="grid place-items-center py-3 rounded-md border border-zinc-400 bg-zinc-100 text-zinc-900 hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+          className="grid place-items-center py-3 rounded-md border border-zinc-400 bg-zinc-100 text-zinc-900 hover:bg-zinc-200 hover:text-zinc-700 "
           disabled={loading}
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>
-      <hr className="border-t border-zinc-300 dark:border-zinc-700" />
+      <hr className="border-t border-zinc-300 " />
       <button
         onClick={handleDeleteAccount}
-        className="grid place-items-center py-3 rounded-md border border-zinc-400 bg-zinc-100 text-zinc-900 hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+        className="grid place-items-center py-3 rounded-md border border-zinc-400 bg-zinc-100 text-zinc-900 hover:bg-zinc-200 hover:text-zinc-700 "
         disabled={loading}
       >
         {loading ? 'Processing...' : 'Remove Account'}
@@ -155,15 +156,13 @@ const FormField = ({
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) => (
   <div className="grid gap-2">
-    <label className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
-      {label}
-    </label>
+    <label className="text-sm font-semibold text-zinc-700 ">{label}</label>
     <input
       type={type}
       name={name}
       value={value || ''}
       onChange={onChange}
-      className="grid p-2 border rounded-md border-zinc-400 bg-zinc-100 text-zinc-900 focus:ring-2 focus:ring-zinc-500 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:focus:ring-zinc-300"
+      className="grid p-2 border rounded-md border-zinc-400 bg-zinc-100 text-zinc-900 focus:ring-2 focus:ring-zinc-500 "
     />
   </div>
 );
