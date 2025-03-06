@@ -19,7 +19,7 @@ export default function About() {
           className="grid gap-4 text-center "
         >
           <h1 className="text-3xl font-medium">About me</h1>
-          <p>
+          <p className="">
             Marcus Widén is not just in branding—he creates meaning. With over
             12 years and 500 projects, he has shown that a brand’s true value
             lies in its ability to build deep, lasting connections that drive
@@ -32,9 +32,7 @@ export default function About() {
             surface-level aesthetics. His expertise spans marketing strategy,
             UX/UI design, and rebranding—all grounded in the belief that brand
             promises must be felt, not just heard.
-          </p>
-
-          <p>
+            <br /> <br />
             His work is practical and results-driven, aligning strategy with
             creativity. Marcus simplifies complexity, ensures brands articulate
             and embody their purpose, and unites vision with execution. Clients
