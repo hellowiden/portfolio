@@ -104,12 +104,10 @@ export default function Dashboard() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4 text-zinc-900">Dashboard</h1>
+    <div className="p-4 grid gap-4">
+      <h1 className="text-2xl font-bold gap-4 text-zinc-900">Dashboard</h1>
 
-      <h2 className="text-xl font-semibold mt-6 mb-2 text-zinc-800">
-        All Users
-      </h2>
+      <h2 className="text-xl font-semibold gap-2 text-zinc-800">All Users</h2>
       <input
         type="text"
         placeholder="Search by name, email, or role"
