@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   return (
-    <div id="about">
+    <div id="about" className="p-8">
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}

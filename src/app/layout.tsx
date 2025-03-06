@@ -32,7 +32,7 @@ export default function RootLayout({
         <AuthProvider>
           <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
             <Header />
-            <main className="backdrop-blur-md py-2">{children}</main>
+            <main className="backdrop-blur-md p-8">{children}</main>
             <Footer />
           </div>
         </AuthProvider>
