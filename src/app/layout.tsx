@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.className} grid grid-rows-[auto_1fr_auto] `}
+        className={`${spaceGrotesk.className} grid grid-rows-[auto_1fr_auto] bg-zinc-50`}
       >
         <AuthProvider>
           <Header />
