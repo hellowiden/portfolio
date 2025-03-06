@@ -17,6 +17,7 @@ export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
@@ -49,6 +50,17 @@ export default function Dashboard() {
     };
     fetchUsers();
   }, [isAdmin]);
+
+  const filteredUsers = useMemo(() => {
+    return users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        user.roles.some((role) =>
+          role.toLowerCase().includes(searchQuery.toLowerCase())
+        )
+    );
+  }, [users, searchQuery]);
 
   const handleEdit = (user: User) => {
     setSelectedUser(user);
@@ -96,6 +108,13 @@ export default function Dashboard() {
       <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
 
       <h2 className="text-xl font-semibold mt-6 mb-2">All Users</h2>
+      <input
+        type="text"
+        placeholder="Search by name, email, or role"
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="mb-4 p-2 border rounded w-full"
+      />
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white border rounded-sm border-gray-200">
           <thead>
@@ -107,7 +126,7 @@ export default function Dashboard() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
+            {filteredUsers.map((user) => (
               <tr key={user._id} className="border-b">
                 <td className="px-4 py-2 border">{user.name}</td>
                 <td className="px-4 py-2 border">{user.email}</td>

@@ -6,6 +6,7 @@ import Link from 'next/link';
 
 export default function Header() {
   const { data: session, status } = useSession();
+  const isAdmin = session?.user?.roles?.includes('admin');
 
   return (
     <header className="flex justify-between items-center p-4 border-b border-zinc-300 bg-zinc-100/80 backdrop-blur-md transition">
@@ -21,15 +22,28 @@ export default function Header() {
       {/* Navigation & Authentication */}
       <nav className="flex items-center gap-4">
         {status === 'authenticated' && (
-          <Link href="/profile">
-            <button
-              className="rounded-lg border px-3 py-2 text-sm font-medium transition border-zinc-400 bg-zinc-100 text-zinc-900 
-              hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 
-              dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
-            >
-              Profile
-            </button>
-          </Link>
+          <>
+            {isAdmin && (
+              <Link href="/dashboard">
+                <button
+                  className="rounded-lg border px-3 py-2 text-sm font-medium transition border-zinc-400 bg-zinc-100 text-zinc-900 
+                    hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 
+                    dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+                >
+                  Dashboard
+                </button>
+              </Link>
+            )}
+            <Link href="/profile">
+              <button
+                className="rounded-lg border px-3 py-2 text-sm font-medium transition border-zinc-400 bg-zinc-100 text-zinc-900 
+                  hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 
+                  dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+              >
+                Profile
+              </button>
+            </Link>
+          </>
         )}
 
         {status !== 'loading' && (
