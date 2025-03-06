@@ -71,7 +71,7 @@ export default function EditUserModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0  bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-6 rounded shadow-md w-96">
         <h2 className="text-xl font-bold mb-4">Edit User</h2>
         {error && <p className="text-red-500 mb-2">{error}</p>}
