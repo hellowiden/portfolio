@@ -92,7 +92,7 @@ export default function AnimatedBackground() {
     <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="absolute inset-0 z-10"
+      className="absolute inset-0 z-10 backdrop-blur-md"
       style={{
         background: `
           radial-gradient(circle at 70% 30%, rgba(22, 163, 74, 0.5), transparent 60%),
