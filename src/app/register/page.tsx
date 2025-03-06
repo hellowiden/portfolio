@@ -47,12 +47,7 @@ export default function Register() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
-      {/* Column 1: Gradient Background with Personal Branding Focus (Hidden on Small Screens) */}
-      <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8">
-        <AdBar />
-      </div>
-
-      {/* Column 2: Registration Form */}
+      {/* Column 1: Registration Form */}
       <div className="flex p-6 items-center justify-center bg-zinc-100">
         <form
           onSubmit={handleSubmit}
@@ -120,6 +115,10 @@ export default function Register() {
             </Link>
           </p>
         </form>
+      </div>
+      {/* Column 2: Gradient Background with Personal Branding Focus (Hidden on Small Screens) */}
+      <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8">
+        <AdBar />
       </div>
     </div>
   );
