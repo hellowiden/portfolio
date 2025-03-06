@@ -89,17 +89,25 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8 border rounded-lg bg-gray-100 border-gray-300 space-y-6">
+    <div className="max-w-4xl mx-auto p-8 bg-zinc-50 border border-zinc-300 rounded-lg shadow-md grid gap-6">
       {message && (
-        <p className="text-center font-bold text-green-600">{message}</p>
+        <p className="text-center font-bold text-zinc-700 bg-zinc-200 p-2 rounded">
+          {message}
+        </p>
       )}
-      {error && <p className="text-center font-bold text-red-600">{error}</p>}
-      <h1 className="text-2xl font-bold text-center">Profile Page</h1>
-      <p className="text-center text-gray-700">
+      {error && (
+        <p className="text-center font-bold text-red-600 bg-red-100 p-2 rounded">
+          {error}
+        </p>
+      )}
+      <h1 className="text-2xl font-bold text-center text-zinc-900">
+        Profile Page
+      </h1>
+      <p className="text-center text-zinc-800">
         Role: {formData.roles.join(', ') || 'User'}
       </p>
-      <hr className="border-t border-gray-300" />
-      <form onSubmit={handleUpdate} className="space-y-4">
+      <hr className="border-t border-zinc-300" />
+      <form onSubmit={handleUpdate} className="grid gap-4">
         <FormField
           label="Name"
           type="text"
@@ -132,16 +140,16 @@ export default function Profile() {
         )}
         <button
           type="submit"
-          className="w-full py-3 rounded-md border bg-gray-900 text-white hover:bg-gray-700 transition"
+          className="w-full py-3 rounded-md bg-zinc-700 text-white hover:bg-zinc-800 transition"
           disabled={loading}
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>
-      <hr className="border-t border-gray-300" />
+      <hr className="border-t border-zinc-300" />
       <button
         onClick={handleDeleteAccount}
-        className="w-full py-3 rounded-md border bg-red-600 text-white hover:bg-red-500 transition"
+        className="w-full py-3 rounded-md bg-red-600 text-white hover:bg-red-500 transition"
         disabled={loading}
       >
         {loading ? 'Processing...' : 'Remove Account'}
@@ -163,14 +171,14 @@ const FormField = ({
   value?: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) => (
-  <div className="space-y-2">
-    <label className="text-sm font-semibold text-gray-700">{label}</label>
+  <div className="grid gap-2">
+    <label className="text-sm font-semibold text-zinc-800">{label}</label>
     <input
       type={type}
       name={name}
       value={value || ''}
       onChange={onChange}
-      className="w-full p-2 border rounded-md bg-white text-gray-900 focus:ring-2 focus:ring-gray-500"
+      className="w-full p-2 border rounded-md bg-zinc-100 border-zinc-300 text-zinc-900"
     />
   </div>
 );

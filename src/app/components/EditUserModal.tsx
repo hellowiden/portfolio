@@ -71,46 +71,48 @@ export default function EditUserModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0  bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white p-6 rounded shadow-md w-96">
-        <h2 className="text-xl font-bold mb-4">Edit User</h2>
-        {error && <p className="text-red-500 mb-2">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold">Name</label>
+    <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center">
+      <div className="bg-zinc-50 p-6 rounded shadow-md w-96 grid gap-4 border border-zinc-300">
+        <h2 className="text-xl font-bold text-zinc-900">Edit User</h2>
+        {error && (
+          <p className="text-zinc-700 bg-zinc-200 p-2 rounded">{error}</p>
+        )}
+        <form onSubmit={handleSubmit} className="grid gap-4">
+          <div className="grid gap-2">
+            <label className="text-sm font-semibold text-zinc-800">Name</label>
             <input
               type="text"
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold">Email</label>
+          <div className="grid gap-2">
+            <label className="text-sm font-semibold text-zinc-800">Email</label>
             <input
               type="email"
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold">
+          <div className="grid gap-2">
+            <label className="text-sm font-semibold text-zinc-800">
               Roles (comma-separated)
             </label>
             <input
               type="text"
-              className="w-full p-2 border rounded"
+              className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
               value={roles.join(', ')}
               onChange={(e) =>
                 setRoles(e.target.value.split(',').map((role) => role.trim()))
               }
             />
           </div>
-          <div className="flex justify-end">
+          <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
-              className="mr-2 px-4 py-2 bg-gray-500 text-white rounded"
+              className="px-4 py-2 bg-zinc-500 text-white rounded"
               onClick={onClose}
               disabled={loading}
             >
@@ -118,7 +120,7 @@ export default function EditUserModal({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded"
+              className="px-4 py-2 bg-zinc-700 text-white rounded"
               disabled={loading}
             >
               {loading ? 'Saving...' : 'Save'}

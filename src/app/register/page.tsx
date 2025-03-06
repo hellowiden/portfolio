@@ -45,19 +45,25 @@ export default function Register() {
   };
 
   return (
-    <div className="flex justify-center items-center ">
+    <div className="grid place-items-center h-screen bg-zinc-100">
       <form
         onSubmit={handleSubmit}
-        className="w-80 p-6 bg-white shadow-md rounded-lg"
+        className="w-80 p-6 bg-zinc-50 shadow-md rounded-lg grid gap-4 border border-zinc-300"
       >
-        <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
-        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
+        <h2 className="text-2xl font-bold text-center text-zinc-900">
+          Register
+        </h2>
+        {error && (
+          <p className="text-zinc-700 bg-zinc-200 p-2 rounded text-sm">
+            {error}
+          </p>
+        )}
         <input
           type="text"
           name="name"
           placeholder="Full Name"
           onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
           required
         />
         <input
@@ -65,7 +71,7 @@ export default function Register() {
           name="email"
           placeholder="Email"
           onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
           required
         />
         <input
@@ -73,33 +79,35 @@ export default function Register() {
           name="password"
           placeholder="Password"
           onChange={handleChange}
-          className="w-full p-2 mb-2 border rounded"
+          className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
           required
         />
-        <div className="flex items-center mt-3">
-          <input
-            type="checkbox"
-            id="agree"
-            checked={agreed}
-            onChange={() => setAgreed(!agreed)}
-            className="mr-2"
-          />
-          <label htmlFor="agree" className="text-sm">
-            I agree to the{' '}
-            <Link href="/legal" className="text-blue-500 hover:underline">
-              legal terms
-            </Link>
-          </label>
+        <div className="grid gap-2">
+          <div className="flex items-center">
+            <input
+              type="checkbox"
+              id="agree"
+              checked={agreed}
+              onChange={() => setAgreed(!agreed)}
+              className="mr-2"
+            />
+            <label htmlFor="agree" className="text-sm text-zinc-800">
+              I agree to the{' '}
+              <Link href="/legal" className="text-zinc-600 hover:underline">
+                legal terms
+              </Link>
+            </label>
+          </div>
         </div>
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded hover:bg-blue-600 transition"
+          className="w-full bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition"
         >
           Register
         </button>
-        <p className="text-center text-sm mt-4">
+        <p className="text-center text-sm text-zinc-800">
           Already have an account?{' '}
-          <Link href="/login" className="text-blue-500 hover:underline">
+          <Link href="/login" className="text-zinc-600 hover:underline">
             Login here
           </Link>
         </p>
