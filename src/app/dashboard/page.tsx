@@ -105,45 +105,63 @@ export default function Dashboard() {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-4 text-zinc-900">Dashboard</h1>
 
-      <h2 className="text-xl font-semibold mt-6 mb-2">All Users</h2>
+      <h2 className="text-xl font-semibold mt-6 mb-2 text-zinc-800">
+        All Users
+      </h2>
       <input
         type="text"
         placeholder="Search by name, email, or role"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="mb-4 p-2 border rounded w-full"
+        className="gap-4 p-2 border rounded w-full border-zinc-300 bg-zinc-100 text-zinc-900"
       />
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-white border rounded-sm border-gray-200">
+        <table className="min-w-full bg-zinc-50 border rounded-sm border-zinc-300">
           <thead>
-            <tr className="bg-gray-100 border-b">
-              <th className="px-4 py-2 text-left border">Name</th>
-              <th className="px-4 py-2 text-left border">Email</th>
-              <th className="px-4 py-2 text-left border">Roles</th>
-              <th className="px-4 py-2 text-left border">Actions</th>
+            <tr className="bg-zinc-200 border-b">
+              <th className="px-4 py-2 text-left border border-zinc-300">
+                Name
+              </th>
+              <th className="px-4 py-2 text-left border border-zinc-300">
+                Email
+              </th>
+              <th className="px-4 py-2 text-left border border-zinc-300">
+                Roles
+              </th>
+              <th className="px-4 py-2 text-left border border-zinc-300">
+                Actions
+              </th>
             </tr>
           </thead>
           <tbody>
             {filteredUsers.map((user) => (
-              <tr key={user._id} className="border-b">
-                <td className="px-4 py-2 border">{user.name}</td>
-                <td className="px-4 py-2 border">{user.email}</td>
-                <td className="px-4 py-2 border">{user.roles.join(', ')}</td>
-                <td className="px-4 py-2 border">
-                  <button
-                    className="px-2 py-1 bg-blue-500 text-white rounded mr-2"
-                    onClick={() => handleEdit(user)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="px-2 py-1 bg-red-500 text-white rounded"
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    Remove
-                  </button>
+              <tr key={user._id} className="border-b border-zinc-300">
+                <td className="px-4 py-2 border border-zinc-300 text-zinc-900">
+                  {user.name}
+                </td>
+                <td className="px-4 py-2 border border-zinc-300 text-zinc-900">
+                  {user.email}
+                </td>
+                <td className="px-4 py-2 border border-zinc-300 text-zinc-900">
+                  {user.roles.join(', ')}
+                </td>
+                <td className="px-4 py-2 border border-zinc-300">
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      className="px-2 py-1 bg-zinc-500 text-white rounded"
+                      onClick={() => handleEdit(user)}
+                    >
+                      Edit
+                    </button>
+                    <button
+                      className="px-2 py-1 bg-zinc-700 text-white rounded"
+                      onClick={() => handleDelete(user._id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
