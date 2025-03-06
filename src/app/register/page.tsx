@@ -4,6 +4,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import AdBar from '../components/AdBar/AdBar';
 
 export default function Register() {
   const router = useRouter();
@@ -48,14 +49,7 @@ export default function Register() {
     <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
       {/* Column 1: Gradient Background with Personal Branding Focus (Hidden on Small Screens) */}
       <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8">
-        <h2 className="text-3xl font-bold text-center">
-          &ldquo;Branding is more than visuals—it&apos;s about
-          connection.&rdquo;
-        </h2>
-        <p className="mt-4 text-center text-lg">
-          I build brands that create impact, drive action, and foster a thriving
-          community. Let&apos;s shape something meaningful together.
-        </p>
+        <AdBar />
       </div>
 
       {/* Column 2: Registration Form */}

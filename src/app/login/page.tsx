@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import AdBar from '../components/AdBar/AdBar';
 
 export default function Login() {
   const router = useRouter();
@@ -81,16 +82,9 @@ export default function Login() {
         </form>
       </div>
 
-      {/* Column 2: Gradient Background with Personal Branding Focus (Hidden on Small Screens) */}
+      {/* Column 2: AdBar Component (Hidden on Small Screens) */}
       <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8">
-        <h2 className="text-3xl font-bold text-center">
-          &ldquo;Branding is more than visuals—it&apos;s about
-          connection.&rdquo;
-        </h2>
-        <p className="mt-4 text-center text-lg">
-          I build brands that create impact, drive action, and foster a thriving
-          community. Let&apos;s shape something meaningful together.
-        </p>
+        <AdBar />
       </div>
     </div>
   );
