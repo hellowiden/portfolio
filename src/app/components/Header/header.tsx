@@ -8,7 +8,7 @@ export default function Header() {
   const { data: session, status } = useSession();
 
   return (
-    <header className="flex justify-between items-center p-4 border-b border-zinc-300 bg-zinc-100/80 backdrop-blur-md dark:bg-zinc-900/80 transition">
+    <header className="flex justify-between items-center p-4 border-b border-zinc-300 bg-zinc-100/80 backdrop-blur-md transition">
       {/* Logo / Title */}
       <div className="text-2xl font-bold tracking-tight hover:text-zinc-500 transition">
         <Link href="/">
