@@ -16,6 +16,7 @@ export default function Profile() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     if (session?.user) {
@@ -27,6 +28,17 @@ export default function Profile() {
       });
     }
   }, [session]);
+
+  useEffect(() => {
+    if (message) {
+      setShowMessage(true);
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+        setTimeout(() => setMessage(''), 500);
+      }, 20000);
+      return () => clearTimeout(timer);
+    }
+  }, [message]);
 
   if (status === 'loading') return <p className="text-center">Loading...</p>;
   if (status !== 'authenticated')
@@ -79,7 +91,6 @@ export default function Profile() {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Failed to delete account');
-
       alert('Your account has been deleted.');
       signOut();
     } catch (err) {
@@ -92,7 +103,11 @@ export default function Profile() {
   return (
     <div className="max-w-4xl mx-auto p-8 bg-zinc-50 border border-zinc-300 rounded-lg shadow-md grid gap-6">
       {message && (
-        <p className="text-center font-bold text-zinc-700 bg-zinc-200 p-2 rounded">
+        <p
+          className={`text-center font-bold text-zinc-700 bg-zinc-200 p-2 rounded transition-opacity duration-500 ${
+            showMessage ? 'opacity-100' : 'opacity-0'
+          }`}
+        >
           {message}
         </p>
       )}
