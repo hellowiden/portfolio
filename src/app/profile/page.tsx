@@ -3,6 +3,7 @@
 
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useSession, signOut } from 'next-auth/react';
+import AnimatedBackground from '@/app/components/AnimatedBackground/AnimatedBackground';
 
 export default function Profile() {
   const { data: session, status } = useSession();
@@ -106,6 +107,12 @@ export default function Profile() {
       <p className="text-center text-zinc-800">
         Role: {formData.roles.join(', ') || 'User'}
       </p>
+      <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden border-2 border-zinc-600 flex items-center justify-center">
+        <AnimatedBackground />
+        <span className="absolute text-4xl font-bold text-zinc-900 z-10">
+          {formData.name ? formData.name.charAt(0).toUpperCase() : '?'}
+        </span>
+      </div>
       <hr className="border-t border-zinc-300" />
       <form onSubmit={handleUpdate} className="grid gap-4">
         <FormField
@@ -129,15 +136,6 @@ export default function Profile() {
           value={formData.newPassword}
           onChange={handleChange}
         />
-        {session.user.roles.includes('admin') && (
-          <FormField
-            label="Roles"
-            type="text"
-            name="roles"
-            value={formData.roles.join(', ')}
-            onChange={handleChange}
-          />
-        )}
         <button
           type="submit"
           className="w-full py-3 rounded-md bg-zinc-700 text-white hover:bg-zinc-800 transition"
