@@ -1,67 +1,57 @@
 'use client';
 
-import Marquee from 'react-fast-marquee';
+import React from 'react';
 import { motion } from 'framer-motion';
 
-export default function ClientBanner() {
-  const clientsData = [
-    { name: 'IPG', url: 'https://www.ipg.com' },
-    { name: 'Publicis Groupe', url: 'https://www.publicisgroupe.com' },
-    { name: 'Omnicom Group Inc.', url: 'https://www.omnicomgroup.com' },
-    { name: 'WPP plc', url: 'https://www.wpp.com' },
-    { name: 'Dentsu Group Inc.', url: 'https://www.dentsu.com' },
-    { name: 'Havas Group', url: 'https://www.havas.com' },
-    { name: 'Ogilvy', url: 'https://www.ogilvy.com' },
-    { name: 'Airam', url: 'https://www.airam.com' },
-    {
-      name: 'Green Furniture Concept',
-      url: 'https://www.greenfurnitureconcept.com',
-    },
-    { name: 'Saatchi & Saatchi', url: 'https://www.saatchi.com' },
-    { name: 'Droga5', url: 'https://www.droga5.com' },
-    { name: 'TBWA\\Worldwide', url: 'https://www.tbwa.com' },
-    { name: 'BBDO Worldwide', url: 'https://www.bbdo.com' },
-    { name: 'Leo Burnett', url: 'https://www.leoburnett.com' },
-    { name: 'Grey Group', url: 'https://www.grey.com' },
-    { name: 'VMLY&R', url: 'https://www.vmlyr.com' },
-    { name: 'McCann Worldgroup', url: 'https://www.mccannworldgroup.com' },
-    { name: 'AKQA', url: 'https://www.akqa.com' },
-    { name: 'Weber Shandwick', url: 'https://www.webershandwick.com' },
-    { name: 'FCB Global', url: 'https://www.fcb.com' },
-    { name: 'Hill+Knowlton Strategies', url: 'https://www.hkstrategies.com' },
-    { name: 'Geometry Global', url: 'https://www.geometry.com' },
-    { name: 'R/GA', url: 'https://www.rga.com' },
-    { name: 'Cheil Worldwide', url: 'https://www.cheil.com' },
-    { name: 'Isobar', url: 'https://www.isobar.com' },
-    { name: 'Edelman', url: 'https://www.edelman.com' },
-    { name: 'BlueFocus Communication Group', url: 'https://www.bluefocus.net' },
+function ClientsCarousel() {
+  // Plain array of client names
+  const clients = [
+    'IPG',
+    'Publicis Groupe',
+    'Omnicom Group Inc.',
+    'WPP plc',
+    'Dentsu Group Inc.',
+    'Havas Group',
+    'Ogilvy',
+    'Saatchi & Saatchi',
+    'Droga5',
+    'TBWA\\Worldwide',
+    'BBDO Worldwide',
+    'Leo Burnett',
+    'Grey Group',
+    'VMLY&R',
+    'McCann Worldgroup',
+    'AKQA',
+    'Weber Shandwick',
+    'FCB Global',
+    'Hill+Knowlton Strategies',
+    'Geometry Global',
+    'R/GA',
+    'Cheil Worldwide',
+    'Isobar',
+    'Edelman',
+    'BlueFocus Communication Group',
   ];
 
   return (
-    <section
-      id="clients"
-      className="w-full border rounded-md text-center py-4 border-light dark:border-dark dark:bg-black relative"
-    >
-      <Marquee gradient={false} speed={50}>
-        {clientsData.map((client, index) => (
-          <motion.a
-            key={`client-${index}`}
-            href={client.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mx-4 font-medium text-black dark:text-white relative group"
-            aria-label={`Client: ${client.name}`}
+    <section id="clients" className="relative text-center py-8 bg-white">
+      <h2 className="text-xl font-bold mb-6 text-black dark:text-white">
+        Our Clients
+      </h2>
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 px-4">
+        {clients.map((client, index) => (
+          <motion.div
+            key={index}
+            className="p-3 text-center font-medium text-black dark:text-white border border-gray-300 dark:border-gray-700 rounded-md bg-gray-100 dark:bg-gray-800 shadow-sm"
             whileHover={{ scale: 1.05 }}
             transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           >
-            {client.name}
-            <motion.div
-              className="absolute bottom-0 left-0 h-[2px] bg-light w-0 group-hover:w-full"
-              transition={{ duration: 0.3 }}
-            />
-          </motion.a>
+            {client}
+          </motion.div>
         ))}
-      </Marquee>
+      </div>
     </section>
   );
 }
+
+export default ClientsCarousel;
