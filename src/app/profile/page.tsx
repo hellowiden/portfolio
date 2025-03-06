@@ -101,7 +101,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-zinc-50 border border-zinc-300 rounded-lg shadow-md grid gap-6">
+    <div className="max-w-4xl mx-auto p-8 bg-zinc-50 border border-zinc-300 rounded-lg  grid gap-6">
       {message && (
         <p
           className={`text-center font-bold text-zinc-700 bg-zinc-200 p-2 rounded transition-opacity duration-500 ${
