@@ -45,73 +45,88 @@ export default function Register() {
   };
 
   return (
-    <div className="grid place-items-center h-screen bg-zinc-100">
-      <form
-        onSubmit={handleSubmit}
-        className="w-80 p-6 bg-zinc-50 shadow-md rounded-lg grid gap-4 border border-zinc-300"
-      >
-        <h2 className="text-2xl font-bold text-center text-zinc-900">
-          Register
+    <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
+      {/* Column 1: Gradient Background with Personal Branding Focus (Hidden on Small Screens) */}
+      <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8">
+        <h2 className="text-3xl font-bold text-center">
+          &ldquo;Branding is more than visuals—it&apos;s about
+          connection.&rdquo;
         </h2>
-        {error && (
-          <p className="text-zinc-700 bg-zinc-200 p-2 rounded text-sm">
-            {error}
-          </p>
-        )}
-        <input
-          type="text"
-          name="name"
-          placeholder="Full Name"
-          onChange={handleChange}
-          className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-          className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
-          required
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
-          required
-        />
-        <div className="grid gap-2">
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="agree"
-              checked={agreed}
-              onChange={() => setAgreed(!agreed)}
-              className="mr-2"
-            />
-            <label htmlFor="agree" className="text-sm text-zinc-800">
-              I agree to the{' '}
-              <Link href="/legal" className="text-zinc-600 hover:underline">
-                legal terms
-              </Link>
-            </label>
-          </div>
-        </div>
-        <button
-          type="submit"
-          className="w-full bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition"
-        >
-          Register
-        </button>
-        <p className="text-center text-sm text-zinc-800">
-          Already have an account?{' '}
-          <Link href="/login" className="text-zinc-600 hover:underline">
-            Login here
-          </Link>
+        <p className="mt-4 text-center text-lg">
+          I build brands that create impact, drive action, and foster a thriving
+          community. Let&apos;s shape something meaningful together.
         </p>
-      </form>
+      </div>
+
+      {/* Column 2: Registration Form */}
+      <div className="flex p-6 items-center justify-center bg-zinc-100">
+        <form
+          onSubmit={handleSubmit}
+          className="w-full p-6 bg-zinc-50 shadow-md rounded-lg grid gap-4 border border-zinc-300"
+        >
+          <h2 className="text-2xl font-bold text-center text-zinc-900">
+            Register
+          </h2>
+          {error && (
+            <p className="text-zinc-700 bg-zinc-200 p-2 rounded text-sm">
+              {error}
+            </p>
+          )}
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            onChange={handleChange}
+            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+            required
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+            required
+          />
+          <div className="grid gap-2">
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="agree"
+                checked={agreed}
+                onChange={() => setAgreed(!agreed)}
+                className="mr-2"
+              />
+              <label htmlFor="agree" className="text-sm text-zinc-800">
+                I agree to the{' '}
+                <Link href="/legal" className="text-zinc-600 hover:underline">
+                  legal terms
+                </Link>
+              </label>
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="w-full bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition"
+          >
+            Register
+          </button>
+          <p className="text-center text-sm text-zinc-800">
+            Already have an account?{' '}
+            <Link href="/login" className="text-zinc-600 hover:underline">
+              Login here
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }

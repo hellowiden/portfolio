@@ -10,7 +10,7 @@ export default function Header() {
   const isAdmin = isAuthenticated && session?.user?.roles?.includes('admin');
 
   return (
-    <header className="grid grid-cols-2 items-center px-4 py-2  bg-zinc-100/80 backdrop-blur-md transition">
+    <header className="grid grid-cols-2 items-center px-4 py-2  border-b bg-zinc-100/80 backdrop-blur-md transition">
       {/* Logo / Title */}
       <div className="text-md transition text-black hover:text-opacity-80 ">
         <Link href="/">
