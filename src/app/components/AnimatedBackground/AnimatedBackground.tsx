@@ -9,11 +9,10 @@ interface Ripple {
   startTime: number;
 }
 
-// Control constants:
+// Constants for ripple animation
 const duration = 2500;
 const baseRadius = 10;
 const maxRadius = 40;
-const rippleIntervalTime = 50;
 
 function easeOut(t: number): number {
   return 1 - Math.pow(1 - t, 3);
@@ -29,18 +28,21 @@ const MathRipple: React.FC<MathRippleProps> = ({ ripple, onComplete }) => {
 
   useEffect(() => {
     let animationFrameId: number;
+
     const update = () => {
-      const now = Date.now();
-      const elapsed = now - ripple.startTime;
+      const elapsed = Date.now() - ripple.startTime;
       const newProgress = Math.min(elapsed / duration, 1);
       setProgress(newProgress);
+
       if (newProgress < 1) {
         animationFrameId = requestAnimationFrame(update);
       } else {
         onComplete(ripple.id);
       }
     };
+
     animationFrameId = requestAnimationFrame(update);
+
     return () => cancelAnimationFrame(animationFrameId);
   }, [ripple, onComplete]);
 
@@ -59,37 +61,30 @@ const MathRipple: React.FC<MathRippleProps> = ({ ripple, onComplete }) => {
   );
 };
 
-// No need to explicitly define return type
 export default function AnimatedBackground() {
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-  const mousePos = useRef({ x: 0, y: 0 });
-  const intervalId = useRef<number | null>(null);
+
+  // 🔥 Throttle ripple creation to prevent performance issues
+  const lastRippleTime = useRef<number>(0);
+  const rippleCooldown = 100; // Minimum time (ms) between ripples
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
+
+    const now = Date.now();
+    if (now - lastRippleTime.current < rippleCooldown) return;
+    lastRippleTime.current = now;
+
     const rect = containerRef.current.getBoundingClientRect();
-    mousePos.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
-  };
+    const newRipple: Ripple = {
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+      id: now,
+      startTime: now,
+    };
 
-  const startRippleInterval = () => {
-    if (intervalId.current !== null) return;
-    intervalId.current = window.setInterval(() => {
-      const newRipple: Ripple = {
-        x: mousePos.current.x,
-        y: mousePos.current.y,
-        id: Date.now(),
-        startTime: Date.now(),
-      };
-      setRipples((prev) => [...prev, newRipple]);
-    }, rippleIntervalTime);
-  };
-
-  const stopRippleInterval = () => {
-    if (intervalId.current !== null) {
-      clearInterval(intervalId.current);
-      intervalId.current = null;
-    }
+    setRipples((prev) => [...prev, newRipple]);
   };
 
   const removeRipple = (id: number) => {
@@ -100,9 +95,7 @@ export default function AnimatedBackground() {
     <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      onMouseEnter={startRippleInterval}
-      onMouseLeave={stopRippleInterval}
-      className="absolute inset-0 -z-10 dark:bg-green"
+      className="absolute inset-0 z-10"
       style={{
         background: `
           radial-gradient(circle at 70% 30%, rgba(22, 163, 74, 0.5), transparent 60%),
@@ -113,16 +106,7 @@ export default function AnimatedBackground() {
           'moveDots 5s infinite alternate, hueShift 30s infinite linear',
       }}
     >
-      <svg
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none',
-        }}
-      >
+      <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
         {ripples.map((ripple) => (
           <MathRipple
             key={ripple.id}
