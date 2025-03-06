@@ -8,7 +8,7 @@ export default function Header() {
   const { data: session, status } = useSession();
 
   return (
-    <header className="grid grid-cols-2 items-center px-4 py-2 border-b border-zinc-300 transition backdrop-blur-md bg-zinc-100 dark:bg-zinc-900">
+    <header className="flex justify-between items-center p-4 border-b border-zinc-300 bg-zinc-100/80 backdrop-blur-md dark:bg-zinc-900/80 transition">
       {/* Logo / Title */}
       <div className="text-2xl font-bold tracking-tight hover:text-zinc-500 transition">
         <Link href="/">
@@ -19,13 +19,13 @@ export default function Header() {
       </div>
 
       {/* Navigation & Authentication */}
-      <nav className="grid grid-flow-col auto-cols-max gap-4 justify-end">
+      <nav className="flex items-center gap-4">
         {status === 'authenticated' && (
           <Link href="/profile">
             <button
-              className="rounded-md border px-2 py-1 transition border-zinc-400 bg-zinc-100 text-zinc-900 
-                hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 
-                dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+              className="rounded-lg border px-3 py-2 text-sm font-medium transition border-zinc-400 bg-zinc-100 text-zinc-900 
+              hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 
+              dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
             >
               Profile
             </button>
@@ -34,16 +34,14 @@ export default function Header() {
 
         {status !== 'loading' && (
           <button
-            onClick={() => {
-              if (status === 'authenticated') {
-                signOut({ callbackUrl: '/' });
-              } else {
-                signIn();
-              }
-            }}
-            className="rounded-md border px-2 py-1 transition border-zinc-400 bg-zinc-100 text-zinc-900 
-                hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 
-                dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
+            onClick={() =>
+              status === 'authenticated'
+                ? signOut({ callbackUrl: '/' })
+                : signIn()
+            }
+            className="rounded-lg border px-3 py-1.5 text-sm font-medium transition border-zinc-400 bg-zinc-100 text-zinc-900 
+              hover:bg-zinc-200 hover:text-zinc-700 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 
+              dark:hover:bg-zinc-800 dark:hover:text-zinc-300"
           >
             {status === 'authenticated' ? 'Logout' : 'Login'}
           </button>
