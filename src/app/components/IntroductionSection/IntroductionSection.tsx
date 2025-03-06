@@ -6,7 +6,7 @@ function IntroductionSection() {
   return (
     <section
       id="home"
-      className="relative w-full grid gap-6 p-6 transition-all items-center justify-center text-center overflow-hidden"
+      className="relative w-full grid gap-6 p-6 transition-all border-b border-zinc-300 items-center justify-center text-center overflow-hidden"
     >
       <AnimatedBackground /> {/* Animated background applied here */}
       <div className="relative z-10">
