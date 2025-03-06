@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
-
 interface Ripple {
   x: number;
   y: number;
@@ -9,7 +8,6 @@ interface Ripple {
   startTime: number;
 }
 
-// Constants for ripple animation
 const duration = 2500;
 const baseRadius = 10;
 const maxRadius = 40;
@@ -65,9 +63,8 @@ export default function AnimatedBackground() {
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // 🔥 Throttle ripple creation to prevent performance issues
   const lastRippleTime = useRef<number>(0);
-  const rippleCooldown = 100; // Minimum time (ms) between ripples
+  const rippleCooldown = 100;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
