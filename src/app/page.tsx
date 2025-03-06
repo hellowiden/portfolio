@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import About from './components/About/About';
 import IntroductionSection from './components/IntroductionSection/IntroductionSection';
+import ClientsCarousel from './components/ClientsCarousel/ClientsCarousel';
 
 export default function Home() {
   const { status } = useSession();
@@ -22,6 +23,7 @@ export default function Home() {
   return (
     <>
       <IntroductionSection />
+      <ClientsCarousel />
       <About />
     </>
   );
