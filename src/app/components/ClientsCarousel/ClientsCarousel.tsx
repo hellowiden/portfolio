@@ -1,7 +1,6 @@
 import React from 'react';
 
 function ClientsCarousel() {
-  // Array of client names
   const clients = [
     'IPG',
     'Publicis Groupe',
