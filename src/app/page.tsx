@@ -20,7 +20,6 @@ export default function Home() {
 
   return (
     <>
-      <div className="bg-red-500 p-2 text-white">Tailwind Test</div>
       <About />
     </>
   );
