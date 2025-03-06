@@ -1,8 +1,8 @@
 // src/app/layout.tsx
 
 import type { Metadata } from 'next';
-import { Space_Grotesk } from 'next/font/google';
 import './globals.css';
+import { Space_Grotesk } from 'next/font/google';
 
 import AuthProvider from '@/app/components/SessionProvider';
 import Footer from '@/app/components/Footer/Footer';
