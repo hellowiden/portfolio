@@ -13,7 +13,7 @@ export const clientsData: Client[] = [
   { name: 'Dentsu Group Inc.', url: 'https://www.dentsu.com' },
   { name: 'Havas Group', url: 'https://www.havas.com' },
   { name: 'Ogilvy', url: 'https://www.ogilvy.com' },
-  { name: 'Airam', url: 'https://www.airam.com' },
+  { name: 'Airam', url: 'https://www.airam.fi/se' },
   {
     name: 'Green Furniture Concept',
     url: 'https://www.greenfurnitureconcept.com',
