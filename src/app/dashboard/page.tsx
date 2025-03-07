@@ -150,13 +150,13 @@ export default function Dashboard() {
                 <td className="px-4 py-2 border border-zinc-300">
                   <div className="grid grid-cols-2 gap-2">
                     <button
-                      className="text-sm border border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-300 hover:text-white dark:hover:text-black p-2 rounded hover:bg-zinc-800 dark:hover:bg-zinc-100 transition"
+                      className="px-3 py-2 text-sm border border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-300 rounded transition-colors duration-200 hover:bg-zinc-800 dark:hover:bg-zinc-100 hover:text-white dark:hover:text-black"
                       onClick={() => handleEdit(user)}
                     >
                       Edit
                     </button>
                     <button
-                      className="px-2 py-1 bg-zinc-700 text-white rounded"
+                      className="px-3 py-2 text-sm border border-zinc-700 dark:border-zinc-300 bg-zinc-800 dark:bg-zinc-100 text-zinc-300 dark:text-zinc-700 rounded transition-colors duration-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white"
                       onClick={() => handleDelete(user._id)}
                     >
                       Remove
