@@ -105,7 +105,9 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 grid gap-4">
-      <h1 className="text-2xl font-bold gap-4 text-zinc-900">Dashboard</h1>
+      <h1 className="text-2xl font-bold gap-4 text-zinc-900">
+        Admin Dashboard
+      </h1>
 
       <h2 className="text-xl font-semibold gap-2 text-zinc-800">All Users</h2>
       <input
