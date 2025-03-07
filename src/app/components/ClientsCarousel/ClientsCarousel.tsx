@@ -8,7 +8,7 @@ export default function ClientBanner() {
   return (
     <section
       id="clients"
-      className="w-full border rounded-md text-center py-4 border-light dark:border-50 dark:bg-50 relative"
+      className="border rounded-md text-center py-4 border-light dark:border-50 dark:bg-50 relative"
     >
       <div className="w-full overflow-hidden">
         <Marquee gradient={false} speed={50}>
