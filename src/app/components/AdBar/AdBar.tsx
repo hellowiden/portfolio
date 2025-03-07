@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const messages = [
   {
@@ -26,32 +26,53 @@ const messages = [
 ];
 
 export default function AdBar() {
-  const [index, setIndex] = useState(0);
-  const [countdown, setCountdown] = useState(60);
+  const [index, setIndex] = useState<number>(0);
+  const [progress, setProgress] = useState<number>(0);
+  const startTimeRef = useRef<number | null>(null);
+  const requestRef = useRef<number | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const messageInterval = setInterval(() => {
       setIndex((prevIndex) => (prevIndex + 1) % messages.length);
-      setCountdown(60);
+      setProgress(0);
+      startTimeRef.current = performance.now();
     }, 60000);
 
-    const timer = setInterval(() => {
-      setCountdown((prev) => (prev > 0 ? prev - 1 : 60));
-    }, 1000);
+    const animateProgress = (timestamp: number) => {
+      if (startTimeRef.current === null) {
+        startTimeRef.current = timestamp;
+      }
+      const elapsed = timestamp - startTimeRef.current;
+      const percentage = Math.min((elapsed / 60000) * 100, 100);
+      setProgress(percentage);
+      requestRef.current = requestAnimationFrame(animateProgress);
+    };
+
+    requestRef.current = requestAnimationFrame(animateProgress);
 
     return () => {
-      clearInterval(interval);
-      clearInterval(timer);
+      clearInterval(messageInterval);
+      if (requestRef.current !== null) {
+        cancelAnimationFrame(requestRef.current);
+      }
     };
-  }, []);
+  }, [index]);
 
   return (
-    <div className="flex flex-col items-center justify-center text-white p-6 text-center">
+    <div className="grid place-items-center text-white p-6 text-center w-full gap-4">
       <h2 className="text-3xl font-bold">
         &ldquo;{messages[index].heading}&rdquo;
       </h2>
-      <p className="mt-4 text-lg">{messages[index].subtext}</p>
-      <p className="mt-2 text-sm text-zinc-400">Next message in {countdown}s</p>
+      <p className="text-lg">{messages[index].subtext}</p>
+      <div className="w-full max-w-md h-1 bg-zinc-700 rounded-full overflow-hidden">
+        <div
+          className="w-full h-full bg-white transition-all"
+          style={{
+            width: `${progress}%`,
+            transition: 'width 0.1s linear',
+          }}
+        ></div>
+      </div>
     </div>
   );
 }
