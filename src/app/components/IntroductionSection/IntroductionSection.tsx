@@ -30,13 +30,10 @@ function IntroductionSection() {
           solutions.
         </div>
         <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-4">
-          <button
-            className="rounded-lg border px-3 py-2 text-sm font-medium transition border-zinc-400 bg-zinc-100 text-zinc-900 
-                    hover:bg-zinc-200 hover:text-zinc-700"
-          >
+          <button className="text-sm border broder-zinc-700 bg-zinc-100 text-zinc-700 hover:text-zinc-100 p-2 rounded hover:bg-zinc-800 transition">
             Contact
           </button>
-          <button className="rounded-lg border px-3 py-2 text-sm font-medium transition border-zinc-500 bg-zinc-900 text-white hover:bg-zinc-800 hover:border-zinc-600">
+          <button className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition">
             Download Resume
           </button>
         </div>

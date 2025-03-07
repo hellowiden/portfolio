@@ -10,9 +10,9 @@ export default function Header() {
   const isAdmin = isAuthenticated && session?.user?.roles?.includes('admin');
 
   return (
-    <header className="grid grid-cols-2 items-center px-4 py-2  border-b bg-zinc-100/80 backdrop-blur-md transition">
+    <header className="sticky top-0 z-50 grid grid-cols-2 items-center px-4 py-2 border-b bg-zinc-100/80 backdrop-blur-md transition">
       {/* Logo / Title */}
-      <div className="text-md transition text-black hover:text-opacity-80 ">
+      <div className="text-md text-zinc-700 p-2 rounded transition">
         <Link href="/">
           {isAuthenticated ? `Welcome, ${session.user?.name}` : 'MW-Portfolio'}
         </Link>
@@ -24,19 +24,13 @@ export default function Header() {
           <>
             {isAdmin && (
               <Link href="/dashboard">
-                <button
-                  className="rounded-lg border px-3 py-2 text-sm font-medium transition border-zinc-400 bg-zinc-100 text-zinc-900 
-                    hover:bg-zinc-200 hover:text-zinc-700"
-                >
+                <button className="text-sm border broder-zinc-700 text-zinc-700 hover:text-zinc-100 p-2 rounded hover:bg-zinc-800 transition">
                   Dashboard
                 </button>
               </Link>
             )}
             <Link href="/profile">
-              <button
-                className="rounded-lg border px-3 py-2 text-sm font-medium transition border-zinc-400 bg-zinc-100 text-zinc-900 
-                  hover:bg-zinc-200 hover:text-zinc-700"
-              >
+              <button className="text-sm border broder-zinc-700 text-zinc-700 hover:text-zinc-100 p-2 rounded hover:bg-zinc-800 transition">
                 Profile
               </button>
             </Link>
