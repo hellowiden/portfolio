@@ -3,7 +3,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import EditUserModal from '../components/EditUserModal';
 
 interface User {
@@ -18,8 +18,13 @@ export default function Dashboard() {
   const router = useRouter();
   const [users, setUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    user: User | null;
+  }>({
+    isOpen: false,
+    user: null,
+  });
 
   const isAdmin = useMemo(
     () => session?.user?.roles.includes('admin'),
@@ -27,77 +32,68 @@ export default function Dashboard() {
   );
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-    }
-    if (status === 'authenticated' && !isAdmin) {
-      router.push('/');
-    }
+    if (status === 'unauthenticated') router.push('/login');
+    if (status === 'authenticated' && !isAdmin) router.push('/');
   }, [status, isAdmin, router]);
 
   useEffect(() => {
     if (!isAdmin) return;
+
     const fetchUsers = async () => {
       try {
         const response = await fetch('/api/users');
+        if (!response.ok) throw new Error('Failed to fetch users');
+
         const data = await response.json();
-        if (response.ok) {
-          setUsers(data.users);
-        }
+        setUsers(data.users);
       } catch (error) {
-        console.error('Error fetching users:', error);
+        console.error(error);
       }
     };
+
     fetchUsers();
   }, [isAdmin]);
 
   const filteredUsers = useMemo(() => {
+    const query = searchQuery.toLowerCase();
     return users.filter(
       (user) =>
-        user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        user.roles.some((role) =>
-          role.toLowerCase().includes(searchQuery.toLowerCase())
-        )
+        user.name.toLowerCase().includes(query) ||
+        user.email.toLowerCase().includes(query) ||
+        user.roles.some((role) => role.toLowerCase().includes(query))
     );
   }, [users, searchQuery]);
 
-  const handleEdit = (user: User) => {
-    setSelectedUser(user);
-    setIsEditModalOpen(true);
-  };
+  const handleEdit = useCallback((user: User) => {
+    setModalState({ isOpen: true, user });
+  }, []);
 
-  const handleCloseModal = () => {
-    setIsEditModalOpen(false);
-    setSelectedUser(null);
-  };
+  const handleCloseModal = useCallback(() => {
+    setModalState({ isOpen: false, user: null });
+  }, []);
 
-  const handleSaveUser = (updatedUser: User) => {
+  const handleSaveUser = useCallback((updatedUser: User) => {
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
         user._id === updatedUser._id ? updatedUser : user
       )
     );
-  };
+  }, []);
 
-  const handleDelete = async (userId: string) => {
-    if (confirm('Are you sure you want to delete this user?')) {
-      try {
-        const response = await fetch(`/api/users/${userId}`, {
-          method: 'DELETE',
-        });
-        if (response.ok) {
-          setUsers((prevUsers) =>
-            prevUsers.filter((user) => user._id !== userId)
-          );
-        } else {
-          console.error('Failed to delete user');
-        }
-      } catch (error) {
-        console.error('Error deleting user:', error);
-      }
+  const handleDelete = useCallback(async (userId: string) => {
+    if (!confirm('Are you sure you want to delete this user?')) return;
+
+    try {
+      const response = await fetch(`/api/users/${userId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Failed to delete user');
+
+      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+    } catch (error) {
+      console.error(error);
     }
-  };
+  }, []);
 
   if (status === 'loading') return <p>Loading...</p>;
   if (!session?.user) return <p>User data not available</p>;
@@ -105,17 +101,15 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 grid gap-4">
-      <h1 className="text-2xl font-bold gap-4 text-zinc-900">
-        Admin Dashboard
-      </h1>
+      <h1 className="text-2xl font-bold text-zinc-900">Admin Dashboard</h1>
 
-      <h2 className="text-xl font-semibold gap-2 text-zinc-800">All Users</h2>
+      <h2 className="text-xl font-semibold text-zinc-800">All Users</h2>
       <input
         type="text"
         placeholder="Search by name, email, or role"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="gap-4 p-2 border rounded w-full border-zinc-300 bg-zinc-100 text-zinc-900"
+        className="p-2 border rounded w-full border-zinc-300 bg-zinc-100 text-zinc-900"
       />
       <div className="overflow-x-auto">
         <table className="min-w-full bg-zinc-50 border rounded-sm border-zinc-300">
@@ -150,13 +144,13 @@ export default function Dashboard() {
                 <td className="px-4 py-2 border border-zinc-300">
                   <div className="grid grid-cols-2 gap-2">
                     <button
-                      className="px-3 py-2 text-sm border border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-300 rounded transition-colors duration-200 hover:bg-zinc-800 dark:hover:bg-zinc-100 hover:text-white dark:hover:text-black"
+                      className="px-3 py-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white"
                       onClick={() => handleEdit(user)}
                     >
                       Edit
                     </button>
                     <button
-                      className="px-3 py-2 text-sm border border-zinc-700 dark:border-zinc-300 bg-zinc-800 dark:bg-zinc-100 text-zinc-300 dark:text-zinc-700 rounded transition-colors duration-200 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-black dark:hover:text-white"
+                      className="px-3 py-2 text-sm border border-zinc-700 bg-zinc-800 text-zinc-300 rounded transition hover:bg-zinc-100 hover:text-black"
                       onClick={() => handleDelete(user._id)}
                     >
                       Remove
@@ -169,10 +163,10 @@ export default function Dashboard() {
         </table>
       </div>
 
-      {isEditModalOpen && selectedUser && (
+      {modalState.isOpen && modalState.user && (
         <EditUserModal
-          user={selectedUser}
-          isOpen={isEditModalOpen}
+          user={modalState.user}
+          isOpen={modalState.isOpen}
           onClose={handleCloseModal}
           onSave={handleSaveUser}
         />
