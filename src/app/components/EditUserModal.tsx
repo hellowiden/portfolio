@@ -142,7 +142,7 @@ export default function EditUserModal({
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
-              className="px-4 py-2 bg-zinc-500 text-white rounded"
+              className="px-3 py-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white"
               onClick={onClose}
               disabled={formData.loading}
             >
@@ -150,7 +150,7 @@ export default function EditUserModal({
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-zinc-700 text-white rounded"
+              className="px-3 py-2 text-sm border border-zinc-700 bg-zinc-800 text-zinc-300 rounded transition hover:bg-zinc-100 hover:text-black"
               disabled={formData.loading}
             >
               {formData.loading ? 'Saving...' : 'Save'}
