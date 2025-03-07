@@ -32,7 +32,7 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-zinc-200 dark:border-zinc-800 mt-10 py-4 text-center text-sm text-zinc-700 dark:text-zinc-300">
+      <div className="border-t border-zinc-200 dark:border-zinc-800 mt-10 p-4 text-center text-sm text-zinc-700 dark:text-zinc-300">
         &copy; {new Date().getFullYear()} Marcus Widén — Personal Portfolio. All
         rights reserved.
       </div>
