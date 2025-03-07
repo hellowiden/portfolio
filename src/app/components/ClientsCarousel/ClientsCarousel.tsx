@@ -13,7 +13,6 @@ function ClientsCarousel() {
     'Droga5',
     'TBWA\\Worldwide',
     'BBDO Worldwide',
-    'Leo Burnett',
     'Grey Group',
     'VMLY&R',
     'McCann Worldgroup',
@@ -32,17 +31,15 @@ function ClientsCarousel() {
   return (
     <section
       id="clients"
-      className="grid gap-4 p-6 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50"
+      className="grid place-items-center p-6 gap-6 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50"
     >
-      <h2 className="text-2xl font-bold text-zinc-700 dark:text-zinc-300 text-center">
-        My Clients
-      </h2>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3  bg-white dark:bg-zinc-800  w-full ">
         {clients.map((client, index) => (
-          <div key={index} className="grid place-items-center">
-            <span className="bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-300 text-sm font-medium px-4 py-2 rounded-full text-center border border-light dark:border-dark">
-              {client}
-            </span>
+          <div
+            key={index}
+            className="p-4 bg-white dark:bg-zinc-700 border dark:border-dark text-center"
+          >
+            <span className="text-base font-medium">{client}</span>
           </div>
         ))}
       </div>
