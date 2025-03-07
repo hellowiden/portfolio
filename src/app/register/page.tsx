@@ -104,7 +104,7 @@ export default function Register() {
           </div>
           <button
             type="submit"
-            className="w-full bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition"
+            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition"
           >
             Register
           </button>

@@ -48,8 +48,7 @@ export default function Header() {
             onClick={() =>
               isAuthenticated ? signOut({ callbackUrl: '/' }) : signIn()
             }
-            className="rounded-lg border px-3 py-2 text-sm font-medium transition border-zinc-500 bg-zinc-900 text-white 
-              hover:bg-zinc-800 hover:border-zinc-600"
+            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition"
           >
             {isAuthenticated ? 'Logout' : 'Login'}
           </button>
