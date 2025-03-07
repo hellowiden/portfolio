@@ -93,16 +93,9 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-lg grid gap-6">
+    <div className="max-w-4xl mx-auto bg-white dark:bg-zinc-900  rounded-lg grid gap-6">
       {feedback.message && <Alert type="success" message={feedback.message} />}
       {feedback.error && <Alert type="error" message={feedback.error} />}
-
-      <h1 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
-        Profile Page
-      </h1>
-      <p className="text-center text-zinc-800 dark:text-zinc-300">
-        Role: {formData.roles.join(', ') || 'User'}
-      </p>
 
       <ProfileAvatar name={formData.name} />
 
