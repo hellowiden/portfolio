@@ -51,7 +51,7 @@ export default function Register() {
       <div className="flex p-6 items-center justify-center bg-zinc-100">
         <form
           onSubmit={handleSubmit}
-          className="w-full p-6 bg-zinc-50 shadow-md rounded-lg grid gap-4 border border-zinc-300"
+          className="w-full max-w-md p-6 bg-zinc-50 shadow-md rounded-lg grid gap-4 border border-zinc-300"
         >
           <h2 className="text-2xl font-bold text-center text-zinc-900">
             Register
