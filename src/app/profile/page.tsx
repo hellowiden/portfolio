@@ -83,8 +83,9 @@ export default function Profile() {
     <div className="bg-white dark:bg-zinc-900 text-black dark:text-white p-8 rounded-lg grid gap-4">
       <div className="grid grid-cols-[min-content_1fr] items-center gap-2">
         <ProfileAvatar name={formData.name} />
-        <h2 className="text-2xl font-bold flex items-center gap-2">
-          {formData.name} <FaCheckCircle className="text-green-500" />
+        <h2 className="grid grid-cols-[min-content_1fr] text-2xl font-bold items-center gap-2">
+          <span>{formData.name}</span>
+          <FaCheckCircle className="text-green-500" />
         </h2>
       </div>
 
