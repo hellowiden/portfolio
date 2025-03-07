@@ -13,25 +13,25 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 grid grid-cols-2 items-center px-4 py-2 border-b border-light dark:border-dark bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 backdrop-blur-md transition">
       {/* Logo / Title */}
-      <div className="text-md p-2 rounded transition">
+      <div className="text-md transition">
         <Link href="/">
           {isAuthenticated ? `Welcome, ${session.user?.name}` : 'MW-Portfolio'}
         </Link>
       </div>
 
       {/* Navigation & Authentication */}
-      <nav className="grid grid-flow-col auto-cols-max gap-4 justify-end">
+      <nav className="grid grid-flow-col gap-4 justify-end">
         {isAuthenticated && (
           <>
             {isAdmin && (
               <Link href="/dashboard">
-                <button className="text-sm border border-green text-green-700 dark:text-green-300 hover:text-white dark:hover:text-black p-2 rounded hover:bg-green-500 dark:hover:bg-green-400 transition">
+                <button className="p-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white">
                   Dashboard
                 </button>
               </Link>
             )}
             <Link href="/profile">
-              <button className="text-sm border border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-300 hover:text-white dark:hover:text-black p-2 rounded hover:bg-zinc-800 dark:hover:bg-zinc-100 transition">
+              <button className="p-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white">
                 Profile
               </button>
             </Link>
@@ -43,7 +43,7 @@ export default function Header() {
             onClick={() =>
               isAuthenticated ? signOut({ callbackUrl: '/' }) : signIn()
             }
-            className="text-sm border border-green bg-green text-white dark:text-black p-2 rounded hover:bg-green-600 dark:hover:bg-green-400 transition"
+            className="p-2 text-sm border border-green bg-green text-white dark:text-black rounded hover:bg-green-600 dark:hover:bg-green-400 transition"
           >
             {isAuthenticated ? 'Logout' : 'Login'}
           </button>
