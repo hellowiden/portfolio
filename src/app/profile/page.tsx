@@ -4,6 +4,7 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import AnimatedBackground from '@/app/components/AnimatedBackground/AnimatedBackground';
+import { FaCheckCircle } from 'react-icons/fa';
 
 export default function Profile() {
   const { data: session, status } = useSession();
@@ -13,8 +14,8 @@ export default function Profile() {
     newPassword: '',
     roles: [] as string[],
   });
-  const [feedback, setFeedback] = useState({ message: '', error: '' });
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('Profile');
 
   useEffect(() => {
     if (session?.user) {
@@ -37,7 +38,6 @@ export default function Profile() {
 
   const handleUpdate = async (e: FormEvent) => {
     e.preventDefault();
-    setFeedback({ message: '', error: '' });
     setLoading(true);
 
     try {
@@ -55,89 +55,105 @@ export default function Profile() {
       });
 
       if (!res.ok) throw new Error('Update failed');
-      setFeedback({ message: 'Profile updated successfully!', error: '' });
     } catch (err) {
-      setFeedback({
-        message: '',
-        error: err instanceof Error ? err.message : 'Something went wrong',
-      });
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
   const handleDeleteAccount = async () => {
-    if (
-      !confirm(
-        'Are you sure you want to permanently delete your account? This action cannot be undone.'
-      )
-    )
+    if (!confirm('Are you sure you want to permanently delete your account?'))
       return;
-
     setLoading(true);
     try {
       const res = await fetch(`/api/users/${session.user.id}`, {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Failed to delete account');
-      alert('Your account has been deleted.');
       signOut();
     } catch (err) {
-      setFeedback({
-        message: '',
-        error: err instanceof Error ? err.message : 'Something went wrong',
-      });
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto  grid gap-6">
-      {feedback.message && <Alert type="success" message={feedback.message} />}
-      {feedback.error && <Alert type="error" message={feedback.error} />}
+    <div className="bg-white dark:bg-zinc-900 text-black dark:text-white p-8 rounded-lg grid gap-4">
+      <div className="grid grid-cols-[min-content_1fr] items-center gap-2">
+        <ProfileAvatar name={formData.name} />
+        <h2 className="text-2xl font-bold flex items-center gap-2">
+          {formData.name} <FaCheckCircle className="text-green-500" />
+        </h2>
+      </div>
 
-      <hr className="border-t border-zinc-300 dark:border-zinc-700" />
+      <nav className="flex justify-start border-b border-gray-300 dark:border-gray-700">
+        {['Information'].map((tab) => (
+          <button
+            key={tab}
+            className={`px-4 py-2 ${
+              activeTab === tab
+                ? 'border-b-2 border-black dark:border-white'
+                : 'text-gray-500 dark:text-gray-400'
+            }`}
+            onClick={() => setActiveTab(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </nav>
 
-      <ProfileAvatar name={formData.name} />
-
-      <form onSubmit={handleUpdate} className="grid gap-4">
-        <FormField
-          label="Name"
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-        <FormField
-          label="Email"
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <FormField
-          label="New Password (optional)"
-          type="password"
-          name="newPassword"
-          value={formData.newPassword}
-          onChange={handleChange}
-        />
+      <form onSubmit={handleUpdate} className="grid gap-4 ">
+        <div className="grid gap-2">
+          <label className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+            Name
+          </label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
+          />
+        </div>
+        <div className="grid gap-2">
+          <label className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
+          />
+        </div>
+        <div className="grid gap-2">
+          <label className="text-sm font-semibold text-gray-600 dark:text-gray-300">
+            New Password (optional)
+          </label>
+          <input
+            type="password"
+            name="newPassword"
+            value={formData.newPassword}
+            onChange={handleChange}
+            className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
+          />
+        </div>
 
         <button
           type="submit"
-          className="w-full py-3 rounded-md bg-zinc-900 dark:bg-zinc-900  text-white hover:bg-zinc-800 dark:hover:bg-zinc-700 transition"
+          className="w-full py-3 rounded-md bg-green-600 text-white hover:bg-green-500 transition"
           disabled={loading}
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>
 
-      <hr className="border-t border-zinc-300 dark:border-zinc-700" />
-
       <button
         onClick={handleDeleteAccount}
-        className="w-full py-3 rounded-md bg-red-600 text-white hover:bg-red-500 transition"
+        className="w-full py-3 mt-4 rounded-md bg-red-600 text-white hover:bg-red-500 transition"
         disabled={loading}
       >
         {loading ? 'Processing...' : 'Remove Account'}
@@ -146,53 +162,10 @@ export default function Profile() {
   );
 }
 
-const FormField = ({
-  label,
-  type,
-  name,
-  value,
-  onChange,
-}: {
-  label: string;
-  type: string;
-  name: string;
-  value?: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-}) => (
-  <div className="grid gap-2">
-    <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">
-      {label}
-    </label>
-    <input
-      type={type}
-      name={name}
-      value={value || ''}
-      onChange={onChange}
-      className="w-full p-2 border rounded-md bg-zinc-100 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100"
-    />
-  </div>
-);
-
-const Alert = ({
-  type,
-  message,
-}: {
-  type: 'success' | 'error';
-  message: string;
-}) => {
-  const color =
-    type === 'success'
-      ? 'text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900'
-      : 'text-red-600 bg-red-100 dark:text-red-300 dark:bg-red-900';
-  return (
-    <p className={`text-center font-bold p-2 rounded ${color}`}>{message}</p>
-  );
-};
-
 const ProfileAvatar = ({ name }: { name: string }) => (
-  <div className="relative w-20 h-20 rounded-full overflow-hidden border border-zinc-300 dark:border-zinc-700 flex items-center justify-center">
+  <div className="relative w-24 h-24 rounded-full overflow-hidden border border-gray-300 dark:border-gray-700 flex items-center justify-center">
     <AnimatedBackground />
-    <span className="absolute text-2xl font-bold text-zinc-900 dark:text-zinc-100 z-10">
+    <span className="absolute text-3xl font-bold text-black dark:text-white z-10">
       {name ? name.charAt(0).toUpperCase() : '?'}
     </span>
   </div>
