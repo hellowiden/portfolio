@@ -2,29 +2,24 @@
 
 import mongoose from 'mongoose';
 
-let isConnected = false;
+let isConnected = false; // Global connection state
 
 export async function connectToDatabase() {
-  if (isConnected) {
-    console.log('Using existing MongoDB connection.');
-    return mongoose.connection;
-  }
+  if (isConnected) return mongoose.connection;
 
   if (!process.env.MONGODB_URI) {
-    throw new Error('MONGODB_URI is required.');
+    throw new Error('Missing MONGODB_URI environment variable.');
   }
 
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
+    const db = await mongoose.connect(process.env.MONGODB_URI, {
       dbName: process.env.DB_NAME || 'portfolio',
-      bufferCommands: false,
+      bufferCommands: true, // Allow queries to be queued until connected
     });
 
-    isConnected = mongoose.connection.readyState === 1;
-    console.log('Connected to MongoDB.');
-    return mongoose.connection;
+    isConnected = db.connection.readyState === 1;
+    return db.connection;
   } catch (error) {
-    console.error('MongoDB connection error:', (error as Error).message);
-    throw new Error('Database connection failed.');
+    throw new Error(`Database connection failed: ${(error as Error).message}`);
   }
 }
