@@ -23,7 +23,7 @@ export default function About() {
           <h1 className="text-3xl font-medium text-zinc-900 dark:text-zinc-50">
             The principles that define me and my work
           </h1>
-          <p className="text-md leading-relaxed text-zinc-700 dark:text-zinc-300 leading-relaxed">
+          <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
             Marcus Widén is not just in branding—he creates meaning. With over
             12 years and 500 projects, he has shown that a brand’s true value
             lies in its ability to build deep, lasting connections that drive
