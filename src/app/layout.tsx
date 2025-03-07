@@ -32,14 +32,11 @@ export default function RootLayout({
       >
         <ThemeContextProvider>
           <AuthProvider>
-            <div className="grid grid-rows-[auto_1fr_auto] min-h-screen ">
-              <Header />
-              <main className="container mx-auto flex-grow px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl: border-x border-zinc-200 dark:border-zinc-800 dark:bg-black backdrop-blur-md">
-                {children}
-              </main>
-
-              <Footer />
-            </div>
+            <Header />
+            <main className="container mx-auto flex-grow px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-x border-zinc-200 dark:border-zinc-800 dark:bg-black backdrop-blur-md">
+              {children}
+            </main>
+            <Footer />
           </AuthProvider>
         </ThemeContextProvider>
       </body>

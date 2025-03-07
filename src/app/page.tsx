@@ -18,7 +18,7 @@ export default function Home() {
     }
   }, [status, router]);
 
-  if (status === 'loading') return <p>Loading...</p>;
+  if (status === 'loading') return null;
 
   return (
     <>
