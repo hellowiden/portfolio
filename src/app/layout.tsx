@@ -5,6 +5,7 @@ import './globals.css';
 import { Space_Grotesk } from 'next/font/google';
 
 import AuthProvider from './components/SessionProvider';
+import { ThemeContextProvider } from '@/context/theme-context';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 
@@ -27,15 +28,17 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.className} !scroll-smooth grid min-h-screen grid-rows-[auto_1fr_auto] bg-zinc-50`}
+        className={`${spaceGrotesk.className} !scroll-smooth grid min-h-screen grid-rows-[auto_1fr_auto] bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100`}
       >
-        <AuthProvider>
-          <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
-            <Header />
-            <main className="backdrop-blur-md ">{children}</main>
-            <Footer />
-          </div>
-        </AuthProvider>
+        <ThemeContextProvider>
+          <AuthProvider>
+            <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
+              <Header />
+              <main className="backdrop-blur-md">{children}</main>
+              <Footer />
+            </div>
+          </AuthProvider>
+        </ThemeContextProvider>
       </body>
     </html>
   );

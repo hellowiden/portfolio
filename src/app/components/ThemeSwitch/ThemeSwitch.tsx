@@ -1,41 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useTheme } from '@/context/theme-context';
 import { Moon, Sun } from 'lucide-react';
 
 export default function ThemeSwitch() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window !== 'undefined') {
-      return (localStorage.getItem('theme') as 'light' | 'dark') || 'light';
-    }
-    return 'light';
-  });
-
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const storedTheme = localStorage.getItem('theme');
-      if (storedTheme) {
-        setTheme(storedTheme as 'light' | 'dark');
-      } else {
-        setTheme('light');
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    localStorage.setItem('theme', theme);
-  }, [theme]);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <button
-      onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-      className="p-2 rounded-md bg-zinc-200 dark:bg-zinc-800 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition"
+      onClick={toggleTheme}
       aria-label="Toggle Theme"
+      className="p-2 rounded-md border border-zinc-300 bg-zinc-200 dark:bg-zinc-800 dark:border-zinc-600 hover:bg-zinc-300 dark:hover:bg-zinc-700 transition"
     >
       {theme === 'light' ? (
         <Moon className="w-5 h-5 text-zinc-900" />
