@@ -63,7 +63,7 @@ export default function Header() {
             onClick={() =>
               isAuthenticated ? signOut({ callbackUrl: '/' }) : signIn()
             }
-            className="flex items-center gap-2 p-2 text-sm border border-green bg-green text-white rounded hover:bg-green-600 dark:hover:bg-green-400 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
+            className="flex items-center gap-2 p-2 text-sm border border-green bg-green text-white rounded hover:bg-red-600 dark:hover:bg-red-800 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
           >
             <motion.div
               key="auth"
