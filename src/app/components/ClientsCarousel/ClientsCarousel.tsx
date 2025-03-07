@@ -46,7 +46,7 @@ function ClientsCarousel() {
               href={client.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-base font-medium text-blue-600 dark:text-blue-400 hover:underline"
+              className=" text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition "
             >
               {client.name}
             </a>
