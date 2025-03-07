@@ -122,7 +122,7 @@ export default function Dashboard() {
                 Email
               </th>
               <th className="px-4 py-2 text-left border border-zinc-300">
-                Roles
+                Role
               </th>
               <th className="px-4 py-2 text-left border border-zinc-300">
                 Actions
