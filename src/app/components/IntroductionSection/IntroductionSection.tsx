@@ -1,39 +1,58 @@
-import React from 'react';
-import Image from 'next/image';
-import AnimatedBackground from '@/app/components/AnimatedBackground/AnimatedBackground';
+'use client';
 
-function IntroductionSection() {
+import Image from 'next/image';
+import { useEffect, useState, useCallback } from 'react';
+
+export default function IntroductionSection() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
+
+  const handleContactClick = useCallback(() => {
+    console.log('Contact button clicked');
+  }, []);
+
+  const handleDownloadClick = useCallback(() => {
+    console.log('Download Resume button clicked');
+  }, []);
+
+  if (!isVisible) return null;
+
   return (
     <section
       id="home"
-      className="relative w-full grid gap-6 p-6 transition-all border-b border-zinc-300 items-center justify-center text-center backdrop-blur-sm overflow-hidden"
+      className="grid place-items-center p-6 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50"
     >
-      <AnimatedBackground /> {/* Animated background applied here */}
-      <div className="relative z-10">
-        <div
-          className="w-40 h-40 rounded-full overflow-hidden border-2 border-zinc-600 mx-auto"
-          aria-label="Profile Picture"
-        >
+      <div className="grid gap-4 bg-white dark:bg-zinc-800 p-6 shadow-lg rounded border dark:border-dark max-w-lg text-center">
+        <div className="grid place-items-center" aria-label="Profile Picture">
           <Image
             src="/MW.png"
             alt="Marcus Widén"
             width={160}
             height={160}
-            className="w-full h-full object-cover"
+            className="rounded-full border border-zinc-300 dark:border-zinc-700"
           />
         </div>
-        <div className="text-4xl font-bold tracking-wide">Marcus Widén</div>
-        <div className="text-md tracking-wide font-normal leading-relaxed text-zinc-900 max-w-xl mx-auto">
+        <h1 className="text-2xl font-bold">Marcus Widén</h1>
+        <p className="text-zinc-700 dark:text-zinc-300">
           Hi, I’m Marcus Widén. I’m passionate about helping businesses thrive
           through strategic planning, user-focused design, and creative
           problem-solving. Let’s work together to turn your ideas into impactful
           solutions.
-        </div>
-        <div className="w-full flex flex-col sm:flex-row justify-center items-center gap-4">
-          <button className="text-sm border broder-zinc-700 bg-zinc-100 text-zinc-700 hover:text-zinc-100 p-2 rounded hover:bg-zinc-800 transition">
+        </p>
+        <div className="grid grid-cols-2 gap-4">
+          <button
+            onClick={handleContactClick}
+            className="px-4 py-2 bg-zinc-700 dark:bg-green-600 text-white rounded-lg transition hover:bg-zinc-800 dark:hover:bg-green-700"
+          >
             Contact
           </button>
-          <button className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition">
+          <button
+            onClick={handleDownloadClick}
+            className="px-4 py-2 border border-zinc-700 dark:border-green text-zinc-700 dark:text-green-400 rounded-lg transition hover:bg-zinc-700 dark:hover:bg-green-600 hover:text-white dark:hover:text-white"
+          >
             Download Resume
           </button>
         </div>
@@ -41,5 +60,3 @@ function IntroductionSection() {
     </section>
   );
 }
-
-export default IntroductionSection;
