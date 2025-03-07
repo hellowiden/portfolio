@@ -1,5 +1,4 @@
 //src/app/components/ThemeSwitch/ThemeSwitch.tsx
-
 'use client';
 
 import { useState } from 'react';
@@ -21,8 +20,8 @@ export default function ThemeSwitch() {
       className={`flex items-center gap-2 rounded-md border px-2 py-1 text-sm transition
         ${
           isLight
-            ? 'border-light bg-white text-black hover:bg-opacity-80'
-            : 'border-dark bg-black text-white hover:bg-opacity-80'
+            ? 'border-black bg-white text-black hover:bg-opacity-80'
+            : 'border-white bg-black text-white hover:bg-opacity-80'
         }`}
     >
       <motion.div

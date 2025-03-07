@@ -150,7 +150,7 @@ export default function Dashboard() {
                 <td className="px-4 py-2 border border-zinc-300">
                   <div className="grid grid-cols-2 gap-2">
                     <button
-                      className="px-2 py-1 bg-zinc-500 text-white rounded"
+                      className="text-sm border border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-300 hover:text-white dark:hover:text-black p-2 rounded hover:bg-zinc-800 dark:hover:bg-zinc-100 transition"
                       onClick={() => handleEdit(user)}
                     >
                       Edit
