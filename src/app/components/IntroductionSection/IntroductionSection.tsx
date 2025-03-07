@@ -25,7 +25,7 @@ export default function IntroductionSection() {
       id="home"
       className=" w-full grid place-items-center p-6 bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50"
     >
-      <div className="grid gap-4 bg-white dark:bg-zinc-800 p-6 shadow-lg rounded border dark:border-dark  text-center">
+      <div className="grid gap-4 bg-white dark:bg-zinc-800 p-6 rounded border dark:border-dark text-center">
         <div className="grid place-items-center" aria-label="Profile Picture">
           <Image
             src="/MW.png"
