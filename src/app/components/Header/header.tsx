@@ -11,9 +11,9 @@ export default function Header() {
   const isAdmin = isAuthenticated && session?.user?.roles?.includes('admin');
 
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-2 items-center px-4 py-2 border-b bg-zinc-100/80 dark:bg-zinc-900 backdrop-blur-md transition">
+    <header className="sticky top-0 z-50 grid grid-cols-2 items-center px-4 py-2 border-b border-light dark:border-dark bg-zinc-100 dark:bg-zinc-900 text-zinc-700 dark:text-zinc-300 backdrop-blur-md transition">
       {/* Logo / Title */}
-      <div className="text-md text-zinc-700 dark:text-zinc-300 p-2 rounded transition">
+      <div className="text-md p-2 rounded transition">
         <Link href="/">
           {isAuthenticated ? `Welcome, ${session.user?.name}` : 'MW-Portfolio'}
         </Link>
@@ -25,13 +25,13 @@ export default function Header() {
           <>
             {isAdmin && (
               <Link href="/dashboard">
-                <button className="text-sm border border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-300 hover:text-zinc-100 dark:hover:text-zinc-900 p-2 rounded hover:bg-zinc-800 dark:hover:bg-zinc-100 transition">
+                <button className="text-sm border border-green text-green-700 dark:text-green-300 hover:text-white dark:hover:text-black p-2 rounded hover:bg-green-500 dark:hover:bg-green-400 transition">
                   Dashboard
                 </button>
               </Link>
             )}
             <Link href="/profile">
-              <button className="text-sm border border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-300 hover:text-zinc-100 dark:hover:text-zinc-900 p-2 rounded hover:bg-zinc-800 dark:hover:bg-zinc-100 transition">
+              <button className="text-sm border border-zinc-700 dark:border-zinc-300 text-zinc-700 dark:text-zinc-300 hover:text-white dark:hover:text-black p-2 rounded hover:bg-zinc-800 dark:hover:bg-zinc-100 transition">
                 Profile
               </button>
             </Link>
@@ -43,7 +43,7 @@ export default function Header() {
             onClick={() =>
               isAuthenticated ? signOut({ callbackUrl: '/' }) : signIn()
             }
-            className="text-sm bg-zinc-700 dark:bg-zinc-300 text-white dark:text-zinc-900 p-2 rounded hover:bg-zinc-800 dark:hover:bg-zinc-100 transition"
+            className="text-sm border border-green bg-green text-white dark:text-black p-2 rounded hover:bg-green-600 dark:hover:bg-green-400 transition"
           >
             {isAuthenticated ? 'Logout' : 'Login'}
           </button>
