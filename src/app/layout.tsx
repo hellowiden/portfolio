@@ -32,9 +32,12 @@ export default function RootLayout({
       >
         <ThemeContextProvider>
           <AuthProvider>
-            <div className="grid grid-rows-[auto_1fr_auto] min-h-screen">
+            <div className="grid grid-rows-[auto_1fr_auto] min-h-screen ">
               <Header />
-              <main className="backdrop-blur-md">{children}</main>
+              <main className="container mx-auto flex-grow px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24  backdrop-blur-md">
+                {children}
+              </main>
+
               <Footer />
             </div>
           </AuthProvider>

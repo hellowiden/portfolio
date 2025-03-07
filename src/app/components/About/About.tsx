@@ -6,13 +6,13 @@ export default function About() {
   return (
     <div
       id="about"
-      className="grid place-items-center p-8 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50"
+      className="w-full grid place-items-center p-6 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50"
     >
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="grid gap-6 max-w-4xl text-center"
+        className="grid gap-6 text-center"
       >
         <motion.div
           initial={{ scale: 0.8 }}
