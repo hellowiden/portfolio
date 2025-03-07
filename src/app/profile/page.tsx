@@ -13,10 +13,8 @@ export default function Profile() {
     newPassword: '',
     roles: [] as string[],
   });
-  const [message, setMessage] = useState('');
-  const [error, setError] = useState('');
+  const [feedback, setFeedback] = useState({ message: '', error: '' });
   const [loading, setLoading] = useState(false);
-  const [showMessage, setShowMessage] = useState(false);
 
   useEffect(() => {
     if (session?.user) {
@@ -29,17 +27,6 @@ export default function Profile() {
     }
   }, [session]);
 
-  useEffect(() => {
-    if (message) {
-      setShowMessage(true);
-      const timer = setTimeout(() => {
-        setShowMessage(false);
-        setTimeout(() => setMessage(''), 500);
-      }, 20000);
-      return () => clearTimeout(timer);
-    }
-  }, [message]);
-
   if (status === 'loading') return <p className="text-center">Loading...</p>;
   if (status !== 'authenticated')
     return <p className="text-center">You need to log in to view this page.</p>;
@@ -50,8 +37,7 @@ export default function Profile() {
 
   const handleUpdate = async (e: FormEvent) => {
     e.preventDefault();
-    setMessage('');
-    setError('');
+    setFeedback({ message: '', error: '' });
     setLoading(true);
 
     try {
@@ -69,9 +55,12 @@ export default function Profile() {
       });
 
       if (!res.ok) throw new Error('Update failed');
-      setMessage('Profile updated successfully!');
+      setFeedback({ message: 'Profile updated successfully!', error: '' });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+      setFeedback({
+        message: '',
+        error: err instanceof Error ? err.message : 'Something went wrong',
+      });
     } finally {
       setLoading(false);
     }
@@ -94,41 +83,31 @@ export default function Profile() {
       alert('Your account has been deleted.');
       signOut();
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Something went wrong');
+      setFeedback({
+        message: '',
+        error: err instanceof Error ? err.message : 'Something went wrong',
+      });
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-8 bg-zinc-50 border border-zinc-300 rounded-lg  grid gap-6">
-      {message && (
-        <p
-          className={`text-center font-bold text-zinc-700 bg-zinc-200 p-2 rounded transition-opacity duration-500 ${
-            showMessage ? 'opacity-100' : 'opacity-0'
-          }`}
-        >
-          {message}
-        </p>
-      )}
-      {error && (
-        <p className="text-center font-bold text-red-600 bg-red-100 p-2 rounded">
-          {error}
-        </p>
-      )}
-      <h1 className="text-2xl font-bold text-center text-zinc-900">
+    <div className="max-w-4xl mx-auto p-8 bg-white dark:bg-zinc-900 border border-zinc-300 dark:border-zinc-700 rounded-lg grid gap-6">
+      {feedback.message && <Alert type="success" message={feedback.message} />}
+      {feedback.error && <Alert type="error" message={feedback.error} />}
+
+      <h1 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
         Profile Page
       </h1>
-      <p className="text-center text-zinc-800">
+      <p className="text-center text-zinc-800 dark:text-zinc-300">
         Role: {formData.roles.join(', ') || 'User'}
       </p>
-      <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden border-2 border-zinc-600 flex items-center justify-center">
-        <AnimatedBackground />
-        <span className="absolute text-4xl font-bold text-zinc-900 z-10">
-          {formData.name ? formData.name.charAt(0).toUpperCase() : '?'}
-        </span>
-      </div>
-      <hr className="border-t border-zinc-300" />
+
+      <ProfileAvatar name={formData.name} />
+
+      <hr className="border-t border-zinc-300 dark:border-zinc-700" />
+
       <form onSubmit={handleUpdate} className="grid gap-4">
         <FormField
           label="Name"
@@ -151,15 +130,18 @@ export default function Profile() {
           value={formData.newPassword}
           onChange={handleChange}
         />
+
         <button
           type="submit"
-          className="w-full py-3 rounded-md bg-zinc-700 text-white hover:bg-zinc-800 transition"
+          className="w-full py-3 rounded-md bg-zinc-700 dark:bg-zinc-800 text-white hover:bg-zinc-800 dark:hover:bg-zinc-700 transition"
           disabled={loading}
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>
-      <hr className="border-t border-zinc-300" />
+
+      <hr className="border-t border-zinc-300 dark:border-zinc-700" />
+
       <button
         onClick={handleDeleteAccount}
         className="w-full py-3 rounded-md bg-red-600 text-white hover:bg-red-500 transition"
@@ -185,13 +167,40 @@ const FormField = ({
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 }) => (
   <div className="grid gap-2">
-    <label className="text-sm font-semibold text-zinc-800">{label}</label>
+    <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-200">
+      {label}
+    </label>
     <input
       type={type}
       name={name}
       value={value || ''}
       onChange={onChange}
-      className="w-full p-2 border rounded-md bg-zinc-100 border-zinc-300 text-zinc-900"
+      className="w-full p-2 border rounded-md bg-zinc-100 dark:bg-zinc-800 border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-zinc-100"
     />
+  </div>
+);
+
+const Alert = ({
+  type,
+  message,
+}: {
+  type: 'success' | 'error';
+  message: string;
+}) => {
+  const color =
+    type === 'success'
+      ? 'text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900'
+      : 'text-red-600 bg-red-100 dark:text-red-300 dark:bg-red-900';
+  return (
+    <p className={`text-center font-bold p-2 rounded ${color}`}>{message}</p>
+  );
+};
+
+const ProfileAvatar = ({ name }: { name: string }) => (
+  <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden border-2 border-zinc-600 flex items-center justify-center">
+    <AnimatedBackground />
+    <span className="absolute text-4xl font-bold text-zinc-900 dark:text-zinc-100 z-10">
+      {name ? name.charAt(0).toUpperCase() : '?'}
+    </span>
   </div>
 );
