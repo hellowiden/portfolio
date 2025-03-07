@@ -35,8 +35,8 @@ export default function IntroductionSection() {
             className="rounded-full border border-zinc-300 dark:border-zinc-700"
           />
         </div>
-        <h1 className="text-2xl font-bold">Marcus Widén</h1>
-        <p className="text-zinc-700 dark:text-zinc-300">
+        <h1 className="text-4xl font-bold">Marcus Widén</h1>
+        <p className="text-md tracking-wide font-normal leading-relaxed text-zinc-700 dark:text-zinc-300">
           Hi, I’m Marcus Widén. I’m passionate about helping businesses thrive
           through strategic planning, user-focused design, and creative
           problem-solving. Let’s work together to turn your ideas into impactful
