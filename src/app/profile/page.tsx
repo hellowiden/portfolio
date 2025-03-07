@@ -89,11 +89,11 @@ export default function Profile() {
         </h2>
       </div>
 
-      <nav className="flex justify-start border-b border-gray-300 dark:border-gray-700">
+      <nav className="grid grid-cols-1 border-b border-gray-300 dark:border-gray-700">
         {['Information'].map((tab) => (
           <button
             key={tab}
-            className={`px-4 py-2 ${
+            className={`px-4 py-2 place-self-start ${
               activeTab === tab
                 ? 'border-b-2 border-black dark:border-white'
                 : 'text-gray-500 dark:text-gray-400'
@@ -152,9 +152,11 @@ export default function Profile() {
         </button>
       </form>
 
+      <hr />
+
       <button
         onClick={handleDeleteAccount}
-        className="w-full py-3 mt-4 rounded-md bg-red-600 text-white hover:bg-red-500 transition"
+        className="w-full py-3 rounded-md bg-red-600 text-white hover:bg-red-500 transition"
         disabled={loading}
       >
         {loading ? 'Processing...' : 'Remove Account'}
