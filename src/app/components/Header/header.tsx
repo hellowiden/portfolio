@@ -3,6 +3,8 @@
 
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { FiUser, FiLogIn, FiLogOut, FiGrid } from 'react-icons/fi';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 
 export default function Header() {
@@ -25,14 +27,32 @@ export default function Header() {
           <>
             {isAdmin && (
               <Link href="/dashboard">
-                <button className="p-2 text-sm border border-zinc-700 text-black dark:text-white hover:text-opacity-80  dark:hover:text-opacity-80 rounded transition ">
-                  Dashboard
+                <button className="flex items-center gap-2 p-2 text-sm border border-zinc-700 rounded transition text-black dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80">
+                  <motion.div
+                    key="dashboard"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <FiGrid className="text-lg" />
+                  </motion.div>
+                  <span className="hidden sm:inline">Dashboard</span>
                 </button>
               </Link>
             )}
             <Link href="/profile">
-              <button className="p-2 text-sm border border-zinc-700 rounded transition text-black dark:text-white hover:text-opacity-80  dark:hover:text-opacity-80">
-                Profile
+              <button className="flex items-center gap-2 p-2 text-sm border border-zinc-700 rounded transition text-black dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80">
+                <motion.div
+                  key="profile"
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FiUser className="text-lg" />
+                </motion.div>
+                <span className="hidden sm:inline">Profile</span>
               </button>
             </Link>
           </>
@@ -43,9 +63,24 @@ export default function Header() {
             onClick={() =>
               isAuthenticated ? signOut({ callbackUrl: '/' }) : signIn()
             }
-            className="p-2 text-sm border border-green bg-green text-white rounded hover:bg-green-600 dark:hover:bg-green-400 transition  dark:text-white hover:text-opacity-80  dark:hover:text-opacity-80"
+            className="flex items-center gap-2 p-2 text-sm border border-green bg-green text-white rounded hover:bg-green-600 dark:hover:bg-green-400 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
           >
-            {isAuthenticated ? 'Logout' : 'Login'}
+            <motion.div
+              key="auth"
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isAuthenticated ? (
+                <FiLogOut className="text-lg" />
+              ) : (
+                <FiLogIn className="text-lg" />
+              )}
+            </motion.div>
+            <span className="hidden sm:inline">
+              {isAuthenticated ? 'Logout' : 'Login'}
+            </span>
           </button>
         )}
         <ThemeSwitch />

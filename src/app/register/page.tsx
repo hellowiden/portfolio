@@ -46,9 +46,9 @@ export default function Register() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 h-screen">
+    <div className="grid grid-cols-1 md:grid-cols-2 h-full">
       {/* Column 1: Registration Form */}
-      <div className="flex p-6 items-center justify-center bg-zinc-100">
+      <div className="flex items-center justify-center bg-zinc-100">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md p-6 bg-zinc-50 shadow-md rounded-lg grid gap-4 border border-zinc-300"
