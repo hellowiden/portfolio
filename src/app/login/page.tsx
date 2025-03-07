@@ -75,7 +75,10 @@ export default function Login() {
           </button>
           <p className="text-center text-sm text-zinc-800">
             Not an account?{' '}
-            <Link href="/register" className="text-zinc-600 hover:underline">
+            <Link
+              href="/register"
+              className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition hover:underline"
+            >
               Sign up here
             </Link>
           </p>
