@@ -93,13 +93,13 @@ export default function Profile() {
   };
 
   return (
-    <div className="max-w-4xl mx-auto bg-white dark:bg-zinc-900  rounded-lg grid gap-6">
+    <div className="max-w-4xl mx-auto  grid gap-6">
       {feedback.message && <Alert type="success" message={feedback.message} />}
       {feedback.error && <Alert type="error" message={feedback.error} />}
 
-      <ProfileAvatar name={formData.name} />
-
       <hr className="border-t border-zinc-300 dark:border-zinc-700" />
+
+      <ProfileAvatar name={formData.name} />
 
       <form onSubmit={handleUpdate} className="grid gap-4">
         <FormField
@@ -126,7 +126,7 @@ export default function Profile() {
 
         <button
           type="submit"
-          className="w-full py-3 rounded-md bg-zinc-700 dark:bg-zinc-800 text-white hover:bg-zinc-800 dark:hover:bg-zinc-700 transition"
+          className="w-full py-3 rounded-md bg-zinc-900 dark:bg-zinc-900  text-white hover:bg-zinc-800 dark:hover:bg-zinc-700 transition"
           disabled={loading}
         >
           {loading ? 'Updating...' : 'Update Profile'}
@@ -190,7 +190,7 @@ const Alert = ({
 };
 
 const ProfileAvatar = ({ name }: { name: string }) => (
-  <div className="relative w-40 h-40 mx-auto rounded-full overflow-hidden border-2 border-zinc-600 flex items-center justify-center">
+  <div className="relative w-40 h-40 rounded-full overflow-hidden border border-zinc-300 dark:border-zinc-700 flex items-center justify-center">
     <AnimatedBackground />
     <span className="absolute text-4xl font-bold text-zinc-900 dark:text-zinc-100 z-10">
       {name ? name.charAt(0).toUpperCase() : '?'}
