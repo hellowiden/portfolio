@@ -6,8 +6,8 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-zinc-50/70 dark:bg-zinc-900/70 transition">
-      <div className="max-w-screen-xl p-6 mx-auto py-10 px-6 sm:px-8 grid grid-cols-1 md:grid-cols-2 gap-10 text-start">
-        <div>
+      <div className="max-w-screen-xl p-6 mx-auto py-10 px-6 sm:px-8 grid gap-4 grid-cols-1 md:grid-cols-2  text-start">
+        <div className="grid gap-2">
           <h4 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
             Portfolio Techstack
           </h4>
@@ -16,7 +16,7 @@ export default function Footer() {
             Motion, hosted on Vercel.
           </p>
         </div>
-        <div>
+        <div className="grid gap-2">
           <h4 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
             Docs
           </h4>
@@ -32,7 +32,7 @@ export default function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t py-2 border-zinc-200 dark:border-zinc-800 mt-10 py-4 text-center text-sm text-zinc-700 dark:text-zinc-300">
+      <div className="border-t border-zinc-200 dark:border-zinc-800 mt-10 py-4 text-center text-sm text-zinc-700 dark:text-zinc-300">
         &copy; {new Date().getFullYear()} Marcus Widén — Personal Portfolio. All
         rights reserved.
       </div>
