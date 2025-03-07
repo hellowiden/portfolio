@@ -190,9 +190,9 @@ const Alert = ({
 };
 
 const ProfileAvatar = ({ name }: { name: string }) => (
-  <div className="relative w-40 h-40 rounded-full overflow-hidden border border-zinc-300 dark:border-zinc-700 flex items-center justify-center">
+  <div className="relative w-20 h-20 rounded-full overflow-hidden border border-zinc-300 dark:border-zinc-700 flex items-center justify-center">
     <AnimatedBackground />
-    <span className="absolute text-4xl font-bold text-zinc-900 dark:text-zinc-100 z-10">
+    <span className="absolute text-2xl font-bold text-zinc-900 dark:text-zinc-100 z-10">
       {name ? name.charAt(0).toUpperCase() : '?'}
     </span>
   </div>
