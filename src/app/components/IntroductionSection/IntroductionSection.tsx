@@ -23,7 +23,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className=" w-full grid place-items-center text-zinc-900 dark:text-zinc-50"
+      className=" w-full py-6 grid place-items-center text-zinc-900 dark:text-zinc-50"
     >
       <div className="w-full grid gap-4 bg-white dark:bg-zinc-900 p-6 rounded border dark:border-dark text-center">
         <div className="grid place-items-center" aria-label="Profile Picture">

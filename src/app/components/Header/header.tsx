@@ -1,4 +1,3 @@
-// src/app/components/Header/Header.tsx
 'use client';
 
 import { signIn, signOut, useSession } from 'next-auth/react';
@@ -33,7 +32,8 @@ export default function Header() {
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    whileHover={{ scale: 1.2, rotate: 10 }}
+                    transition={{ duration: 0.2 }}
                   >
                     <FiGrid className="text-lg" />
                   </motion.div>
@@ -48,7 +48,8 @@ export default function Header() {
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.3 }}
+                  whileHover={{ scale: 1.2, rotate: 10 }}
+                  transition={{ duration: 0.2 }}
                 >
                   <FiUser className="text-lg" />
                 </motion.div>
@@ -70,7 +71,8 @@ export default function Header() {
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
-              transition={{ duration: 0.3 }}
+              whileHover={{ scale: 1.2, rotate: 10 }}
+              transition={{ duration: 0.2 }}
             >
               {isAuthenticated ? (
                 <FiLogOut className="text-lg" />
