@@ -80,7 +80,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="bg-50 dark:bg-zinc-900 text-900 dark:text-50 p-8 rounded-lg grid gap-4">
+    <div className="bg-50 dark:bg-zinc-900 text-900 dark:text-50 p-8 rounded grid gap-4">
       <div className="grid grid-cols-[min-content_1fr] items-center gap-2">
         <ProfileAvatar name={formData.name} />
         <h2 className="grid grid-cols-[min-content_1fr] text-2xl font-bold items-center gap-2">
@@ -115,7 +115,7 @@ export default function Profile() {
             name="name"
             value={formData.name}
             onChange={handleChange}
-            className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
+            className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
           />
         </div>
         <div className="grid gap-2">
@@ -127,7 +127,7 @@ export default function Profile() {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
+            className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
           />
         </div>
         <div className="grid gap-2">
@@ -139,13 +139,13 @@ export default function Profile() {
             name="newPassword"
             value={formData.newPassword}
             onChange={handleChange}
-            className="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
+            className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
           />
         </div>
 
         <button
           type="submit"
-          className="w-full py-3 rounded-md bg-green-600 text-white hover:bg-green-500 transition"
+          className="w-full py-3 rounded bg-green-600 text-white hover:bg-green-500 transition"
           disabled={loading}
         >
           {loading ? 'Updating...' : 'Update Profile'}
@@ -156,7 +156,7 @@ export default function Profile() {
 
       <button
         onClick={handleDeleteAccount}
-        className="w-full py-3 rounded-md bg-red-600 text-white hover:bg-red-500 transition"
+        className="w-full py-3 rounded bg-red-600 text-white hover:bg-red-500 transition"
         disabled={loading}
       >
         {loading ? 'Processing...' : 'Remove Account'}

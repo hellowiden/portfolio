@@ -45,13 +45,13 @@ export default function IntroductionSection() {
         <div className="grid grid-cols-2 gap-4">
           <button
             onClick={handleContactClick}
-            className="px-4 py-2 bg-zinc-700 dark:bg-green-600 text-white rounded-lg transition hover:bg-zinc-800 dark:hover:bg-green-700"
+            className="px-4 py-2 bg-zinc-700 dark:bg-green-600 text-white rounded transition hover:bg-zinc-800 dark:hover:bg-green-700"
           >
             Contact
           </button>
           <button
             onClick={handleDownloadClick}
-            className="px-4 py-2 border border-zinc-700 dark:border-green text-zinc-700 dark:text-green-400 rounded-lg transition hover:bg-zinc-700 dark:hover:bg-green-600 hover:text-white dark:hover:text-white"
+            className="px-4 py-2 border border-zinc-700 dark:border-green text-zinc-700 dark:text-green-400 rounded transition hover:bg-zinc-700 dark:hover:bg-green-600 hover:text-white dark:hover:text-white"
           >
             Download Resume
           </button>

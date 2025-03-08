@@ -112,7 +112,7 @@ export default function Dashboard() {
         className="p-2 border rounded w-full border-zinc-300 bg-zinc-100 text-zinc-900"
       />
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-zinc-50 border rounded-sm border-zinc-300">
+        <table className="min-w-full bg-zinc-50 border rounded border-zinc-300">
           <thead>
             <tr className="bg-zinc-200 border-b">
               <th className="px-4 py-2 text-left border border-zinc-300">
