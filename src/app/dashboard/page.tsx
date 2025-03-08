@@ -32,27 +32,29 @@ export default function Dashboard() {
   );
 
   useEffect(() => {
-    if (status === 'unauthenticated') router.push('/login');
-    if (status === 'authenticated' && !isAdmin) router.push('/');
+    if (status === 'unauthenticated') {
+      router.push('/login');
+    } else if (status === 'authenticated' && !isAdmin) {
+      router.push('/');
+    }
   }, [status, isAdmin, router]);
 
-  useEffect(() => {
+  const fetchUsers = useCallback(async () => {
     if (!isAdmin) return;
+    try {
+      const response = await fetch('/api/users');
+      if (!response.ok) throw new Error('Failed to fetch users');
 
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('/api/users');
-        if (!response.ok) throw new Error('Failed to fetch users');
-
-        const data = await response.json();
-        setUsers(data.users);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchUsers();
+      const { users } = await response.json();
+      setUsers(users);
+    } catch (error) {
+      console.error(error);
+    }
   }, [isAdmin]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
 
   const filteredUsers = useMemo(() => {
     const query = searchQuery.toLowerCase();
@@ -110,22 +112,19 @@ export default function Dashboard() {
         onChange={(e) => setSearchQuery(e.target.value)}
         className="p-2 border rounded w-full border-zinc-300 bg-zinc-100 text-zinc-900"
       />
+
       <div className="overflow-x-auto">
         <table className="min-w-full bg-zinc-50 border rounded border-zinc-300">
           <thead>
             <tr className="bg-zinc-200 border-b">
-              <th className="px-4 py-2 text-left border border-zinc-300">
-                Name
-              </th>
-              <th className="px-4 py-2 text-left border border-zinc-300">
-                Email
-              </th>
-              <th className="px-4 py-2 text-left border border-zinc-300">
-                Role
-              </th>
-              <th className="px-4 py-2 text-left border border-zinc-300">
-                Actions
-              </th>
+              {['Name', 'Email', 'Role', 'Actions'].map((header) => (
+                <th
+                  key={header}
+                  className="px-4 py-2 text-left border border-zinc-300"
+                >
+                  {header}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody>
