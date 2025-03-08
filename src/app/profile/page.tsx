@@ -151,7 +151,6 @@ export default function Profile() {
   );
 }
 
-// Optimized Profile Avatar (Memoized for Performance)
 const ProfileAvatar = memo(({ name }: { name: string }) => (
   <div className="relative w-24 h-24 rounded-full overflow-hidden border border-gray-300 dark:border-gray-700 flex items-center justify-center">
     <AnimatedBackground />
@@ -162,7 +161,6 @@ const ProfileAvatar = memo(({ name }: { name: string }) => (
 ));
 ProfileAvatar.displayName = 'ProfileAvatar';
 
-// Reusable Form Input Component
 const FormInput = ({
   label,
   type,
