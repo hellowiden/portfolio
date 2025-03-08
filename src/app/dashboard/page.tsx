@@ -103,7 +103,6 @@ export default function Dashboard() {
     <div className="p-4 grid gap-4">
       <h1 className="text-2xl font-bold text-zinc-900">Admin Dashboard</h1>
 
-      <h2 className="text-xl font-semibold text-zinc-800">All Users</h2>
       <input
         type="text"
         placeholder="Search by name, email, or role"
@@ -132,25 +131,25 @@ export default function Dashboard() {
           <tbody>
             {filteredUsers.map((user) => (
               <tr key={user._id} className="border-b border-zinc-300">
-                <td className="px-4 py-2 border border-zinc-300 text-zinc-900">
+                <td className="p-2 border border-zinc-300 text-zinc-900">
                   {user.name}
                 </td>
-                <td className="px-4 py-2 border border-zinc-300 text-zinc-900">
+                <td className="p-2 border border-zinc-300 text-zinc-900">
                   {user.email}
                 </td>
-                <td className="px-4 py-2 border border-zinc-300 text-zinc-900">
+                <td className="p-2 border border-zinc-300 text-zinc-900">
                   {user.roles.join(', ')}
                 </td>
-                <td className="px-4 py-2 border border-zinc-300">
+                <td className="p-2 border border-zinc-300">
                   <div className="grid grid-cols-2 gap-2">
                     <button
-                      className="px-3 py-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white"
+                      className="p-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white"
                       onClick={() => handleEdit(user)}
                     >
                       Edit
                     </button>
                     <button
-                      className="px-3 py-2 text-sm border border-zinc-700 bg-zinc-800 text-zinc-300 rounded transition hover:bg-zinc-100 hover:text-black"
+                      className="p-2 text-sm border border-zinc-700 bg-zinc-800 text-zinc-300 rounded transition hover:bg-zinc-100 hover:text-black"
                       onClick={() => handleDelete(user._id)}
                     >
                       Remove
