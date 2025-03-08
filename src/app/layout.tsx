@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.className} !scroll-smooth grid min-h-screen grid-rows-[auto_1fr_auto] gap-4 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100`}
+        className={`${spaceGrotesk.className} !scroll-smooth grid min-h-screen grid-rows-[auto_1fr_auto] gap-8 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100`}
       >
         <ThemeContextProvider>
           <AuthProvider>
