@@ -6,10 +6,14 @@ export default function ClientBanner() {
   return (
     <section
       id="clients"
-      className="w-full items-center border rounded text-center py-4 border-light dark:border-50 dark:bg-50 relative"
+      className="w-full grid place-items-center border rounded text-center py-4 border-light dark:border-50 dark:bg-50 relative"
     >
-      <div className="w-full overflow-hidden">
-        <Marquee gradient={false} speed={50}>
+      <div className="w-full grid">
+        <Marquee
+          gradient={false}
+          speed={50}
+          className="grid grid-flow-col auto-cols-max"
+        >
           {clientsData.map(({ name, url }, index) => (
             <motion.a
               key={index}
