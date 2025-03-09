@@ -47,7 +47,7 @@ export default function IntroductionSection() {
           <Link
             href="/resume.pdf"
             download
-            className="px-2 border border-dark dark:border-light border-bg rounded-full transition-opacity opacity-55 hover:opacity-100"
+            className="py-1 px-2 border border-dark dark:border-light border-bg rounded-full transition-opacity opacity-55 hover:opacity-100"
           >
             Download Resume
           </Link>
