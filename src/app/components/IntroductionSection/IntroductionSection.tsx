@@ -48,18 +48,17 @@ export default function IntroductionSection() {
           <h1 className="text-xl font-medium">Marcus Widén</h1>
         </div>
 
-        {/* Row 2, Column 2 */}
         <div className="flex items-center gap-4 text-sm">
           <Link
             href="#contact"
-            className="py-1 px-2 border border-dark dark:border-light border-bg rounded transition-opacity opacity-55 hover:opacity-100 text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300"
+            className="flex items-center gap-2 p-2 text-sm border dark:border-dark bg-green text-white rounded hover:bg-green-700 dark:hover:bg-green-800 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
           >
             Contact
           </Link>
           <Link
             href="/resume.pdf"
             download
-            className="py-1 px-2 border border-dark dark:border-light border-bg rounded transition-opacity opacity-55 hover:opacity-100 text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300"
+            className="flex items-center gap-2 p-2 text-sm border dark:border-dark bg-green text-white rounded hover:bg-green-700 dark:hover:bg-green-800 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
           >
             Download Resume
           </Link>
