@@ -33,7 +33,7 @@ export default function RootLayout({
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            <main className=" grid items-start gap-6 backdrop-blur-md">
+            <main className=" grid items-start backdrop-blur-md">
               {children}
             </main>
             <Footer />
