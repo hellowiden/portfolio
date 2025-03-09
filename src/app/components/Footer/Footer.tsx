@@ -7,7 +7,7 @@ export default function Footer() {
   const currentYear = useMemo(() => new Date().getFullYear(), []);
 
   return (
-    <footer className="w-full container mx-auto border-t border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-black/70 transition">
+    <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-black/70 transition">
       <div className="max-w-screen-xl mx-auto px-6 sm:px-8 py-10 grid gap-6 grid-cols-1 md:grid-cols-2">
         <div>
           <h4 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
