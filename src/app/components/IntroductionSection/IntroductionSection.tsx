@@ -15,12 +15,12 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] flex flex-col justify-end bg-cover bg-center rounded overflow-hidden"
+      className="w-full h-[500px] grid place-items-end bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: "url('/shake.jpg')" }}
     >
-      <div className="grid gap-6 bg-black bg-opacity-50 backdrop-blur-md p-6">
-        <div className="text-white w-full max-w-3xl flex flex-col gap-4">
-          <div className="flex items-center gap-4">
+      <div className="w-full grid gap-6 bg-black bg-opacity-70 backdrop-blur-md p-6">
+        <div className="grid gap-4 text-white w-full max-w-3xl">
+          <div className="grid grid-cols-[auto_1fr] items-center gap-4">
             <Image
               src="/MW.png"
               alt="Marcus Widén"
@@ -28,28 +28,28 @@ export default function IntroductionSection() {
               height={100}
               className="rounded-full border"
             />
-            <div>
+            <div className="grid gap-1">
               <h1 className="text-3xl font-bold">Marcus Widén</h1>
-              <span className="inline-block text-sm bg-gray-800/70 px-3 py-1 rounded-md opacity-80">
+              <span className="text-sm bg-gray-800/70 px-3 py-1 rounded-md opacity-80">
                 Brand Developer
               </span>
             </div>
           </div>
-          <p className="text-lg opacity-80">
+          <p className="opacity-80">
             I’m passionate about helping businesses thrive through strategic
             planning, user-focused design, and creative problem-solving. Let’s
             work together to turn your ideas into impactful solutions.
           </p>
-          <div className="w-full max-w-3xl flex gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <button
               onClick={handleContactClick}
-              className="flex-1 px-4 py-2 bg-white text-zinc-700 border rounded-md transition hover:bg-zinc-700 hover:text-white"
+              className="w-full transition hover:text-white"
             >
               Contact
             </button>
             <button
               onClick={handleDownloadClick}
-              className="flex-1 px-4 py-2 bg-white text-zinc-700 border rounded-md transition hover:bg-zinc-700 hover:text-white"
+              className="w-full transition hover:text-white"
             >
               Download Resume
             </button>
