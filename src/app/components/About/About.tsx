@@ -21,7 +21,7 @@ export default function About() {
           className="grid gap-4"
         >
           <h1 className="text-3xl font-medium text-zinc-900 dark:text-zinc-50">
-            The principles that define me and my work
+            About me
           </h1>
           <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
             Marcus Widén is not just in branding—he creates meaning. With over
