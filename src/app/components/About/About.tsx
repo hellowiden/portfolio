@@ -4,7 +4,10 @@ import { motion } from 'framer-motion';
 
 export default function About() {
   return (
-    <div id="about" className="w-full grid place-items-center">
+    <div
+      id="about"
+      className="w-full container mx-auto grid place-items-center"
+    >
       <motion.section
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
