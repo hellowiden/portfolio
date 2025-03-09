@@ -99,7 +99,7 @@ export default function EditUserModal({
 
   return (
     <div className="fixed backdrop-blur-sm p-6 inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white dark:bg-zinc-900 p-6 rounded  w-full grid gap-4 border border-zinc-300 dark:border-zinc-700">
+      <div className="bg-white dark:bg-zinc-900 p-6 rounded  max-w-xxl grid gap-4 border border-zinc-300 dark:border-zinc-700">
         <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
           Edit User
         </h2>
