@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function IntroductionSection() {
   return (
@@ -9,7 +10,7 @@ export default function IntroductionSection() {
       className="w-full h-[500px] grid place-items-end bg-cover bg-center overflow-hidden"
       style={{ backgroundImage: "url('/shake.jpg')" }}
     >
-      <div className="w-full grid grid-cols-2 grid-rows-2 gap-2 bg-zinc-800 bg-opacity-75 backdrop-blur-sm p-6 text-white">
+      <div className="w-full grid grid-cols-[1fr, min-contact] grid-rows-2 gap-2 bg-zinc-800 bg-opacity-75 backdrop-blur-md p-6 text-white">
         {/* Row 1: Spanning Both Columns */}
         <div className="col-span-2">
           <h1 className="text-3xl">Brand and Fullstack Developer</h1>
@@ -33,20 +34,20 @@ export default function IntroductionSection() {
         </div>
 
         {/* Row 2, Column 2 */}
-        <div className="grid grid-cols-[min-content,auto] items-start justify-end gap-4">
-          <a
+        <div className="grid grid-cols-2 items-center text-center gap-4">
+          <Link
             href="#contact"
-            className="transition text-sm opacity-55 hover:opacity-100 text-white"
+            className="grid items-center p-1 border rounded-full transition text-sm opacity-55 hover:opacity-100 text-white"
           >
             Contact
-          </a>
-          <a
+          </Link>
+          <Link
             href="/resume.pdf"
             download
-            className="transition text-sm opacity-55 hover:opacity-100 text-white"
+            className="grid items-center p-1 border rounded-full transition text-sm opacity-55 hover:opacity-100 text-white"
           >
             Download Resume
-          </a>
+          </Link>
         </div>
       </div>
     </section>
