@@ -1,15 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useState, useCallback } from 'react';
+import { useCallback } from 'react';
 
 export default function IntroductionSection() {
-  const [isVisible, setIsVisible] = useState(true);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
-
   const handleContactClick = useCallback(() => {
     console.log('Contact button clicked');
   }, []);
@@ -18,40 +12,48 @@ export default function IntroductionSection() {
     console.log('Download Resume button clicked');
   }, []);
 
-  if (!isVisible) return null;
-
   return (
-    <section id="home" className=" w-full grid place-items-center ">
-      <div className="w-full grid gap-4 bg-white dark:bg-zinc-900 p-6 rounded border dark:border-dark text-center">
-        <div className="grid place-items-center" aria-label="Profile Picture">
-          <Image
-            src="/MW.png"
-            alt="Marcus Widén"
-            width={160}
-            height={160}
-            className="rounded border border-zinc-300 dark:border-zinc-700"
-          />
-        </div>
-        <h1 className="text-4xl font-bold">Marcus Widén</h1>
-        <p className="text-md tracking-wide font-normal leading-relaxed text-zinc-700 dark:text-zinc-300">
-          Hi, I’m Marcus Widén. I’m passionate about helping businesses thrive
-          through strategic planning, user-focused design, and creative
-          problem-solving. Let’s work together to turn your ideas into impactful
-          solutions.
-        </p>
-        <div className="grid grid-cols-2 gap-4">
-          <button
-            onClick={handleContactClick}
-            className="px-4 py-2 border dark:border-dark dark:border-green text-zinc-700 dark:text-green-400 rounded transition hover:bg-zinc-700 dark:hover:bg-green-600 hover:text-white dark:hover:text-white"
-          >
-            Contact
-          </button>
-          <button
-            onClick={handleDownloadClick}
-            className="px-4 py-2 border dark:border-dark dark:border-green text-zinc-700 dark:text-green-400 rounded transition hover:bg-zinc-700 dark:hover:bg-green-600 hover:text-white dark:hover:text-white"
-          >
-            Download Resume
-          </button>
+    <section
+      id="home"
+      className="w-full h-[500px] flex flex-col justify-end bg-cover bg-center rounded overflow-hidden"
+      style={{ backgroundImage: "url('/shake.jpg')" }}
+    >
+      <div className="grid gap-6 bg-black bg-opacity-50 backdrop-blur-md p-6">
+        <div className="text-white w-full max-w-3xl flex flex-col gap-4">
+          <div className="flex items-center gap-4">
+            <Image
+              src="/MW.png"
+              alt="Marcus Widén"
+              width={100}
+              height={100}
+              className="rounded-full border"
+            />
+            <div>
+              <h1 className="text-3xl font-bold">Marcus Widén</h1>
+              <span className="inline-block text-sm bg-gray-800/70 px-3 py-1 rounded-md opacity-80">
+                Brand Developer
+              </span>
+            </div>
+          </div>
+          <p className="text-lg opacity-80">
+            I’m passionate about helping businesses thrive through strategic
+            planning, user-focused design, and creative problem-solving. Let’s
+            work together to turn your ideas into impactful solutions.
+          </p>
+          <div className="w-full max-w-3xl flex gap-4">
+            <button
+              onClick={handleContactClick}
+              className="flex-1 px-4 py-2 bg-white text-zinc-700 border rounded-md transition hover:bg-zinc-700 hover:text-white"
+            >
+              Contact
+            </button>
+            <button
+              onClick={handleDownloadClick}
+              className="flex-1 px-4 py-2 bg-white text-zinc-700 border rounded-md transition hover:bg-zinc-700 hover:text-white"
+            >
+              Download Resume
+            </button>
+          </div>
         </div>
       </div>
     </section>
