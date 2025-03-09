@@ -98,43 +98,49 @@ export default function EditUserModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center">
-      <div className="bg-zinc-50 p-6 rounded shadow-md w-96 grid gap-4 border border-zinc-300">
-        <h2 className="text-xl font-bold text-zinc-900">Edit User</h2>
+    <div className="fixed backdrop-blur-sm p-6 inset-0 bg-zinc-900 bg-opacity-50 flex items-center justify-center">
+      <div className="bg-white dark:bg-zinc-900 p-6 rounded  w-full grid gap-4 border border-zinc-300 dark:border-zinc-700">
+        <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
+          Edit User
+        </h2>
         {formData.error && (
-          <p className="text-red-600 bg-red-100 p-2 rounded">
+          <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded">
             {formData.error}
           </p>
         )}
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2">
-            <label className="text-sm font-semibold text-zinc-800">Name</label>
+            <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
+              Name
+            </label>
             <input
               type="text"
               name="name"
-              className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+              className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
               value={formData.name}
               onChange={handleChange}
             />
           </div>
           <div className="grid gap-2">
-            <label className="text-sm font-semibold text-zinc-800">Email</label>
+            <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
+              Email
+            </label>
             <input
               type="email"
               name="email"
-              className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+              className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
               value={formData.email}
               onChange={handleChange}
             />
           </div>
           <div className="grid gap-2">
-            <label className="text-sm font-semibold text-zinc-800">
+            <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
               Roles (comma-separated)
             </label>
             <input
               type="text"
               name="roles"
-              className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+              className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
               value={formData.roles.join(', ')}
               onChange={handleChange}
             />
@@ -142,7 +148,7 @@ export default function EditUserModal({
           <div className="grid grid-cols-2 gap-2">
             <button
               type="button"
-              className="px-3 py-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white"
+              className="px-3 py-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white dark:text-white dark:border-zinc-600 dark:hover:bg-zinc-600"
               onClick={onClose}
               disabled={formData.loading}
             >
@@ -150,7 +156,7 @@ export default function EditUserModal({
             </button>
             <button
               type="submit"
-              className="px-3 py-2 text-sm border border-zinc-700 bg-zinc-800 text-zinc-300 rounded transition hover:bg-zinc-100 hover:text-black"
+              className="px-3 py-2 text-sm border border-zinc-700 bg-zinc-800 text-zinc-300 rounded transition hover:bg-zinc-100 hover:text-black dark:bg-zinc-600 dark:text-white dark:hover:bg-green-500"
               disabled={formData.loading}
             >
               {formData.loading ? 'Saving...' : 'Save'}

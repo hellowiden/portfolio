@@ -1,4 +1,3 @@
-//src/app/dashboard/page.tsx
 'use client';
 
 import { useSession } from 'next-auth/react';
@@ -102,25 +101,25 @@ export default function Dashboard() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="p-4 grid gap-4">
-      <h1 className="text-2xl font-bold text-zinc-900">Admin Dashboard</h1>
+    <div className="p-4 grid gap-4 bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
+      <h1 className="text-2xl font-bold">Admin Dashboard</h1>
 
       <input
         type="text"
         placeholder="Search by name, email, or role"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="p-2 border rounded w-full border-zinc-300 bg-zinc-100 text-zinc-900"
+        className="p-2 border rounded w-full border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
       />
 
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-zinc-50 border rounded border-zinc-300">
+        <table className="min-w-full border border-zinc-300 bg-white dark:bg-zinc-800 dark:border-zinc-700">
           <thead>
-            <tr className="bg-zinc-200 border-b">
+            <tr className="bg-zinc-200 dark:bg-zinc-700 border-b dark:border-zinc-600">
               {['Name', 'Email', 'Role', 'Actions'].map((header) => (
                 <th
                   key={header}
-                  className="px-4 py-2 text-left border border-zinc-300"
+                  className="px-4 py-2 text-left border border-zinc-300 dark:border-zinc-600"
                 >
                   {header}
                 </th>
@@ -129,26 +128,29 @@ export default function Dashboard() {
           </thead>
           <tbody>
             {filteredUsers.map((user) => (
-              <tr key={user._id} className="border-b border-zinc-300">
-                <td className="p-2 border border-zinc-300 text-zinc-900">
+              <tr
+                key={user._id}
+                className="border-b border-zinc-300 dark:border-zinc-700"
+              >
+                <td className="p-2 border border-zinc-300 text-zinc-900 dark:border-zinc-700 dark:text-white">
                   {user.name}
                 </td>
-                <td className="p-2 border border-zinc-300 text-zinc-900">
+                <td className="p-2 border border-zinc-300 text-zinc-900 dark:border-zinc-700 dark:text-white">
                   {user.email}
                 </td>
-                <td className="p-2 border border-zinc-300 text-zinc-900">
+                <td className="p-2 border border-zinc-300 text-zinc-900 dark:border-zinc-700 dark:text-white">
                   {user.roles.join(', ')}
                 </td>
-                <td className="p-2 border border-zinc-300">
+                <td className="p-2 border border-zinc-300 dark:border-zinc-700">
                   <div className="grid grid-cols-2 gap-2">
                     <button
-                      className="p-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white"
+                      className="p-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white dark:text-white dark:border-zinc-600 dark:hover:bg-zinc-600"
                       onClick={() => handleEdit(user)}
                     >
                       Edit
                     </button>
                     <button
-                      className="p-2 text-sm border border-zinc-700 bg-zinc-800 text-zinc-300 rounded transition hover:bg-zinc-100 hover:text-black"
+                      className="p-2 text-sm border border-zinc-700 bg-zinc-800 text-zinc-300 rounded transition hover:bg-zinc-100 hover:text-black dark:bg-zinc-600 dark:text-white dark:hover:bg-red-500"
                       onClick={() => handleDelete(user._id)}
                     >
                       Remove
