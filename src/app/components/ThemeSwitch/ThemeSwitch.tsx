@@ -17,7 +17,7 @@ export default function ThemeSwitch() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
-      className={`flex items-center gap-2 p-2 text-sm border border-zinc-700 rounded transition 
+      className={`flex items-center gap-2 p-2 text-sm border dark:border-dark rounded transition 
         text-black dark:text-white hover:text-opacity-80  dark:hover:text-opacity-80`}
     >
       <motion.div
