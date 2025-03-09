@@ -40,14 +40,14 @@ export default function IntroductionSection() {
         <div className="flex items-center gap-4 text-sm">
           <Link
             href="#contact"
-            className="py-1 px-2 border dark:border-dark border-bg rounded-full transition-opacity opacity-55 hover:opacity-100"
+            className="py-1 px-2 border border-dark dark:border-light border-bg rounded-full transition-opacity opacity-55 hover:opacity-100"
           >
             Contact
           </Link>
           <Link
             href="/resume.pdf"
             download
-            className="py-1 px-2 border dark:border-dark border-bg rounded-full transition-opacity opacity-55 hover:opacity-100"
+            className="px-2 border border-dark dark:border-light border-bg rounded-full transition-opacity opacity-55 hover:opacity-100"
           >
             Download Resume
           </Link>
