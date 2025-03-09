@@ -1,13 +1,15 @@
-// src/app/components/Footer/Footer.tsx
 'use client';
 
 import Link from 'next/link';
+import { useMemo } from 'react';
 
 export default function Footer() {
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
+
   return (
     <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-black/70 transition">
-      <div className="max-w-screen-xl p-6 mx-auto py-10 px-6 sm:px-8 grid gap-4 grid-cols-1 md:grid-cols-2  text-start">
-        <div className="grid gap-2">
+      <div className="max-w-screen-xl mx-auto px-6 sm:px-8 py-10 grid gap-6 grid-cols-1 md:grid-cols-2">
+        <div>
           <h4 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
             Portfolio Techstack
           </h4>
@@ -16,25 +18,22 @@ export default function Footer() {
             Motion, hosted on Vercel.
           </p>
         </div>
-        <div className="grid gap-2">
+        <div>
           <h4 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
             Docs
           </h4>
-          <ul className="space-y-2">
-            <li>
-              <Link
-                href="/legal"
-                className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition"
-              >
-                Legal
-              </Link>
-            </li>
-          </ul>
+          <Link
+            href="/legal"
+            prefetch={false}
+            className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition"
+          >
+            Legal
+          </Link>
         </div>
       </div>
       <div className="border-t border-zinc-200 dark:border-zinc-800 mt-10 p-4 text-center text-sm text-zinc-700 dark:text-zinc-300">
-        &copy; {new Date().getFullYear()} Marcus Widén — Personal Portfolio. All
-        rights reserved.
+        &copy; {currentYear} Marcus Widén — Personal Portfolio. All rights
+        reserved.
       </div>
     </footer>
   );
