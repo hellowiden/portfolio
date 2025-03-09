@@ -39,7 +39,8 @@ const tailwindConfig = {
       borderColor: {
         light: '#E4E4E74D',
         dark: '#18181B4D',
-        green: '#16A34A4D',
+        green: '#42D08B',
+        red: '#D95254',
       },
     },
   },

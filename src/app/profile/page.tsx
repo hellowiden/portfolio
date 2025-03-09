@@ -14,7 +14,6 @@ export default function Profile() {
     roles: [] as string[],
   });
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState('Profile');
 
   useEffect(() => {
     if (session?.user) {
@@ -90,22 +89,6 @@ export default function Profile() {
         </h2>
       </div>
 
-      <nav className="border-b border-gray-300 dark:border-gray-700">
-        {['Information'].map((tab) => (
-          <button
-            key={tab}
-            className={`px-4 py-2 ${
-              activeTab === tab
-                ? 'border-b-2 border-black dark:border-white font-semibold'
-                : 'text-gray-500 dark:text-gray-400'
-            }`}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab}
-          </button>
-        ))}
-      </nav>
-
       <form onSubmit={handleUpdate} className="grid gap-4">
         <FormInput
           label="Name"
@@ -131,7 +114,7 @@ export default function Profile() {
 
         <button
           type="submit"
-          className="w-full py-3 rounded bg-green-600 text-white hover:bg-green-500 transition disabled:opacity-50"
+          className="w-full py-3 rounded bg-green text-white hover:bg-green-500 transition disabled:opacity-50"
           disabled={loading}
         >
           {loading ? 'Updating...' : 'Update Profile'}
