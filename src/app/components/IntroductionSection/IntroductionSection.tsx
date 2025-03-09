@@ -10,10 +10,12 @@ export default function IntroductionSection() {
       className="w-full h-[500px] bg-cover bg-center overflow-hidden flex items-end"
       style={{ backgroundImage: "url('/shake.jpg')" }}
     >
-      <div className="w-full grid grid-cols-[1fr_auto] grid-rows-2 gap-2 bg-zinc-800 bg-opacity-75 backdrop-blur-md p-6 text-white">
+      <div className="w-full grid grid-cols-[1fr_auto] grid-rows-2 gap-2 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         {/* Row 1: Full Width */}
         <div className="col-span-2">
-          <h1 className="text-3xl">Brand and Fullstack Developer</h1>
+          <h1 className="text-3xl font-semibold">
+            Brand and Fullstack Developer
+          </h1>
           <p className="opacity-80 tracking-wide">
             I help businesses thrive through strategic planning, user-focused
             design, and creative problem-solving. Let’s build impactful
@@ -28,10 +30,10 @@ export default function IntroductionSection() {
             alt="Marcus Widén"
             width={40}
             height={40}
-            className="rounded-full border"
+            className="rounded-full border border-zinc-300 dark:border-zinc-700"
             priority
           />
-          <h1 className="text-xl">Marcus Widén</h1>
+          <h1 className="text-xl font-medium">Marcus Widén</h1>
         </div>
 
         {/* Row 2, Column 2 */}
