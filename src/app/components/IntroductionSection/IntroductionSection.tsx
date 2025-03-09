@@ -23,7 +23,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className=" w-full py-8   grid place-items-center text-zinc-900 dark:text-zinc-50"
+      className=" w-full py-8 grid place-items-center text-zinc-900 dark:text-zinc-50"
     >
       <div className="w-full grid gap-4 bg-white dark:bg-zinc-900 p-6 rounded border dark:border-dark text-center">
         <div className="grid place-items-center" aria-label="Profile Picture">
@@ -32,7 +32,7 @@ export default function IntroductionSection() {
             alt="Marcus Widén"
             width={160}
             height={160}
-            className="rounded-full border border-zinc-300 dark:border-zinc-700"
+            className="rounded border border-zinc-300 dark:border-zinc-700"
           />
         </div>
         <h1 className="text-4xl font-bold">Marcus Widén</h1>

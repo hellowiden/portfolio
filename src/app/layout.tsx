@@ -33,7 +33,7 @@ export default function RootLayout({
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            <main className="grid items-start gap-6 px-8 sm:px-8 md:px-12 lg:px-16 xl:px-20 2xl:px-24 border-x border-zinc-200 dark:border-zinc-800 dark:bg-black backdrop-blur-md">
+            <main className="grid items-start gap-6 px-8  border-x border-zinc-200 dark:border-zinc-800 dark:bg-black backdrop-blur-md">
               {children}
             </main>
             <Footer />
