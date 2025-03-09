@@ -1,4 +1,3 @@
-// src/app/login/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -38,16 +37,16 @@ export default function Login() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full h-full">
       {/* Column 1: Login Form */}
-      <div className="flex w-full items-center p-6 justify-center bg-zinc-100">
+      <div className="flex w-full items-center p-6 justify-center bg-zinc-100 dark:bg-zinc-900">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-md p-6 bg-zinc-50 shadow-md rounded-lg grid gap-4 border border-zinc-300"
+          className="w-full max-w-md p-6 bg-white dark:bg-zinc-800 shadow-md rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
         >
-          <h2 className="text-2xl font-bold text-center text-zinc-900">
+          <h2 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
             Login
           </h2>
           {error && (
-            <p className="text-zinc-700 bg-zinc-200 p-2 rounded text-sm">
+            <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm">
               {error}
             </p>
           )}
@@ -56,7 +55,7 @@ export default function Login() {
             name="email"
             placeholder="Email"
             onChange={handleChange}
-            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
             required
           />
           <input
@@ -64,16 +63,16 @@ export default function Login() {
             name="password"
             placeholder="Password"
             onChange={handleChange}
-            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
             required
           />
           <button
             type="submit"
-            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition"
+            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition dark:bg-green-600 dark:hover:bg-green-500"
           >
             Login
           </button>
-          <p className="text-center text-sm text-zinc-800">
+          <p className="text-center text-sm text-zinc-800 dark:text-zinc-300">
             Not an account?{' '}
             <Link
               href="/register"
@@ -86,7 +85,7 @@ export default function Login() {
       </div>
 
       {/* Column 2: AdBar Component (Hidden on Small Screens) */}
-      <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8">
+      <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
         <AdBar />
       </div>
     </div>

@@ -1,4 +1,3 @@
-// src/app/registrer/page.tsx
 'use client';
 
 import { useState } from 'react';
@@ -48,16 +47,16 @@ export default function Register() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-full">
       {/* Column 1: Registration Form */}
-      <div className="flex items-center justify-center bg-zinc-100">
+      <div className="flex items-center justify-center bg-zinc-100 dark:bg-zinc-900">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-md p-6 bg-zinc-50 shadow-md rounded-lg grid gap-4 border border-zinc-300"
+          className="w-full max-w-md p-6 bg-white dark:bg-zinc-800 shadow-md rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
         >
-          <h2 className="text-2xl font-bold text-center text-zinc-900">
+          <h2 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
             Register
           </h2>
           {error && (
-            <p className="text-zinc-700 bg-zinc-200 p-2 rounded text-sm">
+            <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm">
               {error}
             </p>
           )}
@@ -66,7 +65,7 @@ export default function Register() {
             name="name"
             placeholder="Full Name"
             onChange={handleChange}
-            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
             required
           />
           <input
@@ -74,7 +73,7 @@ export default function Register() {
             name="email"
             placeholder="Email"
             onChange={handleChange}
-            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
             required
           />
           <input
@@ -82,7 +81,7 @@ export default function Register() {
             name="password"
             placeholder="Password"
             onChange={handleChange}
-            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900"
+            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
             required
           />
           <div className="grid gap-2">
@@ -92,11 +91,17 @@ export default function Register() {
                 id="agree"
                 checked={agreed}
                 onChange={() => setAgreed(!agreed)}
-                className="mr-2"
+                className="mr-2 accent-green-600 dark:accent-green-500"
               />
-              <label htmlFor="agree" className="text-sm text-zinc-800">
+              <label
+                htmlFor="agree"
+                className="text-sm text-zinc-800 dark:text-zinc-300"
+              >
                 I agree to the{' '}
-                <Link href="/legal" className="text-zinc-600 hover:underline">
+                <Link
+                  href="/legal"
+                  className="text-zinc-600 hover:underline dark:text-green-400 dark:hover:text-green-300"
+                >
                   legal terms
                 </Link>
               </label>
@@ -104,11 +109,11 @@ export default function Register() {
           </div>
           <button
             type="submit"
-            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition"
+            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition dark:bg-green-600 dark:hover:bg-green-500"
           >
             Register
           </button>
-          <p className="text-center text-sm text-zinc-800">
+          <p className="text-center text-sm text-zinc-800 dark:text-zinc-300">
             Already have an account?{' '}
             <Link
               href="/login"
@@ -119,8 +124,9 @@ export default function Register() {
           </p>
         </form>
       </div>
-      {/* Column 2: Gradient Background with Personal Branding Focus (Hidden on Small Screens) */}
-      <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8">
+
+      {/* Column 2: AdBar Component (Hidden on Small Screens) */}
+      <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
         <AdBar />
       </div>
     </div>
