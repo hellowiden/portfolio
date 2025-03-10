@@ -31,9 +31,12 @@ export default function Footer() {
           </Link>
         </div>
       </div>
-      <div className="border-t border-zinc-200 dark:border-zinc-800 mt-10 p-4 text-center text-sm text-zinc-700 dark:text-zinc-300">
-        &copy; {currentYear} Marcus Widén — Personal Portfolio. All rights
-        reserved.
+      <div
+        className="grid gap-4 border-t border-zinc-200 dark:border-zinc-800 p-4 text-sm text-zinc-700 dark:text-zinc-300 w-full sm:px-8  grid-cols-1 md:grid-cols-[1fr_auto] items-end
+      "
+      >
+        <p>&copy; {currentYear} Marcus Widén — Personal Portfolio.</p>
+        <p>All rights reserved.</p>
       </div>
     </footer>
   );
