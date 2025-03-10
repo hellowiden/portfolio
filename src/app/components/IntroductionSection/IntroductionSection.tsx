@@ -7,7 +7,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] border dark:border-light rounded-md container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
+      className="w-full h-[500px] border dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
     >
       {/* Background Video */}
       <video
@@ -65,7 +65,7 @@ export default function IntroductionSection() {
             real results.
             <Link
               href="/about"
-              className="text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition ml-2"
+              className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition ml-2"
             >
               Learn more
             </Link>
