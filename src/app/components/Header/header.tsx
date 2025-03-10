@@ -26,7 +26,7 @@ export default function Header() {
           <>
             {isAdmin && (
               <Link href="/dashboard">
-                <button className="flex items-center gap-2 p-2 text-sm border dark:border-light rounded transition text-black dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80">
+                <button className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 dark:text-white sm:gap-2">
                   <motion.div
                     key="dashboard"
                     initial={{ rotate: -90, opacity: 0 }}
@@ -42,7 +42,7 @@ export default function Header() {
               </Link>
             )}
             <Link href="/profile">
-              <button className="flex items-center gap-2 p-2 text-sm border dark:border-light rounded transition text-black dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80">
+              <button className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2">
                 <motion.div
                   key="profile"
                   initial={{ rotate: -90, opacity: 0 }}
@@ -64,7 +64,7 @@ export default function Header() {
             onClick={() =>
               isAuthenticated ? signOut({ callbackUrl: '/' }) : signIn()
             }
-            className="flex items-center gap-2 p-2 text-sm border dark:border-light rounded transition text-black dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
+            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
           >
             <motion.div
               key="auth"
