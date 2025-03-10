@@ -43,7 +43,7 @@ export default function Login() {
           className="w-full max-w-md p-6 bg-white dark:bg-zinc-800 shadow-md rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
         >
           <h2 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
-            Login
+            Lets get started!
           </h2>
           {error && (
             <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm">
