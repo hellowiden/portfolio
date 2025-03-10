@@ -80,7 +80,7 @@ export default function Profile() {
   };
 
   return (
-    <div className=" p-8 rounded grid gap-4">
+    <div className=" p-8 rounded grid gap-4 bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
       <div className="grid grid-cols-[min-content_1fr] items-center gap-2">
         <ProfileAvatar name={formData.name} />
         <h2 className="text-2xl font-bold flex items-center gap-2">

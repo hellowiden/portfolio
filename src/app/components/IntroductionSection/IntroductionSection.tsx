@@ -63,7 +63,13 @@ export default function IntroductionSection() {
             visible—it must be undeniable. I specialize in strategic branding,
             full-stack development, and market positioning that commands trust
             and influence. My expertise ensures your business stands out,
-            resonates deeply, and drives measurable success.
+            resonates deeply, and drives measurable success...
+            <Link
+              href="/about"
+              className="text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition ml-2"
+            >
+              Here is more about me
+            </Link>
           </p>
         </div>
       </div>

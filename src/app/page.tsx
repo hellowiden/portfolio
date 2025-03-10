@@ -4,7 +4,6 @@
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import About from './components/About/About';
 import ClientsCarousel from './components/ClientsCarousel/ClientsCarousel';
 import IntroductionSection from './components/IntroductionSection/IntroductionSection';
 
@@ -22,9 +21,10 @@ export default function Home() {
 
   return (
     <>
-      <IntroductionSection />
-      <ClientsCarousel />
-      <About />
+      <main className="grid p-6 border-x items-start h-full">
+        <IntroductionSection />
+        <ClientsCarousel />
+      </main>
     </>
   );
 }
