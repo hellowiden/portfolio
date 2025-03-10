@@ -23,7 +23,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="grid gap-4 p-6 border-x dark:border-light items-start h-full bg-zinc-100 dark:bg-zinc-800">
+      <main className="grid p-6 border-x dark:border-light items-center h-full bg-zinc-100 dark:bg-zinc-800">
         <IntroductionSection />
         <ClientsCarousel />
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
