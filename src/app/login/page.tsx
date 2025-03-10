@@ -35,7 +35,7 @@ export default function Login() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 w-full h-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 w-full h-full border-x dark:border-light">
       {/* Column 1: Login Form */}
       <div className="flex w-full items-center p-6 justify-center bg-zinc-100 dark:bg-zinc-800">
         <form

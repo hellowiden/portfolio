@@ -45,7 +45,7 @@ export default function Register() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 h-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 h-full border-x dark:border-light">
       {/* Column 1: Registration Form */}
       <div className="flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
         <form

@@ -44,7 +44,7 @@ export default function AdBar() {
   }, [rotateMessage]);
 
   return (
-    <div className="grid place-items-center text-white p-6 text-center w-full gap-4">
+    <div className="grid place-items-center  text-white p-6 text-center w-full gap-4">
       <h2 className="text-3xl font-bold" aria-live="polite">
         &ldquo;{messages[index].heading}&rdquo;
       </h2>
