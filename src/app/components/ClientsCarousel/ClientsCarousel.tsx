@@ -6,7 +6,7 @@ export default function ClientBanner() {
   return (
     <section
       id="clients"
-      className="w-full p-6  container mx-auto grid place-items-center rounded text-center  border dark:border-dark dark:bg-50 relative"
+      className="w-full p-6 border dark:border-light container mx-auto grid place-items-center rounded text-center  dark:bg-50 relative"
     >
       <div className="w-full grid">
         <Marquee
