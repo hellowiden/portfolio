@@ -95,7 +95,7 @@ export default function LegalPage() {
         className="grid gap-2"
       >
         <h2 className="text-xl font-semibold dark:text-white">Contents</h2>
-        <ul className="grid gap-1 text-zinc-700 dark:text-zinc-300">
+        <ul className="grid gap-1 text-zinc-700 dark:text-zinc-300 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto gap-2">
           {sections.map(({ id, title }) => (
             <li key={id}>
               <a
@@ -108,6 +108,8 @@ export default function LegalPage() {
           ))}
         </ul>
       </nav>
+
+      <hr />
 
       <main className="grid gap-4">
         {sections.map(({ id, title, content }) => (
