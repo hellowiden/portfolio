@@ -53,22 +53,21 @@ export default function IntroductionSection() {
           </Link>
         </div>
 
-        {/* Row 2, Full Width */}
-        <div className="col-span-2">
-          <h1 className="text-3xl font-semibold">
-            Building Brands, Delivering Impact
-          </h1>
-          <p className="opacity-80 tracking-wide">
-            In a world where attention is power, your brand must be more than
-            visible—it must be undeniable. I specialize in strategic branding,
-            full-stack development, and market positioning that commands trust
-            and influence. My expertise ensures your business stands out,
-            resonates deeply, and drives measurable success...
+        {/* Row 2: Spans both columns on small screens, one column on medium+ screens */}
+        <div className="col-span-2 md:col-span-1">
+          <div className="text-3xl font-bold">
+            Transforming Ideas into Market Leaders
+          </div>
+          <p className="opacity-80 tracking-wide max-w-[600px]">
+            Your brand deserves more than recognition—it needs authority. I
+            craft strategic branding, full-stack solutions, and market
+            positioning that make businesses stand out, earn trust, and drive
+            real results.
             <Link
               href="/about"
               className="text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition ml-2"
             >
-              Here is more about me
+              Learn more
             </Link>
           </p>
         </div>
