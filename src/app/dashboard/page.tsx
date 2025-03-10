@@ -102,8 +102,6 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 grid gap-4 justify-center">
-      <h1 className="text-2xl font-bold">Admin Dashboard</h1>
-
       <input
         type="text"
         placeholder="Search by name, email, or role"
