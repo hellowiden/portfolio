@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 
 const messages = [
   {
@@ -26,53 +26,46 @@ const messages = [
 ];
 
 export default function AdBar() {
-  const [index, setIndex] = useState<number>(0);
-  const [progress, setProgress] = useState<number>(0);
-  const startTimeRef = useRef<number | null>(null);
-  const requestRef = useRef<number | null>(null);
+  const [index, setIndex] = useState(0);
+  const messageIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const rotateMessage = useCallback(() => {
+    setIndex((prevIndex) => (prevIndex + 1) % messages.length);
+  }, []);
 
   useEffect(() => {
-    const messageInterval = setInterval(() => {
-      setIndex((prevIndex) => (prevIndex + 1) % messages.length);
-      setProgress(0);
-      startTimeRef.current = performance.now();
-    }, 60000);
+    if (messageIntervalRef.current) clearInterval(messageIntervalRef.current);
 
-    const animateProgress = (timestamp: number) => {
-      if (startTimeRef.current === null) {
-        startTimeRef.current = timestamp;
-      }
-      const elapsed = timestamp - startTimeRef.current;
-      const percentage = Math.min((elapsed / 60000) * 100, 100);
-      setProgress(percentage);
-      requestRef.current = requestAnimationFrame(animateProgress);
-    };
-
-    requestRef.current = requestAnimationFrame(animateProgress);
+    messageIntervalRef.current = setInterval(rotateMessage, 60000);
 
     return () => {
-      clearInterval(messageInterval);
-      if (requestRef.current !== null) {
-        cancelAnimationFrame(requestRef.current);
-      }
+      if (messageIntervalRef.current) clearInterval(messageIntervalRef.current);
     };
-  }, [index]);
+  }, [rotateMessage]);
 
   return (
     <div className="grid place-items-center text-white p-6 text-center w-full gap-4">
-      <h2 className="text-3xl font-bold">
+      <h2 className="text-3xl font-bold" aria-live="polite">
         &ldquo;{messages[index].heading}&rdquo;
       </h2>
       <p className="text-lg">{messages[index].subtext}</p>
-      <div className="w-full max-w-md h-1 bg-zinc-700 rounded-full overflow-hidden">
-        <div
-          className="w-full h-full bg-white transition-all"
-          style={{
-            width: `${progress}%`,
-            transition: 'width 0.1s linear',
-          }}
-        ></div>
+      <div className="w-full max-w-md h-1 bg-zinc-700 rounded-full overflow-hidden relative">
+        <div className="w-full h-full bg-white progress-bar" />
       </div>
+      <style jsx>{`
+        .progress-bar {
+          animation: progressAnimation 60s linear infinite;
+        }
+
+        @keyframes progressAnimation {
+          from {
+            width: 0%;
+          }
+          to {
+            width: 100%;
+          }
+        }
+      `}</style>
     </div>
   );
 }
