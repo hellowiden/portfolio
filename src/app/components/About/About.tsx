@@ -21,7 +21,7 @@ export default function About() {
           className="grid gap-4"
         >
           <h1 className="text-3xl font-medium text-zinc-900 dark:text-zinc-50">
-            About me
+            Why me over another
           </h1>
           <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
             I don’t just build brands—I shape legacies. With over 12 years of
