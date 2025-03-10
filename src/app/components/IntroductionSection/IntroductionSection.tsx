@@ -22,7 +22,7 @@ export default function IntroductionSection() {
       </video>
 
       {/* Content Overlay */}
-      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[min-content, min-content] gap-4 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[min-content, min-content] gap-4 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-xl p-6 text-zinc-900 dark:text-white">
         {/* Row 1, Column 1 */}
         <div className="flex items-center gap-3">
           <Image
