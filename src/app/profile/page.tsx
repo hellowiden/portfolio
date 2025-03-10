@@ -2,8 +2,6 @@
 
 import { useState, useEffect, ChangeEvent, FormEvent, memo } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import AnimatedBackground from '@/app/components/AnimatedBackground/AnimatedBackground';
-import { FaCheckCircle } from 'react-icons/fa';
 
 export default function Profile() {
   const { data: session, status } = useSession();
@@ -26,9 +24,11 @@ export default function Profile() {
     }
   }, [session]);
 
-  if (status === 'loading') return <p className="text-center">Loading...</p>;
+  if (status === 'loading') return <p className="text-zinc-500">Loading...</p>;
   if (status !== 'authenticated')
-    return <p className="text-center">You need to log in to view this page.</p>;
+    return (
+      <p className="text-red-500">You need to log in to view this page.</p>
+    );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -80,14 +80,16 @@ export default function Profile() {
   };
 
   return (
-    <div className=" p-8 rounded grid gap-4 bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
-      <div className="grid grid-cols-[min-content_1fr] items-center gap-2">
+    <div className="max-w-2xl mx-auto bg-zinc-100 dark:bg-zinc-900 rounded-lg p-6 border border-light dark:border-dark grid gap-4">
+      {/* Row 1, Column 1 */}
+      <div className="flex items-center gap-3">
         <ProfileAvatar name={formData.name} />
-        <h2 className="text-2xl font-bold flex items-center gap-2">
-          <span>{formData.name}</span>
-          <FaCheckCircle className="text-green-500" />
-        </h2>
+        <span className="text-zinc-800 dark:text-zinc-200">
+          {formData.name}
+        </span>
       </div>
+
+      <hr className="border-zinc-300 dark:border-zinc-700" />
 
       <form onSubmit={handleUpdate} className="grid gap-4">
         <FormInput
@@ -114,19 +116,19 @@ export default function Profile() {
 
         <button
           type="submit"
-          className="w-full py-3 rounded bg-green text-white hover:bg-green-500 transition disabled:opacity-50"
           disabled={loading}
+          className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition grid"
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>
 
-      <hr />
+      <hr className="border-zinc-300 dark:border-zinc-700" />
 
       <button
         onClick={handleConfirmDelete}
-        className="w-full py-3 rounded bg-red-600 text-white hover:bg-red-500 transition disabled:opacity-50"
         disabled={loading}
+        className="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition grid"
       >
         {loading ? 'Processing...' : 'Remove Account'}
       </button>
@@ -135,9 +137,8 @@ export default function Profile() {
 }
 
 const ProfileAvatar = memo(({ name }: { name: string }) => (
-  <div className="relative w-24 h-24 rounded-full overflow-hidden border border-gray-300 dark:border-gray-700 flex items-center justify-center">
-    <AnimatedBackground />
-    <span className="absolute text-3xl font-bold text-black dark:text-white z-10">
+  <div className="w-12 h-12 grid place-items-center bg-zinc-300 dark:bg-zinc-700 text-lg font-semibold rounded-xl">
+    <span className="text-zinc-800 dark:text-zinc-200">
       {name ? name.charAt(0).toUpperCase() : '?'}
     </span>
   </div>
@@ -160,7 +161,7 @@ const FormInput = ({
   <div className="grid gap-2">
     <label
       htmlFor={name}
-      className="text-sm font-semibold text-gray-600 dark:text-gray-300"
+      className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
     >
       {label}
     </label>
@@ -171,7 +172,7 @@ const FormInput = ({
       value={value}
       onChange={onChange}
       aria-label={label}
-      className="w-full p-2 border rounded bg-gray-100 dark:bg-gray-800 text-black dark:text-white"
+      className="p-2 border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
     />
   </div>
 );
