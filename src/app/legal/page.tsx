@@ -113,7 +113,14 @@ export default function LegalPage() {
 
       <main className="grid gap-4">
         {sections.map(({ id, title, content }) => (
-          <section key={id} id={id} className="grid gap-2">
+          <section
+            key={id}
+            id={id}
+            className="grid gap-2 grid-rows-2 items-center p-4 text-sm border rounded-xl transition text-black dark:text-white hover:bg-zinc-200 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2
+          
+          
+          "
+          >
             <h2 className="text-2xl font-semibold text-zinc-800 dark:text-white">
               {title}
             </h2>
