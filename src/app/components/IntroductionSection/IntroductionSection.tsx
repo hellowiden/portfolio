@@ -22,17 +22,18 @@ export default function IntroductionSection() {
       </video>
 
       {/* Content Overlay */}
-      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-2 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[min-content, min-content] gap-2 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         {/* Row 1: Full Width */}
         <div className="col-span-2">
           <h1 className="text-3xl font-semibold">
-            Brand and Fullstack Developer
+            Elevating Brands, Engineering Impact
           </h1>
           <p className="opacity-80 tracking-wide">
-            Struggling to achieve impactful results? Through strategic planning,
-            user-focused design, and creative problem-solving, you’ll gain
-            measurable success and sustainable growth. Let’s craft solutions
-            that truly connect with your audience.
+            In a world where attention is power, your brand must be more than
+            visible—it must be undeniable. I specialize in strategic branding,
+            full-stack development, and market positioning that commands trust
+            and influence. My expertise ensures your business stands out,
+            resonates deeply, and drives measurable success.
           </p>
         </div>
 

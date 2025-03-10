@@ -24,35 +24,34 @@ export default function About() {
             About me
           </h1>
           <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
-            I don’t just work in branding—I create meaning. With over 12 years
-            and 500 projects, I’ve seen that a brand’s true value lies in its
-            ability to build deep, lasting connections that drive recognition,
-            loyalty, and action. My work has directly contributed to $7.5
-            billion in revenue growth and organizational value. A global rebrand
-            I led boosted customer retention by 25%, while my marketing
-            campaigns consistently delivered a 20% sales increase.
+            I don’t just build brands—I shape legacies. With over 12 years of
+            experience and 500+ projects, I’ve seen firsthand that a brand’s
+            true power lies in its ability to command attention, build loyalty,
+            and drive decisive action. My work has directly contributed to $7.5
+            billion in revenue growth and enterprise value. A global rebrand I
+            led increased customer retention by 25%, while my marketing
+            strategies consistently delivered a 20% sales boost.
             <br />
             <br />
-            For me, branding is about connection. Successful brands aren’t just
-            about aesthetics—they’re built on a deep understanding of human
-            psychology. My expertise spans marketing strategy, UX/UI design, and
-            rebranding, all grounded in the belief that brand promises must be
-            felt, not just heard.
+            Strong brands don’t follow trends; they set the standard. I
+            specialize in positioning organizations as industry leaders through
+            strategic branding, UX/UI design, and market-defining campaigns. For
+            me, branding is not about aesthetics alone—it’s about influence,
+            perception, and creating an unshakable presence in the minds of
+            customers and competitors alike.
             <br />
             <br />
-            I take a practical, results-driven approach, aligning strategy with
-            creativity. I simplify complexity, help brands articulate and embody
-            their purpose, and turn vision into execution. Clients trust me to
-            find patterns where others see chaos and to transform obstacles into
-            opportunities. Whether guiding startups or Fortune 500 companies, I
-            focus on creating enduring solutions that redefine industries.
+            My approach is both analytical and visionary. I align strategy with
+            execution, turning complexity into clarity and brand potential into
+            tangible results. CEOs, executives, and leadership teams trust me to
+            identify opportunities, simplify challenges, and architect brands
+            that don’t just survive market shifts but dictate them.
             <br />
             <br />
-            Beyond business, I’m fascinated by history, philosophy, and
-            creativity. I see branding as a narrative endeavor—because the best
-            brands aren’t just successful, they matter. My work isn’t just about
-            helping brands grow—it’s about making them meaningful, now and in
-            the future.
+            Beyond the boardroom, I draw inspiration from history, philosophy,
+            and human behavior—because the best brands aren’t just profitable;
+            they endure. My work isn’t just about growth—it’s about making
+            brands indispensable, now and in the future.
           </p>
         </motion.div>
       </motion.section>
