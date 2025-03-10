@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import ClientsCarousel from './components/ClientsCarousel/ClientsCarousel';
 import IntroductionSection from './components/IntroductionSection/IntroductionSection';
 import ProjectOpener from './components/ProjectOpener/ProjectOpener';
+import ExperienceOpener from './components/ExperienceOpener/ExperienceOpener';
 
 export default function Home() {
   const { status } = useSession();
@@ -22,10 +23,13 @@ export default function Home() {
 
   return (
     <>
-      <main className="grid p-6 border-x dark:border-light items-start h-full bg-zinc-100 dark:bg-zinc-800">
+      <main className="grid gap-4 p-6 border-x dark:border-light items-start h-full bg-zinc-100 dark:bg-zinc-800">
         <IntroductionSection />
         <ClientsCarousel />
-        <ProjectOpener />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <ProjectOpener />
+          <ExperienceOpener />
+        </div>
       </main>
     </>
   );

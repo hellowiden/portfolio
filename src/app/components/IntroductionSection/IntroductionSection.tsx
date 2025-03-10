@@ -28,9 +28,9 @@ export default function IntroductionSection() {
           <Image
             src="/MW.png"
             alt="Marcus Widén"
-            width={40}
-            height={40}
-            className="rounded-full border border-zinc-300 dark:border-zinc-700"
+            width={50}
+            height={50}
+            className="rounded-xl border border-zinc-300 dark:border-zinc-700"
             priority
           />
           <h1 className="text-xl font-medium">Marcus Widén</h1>
