@@ -56,7 +56,7 @@ export default function IntroductionSection() {
         {/* Row 2, Full Width */}
         <div className="col-span-2">
           <h1 className="text-3xl font-semibold">
-            Elevating Brands, Engineering Impact
+            Building Brands, Delivering Impact
           </h1>
           <p className="opacity-80 tracking-wide">
             In a world where attention is power, your brand must be more than
