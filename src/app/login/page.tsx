@@ -37,10 +37,10 @@ export default function Login() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 w-full h-full">
       {/* Column 1: Login Form */}
-      <div className="flex w-full items-center p-6 justify-center bg-zinc-100 dark:bg-zinc-900">
+      <div className="flex w-full items-center p-6 justify-center bg-zinc-100 dark:bg-zinc-800">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-md p-6 bg-white dark:bg-zinc-800 shadow-md rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
+          className="w-full max-w-md p-6 bg-white dark:bg-zinc-900 shadow-md rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
         >
           <h2 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
             Lets get started!
