@@ -33,7 +33,7 @@ export default function RootLayout({
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            <main className=" grid items-start container mx-auto backdrop-blur-md">
+            <main className="h-full grid items-start container mx-auto backdrop-blur-md">
               {children}
             </main>
             <Footer />
