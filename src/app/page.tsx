@@ -21,7 +21,7 @@ export default function Home() {
 
   return (
     <>
-      <main className="grid p-6 border-x dark:border-light items-start h-full">
+      <main className="grid p-6 border-x dark:border-light items-start h-full bg-zinc-100 dark:bg-zinc-800">
         <IntroductionSection />
         <ClientsCarousel />
       </main>
