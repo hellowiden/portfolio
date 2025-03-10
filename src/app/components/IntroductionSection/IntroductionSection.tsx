@@ -22,16 +22,17 @@ export default function IntroductionSection() {
       </video>
 
       {/* Content Overlay */}
-      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-2 gap-2 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-2 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         {/* Row 1: Full Width */}
         <div className="col-span-2">
           <h1 className="text-3xl font-semibold">
             Brand and Fullstack Developer
           </h1>
           <p className="opacity-80 tracking-wide">
-            I help businesses thrive through strategic planning, user-focused
-            design, and creative problem-solving. Let’s build impactful
-            solutions together.
+            Struggling to achieve impactful results? Through strategic planning,
+            user-focused design, and creative problem-solving, you’ll gain
+            measurable success and sustainable growth. Let’s craft solutions
+            that truly connect with your audience.
           </p>
         </div>
 
