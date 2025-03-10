@@ -20,8 +20,9 @@ function ExperienceOpener({
       <Image
         src="/shake.jpg"
         alt={title}
-        layout="fill"
-        objectFit="cover"
+        fill={true}
+        sizes="(max-width: 768px) 100vw, 50vw"
+        style={{ objectFit: 'cover' }}
         className="absolute top-0 left-0 w-full h-full object-cover"
         priority
       />

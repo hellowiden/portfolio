@@ -12,8 +12,9 @@ export default function About() {
           <Image
             src="/adventure.jpg"
             alt="Descriptive Alt Text"
-            layout="fill"
-            objectFit="cover"
+            fill={true}
+            sizes="(max-width: 768px) 100vw, 50vw"
+            style={{ objectFit: 'cover' }}
             priority
           />
         </div>
