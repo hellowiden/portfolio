@@ -17,12 +17,12 @@ export default function IntroductionSection() {
         playsInline
         className="absolute top-0 left-0 w-full h-full object-cover"
       >
-        <source src="/shake3.mp4" type="video/mp4" />
+        <source src="/ads.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
       {/* Content Overlay */}
-      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[min-content, min-content] gap-4 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-xl p-6 text-zinc-900 dark:text-white">
+      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[min-content, min-content] gap-4 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         {/* Row 1, Column 1 */}
         <div className="flex items-center gap-3">
           <Image
@@ -40,14 +40,14 @@ export default function IntroductionSection() {
         <div className="flex items-center gap-4 text-sm">
           <Link
             href="#contact"
-            className="flex items-center gap-2 p-2 text-sm border dark:border-dark bg-green text-white rounded hover:bg-green-700 dark:hover:bg-green-800 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
+            className="flex items-center gap-2 text-sm dark:border-dark  text-black/60 rounded hover:text-black dark:text-white/50  dark:hover:text-white transition hover:text-opacity-80 dark:hover:text-opacity-80"
           >
             Work with me
           </Link>
           <Link
             href="/resume.pdf"
             download
-            className="flex items-center gap-2 p-2 text-sm border dark:border-dark bg-green text-white rounded hover:bg-green-700 dark:hover:bg-green-800 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
+            className="flex items-center gap-2 text-sm dark:border-dark  text-black/60 rounded hover:text-black dark:text-white/50  dark:hover:text-white transition hover:text-opacity-80 dark:hover:text-opacity-80"
           >
             Download resume
           </Link>
@@ -58,7 +58,7 @@ export default function IntroductionSection() {
           <div className="text-3xl font-bold">
             Transforming ideas into market leaders
           </div>
-          <p className="opacity-80 tracking-wide max-w-[600px]">
+          <p className="opacity-80 tracking-wide max-w-[900px]">
             Your brand deserves more than recognition—it needs authority. I
             craft strategic branding, full-stack solutions, and market
             positioning that make businesses stand out, earn trust, and drive
