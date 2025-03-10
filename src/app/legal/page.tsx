@@ -89,22 +89,19 @@ const sections = [
 
 export default function LegalPage() {
   return (
-    <div className="grid gap-6 p-6 text-zinc-900 bg-zinc-50">
-      <header className="grid gap-2">
-        <h1 className="text-3xl font-bold" aria-label="Legal Information Page">
-          Legal Information
-        </h1>
-      </header>
-
+    <div className="grid gap-6">
       <nav
         aria-label="Table of Contents for Legal Information"
         className="grid gap-2"
       >
-        <h2 className="text-xl font-semibold">Contents</h2>
-        <ul className="grid gap-1 text-zinc-700">
+        <h2 className="text-xl font-semibold dark:text-white">Contents</h2>
+        <ul className="grid gap-1 text-zinc-700 dark:text-zinc-300">
           {sections.map(({ id, title }) => (
             <li key={id}>
-              <a className="text-zinc-600 hover:text-zinc-800" href={`#${id}`}>
+              <a
+                className="text-zinc-600 hover:text-zinc-800 dark:text-zinc-400 dark:hover:text-zinc-200"
+                href={`#${id}`}
+              >
                 {title}
               </a>
             </li>
@@ -115,8 +112,10 @@ export default function LegalPage() {
       <main className="grid gap-4">
         {sections.map(({ id, title, content }) => (
           <section key={id} id={id} className="grid gap-2">
-            <h2 className="text-2xl font-semibold text-zinc-800">{title}</h2>
-            <p className="text-zinc-700">{content}</p>
+            <h2 className="text-2xl font-semibold text-zinc-800 dark:text-white">
+              {title}
+            </h2>
+            <p className="text-zinc-700 dark:text-zinc-300">{content}</p>
           </section>
         ))}
       </main>
