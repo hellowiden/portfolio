@@ -101,7 +101,7 @@ export default function Dashboard() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="p-4 grid gap-4 bg-white text-zinc-900 dark:bg-zinc-900 dark:text-zinc-100">
+    <div className="p-4 grid gap-4 justify-center">
       <h1 className="text-2xl font-bold">Admin Dashboard</h1>
 
       <input
