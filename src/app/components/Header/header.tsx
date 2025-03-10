@@ -26,7 +26,7 @@ export default function Header() {
           <>
             {isAdmin && (
               <Link href="/dashboard">
-                <button className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 dark:text-white sm:gap-2">
+                <button className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 dark:text-white sm:gap-2">
                   <motion.div
                     key="dashboard"
                     initial={{ rotate: -90, opacity: 0 }}
@@ -42,7 +42,7 @@ export default function Header() {
               </Link>
             )}
             <Link href="/profile">
-              <button className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2">
+              <button className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2">
                 <motion.div
                   key="profile"
                   initial={{ rotate: -90, opacity: 0 }}
@@ -64,7 +64,7 @@ export default function Header() {
             onClick={() =>
               isAuthenticated ? signOut({ callbackUrl: '/' }) : signIn()
             }
-            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
           >
             <motion.div
               key="auth"
