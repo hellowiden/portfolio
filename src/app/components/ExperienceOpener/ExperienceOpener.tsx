@@ -15,7 +15,7 @@ function ExperienceOpener({
   description = 'Explore my professional journey and see how my experiences have shaped my expertise.',
 }: ExperienceOpenerProps) {
   return (
-    <section className="w-full border border-light dark:border-dark rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-cols-1 grid-rows-1 relative">
+    <section className="w-full border dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-cols-1 grid-rows-1 relative">
       {/* Background Image */}
       <Image
         src="/shake.jpg"
