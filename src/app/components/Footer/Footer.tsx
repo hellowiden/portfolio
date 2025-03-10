@@ -25,7 +25,7 @@ export default function Footer() {
           <Link
             href="/legal"
             prefetch={false}
-            className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition"
+            className="text-sm text-green-600  dark:text-green-400 hover:text-green-500 dark:hover:text-green-300 transition"
           >
             Legal
           </Link>

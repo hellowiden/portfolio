@@ -100,7 +100,7 @@ export default function Register() {
                 I agree to the{' '}
                 <Link
                   href="/legal"
-                  className="text-zinc-600 hover:underline dark:text-green-400 dark:hover:text-green-300"
+                  className="text-zinc-600 hover:underline dark:text-green-400 hover:text-green-500 dark:hover:text-green-300"
                 >
                   legal terms
                 </Link>
