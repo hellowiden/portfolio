@@ -7,7 +7,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] bg-cover bg-center overflow-hidden flex items-end relative"
+      className="w-full h-[500px] bg-cover bg-center overflow-hidden flex items-end relative gap-2"
     >
       {/* Background Video */}
       <video
@@ -22,7 +22,7 @@ export default function IntroductionSection() {
       </video>
 
       {/* Content Overlay */}
-      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[min-content, min-content] gap-2 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[min-content, min-content] gap-4 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         {/* Row 1: Full Width */}
         <div className="col-span-2">
           <h1 className="text-3xl font-semibold">
