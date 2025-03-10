@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import ClientsCarousel from './components/ClientsCarousel/ClientsCarousel';
 import IntroductionSection from './components/IntroductionSection/IntroductionSection';
+import ProjectOpener from './components/ProjectOpener/ProjectOpener';
 
 export default function Home() {
   const { status } = useSession();
@@ -24,6 +25,7 @@ export default function Home() {
       <main className="grid p-6 border-x dark:border-light items-start h-full bg-zinc-100 dark:bg-zinc-800">
         <IntroductionSection />
         <ClientsCarousel />
+        <ProjectOpener />
       </main>
     </>
   );
