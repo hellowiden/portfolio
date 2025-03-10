@@ -42,21 +42,21 @@ export default function IntroductionSection() {
             href="#contact"
             className="flex items-center gap-2 p-2 text-sm border dark:border-dark bg-green text-white rounded hover:bg-green-700 dark:hover:bg-green-800 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
           >
-            Work With Me
+            Work with me
           </Link>
           <Link
             href="/resume.pdf"
             download
             className="flex items-center gap-2 p-2 text-sm border dark:border-dark bg-green text-white rounded hover:bg-green-700 dark:hover:bg-green-800 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
           >
-            Download Resume
+            Download resume
           </Link>
         </div>
 
         {/* Row 2: Spans both columns on small screens, one column on medium+ screens */}
         <div className="col-span-2 md:col-span-1">
           <div className="text-3xl font-bold">
-            Transforming Ideas into Market Leaders
+            Transforming ideas into market leaders
           </div>
           <p className="opacity-80 tracking-wide max-w-[600px]">
             Your brand deserves more than recognition—it needs authority. I
