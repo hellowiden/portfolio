@@ -80,7 +80,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="grid gap-4 p-6 ">
+    <div className="grid gap-4 p-6">
       {/* Row 1, Column 1 */}
       <div className="flex items-center gap-3">
         <ProfileAvatar name={formData.name} />

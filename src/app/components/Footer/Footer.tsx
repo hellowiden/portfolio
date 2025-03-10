@@ -1,10 +1,14 @@
 'use client';
 
 import Link from 'next/link';
-import { useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Footer() {
-  const currentYear = useMemo(() => new Date().getFullYear(), []);
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   return (
     <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-black/70 transition">
@@ -31,10 +35,7 @@ export default function Footer() {
           </Link>
         </div>
       </div>
-      <div
-        className="grid gap-4 border-t border-zinc-200 dark:border-zinc-800 p-4 text-sm text-zinc-700 dark:text-zinc-300 w-full sm:px-8  grid-cols-1 md:grid-cols-[1fr_auto] items-end
-      "
-      >
+      <div className="grid gap-4 border-t border-zinc-200 dark:border-zinc-800 p-4 text-sm text-zinc-700 dark:text-zinc-300 w-full sm:px-8 grid-cols-1 md:grid-cols-[1fr_auto] items-end">
         <p>&copy; {currentYear} Marcus Widén — Personal Portfolio.</p>
         <p>All rights reserved.</p>
       </div>
