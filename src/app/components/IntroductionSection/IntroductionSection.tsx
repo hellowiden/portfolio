@@ -55,7 +55,7 @@ export default function IntroductionSection() {
             href="#contact"
             className="flex items-center gap-2 p-2 text-sm border dark:border-dark bg-green text-white rounded hover:bg-green-700 dark:hover:bg-green-800 transition dark:text-white hover:text-opacity-80 dark:hover:text-opacity-80"
           >
-            Contact
+            Work With Me
           </Link>
           <Link
             href="/resume.pdf"
