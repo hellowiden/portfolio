@@ -11,9 +11,10 @@ const projects = [
 
 export default function ProjectsPage() {
   return (
-    <div className="p-6">
+    <div className="grid gap-2 p-6">
       <h1 className="text-2xl font-bold">Projects</h1>
-      <pre className="bg-gray-100 p-4 rounded">
+      <hr />
+      <pre className="grid gap-2 bg-gray-100 p-4 text-sm border dark:border-light rounded-xl">
         {projects.map((project) => (
           <div key={project.id}>
             <Link
