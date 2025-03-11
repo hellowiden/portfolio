@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
@@ -73,38 +73,19 @@ interface Project {
 
 export default function ProjectDetail() {
   const params = useParams();
-  const router = useRouter();
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [currentProjectIndex, setCurrentProjectIndex] = useState<number | null>(
-    null
-  );
 
   useEffect(() => {
     if (params.slug) {
       const projectId = Array.isArray(params.slug)
         ? params.slug[0]
         : params.slug;
-      const projectIndex = projects.findIndex((p) => p.id === projectId);
-      if (projectIndex !== -1) {
-        setSelectedProject(projects[projectIndex]);
-        setCurrentProjectIndex(projectIndex);
-      } else {
-        setSelectedProject({
-          id: '',
-          name: 'Not Found',
-          description: '',
-          image: '',
-        });
-      }
+      const project = projects.find((p) => p.id === projectId);
+      setSelectedProject(
+        project || { id: '', name: 'Not Found', description: '', image: '' }
+      );
     }
   }, [params.slug]);
-
-  const handleNextProject = () => {
-    if (currentProjectIndex !== null) {
-      const nextIndex = (currentProjectIndex + 1) % projects.length;
-      router.push(`/projects/${projects[nextIndex].id}`);
-    }
-  };
 
   if (!selectedProject)
     return <p className="text-zinc-900 dark:text-zinc-100">Loading...</p>;
@@ -132,20 +113,6 @@ export default function ProjectDetail() {
           View Source Code
         </a>
       )}
-      <div className="mt-4 flex space-x-4">
-        <button
-          onClick={() => router.push('/projects')}
-          className="px-4 py-2 bg-blue-600 dark:bg-blue-400 text-white dark:text-zinc-900 rounded"
-        >
-          Back to Projects
-        </button>
-        <button
-          onClick={handleNextProject}
-          className="px-4 py-2 bg-green-600 dark:bg-green-400 text-white dark:text-zinc-900 rounded"
-        >
-          Next Project
-        </button>
-      </div>
     </div>
   );
 }
