@@ -12,6 +12,7 @@ const projects = [
       'A timeless arcade experience reimagined with cutting-edge web technologies. This interactive Snake Game is developed using HTML, CSS, and JavaScript, where players skillfully navigate a serpent, growing its length as it devours food while meticulously avoiding self-collisions and boundary walls.',
     image: '/snakegame.jpg',
     sourceCode: 'https://github.com/hellowiden/snake-game',
+    tags: ['JavaScript', 'Canvas', 'Game'],
   },
   {
     id: 'project-2',
@@ -20,6 +21,7 @@ const projects = [
       'A fully functional e-commerce platform featuring dynamic product listings, a user-friendly cart system, and secure payment integration. Built with React and Firebase, it delivers a seamless shopping experience with real-time updates and scalable architecture.',
     image: '/storefront.png',
     sourceCode: 'https://github.com/hellowiden/ecommerce-storefront',
+    tags: ['React', 'Firebase', 'Tailwind'],
   },
   {
     id: 'project-3',
@@ -28,6 +30,7 @@ const projects = [
       'A clean and responsive portfolio website designed to showcase projects and skills. Developed using Next.js and Tailwind CSS, this site emphasizes performance and accessibility for users across all devices.',
     image: '/pp.png',
     sourceCode: 'https://github.com/hellowiden/personal-portfolio',
+    tags: ['Next.js', 'Tailwind', 'Vercel'],
   },
   {
     id: 'project-4',
@@ -36,6 +39,7 @@ const projects = [
       'A sleek and intuitive weather application providing real-time data and forecasts. Leveraging the OpenWeatherMap API, this app is built with Vue.js and integrates geolocation for a personalized user experience.',
     image: '/weather.png',
     sourceCode: 'https://github.com/hellowiden/weather-app',
+    tags: ['Vue.js', 'API', 'Geolocation'],
   },
   {
     id: 'project-5',
@@ -44,6 +48,7 @@ const projects = [
       'An efficient task management tool designed to boost productivity. Features include task categorization, deadline tracking, and progress monitoring. Built with Angular and Node.js for robust performance and a clean UI.',
     image: '/taskmanager.png',
     sourceCode: 'https://github.com/hellowiden/task-manager',
+    tags: ['Angular', 'Node.js', 'MongoDB'],
   },
   {
     id: 'project-6',
@@ -52,6 +57,7 @@ const projects = [
       'A real-time expense tracking application to help users manage their finances. Utilizes React Native for cross-platform compatibility and a SQLite database for local data storage.',
     image: '/expensetracker.png',
     sourceCode: 'https://github.com/hellowiden/expense-tracker',
+    tags: ['React Native', 'SQLite', 'Finance'],
   },
   {
     id: 'project-7',
@@ -60,6 +66,7 @@ const projects = [
       'A Content Management System for bloggers to create, edit, and publish posts effortlessly. Powered by Django and PostgreSQL, it supports media uploads, user authentication, and an intuitive dashboard.',
     image: '/blogcms.png',
     sourceCode: 'https://github.com/hellowiden/blog-cms',
+    tags: ['Django', 'PostgreSQL', 'CMS'],
   },
 ];
 
@@ -69,6 +76,7 @@ interface Project {
   description: string;
   image: string;
   sourceCode?: string;
+  tags: string[];
 }
 
 export default function ProjectDetail() {
@@ -82,7 +90,13 @@ export default function ProjectDetail() {
         : params.slug;
       const project = projects.find((p) => p.id === projectId);
       setSelectedProject(
-        project || { id: '', name: 'Not Found', description: '', image: '' }
+        project || {
+          id: '',
+          name: 'Not Found',
+          description: '',
+          image: '',
+          tags: [],
+        }
       );
     }
   }, [params.slug]);
@@ -103,6 +117,11 @@ export default function ProjectDetail() {
       <p className="mt-2 text-zinc-700 dark:text-zinc-300">
         {selectedProject.description}
       </p>
+      <div className="mt-2 text-xs text-gray-600 dark:text-gray-400">
+        {selectedProject?.tags?.length
+          ? selectedProject.tags.join(' • ')
+          : 'No tags available'}
+      </div>
       {selectedProject.sourceCode && (
         <a
           href={selectedProject.sourceCode}
