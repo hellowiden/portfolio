@@ -35,16 +35,17 @@ export default function Login() {
   };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 w-full h-full border-x dark:border-light">
-      {/* Column 1: Login Form */}
-      <div className="flex w-full items-center p-6 justify-center bg-zinc-100 dark:bg-zinc-800">
+    <section className="grid grid-cols-1 md:grid-cols-2 w-full h-full border-x dark:border-light">
+      {/* Login Section */}
+      <section className="grid place-items-center p-6 bg-zinc-100 dark:bg-zinc-800">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md p-6 bg-white dark:bg-zinc-900 rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
         >
           <h2 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
-            Lets get started!
+            Let&apos;s get started!
           </h2>
+
           {error && (
             <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm">
               {error}
@@ -82,12 +83,12 @@ export default function Login() {
             </Link>
           </p>
         </form>
-      </div>
+      </section>
 
-      {/* Column 2: AdBar Component (Hidden on Small Screens) */}
-      <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
+      {/* AdBar Section (Hidden on Small Screens) */}
+      <section className="hidden md:grid place-items-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
         <AdBar />
-      </div>
-    </div>
+      </section>
+    </section>
   );
 }
