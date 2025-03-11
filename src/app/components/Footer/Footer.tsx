@@ -19,7 +19,7 @@ export default function Footer() {
           </h4>
           <p className="text-sm text-zinc-700 dark:text-zinc-300">
             Built with Next.js v15, React, TypeScript, Tailwind CSS, Framer
-            Motion, MongoDB, and NextAuth etc. Hosted on gitHub Vercel.
+            Motion, MongoDB, and NextAuth etc. Hosted on Vercel.
           </p>
         </div>
         <div className="md:text-right">
