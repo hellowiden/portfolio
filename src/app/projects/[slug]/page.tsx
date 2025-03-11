@@ -105,32 +105,40 @@ export default function ProjectDetail() {
     return <p className="text-zinc-900 dark:text-zinc-100">Loading...</p>;
 
   return (
-    <div className="p-6 text-zinc-900 dark:text-zinc-100">
-      <Image
-        src={selectedProject.image}
-        alt={selectedProject.name}
-        width={800}
-        height={400}
-        className="w-full h-80 object-cover rounded-lg mb-4"
-      />
-      <h1 className="text-3xl font-bold">{selectedProject.name}</h1>
-      <p className="mt-2 text-zinc-700 dark:text-zinc-300">
-        {selectedProject.description}
-      </p>
-      <div className="mt-2 text-xs text-gray-600 dark:text-gray-400">
-        {selectedProject?.tags?.length
-          ? selectedProject.tags.join(' • ')
-          : 'No tags available'}
+    <div className="grid gap-6 p-6 text-zinc-900 dark:text-zinc-100">
+      <div className="grid">
+        <Image
+          src={selectedProject.image}
+          alt={selectedProject.name}
+          width={800}
+          height={400}
+          className="w-full h-80 object-cover border dark:border-light rounded-xl"
+        />
+      </div>
+      <div className="grid gap-2">
+        <h1 className="text-3xl font-bold">{selectedProject.name}</h1>
+        <div className="text-xs text-gray-600 dark:text-gray-400">
+          {selectedProject?.tags?.length
+            ? selectedProject.tags.join(' • ')
+            : 'No tags available'}
+        </div>
+      </div>
+      <div className="grid">
+        <p className="text-zinc-700 dark:text-zinc-300">
+          {selectedProject.description}
+        </p>
       </div>
       {selectedProject.sourceCode && (
-        <a
-          href={selectedProject.sourceCode}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-blue-500 hover:underline mt-2 inline-block"
-        >
-          View Source Code
-        </a>
+        <div className="grid">
+          <a
+            href={selectedProject.sourceCode}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-500 hover:underline"
+          >
+            View Source Code
+          </a>
+        </div>
       )}
     </div>
   );
