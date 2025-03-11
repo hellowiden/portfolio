@@ -67,7 +67,7 @@ export default function IntroductionSection() {
               href="/about"
               className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition ml-2"
             >
-              Learn more
+              Learn more about me here
             </Link>
           </p>
         </div>
