@@ -4,24 +4,54 @@ import { useEffect, useState, useCallback, useRef } from 'react';
 
 const messages = [
   {
-    heading: "Your brand isn't just seen—it should be felt.",
+    heading: 'Strategic Brands. Intelligent Growth.',
     subtext:
-      'I create brands that connect deeply, inspire action, and turn audiences into loyal advocates.',
+      'Insight-driven branding and market positioning that elevate your business with clarity, creativity, and long-term impact.',
   },
   {
-    heading: "Your brand is your promise—let's make it unforgettable.",
+    heading: 'Smart Brands. Sharp Strategies.',
     subtext:
-      "I'll help you craft a brand that not only stands out but builds trust and drives real engagement.",
+      'I craft branding and positioning that aren’t just memorable—they’re meaningful, data-backed, and built for lasting success.',
   },
   {
-    heading: 'Design with strategy. Brand with impact.',
+    heading: 'Branding with Depth. Strategies with Purpose.',
     subtext:
-      "Together, we'll build a brand that fuels growth, attracts the right audience, and delivers results.",
+      'Your brand should do more than stand out—it should stand for something. I create insightful, strategic solutions that inspire trust and drive results.',
   },
   {
-    heading: "Your brand story matters—let's make it resonate.",
+    heading: 'Elevate with Strategy. Lead with Wisdom.',
     subtext:
-      "A compelling brand story builds trust and loyalty. I'll help you craft one that captivates and converts.",
+      'Thoughtful branding and positioning that turn businesses into trusted industry leaders.',
+  },
+  {
+    heading: 'Clarity Creates Influence.',
+    subtext:
+      'I transform businesses with branding and strategy rooted in intelligence, creativity, and meaningful impact.',
+  },
+  {
+    heading: 'Your Brand, Redefined with Purpose.',
+    subtext:
+      'I craft smart, strategic, and creative brand solutions that help businesses lead, innovate, and grow.',
+  },
+  {
+    heading: 'Smart Brands Win. Let’s Build Yours.',
+    subtext:
+      'With a blend of strategy, insight, and creativity, I help businesses develop strong, trusted, and influential brands.',
+  },
+  {
+    heading: 'From Vision to Strategy. From Strategy to Legacy.',
+    subtext:
+      'Intelligent brand-building that turns ideas into impact and businesses into industry leaders.',
+  },
+  {
+    heading: 'Wisdom-Driven Brands. Creative Market Strategies.',
+    subtext:
+      'I help businesses craft meaningful, future-proof brands that command trust and drive real results.',
+  },
+  {
+    heading: 'Knowledge Builds Brands. Strategy Sustains Them.',
+    subtext:
+      'I develop brands with intelligence, positioning them for credibility, influence, and long-term success.',
   },
 ];
 
