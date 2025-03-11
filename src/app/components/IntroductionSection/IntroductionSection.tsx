@@ -88,9 +88,9 @@ export default function IntroductionSection() {
       </video>
 
       {/* Content Overlay */}
-      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[min-content, min-content] gap-4 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         {/* Row 1, Column 1 */}
-        <div className="flex items-center gap-3">
+        <div className="grid grid-cols-[auto_1fr] items-center gap-3">
           <Image
             src="/MW.png"
             alt="Marcus Widén"
@@ -103,28 +103,28 @@ export default function IntroductionSection() {
         </div>
 
         {/* Row 1, Column 2 */}
-        <div className="flex items-center gap-4 text-sm">
+        <div className="grid grid-cols-2 gap-4 text-sm items-center">
           <Link
             href="#contact"
-            className="flex items-center gap-2 text-sm dark:border-dark text-black/60 rounded hover:text-black dark:text-white/50 dark:hover:text-white transition hover:text-opacity-80 dark:hover:text-opacity-80"
+            className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
           >
             Work with me
           </Link>
           <Link
             href="/resume.pdf"
             download
-            className="flex items-center gap-2 text-sm dark:border-dark text-black/60 rounded hover:text-black dark:text-white/50 dark:hover:text-white transition hover:text-opacity-80 dark:hover:text-opacity-80"
+            className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
           >
             Download resume
           </Link>
         </div>
 
-        {/* Rotating Branding Messages with Typewriter Effect */}
-        <div className="col-span-2 md:col-span-1">
+        {/* Row 2, Column 1 (Expanding on Large Screens) */}
+        <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
           <h2 className="text-3xl font-bold">
             <Typewriter
               words={messages.map((msg) => msg.heading)}
-              loop={true}
+              loop
               cursor
               cursorStyle="_"
               typeSpeed={80}
@@ -133,11 +133,11 @@ export default function IntroductionSection() {
             />
           </h2>
 
-          <p className="opacity-80 tracking-wide max-w-[900px] mt-2">
+          <p className="opacity-80 tracking-wide max-w-[900px]">
             {messages[messageIndex].subtext}
             <Link
               href="/about"
-              className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition ml-2"
+              className="ml-2 text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition"
             >
               Learn more about me here
             </Link>
