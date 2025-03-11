@@ -5,8 +5,8 @@ import Link from 'next/link';
 const projects = [
   {
     id: 'project-1',
-    name: 'Snake Game',
-    tags: ['JavaScript', 'Canvas', 'Game'],
+    name: 'Green Furniture Concept',
+    tags: ['Brand Strategy', 'Sustainability', 'Design'],
   },
   {
     id: 'project-2',
@@ -30,10 +30,14 @@ const projects = [
   },
   {
     id: 'project-6',
-    name: 'Expense Tracker',
-    tags: ['React Native', 'SQLite', 'Finance'],
+    name: 'Airam',
+    tags: ['Lighting Solutions', 'Brand Identity', 'Marketing'],
   },
-  { id: 'project-7', name: 'Blog CMS', tags: ['Django', 'PostgreSQL', 'CMS'] },
+  {
+    id: 'project-7',
+    name: 'Droga5',
+    tags: ['Advertising', 'Creative Strategy', 'Brand Positioning'],
+  },
 ];
 
 export default function ProjectsPage() {
