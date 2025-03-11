@@ -65,7 +65,7 @@ export default function IntroductionSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
-    }, 20000); // Change message every 10 seconds
+    }, 20000);
 
     return () => clearInterval(interval);
   }, []);
