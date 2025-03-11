@@ -1,4 +1,3 @@
-// src/app/projects/page.tsx
 'use client';
 
 import Link from 'next/link';
@@ -11,18 +10,19 @@ const projects = [
 
 export default function ProjectsPage() {
   return (
-    <div className="grid gap-2 p-6">
-      <h1 className="text-2xl font-bold">Projects</h1>
-      <hr />
-      <pre className="grid gap-2 bg-gray-100 p-4 text-sm border dark:border-light rounded-xl">
-        {projects.map((project) => (
+    <div className="grid gap-2 p-6 text-zinc-900 dark:text-zinc-100">
+      <pre className="grid gap-2 bg-zinc-100 dark:bg-zinc-800 p-4 text-sm border border-light dark:border-dark rounded-xl">
+        {projects.map((project, index) => (
           <div key={project.id}>
             <Link
               href={`/projects/${project.id}`}
-              className="text-blue-600 hover:underline"
+              className="text-green-600 dark:text-green-400 hover:underline"
             >
               {project.name}
             </Link>
+            {index < projects.length - 1 && (
+              <hr className="border-light dark:border-dark my-2" />
+            )}
           </div>
         ))}
       </pre>
