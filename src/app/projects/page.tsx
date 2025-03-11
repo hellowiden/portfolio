@@ -11,7 +11,7 @@ const projects = [
 export default function ProjectsPage() {
   return (
     <div className="grid gap-2 p-6 text-zinc-900 dark:text-zinc-100">
-      <pre className="grid gap-2 bg-zinc-100 dark:bg-zinc-800 p-4 text-sm border border-light dark:border-dark rounded-xl">
+      <pre className="grid gap-2 bg-zinc-100 dark:bg-zinc-900 p-4 text-sm border border-light dark:border-dark rounded-xl">
         {projects.map((project, index) => (
           <div key={project.id}>
             <Link

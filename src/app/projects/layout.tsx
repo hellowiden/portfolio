@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 
 export default function ProjectsLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 border-x dark:border-light">
+    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-100 border-x dark:border-light">
       <header className="p-4 border-b border-light dark:border-dark bg-zinc-200 dark:bg-zinc-900 text-zinc-900 dark:text-white">
         <h1 className="text-2xl font-bold">Projects</h1>
       </header>
