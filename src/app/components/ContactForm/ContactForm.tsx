@@ -39,7 +39,7 @@ export default function ContactForm() {
     observer.observe(observedElement);
 
     return () => {
-      observer.unobserve(observedElement);
+      observer.disconnect();
     };
   }, []);
 
@@ -150,25 +150,6 @@ export default function ContactForm() {
                 />
               </svg>
             </div>
-            {formState.activeDropdown === type && (
-              <div className="absolute left-0 w-full mt-2 bg-white dark:bg-black border border-light dark:border-dark rounded-md shadow-md">
-                {options.map((option) => (
-                  <div
-                    key={option.value}
-                    onClick={() =>
-                      setFormState((prev) => ({
-                        ...prev,
-                        [key]: option.value,
-                        activeDropdown: null,
-                      }))
-                    }
-                    className="cursor-pointer p-2 hover:bg-gray-200 dark:hover:bg-gray-800"
-                  >
-                    {option.label}
-                  </div>
-                ))}
-              </div>
-            )}
           </div>
         ))}
         <textarea
