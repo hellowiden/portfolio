@@ -106,6 +106,17 @@ export default function Profile() {
           value={formData.email}
           onChange={handleChange}
         />
+
+        {/* Display User Role */}
+        <FormInput
+          label="Role"
+          type="text"
+          name="role"
+          value={formData.roles.join(', ')}
+          onChange={() => {}} // Prevents editing unless admin
+          disabled={!session?.user.roles.includes('admin')}
+        />
+
         <FormInput
           label="New Password (optional)"
           type="password"
@@ -151,12 +162,14 @@ const FormInput = ({
   name,
   value,
   onChange,
+  disabled = false,
 }: {
   label: string;
   type: string;
   name: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 }) => (
   <div className="grid gap-2">
     <label
@@ -171,8 +184,11 @@ const FormInput = ({
       name={name}
       value={value}
       onChange={onChange}
+      disabled={disabled}
       aria-label={label}
-      className="p-2 border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200"
+      className={`p-2 border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 ${
+        disabled ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
     />
   </div>
 );
