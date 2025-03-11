@@ -3,9 +3,13 @@
 import Link from 'next/link';
 
 const projects = [
-  { id: 'project-1', name: 'Project One' },
-  { id: 'project-2', name: 'Project Two' },
-  { id: 'project-3', name: 'Project Three' },
+  { id: 'project-1', name: 'Snake Game' },
+  { id: 'project-2', name: 'E-Commerce Storefront' },
+  { id: 'project-3', name: 'Personal Portfolio' },
+  { id: 'project-4', name: 'Weather App' },
+  { id: 'project-5', name: 'Task Manager' },
+  { id: 'project-6', name: 'Expense Tracker' },
+  { id: 'project-7', name: 'Blog CMS' },
 ];
 
 export default function ProjectsPage() {
