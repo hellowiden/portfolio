@@ -13,14 +13,12 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-zinc-200 dark:border-zinc-800 transition backdrop-blur-md bg-white/80 dark:bg-black/70">
-      {/* Logo / Title */}
       <div className="text-md transition text-black hover:text-opacity-80 dark:text-white dark:hover:text-opacity-80">
         <Link href="/">
           {isAuthenticated ? `Welcome, ${session.user?.name}` : 'MW-Portfolio'}
         </Link>
       </div>
 
-      {/* Navigation & Authentication */}
       <nav className="grid grid-flow-col gap-4 justify-end">
         {isAuthenticated && (
           <>

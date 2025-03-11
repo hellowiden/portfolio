@@ -46,8 +46,7 @@ export default function Register() {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 h-full border-x dark:border-light">
-      {/* Column 1: Registration Form */}
-      <div className="flex items-center justify-center bg-zinc-100 dark:bg-zinc-800">
+      <section className="grid place-items-center bg-zinc-100 dark:bg-zinc-800">
         <form
           onSubmit={handleSubmit}
           className="w-full max-w-md p-6 bg-white dark:bg-zinc-900 rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
@@ -84,14 +83,14 @@ export default function Register() {
             className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
             required
           />
-          <div className="grid gap-2">
-            <div className="flex items-center">
+          <div className="grid grid-cols-2 gap-2">
+            <div className="flex items-center space-x-2">
               <input
                 type="checkbox"
                 id="agree"
                 checked={agreed}
                 onChange={() => setAgreed(!agreed)}
-                className="mr-2 accent-green-600 dark:accent-green-500"
+                className="accent-green-600 dark:accent-green-500"
               />
               <label
                 htmlFor="agree"
@@ -107,6 +106,7 @@ export default function Register() {
               </label>
             </div>
           </div>
+
           <button
             type="submit"
             className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition dark:bg-green-600 dark:hover:bg-green-500"
@@ -123,12 +123,11 @@ export default function Register() {
             </Link>
           </p>
         </form>
-      </div>
+      </section>
 
-      {/* Column 2: AdBar Component (Hidden on Small Screens) */}
-      <div className="hidden md:flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
+      <section className="hidden md:grid place-items-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
         <AdBar />
-      </div>
+      </section>
     </div>
   );
 }
