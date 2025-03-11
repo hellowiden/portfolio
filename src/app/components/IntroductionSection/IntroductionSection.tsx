@@ -56,7 +56,7 @@ export default function IntroductionSection() {
         {/* Row 2: Spans both columns on small screens, one column on medium+ screens */}
         <div className="col-span-2 md:col-span-1">
           <div className="text-3xl font-bold">
-            Transforming ideas into market leaders
+            Terraforming Brands, Shaping Legacies
           </div>
           <p className="opacity-80 tracking-wide max-w-[900px]">
             Your brand deserves more than recognition—it needs authority. I
