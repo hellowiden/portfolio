@@ -18,8 +18,8 @@ export default function Footer() {
             Portfolio Techstack
           </h4>
           <p className="text-sm text-zinc-700 dark:text-zinc-300">
-            Built with React, Next.js, TypeScript, Tailwind CSS, and Framer
-            Motion, hosted on Vercel.
+            Built with Next.js v15, React, TypeScript, Tailwind CSS, Framer
+            Motion, MongoDB, and NextAuth etc. Hosted on gitHub pages.
           </p>
         </div>
         <div className="md:text-right">
