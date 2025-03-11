@@ -4,6 +4,7 @@ import { ReactNode } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 const projects = [
   'project-1',
@@ -53,7 +54,7 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
                   whileHover={{ scale: 1.2, rotate: 10 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <span className="text-lg">⬅</span>
+                  <FaArrowLeft className="text-lg" />
                 </motion.div>
                 <span className="hidden sm:inline">Previous Project</span>
               </button>
@@ -63,6 +64,7 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
                 onClick={handleNext}
                 className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
               >
+                <span className="hidden sm:inline">Next Project</span>
                 <motion.div
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
@@ -70,9 +72,8 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
                   whileHover={{ scale: 1.2, rotate: 10 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <span className="text-lg">➡</span>
+                  <FaArrowRight className="text-lg" />
                 </motion.div>
-                <span className="hidden sm:inline">Next Project</span>
               </button>
             )}
           </div>
