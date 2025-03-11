@@ -1,4 +1,3 @@
-// src/app/projects/[...slug]/page.tsx
 'use client';
 
 import { useParams, useRouter } from 'next/navigation';
@@ -41,21 +40,22 @@ export default function ProjectDetail() {
     }
   };
 
-  if (!selectedProject) return <p>Loading...</p>;
+  if (!selectedProject)
+    return <p className="text-zinc-900 dark:text-zinc-100">Loading...</p>;
 
   return (
-    <div className="p-6">
+    <div className="p-6 text-zinc-900 dark:text-zinc-100">
       <h1 className="text-2xl font-bold">Project: {selectedProject}</h1>
       <div className="mt-4 flex space-x-4">
         <button
           onClick={() => router.push('/projects')}
-          className="px-4 py-2 bg-blue-600 text-white rounded"
+          className="px-4 py-2 bg-blue-600 dark:bg-blue-400 text-white dark:text-zinc-900 rounded"
         >
           Back to Projects
         </button>
         <button
           onClick={handleNextProject}
-          className="px-4 py-2 bg-green-600 text-white rounded"
+          className="px-4 py-2 bg-green-600 dark:bg-green-400 text-white dark:text-zinc-900 rounded"
         >
           Next Project
         </button>
