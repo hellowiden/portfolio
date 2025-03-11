@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Typewriter } from 'react-simple-typewriter';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -60,14 +60,12 @@ const messages = [
 ];
 
 export default function IntroductionSection() {
-  const [currentMessage, setCurrentMessage] = useState(messages[0]);
+  const [messageIndex, setMessageIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      // Shuffle messages randomly
-      const shuffled = [...messages].sort(() => Math.random() - 0.5);
-      setCurrentMessage(shuffled[0]);
-    }, 10000); // Change message every 10 seconds
+      setMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
+    }, 20000); // Change message every 10 seconds
 
     return () => clearInterval(interval);
   }, []);
@@ -121,39 +119,29 @@ export default function IntroductionSection() {
           </Link>
         </div>
 
-        {/* Rotating Branding Messages */}
+        {/* Rotating Branding Messages with Typewriter Effect */}
         <div className="col-span-2 md:col-span-1">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentMessage.heading}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
-              className="text-3xl font-bold"
-            >
-              {currentMessage.heading}
-            </motion.div>
-          </AnimatePresence>
+          <h2 className="text-3xl font-bold">
+            <Typewriter
+              words={messages.map((msg) => msg.heading)}
+              loop={true}
+              cursor
+              cursorStyle="_"
+              typeSpeed={80}
+              deleteSpeed={80}
+              delaySpeed={4000}
+            />
+          </h2>
 
-          <AnimatePresence mode="wait">
-            <motion.p
-              key={currentMessage.subtext}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
-              className="opacity-80 tracking-wide max-w-[900px] mt-2"
+          <p className="opacity-80 tracking-wide max-w-[900px] mt-2">
+            {messages[messageIndex].subtext}
+            <Link
+              href="/about"
+              className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition ml-2"
             >
-              {currentMessage.subtext}
-              <Link
-                href="/about"
-                className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition ml-2"
-              >
-                Learn more about me here
-              </Link>
-            </motion.p>
-          </AnimatePresence>
+              Learn more about me here
+            </Link>
+          </p>
         </div>
       </div>
     </section>
