@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { sendEmail } from '@/email/actions/EmailHandler';
+import { sendEmail } from './../../../email/actions/EmailHandler';
 import SubmitBtn from './submitButton';
 import toast from 'react-hot-toast';
 
@@ -43,14 +43,10 @@ export default function ContactForm() {
     };
   }, []);
 
-  const [formState, setFormState] = useState<{
-    selectedBudget: string;
-    selectedContactReason: string;
-    activeDropdown: DropdownType | null;
-  }>({
+  const [formState, setFormState] = useState({
     selectedBudget: '',
     selectedContactReason: '',
-    activeDropdown: null,
+    activeDropdown: null as DropdownType | null,
   });
 
   const toggleDropdown = (dropdown: DropdownType) => {
@@ -85,13 +81,13 @@ export default function ContactForm() {
     <section id="contact" ref={ref} className="w-full grid gap-4 text-center">
       <h1 className="text-3xl font-medium">Questions? Let’s connect</h1>
       <p className="mb-6">
-        I’d love to hear from you! Feel free to reach out to me directly at{' '}
+        I’d love to hear from you! Feel free to reach out to me directly at
         <a
           className="px-1 py-1 font-sm transition rounded-md border border-light dark:border-dark bg-white dark:bg-black text-black dark:text-white"
           href="tel:+1234567890"
         >
           +46 (0)73 656 3171
-        </a>{' '}
+        </a>
         or through this form.
       </p>
       <form
@@ -119,39 +115,43 @@ export default function ContactForm() {
             key: 'selectedBudget' as const,
             type: 'budget' as const,
           },
-        ].map(({ options, key, type }) => (
-          <div key={type} className="relative w-full">
-            <div
-              onClick={() => toggleDropdown(type)}
-              className={`bg-white h-14 px-4 rounded-md text-sm border ${
-                !formState[key]
-                  ? 'border-red-500 text-red-500'
-                  : 'border-light text-black dark:text-white'
-              } dark:border-dark dark:bg-black flex items-center justify-between cursor-pointer`}
-            >
-              {options.find((option) => option.value === formState[key])
-                ?.label || 'Please select an option'}
-              <svg
-                className="w-5 h-5 text-light dark:text-dark"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+        ].map(({ options, key, type }) => {
+          const selectedLabel =
+            options.find((option) => option.value === formState[key])?.label ||
+            'Please select an option';
+          return (
+            <div key={type} className="relative w-full">
+              <div
+                onClick={() => toggleDropdown(type)}
+                className={`bg-white h-14 px-4 rounded-md text-sm border ${
+                  !formState[key]
+                    ? 'border-red-500 text-red-500'
+                    : 'border-light text-black dark:text-white'
+                } dark:border-dark dark:bg-black flex items-center justify-between cursor-pointer`}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d={
-                    formState.activeDropdown === type
-                      ? 'M5 15l7-7 7 7'
-                      : 'M5 9l7 7 7-7'
-                  }
-                />
-              </svg>
+                {selectedLabel}
+                <svg
+                  className="w-5 h-5 text-light dark:text-dark"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={
+                      formState.activeDropdown === type
+                        ? 'M5 15l7-7 7 7'
+                        : 'M5 9l7 7 7-7'
+                    }
+                  />
+                </svg>
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         <textarea
           className="bg-white w-full h-52 rounded-md text-sm border border-light dark:border-dark p-4 dark:bg-black dark:text-white placeholder-light dark:placeholder-dark focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all"
           name="message"

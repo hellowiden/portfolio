@@ -2,10 +2,8 @@
 
 import React from 'react';
 import { Resend } from 'resend';
-import { validateString } from '@/utils/utils';
 import ContactFormEmail from '@/email/ContactEmailTemplate';
 import dotenv from 'dotenv';
-import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config();
 
@@ -34,7 +32,10 @@ const isValidEmail = (email: string): boolean =>
   /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 const sanitizeInput = (input: string): string =>
-  input.replace(/[<>"'/]/g, (char) => `&#${char.charCodeAt(0)};`);
+  input.replace(/[<>\"'/]/g, (char) => `&#${char.charCodeAt(0)};`);
+
+const validateString = (value: string, maxLength: number): boolean =>
+  typeof value === 'string' && value.length > 0 && value.length <= maxLength;
 
 const validateInput = (
   field: string,
@@ -50,7 +51,6 @@ interface ContactFormEmailProps {
   senderEmail: string;
   selectedContactReason: string;
   selectedBudget: string;
-  emailUUID: string;
 }
 
 export const sendEmail = async (
@@ -59,7 +59,6 @@ export const sendEmail = async (
   success: boolean;
   error?: string;
   data?: unknown;
-  uuid?: string;
 }> => {
   const senderEmail = formData.get('senderEmail')?.toString() || '';
   const message = formData.get('message')?.toString() || '';
@@ -96,34 +95,31 @@ export const sendEmail = async (
   emailThrottleCache[senderEmail] = currentTime;
 
   const sanitizedMessage = sanitizeInput(message);
-  const emailUUID = uuidv4();
 
   for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
     try {
       const data = await resend.emails.send({
         from: FROM_EMAIL,
         to: 'hellowiden@gmail.com',
-        subject: `Message from contact form - ID: ${emailUUID}`,
-        reply_to: senderEmail,
+        subject: `Message from contact form`,
+        replyTo: senderEmail,
         react: React.createElement(ContactFormEmail, {
           message: sanitizedMessage,
           senderEmail,
           selectedContactReason,
           selectedBudget,
-          emailUUID,
         } as ContactFormEmailProps),
       });
 
-      return { success: true, data, uuid: emailUUID };
+      return { success: true, data };
     } catch (error) {
       if (attempt === MAX_RETRIES - 1) {
         const errorMsg =
           error instanceof Error ? error.message : 'Unknown error occurred';
         console.error('Failed to send email:', {
           error: errorMsg,
-          uuid: emailUUID,
         });
-        return { success: false, error: errorMsg, uuid: emailUUID };
+        return { success: false, error: errorMsg };
       }
     }
   }
@@ -131,6 +127,5 @@ export const sendEmail = async (
   return {
     success: false,
     error: 'Unexpected error occurred',
-    uuid: emailUUID,
   };
 };

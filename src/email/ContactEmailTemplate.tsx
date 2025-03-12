@@ -1,16 +1,5 @@
 import React from 'react';
-import {
-  Html,
-  Body,
-  Head,
-  Heading,
-  Hr,
-  Container,
-  Preview,
-  Section,
-  Text,
-} from '@react-email/components';
-import { Tailwind } from '@react-email/tailwind';
+import Head from 'next/head';
 
 type ContactFormEmailProps = {
   message: string;
@@ -26,46 +15,68 @@ export default function ContactFormEmail({
   selectedContactReason,
 }: ContactFormEmailProps) {
   return (
-    <Html>
-      <Head />
-      <Preview>New Contact Form Submission</Preview>
-      <Tailwind>
-        <Body className="bg-gray-50 text-gray-800">
-          <Container className="mx-auto max-w-lg p-6">
-            <Section className="bg-white shadow-md rounded-lg p-6">
-              <Heading className="text-xl font-semibold text-gray-900 mb-4">
-                New Message Received
-              </Heading>
-              <Text className="text-gray-700 mb-6">{message}</Text>
-              <Hr className="border-t border-gray-300 my-4" />
-              <Text className="text-gray-600">
-                <span className="font-medium">Sender's Email:</span>{' '}
-                {senderEmail}
-              </Text>
-              <Hr className="border-t border-gray-300 my-4" />
-              {selectedContactReason ? (
-                <Text className="text-gray-600 mt-2">
-                  <span className="font-medium">Contact Reason:</span>{' '}
-                  {selectedContactReason}
-                </Text>
-              ) : (
-                <Text className="text-gray-600 mt-2 italic">
-                  Contact reason not provided.
-                </Text>
-              )}
-              {selectedBudget ? (
-                <Text className="text-gray-600 mt-2">
-                  <span className="font-medium">Budget:</span> {selectedBudget}
-                </Text>
-              ) : (
-                <Text className="text-gray-600 mt-2 italic">
-                  Budget information not provided.
-                </Text>
-              )}
-            </Section>
-          </Container>
-        </Body>
-      </Tailwind>
-    </Html>
+    <html>
+      <Head>
+        <title>New Contact Form Submission</title>
+        <meta httpEquiv="Content-Type" content="text/html; charset=UTF-8" />
+      </Head>
+      <body
+        style={{
+          backgroundColor: '#f9fafb',
+          color: '#374151',
+          fontFamily: 'Arial, sans-serif',
+        }}
+      >
+        <div
+          style={{
+            maxWidth: '600px',
+            margin: '0 auto',
+            padding: '20px',
+            backgroundColor: '#ffffff',
+            borderRadius: '8px',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          <h2 style={{ color: '#111827' }}>New Message Received</h2>
+          <p style={{ color: '#4b5563' }}>{message}</p>
+          <hr style={{ border: '1px solid #e5e7eb', margin: '20px 0' }} />
+          <p style={{ color: '#6b7280' }}>
+            <strong>Sender&apos;s Email:</strong> {senderEmail}
+          </p>
+
+          <hr style={{ border: '1px solid #e5e7eb', margin: '20px 0' }} />
+          {selectedContactReason ? (
+            <p style={{ color: '#6b7280', marginTop: '10px' }}>
+              <strong>Contact Reason:</strong> {selectedContactReason}
+            </p>
+          ) : (
+            <p
+              style={{
+                color: '#6b7280',
+                marginTop: '10px',
+                fontStyle: 'italic',
+              }}
+            >
+              Contact reason not provided.
+            </p>
+          )}
+          {selectedBudget ? (
+            <p style={{ color: '#6b7280', marginTop: '10px' }}>
+              <strong>Budget:</strong> {selectedBudget}
+            </p>
+          ) : (
+            <p
+              style={{
+                color: '#6b7280',
+                marginTop: '10px',
+                fontStyle: 'italic',
+              }}
+            >
+              Budget information not provided.
+            </p>
+          )}
+        </div>
+      </body>
+    </html>
   );
 }
