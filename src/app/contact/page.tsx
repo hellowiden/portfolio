@@ -2,6 +2,7 @@
 'use client';
 
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const budgetOptions = [
   { value: 'under_100', label: 'Under $100' },
@@ -23,6 +24,7 @@ export default function Contact() {
     reason: '',
   });
   const [status, setStatus] = useState('');
+  const [step, setStep] = useState(1);
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -44,6 +46,7 @@ export default function Contact() {
       if (!res.ok) throw new Error('Failed to send message');
       setStatus('Message sent successfully!');
       setFormData({ message: '', budget: '', reason: '' });
+      setStep(1);
     } catch (error) {
       console.error('Error sending message:', error);
       setStatus('Error sending message.');
@@ -52,52 +55,119 @@ export default function Contact() {
 
   return (
     <div className="max-w-md mx-auto p-4 border rounded">
-      <h1 className="text-2xl font-bold">Contact Me</h1>
-      <form onSubmit={handleSubmit} className="grid gap-4 mt-4">
-        <textarea
-          name="message"
-          placeholder="Message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          className="p-2 border rounded"
-        />
-        <select
-          name="budget"
-          value={formData.budget}
-          onChange={handleChange}
-          required
-          className="p-2 border rounded"
+      {step > 1 && (
+        <button
+          onClick={() => setStep(step - 1)}
+          className="mb-4 p-2 bg-gray-300 text-black rounded w-full"
         >
-          <option value="" disabled>
-            Select Budget
-          </option>
-          {budgetOptions.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <select
-          name="reason"
-          value={formData.reason}
-          onChange={handleChange}
-          required
-          className="p-2 border rounded"
-        >
-          <option value="" disabled>
-            Select Reason
-          </option>
-          {contactReasons.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <button type="submit" className="p-2 bg-blue-500 text-white rounded">
-          Send
+          Back
         </button>
-      </form>
+      )}
+      {step === 1 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+        >
+          <h1 className="text-2xl font-bold">
+            Let&apos;s Start - What Brings You Here?
+          </h1>
+          <select
+            name="reason"
+            value={formData.reason}
+            onChange={handleChange}
+            required
+            className="p-2 border rounded mt-4 w-full"
+          >
+            <option value="" disabled>
+              Select Reason
+            </option>
+            {contactReasons.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={() => setStep(2)}
+            disabled={!formData.reason}
+            className="mt-4 p-2 bg-blue-500 text-white rounded w-full"
+          >
+            Next
+          </button>
+        </motion.div>
+      )}
+      {step === 2 && formData.reason === 'job_offer' && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+        >
+          <h1 className="text-2xl font-bold">Great! Let&apos;s Talk Budget</h1>
+          <select
+            name="budget"
+            value={formData.budget}
+            onChange={handleChange}
+            required
+            className="p-2 border rounded mt-4 w-full"
+          >
+            <option value="" disabled>
+              Select Budget
+            </option>
+            {budgetOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+          <button
+            onClick={() => setStep(3)}
+            disabled={!formData.budget}
+            className="mt-4 p-2 bg-blue-500 text-white rounded w-full"
+          >
+            Next
+          </button>
+        </motion.div>
+      )}
+      {((step === 2 && formData.reason !== 'job_offer') || step === 3) && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+        >
+          <h1 className="text-2xl font-bold">Tell Me More</h1>
+          <textarea
+            name="message"
+            placeholder="Message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            className="p-2 border rounded mt-4 w-full"
+          />
+          <button
+            onClick={() => setStep(4)}
+            disabled={!formData.message}
+            className="mt-4 p-2 bg-blue-500 text-white rounded w-full"
+          >
+            Next
+          </button>
+        </motion.div>
+      )}
+      {step === 4 && (
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+        >
+          <h1 className="text-2xl font-bold">Ready to Submit?</h1>
+          <button
+            onClick={handleSubmit}
+            className="mt-4 p-2 bg-green-500 text-white rounded w-full"
+          >
+            Send
+          </button>
+        </motion.div>
+      )}
       {status && <p className="mt-2 text-sm">{status}</p>}
     </div>
   );
