@@ -36,6 +36,9 @@ export default function Login() {
     }
   };
 
+  const inputClass =
+    'w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white';
+
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 w-full h-full border-x dark:border-light">
       {/* Login Section */}
@@ -58,7 +61,7 @@ export default function Login() {
             name="email"
             placeholder="Email"
             onChange={handleChange}
-            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+            className={inputClass}
             required
           />
           <input
@@ -66,7 +69,7 @@ export default function Login() {
             name="password"
             placeholder="Password"
             onChange={handleChange}
-            className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+            className={inputClass}
             required
           />
           <button
@@ -87,7 +90,7 @@ export default function Login() {
         </form>
       </section>
 
-      {/* AdBar Section (Hidden on Small Screens) */}
+      {/* AdBar Section */}
       <section className="hidden md:grid place-items-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
         <AdBar />
       </section>

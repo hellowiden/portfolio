@@ -7,22 +7,22 @@ import { useSession, signOut } from 'next-auth/react';
 
 export default function Profile() {
   const { data: session, status } = useSession();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    newPassword: '',
-    roles: [] as string[],
-  });
   const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState(() => ({
+    name: session?.user?.name || '',
+    email: session?.user?.email || '',
+    roles: Array.isArray(session?.user?.roles) ? session.user.roles : [],
+    newPassword: '',
+  }));
 
   useEffect(() => {
     if (session?.user) {
-      setFormData((prev) => ({
-        ...prev,
+      setFormData({
         name: session.user.name || '',
         email: session.user.email || '',
         roles: Array.isArray(session.user.roles) ? session.user.roles : [],
-      }));
+        newPassword: '',
+      });
     }
   }, [session]);
 
@@ -39,7 +39,6 @@ export default function Profile() {
   const handleUpdate = async (e: FormEvent) => {
     e.preventDefault();
     setLoading(true);
-
     try {
       const res = await fetch(`/api/users/${session.user.id}`, {
         method: 'PUT',
@@ -61,13 +60,9 @@ export default function Profile() {
     }
   };
 
-  const handleConfirmDelete = () => {
-    if (confirm('Are you sure you want to permanently delete your account?')) {
-      handleDeleteAccount();
-    }
-  };
-
   const handleDeleteAccount = async () => {
+    if (!confirm('Are you sure you want to permanently delete your account?'))
+      return;
     setLoading(true);
     try {
       const res = await fetch(`/api/users/${session.user.id}`, {
@@ -83,7 +78,6 @@ export default function Profile() {
 
   return (
     <div className="grid gap-4 p-6">
-      {/* Row 1, Column 1 */}
       <div className="flex items-center gap-3">
         <ProfileAvatar name={formData.name} />
         <span className="text-zinc-800 dark:text-zinc-200">
@@ -108,17 +102,14 @@ export default function Profile() {
           value={formData.email}
           onChange={handleChange}
         />
-
-        {/* Display User Role */}
         <FormInput
           label="Role"
           type="text"
           name="role"
           value={formData.roles.join(', ')}
-          onChange={() => {}} // Prevents editing unless admin
-          disabled={!session?.user.roles.includes('admin')}
+          disabled
+          readOnly
         />
-
         <FormInput
           label="New Password (optional)"
           type="password"
@@ -139,7 +130,7 @@ export default function Profile() {
       <hr className="border-zinc-300 dark:border-zinc-700" />
 
       <button
-        onClick={handleConfirmDelete}
+        onClick={handleDeleteAccount}
         disabled={loading}
         className="w-full bg-red-600 text-white py-2 rounded-md hover:bg-red-700 transition grid"
       >
@@ -165,13 +156,15 @@ const FormInput = ({
   value,
   onChange,
   disabled = false,
+  readOnly = false,
 }: {
   label: string;
   type: string;
   name: string;
   value: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   disabled?: boolean;
+  readOnly?: boolean;
 }) => (
   <div className="grid gap-2">
     <label
@@ -187,6 +180,7 @@ const FormInput = ({
       value={value}
       onChange={onChange}
       disabled={disabled}
+      readOnly={readOnly}
       aria-label={label}
       className={`p-2 border border-zinc-300 dark:border-zinc-600 rounded-md shadow-sm focus:ring-green-500 focus:border-green-500 bg-white dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
