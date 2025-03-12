@@ -35,14 +35,14 @@ export default function About() {
               Why me? In short, because your brand deserves to lead.
             </h1>
             <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
-              I don’t just build brands—I shape legacies. With over 12 years of
-              experience and 500+ projects, I’ve seen firsthand that a brand’s
-              true power lies in its ability to command attention, build
-              loyalty, and drive decisive action. My work has directly
-              contributed to $7.5 billion in revenue growth and enterprise
-              value. A global rebrand I led increased customer retention by 25%,
-              while my marketing strategies consistently delivered a 20% sales
-              boost.
+              I don’t just build brands—I shape legacies. With over a decade of
+              expertise leading and executing 500+ projects, I’ve seen firsthand
+              that a brand’s true power lies in its ability to command
+              attention, build loyalty, and drive decisive action. My work has
+              directly contributed to $7.5 billion in revenue growth and
+              enterprise value. A global rebrand I led increased customer
+              retention by 25%, while my marketing strategies consistently
+              delivered a 20% sales boost.
               <br />
               <br />
               Strong brands don’t follow trends; they set the standard. I
