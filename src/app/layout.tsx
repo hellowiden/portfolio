@@ -33,7 +33,7 @@ export default function RootLayout({
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            {children} {/* No need for another <main> in `page.tsx` */}
+            {children}
             <Footer />
           </AuthProvider>
         </ThemeContextProvider>
