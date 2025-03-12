@@ -5,20 +5,22 @@ import { getToken } from 'next-auth/jwt';
 import { NextRequest } from 'next/server';
 
 // Update message (admin response)
-export async function PUT(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function PUT(req: NextRequest) {
   try {
     await connectToDatabase();
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    if (!token || !token.roles.includes('admin')) {
+    if (!token || !token.roles?.includes('admin')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = context.params;
+    const id = req.nextUrl.pathname.split('/').pop(); // Extracts ID from URL
+    if (!id) return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
+
     const { response, isResolved } = await req.json();
+    if (response === undefined || isResolved === undefined) {
+      return NextResponse.json({ error: 'Missing fields' }, { status: 400 });
+    }
 
     const updatedMessage = await Message.findByIdAndUpdate(
       id,
@@ -41,19 +43,18 @@ export async function PUT(
 }
 
 // Delete message
-export async function DELETE(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
+export async function DELETE(req: NextRequest) {
   try {
     await connectToDatabase();
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    if (!token || !token.roles.includes('admin')) {
+    if (!token || !token.roles?.includes('admin')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = context.params;
+    const id = req.nextUrl.pathname.split('/').pop(); // Extracts ID from URL
+    if (!id) return NextResponse.json({ error: 'Invalid ID' }, { status: 400 });
+
     const deletedMessage = await Message.findByIdAndDelete(id);
 
     if (!deletedMessage) {
