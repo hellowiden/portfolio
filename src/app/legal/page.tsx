@@ -2,7 +2,8 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import Link from 'next/link';
 
 const sections = [
   {
@@ -94,26 +95,24 @@ const sections = [
 export default function LegalPage() {
   const [activeSection, setActiveSection] = useState('');
 
+  const sectionList = useMemo(() => sections, []);
+
   return (
     <div className="grid gap-6">
+      {/* Table of Contents */}
       <nav aria-label="Table of Contents" className="grid gap-2">
         <h2 className="text-xl font-semibold dark:text-white">Contents</h2>
         <ul className="grid text-zinc-700 dark:text-zinc-300 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto gap-2">
-          {sections.map(({ id, title }) => (
+          {sectionList.map(({ id, title }) => (
             <li key={id}>
-              <a
-                className={`text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 px-2 py-1 rounded-md transition`}
-                href={`#${id}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveSection(id);
-                  document
-                    .getElementById(id)
-                    ?.scrollIntoView({ behavior: 'smooth' });
-                }}
-              >
-                {title}
-              </a>
+              <Link href={`#${id}`} scroll={true}>
+                <span
+                  className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 px-2 py-1 rounded-md transition cursor-pointer"
+                  onClick={() => setActiveSection(id)}
+                >
+                  {title}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
@@ -121,8 +120,9 @@ export default function LegalPage() {
 
       <hr />
 
+      {/* Sections */}
       <main className="grid gap-4">
-        {sections.map(({ id, title, content }) => (
+        {sectionList.map(({ id, title, content }) => (
           <section
             key={id}
             id={id}
