@@ -16,7 +16,7 @@ function ContactOpener({
   description = 'Reach out to discuss projects, collaborations, or any inquiries.',
 }: ContactOpenerProps) {
   return (
-    <section className="w-full border dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-cols-1 grid-rows-1 relative">
+    <section className="w-full h-full border dark:border-light rounded-xl bg-cover bg-center overflow-hidden grid grid-cols-1 grid-rows-1 relative">
       {/* Background Image */}
       <Image
         src="/issues.jpg"
