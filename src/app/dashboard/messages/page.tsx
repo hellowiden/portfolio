@@ -21,8 +21,7 @@ export default function Messages() {
     async function fetchMessages() {
       try {
         const res = await fetch('/api/messages');
-        if (!res.ok)
-          throw new Error(`Failed to fetch messages: ${res.statusText}`);
+        if (!res.ok) throw new Error('Failed to fetch messages');
         const data = await res.json();
         setMessages(data.messages);
       } catch (error) {
@@ -32,11 +31,8 @@ export default function Messages() {
 
     async function checkAdminStatus() {
       try {
-        const res = await fetch('/api/auth/user');
-        if (!res.ok) {
-          console.error(`Admin status fetch failed with status: ${res.status}`);
-          return;
-        }
+        const res = await fetch('/api/auth/user'); // New endpoint to get user details
+        if (!res.ok) throw new Error('Failed to fetch user data');
         const userData = await res.json();
         setIsAdmin(userData.role === 'admin');
       } catch (error) {

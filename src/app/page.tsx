@@ -8,6 +8,7 @@ import ClientsCarousel from './components/ClientsCarousel/ClientsCarousel';
 import IntroductionSection from './components/IntroductionSection/IntroductionSection';
 import ProjectOpener from './components/ProjectOpener/ProjectOpener';
 import ExperienceOpener from './components/ExperienceOpener/ExperienceOpener';
+import ContactOpener from './components/ContactOpener/ContactOpener';
 
 export default function Home() {
   const { status } = useSession();
@@ -30,6 +31,7 @@ export default function Home() {
           <ProjectOpener />
           <ExperienceOpener />
         </div>
+        <ContactOpener />
       </main>
     </>
   );

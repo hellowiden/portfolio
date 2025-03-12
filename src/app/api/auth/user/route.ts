@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
     await connectToDatabase();
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-    console.log('Token Data:', token); // Debugging log
+    console.log('Token Data:', token);
 
     if (!token || !token.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
