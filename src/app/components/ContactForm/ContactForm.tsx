@@ -79,17 +79,6 @@ export default function ContactForm() {
 
   return (
     <section id="contact" ref={ref} className="w-full grid gap-4 text-center">
-      <h1 className="text-3xl font-medium">Questions? Let’s connect</h1>
-      <p className="mb-6">
-        I’d love to hear from you! Feel free to reach out to me directly at
-        <a
-          className="px-1 py-1 font-sm transition rounded-md border border-light dark:border-dark bg-white dark:bg-black text-black dark:text-white"
-          href="tel:+1234567890"
-        >
-          +46 (0)73 656 3171
-        </a>
-        or through this form.
-      </p>
       <form
         className="flex flex-col gap-4 w-full"
         onSubmit={(e) => {
