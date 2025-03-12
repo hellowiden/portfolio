@@ -21,18 +21,15 @@ const projects = [
 export default function ProjectsLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const params = useParams();
-  const isProjectPage = params.slug !== undefined;
   const currentProjectIndex = projects.indexOf(params.slug as string);
+  const isProjectPage = currentProjectIndex >= 0;
 
-  const handleNext = () => {
-    if (currentProjectIndex >= 0 && currentProjectIndex < projects.length - 1) {
-      router.push(`/projects/${projects[currentProjectIndex + 1]}`);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentProjectIndex > 0) {
-      router.push(`/projects/${projects[currentProjectIndex - 1]}`);
+  const navigateToProject = (direction: 'prev' | 'next') => {
+    if (currentProjectIndex < 0) return;
+    const newIndex =
+      direction === 'prev' ? currentProjectIndex - 1 : currentProjectIndex + 1;
+    if (newIndex >= 0 && newIndex < projects.length) {
+      router.push(`/projects/${projects[newIndex]}`);
     }
   };
 
@@ -42,46 +39,66 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
         <Link href="/projects" className="text-2xl font-bold">
           Projects
         </Link>
+
         {isProjectPage && (
           <div className="flex space-x-4">
             {currentProjectIndex > 0 && (
-              <button
-                onClick={handlePrevious}
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
-              >
-                <motion.div
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <FaArrowLeft className="text-lg" />
-                </motion.div>
-                <span className="hidden sm:inline">Previous Project</span>
-              </button>
+              <NavButton
+                direction="prev"
+                onClick={() => navigateToProject('prev')}
+              />
             )}
             {currentProjectIndex < projects.length - 1 && (
-              <button
-                onClick={handleNext}
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
-              >
-                <span className="hidden sm:inline">Next Project</span>
-                <motion.div
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <FaArrowRight className="text-lg" />
-                </motion.div>
-              </button>
+              <NavButton
+                direction="next"
+                onClick={() => navigateToProject('next')}
+              />
             )}
           </div>
         )}
       </header>
       <main className="container mx-auto p-6">{children}</main>
     </div>
+  );
+}
+
+function NavButton({
+  direction,
+  onClick,
+}: {
+  direction: 'prev' | 'next';
+  onClick: () => void;
+}) {
+  const isPrev = direction === 'prev';
+
+  return (
+    <button
+      onClick={onClick}
+      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+    >
+      {isPrev && <MotionIcon isPrev />}
+      <span className="hidden sm:inline">
+        {isPrev ? 'Previous Project' : 'Next Project'}
+      </span>
+      {!isPrev && <MotionIcon />}
+    </button>
+  );
+}
+
+function MotionIcon({ isPrev = false }: { isPrev?: boolean }) {
+  return (
+    <motion.div
+      initial={{ rotate: isPrev ? -90 : 90, opacity: 0 }}
+      animate={{ rotate: 0, opacity: 1 }}
+      exit={{ rotate: isPrev ? 90 : -90, opacity: 0 }}
+      whileHover={{ scale: 1.2, rotate: isPrev ? 10 : -10 }}
+      transition={{ duration: 0.2 }}
+    >
+      {isPrev ? (
+        <FaArrowLeft className="text-lg" />
+      ) : (
+        <FaArrowRight className="text-lg" />
+      )}
+    </motion.div>
   );
 }
