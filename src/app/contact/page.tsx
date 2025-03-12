@@ -45,6 +45,7 @@ export default function Contact() {
       setStatus('Message sent successfully!');
       setFormData({ message: '', budget: '', reason: '' });
     } catch (error) {
+      console.error('Error sending message:', error);
       setStatus('Error sending message.');
     }
   };
