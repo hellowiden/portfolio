@@ -25,8 +25,8 @@ export async function POST(req: NextRequest) {
 
     const newMessage = await Message.create({
       userId: token.id,
-      userName: token.name, // Store user name
-      userEmail: token.email, // Store user email
+      userName: token.name,
+      userEmail: token.email,
       message,
       budget,
       reason,

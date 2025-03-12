@@ -35,40 +35,30 @@ export default function About() {
               Why me? In short, because your brand deserves to lead.
             </h1>
             <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
-              I don’t just build brands—I shape legacies. With over a decade of
-              expertise leading and executing 500+ projects, I’ve seen firsthand
-              that a brand’s true power lies in its ability to command
-              attention, build loyalty, and drive decisive action. My work has
-              directly contributed to $7.5 billion in revenue growth and
-              enterprise value. A global rebrand I led increased customer
-              retention by 25%, while my marketing strategies consistently
+              I don’t just build brands—I shape legacies. With a decade of
+              experience leading 500+ projects, I’ve proven that a brand’s power
+              lies in its ability to command attention, foster loyalty, and
+              drive action. My strategies have generated $7.5 billion in revenue
+              growth, increased customer retention by 25%, and consistently
               delivered a 20% sales boost.
               <br />
               <br />
               Strong brands don’t follow trends; they set the standard. I
-              specialize in positioning organizations as industry leaders
-              through strategic branding, UX/UI design, and market-defining
-              campaigns. For me, branding is not about aesthetics alone—it’s
-              about influence, perception, and creating an unshakable presence
-              in the minds of customers and competitors alike.
+              position organizations as industry leaders through strategic
+              branding, UX/UI design, and market-defining campaigns—focusing on
+              influence, perception, and an unshakable market presence.
               <br />
               <br />
-              My approach is both analytical and visionary. I align strategy
-              with execution, turning complexity into clarity and brand
-              potential into tangible results. CEOs, executives, and leadership
-              teams trust me to identify opportunities, simplify challenges, and
-              architect brands that don’t just survive market shifts but dictate
-              them.
+              My approach is both analytical and visionary, turning complexity
+              into clarity and brand potential into results. Executives trust me
+              to simplify challenges and architect brands that don’t just adapt
+              but dictate market shifts.
               <br />
               <br />
-              Beyond the boardroom, I draw inspiration from history, philosophy,
-              and human behavior—because the best brands aren’t just profitable;
-              they endure. My work isn’t just about growth—it’s about making
-              brands indispensable, now and in the future.
-              <br />
-              <br />
-              So when you work with me, you’re not just getting a service—you’re
-              securing a competitive edge. Let’s make your brand indispensable.
+              Beyond business, I draw from history, philosophy, and human
+              behavior because the best brands don’t just grow—they endure.
+              Partnering with me isn’t just about services; it’s about securing
+              a competitive edge. Let’s make your brand indispensable.
             </p>
           </motion.div>
         </motion.section>
