@@ -21,8 +21,8 @@ const MessageSchema = new mongoose.Schema(
       required: true,
       enum: ['job_offer', 'issues', 'general'],
     },
-    response: { type: String, default: '' }, // Admin response field
-    isResolved: { type: Boolean, default: false }, // Track resolved status
+    response: { type: String, default: '' },
+    isResolved: { type: Boolean, default: false },
   },
   { timestamps: true }
 );
