@@ -33,9 +33,7 @@ export default function RootLayout({
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            <main className="h-full grid items-start container mx-auto backdrop-blur-md">
-              {children}
-            </main>
+            {children} {/* No need for another <main> in `page.tsx` */}
             <Footer />
           </AuthProvider>
         </ThemeContextProvider>
