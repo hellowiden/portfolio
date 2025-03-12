@@ -13,7 +13,7 @@ const MessageSchema = new mongoose.Schema(
     message: { type: String, required: true, trim: true },
     budget: {
       type: String,
-      enum: ['under_100', '100_500', '500_1000', '1000_plus'],
+      enum: ['under_3000', '3000_4500', '4500_6000', '6000_8000', '8000_plus'],
       default: null,
     },
     reason: {

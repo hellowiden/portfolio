@@ -7,7 +7,13 @@ import { getToken } from 'next-auth/jwt';
 import { NextRequest } from 'next/server';
 
 // Constants for validation
-const VALID_BUDGETS = ['under_100', '100_500', '500_1000', '1000_plus'];
+const VALID_BUDGETS = [
+  'under_3000',
+  '3000_4500',
+  '4500_6000',
+  '6000_8000',
+  '8000_plus',
+];
 const VALID_REASONS = ['job_offer', 'issues', 'general'];
 
 // Helper function for authentication
@@ -33,9 +39,12 @@ export async function POST(req: NextRequest) {
 
     const { message, budget, reason } = await req.json();
 
+    console.log('Received budget:', budget); // DEBUG
+    console.log('Expected budgets:', VALID_BUDGETS); // DEBUG
+
     if (!message?.trim()) return errorResponse('Message is required', 400);
     if (budget && !VALID_BUDGETS.includes(budget))
-      return errorResponse('Invalid budget value', 400);
+      return errorResponse(`Invalid budget value: ${budget}`, 400);
     if (reason && !VALID_REASONS.includes(reason))
       return errorResponse('Invalid reason value', 400);
 
