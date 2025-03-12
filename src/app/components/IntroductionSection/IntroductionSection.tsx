@@ -117,7 +117,7 @@ export default function IntroductionSection() {
         {/* Row 1, Column 2 */}
         <div className="grid grid-cols-2 gap-4 text-sm items-center">
           <Link
-            href="#contact"
+            href="/contact"
             className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
           >
             Work with me
