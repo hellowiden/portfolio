@@ -7,13 +7,9 @@ import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { experiences } from '@/data/experiences';
 
-const experiences = [
-  'experience-1',
-  'experience-2',
-  'experience-3',
-  'experience-4',
-];
+const experienceIds = experiences.map((e) => e.id);
 
 export default function ExperiencesLayout({
   children,
@@ -22,21 +18,17 @@ export default function ExperiencesLayout({
 }) {
   const router = useRouter();
   const params = useParams();
-  const isExperiencePage = params.slug !== undefined;
-  const currentExperienceIndex = experiences.indexOf(params.slug as string);
+  const currentExperienceIndex = experienceIds.indexOf(params.slug as string);
+  const isExperiencePage = currentExperienceIndex >= 0;
 
-  const handleNext = () => {
-    if (
-      currentExperienceIndex >= 0 &&
-      currentExperienceIndex < experiences.length - 1
-    ) {
-      router.push(`/experiences/${experiences[currentExperienceIndex + 1]}`);
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentExperienceIndex > 0) {
-      router.push(`/experiences/${experiences[currentExperienceIndex - 1]}`);
+  const navigateToExperience = (direction: 'prev' | 'next') => {
+    if (currentExperienceIndex < 0) return;
+    const newIndex =
+      direction === 'prev'
+        ? currentExperienceIndex - 1
+        : currentExperienceIndex + 1;
+    if (newIndex >= 0 && newIndex < experienceIds.length) {
+      router.push(`/experiences/${experienceIds[newIndex]}`);
     }
   };
 
@@ -46,46 +38,66 @@ export default function ExperiencesLayout({
         <Link href="/experiences" className="text-2xl font-bold">
           Experiences
         </Link>
+
         {isExperiencePage && (
           <div className="flex space-x-4">
             {currentExperienceIndex > 0 && (
-              <button
-                onClick={handlePrevious}
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
-              >
-                <motion.div
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <FaArrowLeft className="text-lg" />
-                </motion.div>
-                <span className="hidden sm:inline">Previous Experience</span>
-              </button>
+              <NavButton
+                direction="prev"
+                onClick={() => navigateToExperience('prev')}
+              />
             )}
-            {currentExperienceIndex < experiences.length - 1 && (
-              <button
-                onClick={handleNext}
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
-              >
-                <span className="hidden sm:inline">Next Experience</span>
-                <motion.div
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <FaArrowRight className="text-lg" />
-                </motion.div>
-              </button>
+            {currentExperienceIndex < experienceIds.length - 1 && (
+              <NavButton
+                direction="next"
+                onClick={() => navigateToExperience('next')}
+              />
             )}
           </div>
         )}
       </header>
       <main className="container mx-auto p-6">{children}</main>
     </div>
+  );
+}
+
+function NavButton({
+  direction,
+  onClick,
+}: {
+  direction: 'prev' | 'next';
+  onClick: () => void;
+}) {
+  const isPrev = direction === 'prev';
+
+  return (
+    <button
+      onClick={onClick}
+      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+    >
+      {isPrev && <MotionIcon isPrev />}
+      <span className="hidden sm:inline">
+        {isPrev ? 'Previous Experience' : 'Next Experience'}
+      </span>
+      {!isPrev && <MotionIcon />}
+    </button>
+  );
+}
+
+function MotionIcon({ isPrev = false }: { isPrev?: boolean }) {
+  return (
+    <motion.div
+      initial={{ rotate: isPrev ? -90 : 90, opacity: 0 }}
+      animate={{ rotate: 0, opacity: 1 }}
+      exit={{ rotate: isPrev ? 90 : -90, opacity: 0 }}
+      whileHover={{ scale: 1.2, rotate: isPrev ? 10 : -10 }}
+      transition={{ duration: 0.2 }}
+    >
+      {isPrev ? (
+        <FaArrowLeft className="text-lg" />
+      ) : (
+        <FaArrowRight className="text-lg" />
+      )}
+    </motion.div>
   );
 }
