@@ -32,7 +32,7 @@ export default function About() {
             className="grid gap-4"
           >
             <h1 className="text-3xl font-medium text-zinc-900 dark:text-zinc-50">
-              Why me over another
+              Why me? In short, because your brand deserves to lead.
             </h1>
             <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
               I don’t just build brands—I shape legacies. With over 12 years of
@@ -65,6 +65,10 @@ export default function About() {
               and human behavior—because the best brands aren’t just profitable;
               they endure. My work isn’t just about growth—it’s about making
               brands indispensable, now and in the future.
+              <br />
+              <br />
+              So when you work with me, you’re not just getting a service—you’re
+              securing a competitive edge. Let’s make your brand indispensable.
             </p>
           </motion.div>
         </motion.section>
