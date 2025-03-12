@@ -77,7 +77,7 @@ export default function IntroductionSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
-    }, 60000); // Change message every 60 seconds
+    }, 30000); // Change message every 60 seconds
 
     return () => clearInterval(interval);
   }, []);
