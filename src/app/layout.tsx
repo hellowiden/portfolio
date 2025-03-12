@@ -8,7 +8,6 @@ import AuthProvider from './components/SessionProvider';
 import { ThemeContextProvider } from '@/context/theme-context';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
-import BackgroundDots from './components/BackgroundDots/BackgroundDots';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -29,12 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${spaceGrotesk.className} !scroll-smooth grid min-h-screen grid-rows-[auto_1fr_auto] backdrop-blur-md bg-white/50 dark:bg-black/50 text-zinc-900 dark:text-zinc-100`}
+        className={`${spaceGrotesk.className} !scroll-smooth grid min-h-screen grid-rows-[auto_1fr_auto] backdrop-blur-md bg-white dark:bg-black text-zinc-900 dark:text-zinc-100`}
       >
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            <BackgroundDots />
+
             {children}
             <Footer />
           </AuthProvider>
