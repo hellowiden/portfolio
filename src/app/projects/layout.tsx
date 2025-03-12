@@ -7,29 +7,22 @@ import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { projects } from '@/data/projects';
 
-const projects = [
-  'project-1',
-  'project-2',
-  'project-3',
-  'project-4',
-  'project-5',
-  'project-6',
-  'project-7',
-];
+const projectIds = projects.map((p) => p.id);
 
 export default function ProjectsLayout({ children }: { children: ReactNode }) {
   const router = useRouter();
   const params = useParams();
-  const currentProjectIndex = projects.indexOf(params.slug as string);
+  const currentProjectIndex = projectIds.indexOf(params.slug as string);
   const isProjectPage = currentProjectIndex >= 0;
 
   const navigateToProject = (direction: 'prev' | 'next') => {
     if (currentProjectIndex < 0) return;
     const newIndex =
       direction === 'prev' ? currentProjectIndex - 1 : currentProjectIndex + 1;
-    if (newIndex >= 0 && newIndex < projects.length) {
-      router.push(`/projects/${projects[newIndex]}`);
+    if (newIndex >= 0 && newIndex < projectIds.length) {
+      router.push(`/projects/${projectIds[newIndex]}`);
     }
   };
 
@@ -48,7 +41,7 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
                 onClick={() => navigateToProject('prev')}
               />
             )}
-            {currentProjectIndex < projects.length - 1 && (
+            {currentProjectIndex < projectIds.length - 1 && (
               <NavButton
                 direction="next"
                 onClick={() => navigateToProject('next')}
