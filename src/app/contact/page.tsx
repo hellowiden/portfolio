@@ -164,7 +164,7 @@ export default function Contact() {
         <Step title="Tell Me More">
           <textarea
             name="message"
-            placeholder="Message"
+            placeholder="I want you to help me recreate my website."
             value={formData.message}
             onChange={handleChange}
             required
