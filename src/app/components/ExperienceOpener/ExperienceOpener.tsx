@@ -1,3 +1,5 @@
+//src/app/components/ExperienceOpener/ExperienceOpener.tsx
+
 'use client';
 
 import Image from 'next/image';

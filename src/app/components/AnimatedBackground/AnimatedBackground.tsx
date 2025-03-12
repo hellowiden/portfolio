@@ -1,3 +1,5 @@
+//src/app/components/AnimatedBackground/AnimatedBackground.tsx
+
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';

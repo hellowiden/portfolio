@@ -1,3 +1,5 @@
+//src/app/components/ClientsCarousel/ClientsCarousel.tsx
+
 import Marquee from 'react-fast-marquee';
 import { motion } from 'framer-motion';
 import { clientsData } from '../../../data/clients';

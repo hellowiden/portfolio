@@ -115,13 +115,10 @@ export async function PUT(req: NextRequest) {
 
 */
 
-export async function DELETE(
-  context: { params: { id: string } } // Extract ID from the URL params
-) {
+export async function DELETE(context: { params: { id: string } }) {
   try {
     await connectToDatabase();
 
-    // Extract the `id` from context.params
     const { id } = context.params;
 
     if (!id) {
@@ -138,6 +135,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Message not found' }, { status: 404 });
     }
 
+    console.log('Attempting to delete message with ID:', id);
     return NextResponse.json({ message: 'Message deleted' }, { status: 200 });
   } catch (error) {
     console.error('Error deleting message:', error);

@@ -1,3 +1,5 @@
+//src/app/components/Header/Header.tsx
+
 'use client';
 
 import { signIn, signOut, useSession } from 'next-auth/react';

@@ -1,3 +1,5 @@
+//src/app/components/ProjectOpener/ProjectOpener.tsx
+
 'use client';
 
 import Image from 'next/image';

@@ -1,3 +1,5 @@
+//src/app/components/AdBar/AdBar.tsx
+
 'use client';
 
 import { useEffect, useState, useCallback, useRef } from 'react';

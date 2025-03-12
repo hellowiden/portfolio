@@ -74,20 +74,20 @@ export default function Messages() {
     if (!confirm('Are you sure you want to delete this message?')) return;
 
     try {
-      // Send DELETE request to the correct API route
-      const res = await fetch(`/api/messages/${messageId}`, {
+      // Update this URL to match your actual route structure
+      const res = await fetch(`/messages/${messageId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
       });
 
+      // Rest of your function remains the same
       if (!res.ok) {
         const responseData = await res.json();
         throw new Error(responseData.error || 'Failed to delete message');
       }
 
-      // Remove the deleted message from state
       setMessages((prevMessages) =>
         prevMessages.filter((msg) => msg._id !== messageId)
       );
