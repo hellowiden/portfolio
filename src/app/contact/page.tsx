@@ -6,10 +6,10 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const budgetOptions = [
-  { value: 'under_100', label: 'Under $100' },
-  { value: '100_500', label: '$100 - $500' },
-  { value: '500_1000', label: '$500 - $1000' },
-  { value: '1000_plus', label: 'Over $1000' },
+  { value: 'under_4000', label: 'Under $4,000' },
+  { value: '4000_5000', label: '$4,000 - $5,000' },
+  { value: '5000_6000', label: '$5,000 - $6,000' },
+  { value: '6000_plus', label: 'Over $6,000' },
 ];
 
 const contactReasons = [
