@@ -18,6 +18,56 @@ const contactReasons = [
   { value: 'general', label: 'General Conversations' },
 ];
 
+function Step({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+    >
+      <h1 className="text-2xl font-bold">{title}</h1>
+      {children}
+    </motion.div>
+  );
+}
+
+function Dropdown({
+  name,
+  value,
+  options,
+  onChange,
+}: {
+  name: string;
+  value: string;
+  options: { value: string; label: string }[];
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+}) {
+  return (
+    <select
+      name={name}
+      value={value}
+      onChange={onChange}
+      required
+      className="p-2 border rounded mt-4 w-full"
+    >
+      <option value="" disabled>
+        Select an Option
+      </option>
+      {options.map((option) => (
+        <option key={option.value} value={option.value}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  );
+}
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     message: '',
@@ -46,24 +96,19 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      // ✅ Log the response for debugging
       const responseData = await res.json();
       console.log('API Response:', responseData);
-
       if (!res.ok)
         throw new Error(responseData.error || 'Failed to send message');
 
       setStatus('Message sent successfully!');
       setFormData({ message: '', budget: '', reason: '' });
       setStep(1);
-    } catch (error: unknown) {
+    } catch (error) {
       console.error('Error sending message:', error);
-
-      if (error instanceof Error) {
-        setStatus(error.message);
-      } else {
-        setStatus('An unknown error occurred.');
-      }
+      setStatus(
+        error instanceof Error ? error.message : 'An unknown error occurred.'
+      );
     }
   };
 
@@ -77,31 +122,15 @@ export default function Contact() {
           Back
         </button>
       )}
+
       {step === 1 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-        >
-          <h1 className="text-2xl font-bold">
-            Let&apos;s Start - What Brings You Here?
-          </h1>
-          <select
+        <Step title="Let's Start - What Brings You Here?">
+          <Dropdown
             name="reason"
             value={formData.reason}
+            options={contactReasons}
             onChange={handleChange}
-            required
-            className="p-2 border rounded mt-4 w-full"
-          >
-            <option value="" disabled>
-              Select Reason
-            </option>
-            {contactReasons.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          />
           <button
             onClick={() => setStep(2)}
             disabled={!formData.reason}
@@ -109,31 +138,17 @@ export default function Contact() {
           >
             Next
           </button>
-        </motion.div>
+        </Step>
       )}
+
       {step === 2 && formData.reason === 'job_offer' && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-        >
-          <h1 className="text-2xl font-bold">Great! Let&apos;s Talk Budget</h1>
-          <select
+        <Step title="Great! Let's Talk Budget">
+          <Dropdown
             name="budget"
             value={formData.budget}
+            options={budgetOptions}
             onChange={handleChange}
-            required
-            className="p-2 border rounded mt-4 w-full"
-          >
-            <option value="" disabled>
-              Select Budget
-            </option>
-            {budgetOptions.map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
+          />
           <button
             onClick={() => setStep(3)}
             disabled={!formData.budget}
@@ -141,15 +156,11 @@ export default function Contact() {
           >
             Next
           </button>
-        </motion.div>
+        </Step>
       )}
+
       {((step === 2 && formData.reason !== 'job_offer') || step === 3) && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-        >
-          <h1 className="text-2xl font-bold">Tell Me More</h1>
+        <Step title="Tell Me More">
           <textarea
             name="message"
             placeholder="Message"
@@ -165,23 +176,20 @@ export default function Contact() {
           >
             Next
           </button>
-        </motion.div>
+        </Step>
       )}
+
       {step === 4 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-        >
-          <h1 className="text-2xl font-bold">Ready to Submit?</h1>
+        <Step title="Ready to Submit?">
           <button
             onClick={handleSubmit}
             className="mt-4 p-2 bg-green-500 text-white rounded w-full"
           >
             Send
           </button>
-        </motion.div>
+        </Step>
       )}
+
       {status && <p className="mt-2 text-sm">{status}</p>}
     </div>
   );

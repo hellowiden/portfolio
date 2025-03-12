@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 interface Message {
   _id: string;
@@ -22,64 +22,68 @@ export default function Messages() {
     {}
   );
 
-  useEffect(() => {
-    async function fetchMessages() {
-      try {
-        const res = await fetch('/api/messages');
-        if (!res.ok) throw new Error('Failed to fetch messages');
-        const data = await res.json();
-        setMessages(data.messages);
-      } catch (error) {
-        console.error('Error fetching messages:', error);
-      }
+  // ✅ Move `fetchMessages` outside useEffect & use `useCallback`
+  const fetchMessages = useCallback(async () => {
+    try {
+      const res = await fetch('/api/messages');
+      if (!res.ok) throw new Error('Failed to fetch messages');
+      const data = await res.json();
+      setMessages(data.messages);
+    } catch (error) {
+      console.error('Error fetching messages:', error);
     }
-
-    fetchMessages();
   }, []);
 
-  const handleResponseChange = (messageId: string, response: string) => {
-    setResponseText((prev) => ({ ...prev, [messageId]: response }));
-  };
+  useEffect(() => {
+    fetchMessages();
+  }, [fetchMessages]);
 
-  const handleSendResponse = async (messageId: string) => {
-    try {
-      const res = await fetch(`/api/messages/${messageId}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          response: responseText[messageId] || '',
-          isResolved: true,
-        }),
-      });
+  // ✅ Memoized `handleResponseChange` for better performance
+  const handleResponseChange = useCallback(
+    (messageId: string, response: string) => {
+      setResponseText((prev) => ({ ...prev, [messageId]: response }));
+    },
+    []
+  );
 
-      if (!res.ok) {
-        const responseData = await res.json();
-        throw new Error(responseData.error || 'Failed to send response');
+  const handleSendResponse = useCallback(
+    async (messageId: string) => {
+      try {
+        const res = await fetch(`/api/messages/${messageId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            response: responseText[messageId] || '',
+            isResolved: true,
+          }),
+        });
+
+        if (!res.ok) {
+          const responseData = await res.json();
+          throw new Error(responseData.error || 'Failed to send response');
+        }
+
+        setMessages((prevMessages) =>
+          prevMessages.map((msg) =>
+            msg._id === messageId
+              ? { ...msg, response: responseText[messageId], isResolved: true }
+              : msg
+          )
+        );
+        setResponseText((prev) => ({ ...prev, [messageId]: '' }));
+      } catch (error) {
+        console.error('Error sending response:', error);
       }
+    },
+    [responseText]
+  );
 
-      setMessages((prevMessages) =>
-        prevMessages.map((msg) =>
-          msg._id === messageId
-            ? { ...msg, response: responseText[messageId], isResolved: true }
-            : msg
-        )
-      );
-      setResponseText((prev) => ({ ...prev, [messageId]: '' }));
-    } catch (error) {
-      console.error('Error sending response:', error);
-    }
-  };
-
-  const handleDeleteMessage = async (messageId: string) => {
+  const handleDeleteMessage = useCallback(async (messageId: string) => {
     if (!confirm('Are you sure you want to delete this message?')) return;
 
     try {
-      // Update the URL to match the correct endpoint for deleting a message
       const res = await fetch(`/api/messages/${messageId}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
       });
 
       if (!res.ok) {
@@ -87,14 +91,13 @@ export default function Messages() {
         throw new Error(responseData.error || 'Failed to delete message');
       }
 
-      // Remove the deleted message from the state
       setMessages((prevMessages) =>
         prevMessages.filter((msg) => msg._id !== messageId)
       );
     } catch (error) {
       console.error('Error deleting message:', error);
     }
-  };
+  }, []);
 
   return (
     <div className="p-4">
