@@ -22,7 +22,7 @@ export default function Messages() {
     {}
   );
 
-  // ✅ Move `fetchMessages` outside useEffect & use `useCallback`
+  // ✅ Fetch messages from API
   const fetchMessages = useCallback(async () => {
     try {
       const res = await fetch('/api/messages');
@@ -38,7 +38,7 @@ export default function Messages() {
     fetchMessages();
   }, [fetchMessages]);
 
-  // ✅ Memoized `handleResponseChange` for better performance
+  // ✅ Handle response input changes
   const handleResponseChange = useCallback(
     (messageId: string, response: string) => {
       setResponseText((prev) => ({ ...prev, [messageId]: response }));
@@ -46,14 +46,23 @@ export default function Messages() {
     []
   );
 
+  // ✅ Handle sending response
   const handleSendResponse = useCallback(
     async (messageId: string) => {
+      const response = responseText[messageId]?.trim();
+      if (!response) {
+        alert('Please enter a response before sending.');
+        return;
+      }
+
+      if (!confirm('Are you sure you want to send this response?')) return;
+
       try {
         const res = await fetch(`/api/messages/${messageId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            response: responseText[messageId] || '',
+            response,
             isResolved: true,
           }),
         });
@@ -65,9 +74,7 @@ export default function Messages() {
 
         setMessages((prevMessages) =>
           prevMessages.map((msg) =>
-            msg._id === messageId
-              ? { ...msg, response: responseText[messageId], isResolved: true }
-              : msg
+            msg._id === messageId ? { ...msg, response, isResolved: true } : msg
           )
         );
         setResponseText((prev) => ({ ...prev, [messageId]: '' }));
@@ -78,6 +85,7 @@ export default function Messages() {
     [responseText]
   );
 
+  // ✅ Handle deleting message
   const handleDeleteMessage = useCallback(async (messageId: string) => {
     if (!confirm('Are you sure you want to delete this message?')) return;
 
@@ -100,11 +108,11 @@ export default function Messages() {
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-2xl mx-auto">
       <h1 className="text-2xl font-bold">Messages</h1>
-      <ul className="mt-4">
+      <ul className="mt-4 space-y-4">
         {messages.map((msg) => (
-          <li key={msg._id} className="border-b py-4">
+          <li key={msg._id} className="border p-4 rounded shadow-sm bg-white">
             <p>
               <strong>From:</strong> {msg.userName} ({msg.userEmail})
             </p>
@@ -121,19 +129,38 @@ export default function Messages() {
               {new Date(msg.createdAt).toLocaleString()}
             </p>
 
-            <div className="mt-2 flex gap-2">
-              <button
-                className="px-3 py-2 bg-green-500 text-white rounded"
-                onClick={() => handleSendResponse(msg._id)}
-              >
-                Respond
-              </button>
+            {/* Response Input */}
+            {!msg.isResolved && (
+              <div className="mt-3">
+                <textarea
+                  className="w-full p-2 border rounded"
+                  placeholder="Write a response..."
+                  value={responseText[msg._id] || ''}
+                  onChange={(e) =>
+                    handleResponseChange(msg._id, e.target.value)
+                  }
+                />
+                <button
+                  className="mt-2 px-3 py-2 bg-green-500 text-white rounded"
+                  onClick={() => handleSendResponse(msg._id)}
+                  disabled={!responseText[msg._id]?.trim()}
+                >
+                  Respond
+                </button>
+              </div>
+            )}
+
+            {/* Actions */}
+            <div className="mt-3 flex gap-2">
               <button
                 className="px-3 py-2 bg-red-500 text-white rounded"
                 onClick={() => handleDeleteMessage(msg._id)}
               >
                 Remove
               </button>
+              {msg.isResolved && (
+                <span className="text-green-600">✅ Resolved</span>
+              )}
             </div>
           </li>
         ))}
