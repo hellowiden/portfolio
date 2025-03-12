@@ -17,7 +17,7 @@ function ContactOpener({
     <section className="w-full border dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-cols-1 grid-rows-1 relative">
       {/* Background Image */}
       <Image
-        src="/contact-bg.jpg"
+        src="/issues.jpg"
         alt={title}
         fill={true}
         sizes="(max-width: 768px) 100vw, 50vw"
