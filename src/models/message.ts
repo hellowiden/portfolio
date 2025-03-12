@@ -1,4 +1,4 @@
-// src/models/message.ts
+//src/models/message.ts
 import mongoose from 'mongoose';
 
 const MessageSchema = new mongoose.Schema(
@@ -13,13 +13,13 @@ const MessageSchema = new mongoose.Schema(
     message: { type: String, required: true, trim: true },
     budget: {
       type: String,
-      required: false,
       enum: ['under_100', '100_500', '500_1000', '1000_plus'],
+      default: null,
     },
     reason: {
       type: String,
-      required: true,
       enum: ['job_offer', 'issues', 'general'],
+      default: null,
     },
     response: { type: String, default: '' },
     isResolved: { type: Boolean, default: false },

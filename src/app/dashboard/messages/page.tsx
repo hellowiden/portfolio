@@ -1,4 +1,5 @@
-// src/app/dashboard/messages/page.tsx
+//src/app/dashboard/messages/page.tsx
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -17,7 +18,6 @@ interface Message {
 
 export default function Messages() {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [responseText, setResponseText] = useState<{ [key: string]: string }>(
     {}
   );
@@ -34,18 +34,6 @@ export default function Messages() {
       }
     }
 
-    async function checkAdminStatus() {
-      try {
-        const res = await fetch('/api/auth/user');
-        if (!res.ok) throw new Error('Failed to fetch user data');
-        const userData = await res.json();
-        setIsAdmin(userData.role === 'admin');
-      } catch (error) {
-        console.error('Error checking admin status:', error);
-      }
-    }
-
-    checkAdminStatus();
     fetchMessages();
   }, []);
 
@@ -59,12 +47,15 @@ export default function Messages() {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          response: responseText[messageId],
+          response: responseText[messageId] || '',
           isResolved: true,
         }),
       });
 
-      if (!res.ok) throw new Error('Failed to send response');
+      if (!res.ok) {
+        const responseData = await res.json();
+        throw new Error(responseData.error || 'Failed to send response');
+      }
 
       setMessages((prevMessages) =>
         prevMessages.map((msg) =>
@@ -73,7 +64,6 @@ export default function Messages() {
             : msg
         )
       );
-
       setResponseText((prev) => ({ ...prev, [messageId]: '' }));
     } catch (error) {
       console.error('Error sending response:', error);
@@ -84,12 +74,20 @@ export default function Messages() {
     if (!confirm('Are you sure you want to delete this message?')) return;
 
     try {
+      // Send DELETE request to the correct API route
       const res = await fetch(`/api/messages/${messageId}`, {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
       });
 
-      if (!res.ok) throw new Error('Failed to delete message');
+      if (!res.ok) {
+        const responseData = await res.json();
+        throw new Error(responseData.error || 'Failed to delete message');
+      }
 
+      // Remove the deleted message from state
       setMessages((prevMessages) =>
         prevMessages.filter((msg) => msg._id !== messageId)
       );
@@ -120,33 +118,20 @@ export default function Messages() {
               {new Date(msg.createdAt).toLocaleString()}
             </p>
 
-            {isAdmin && (
-              <div className="mt-3">
-                <textarea
-                  value={responseText[msg._id] ?? msg.response}
-                  onChange={(e) =>
-                    handleResponseChange(msg._id, e.target.value)
-                  }
-                  placeholder="Write a response..."
-                  className="w-full p-2 border rounded"
-                />
-
-                <div className="mt-2 flex gap-2">
-                  <button
-                    className="px-3 py-2 bg-green-500 text-white rounded"
-                    onClick={() => handleSendResponse(msg._id)}
-                  >
-                    Respond
-                  </button>
-                  <button
-                    className="px-3 py-2 bg-red-500 text-white rounded"
-                    onClick={() => handleDeleteMessage(msg._id)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            )}
+            <div className="mt-2 flex gap-2">
+              <button
+                className="px-3 py-2 bg-green-500 text-white rounded"
+                onClick={() => handleSendResponse(msg._id)}
+              >
+                Respond
+              </button>
+              <button
+                className="px-3 py-2 bg-red-500 text-white rounded"
+                onClick={() => handleDeleteMessage(msg._id)}
+              >
+                Remove
+              </button>
+            </div>
           </li>
         ))}
       </ul>

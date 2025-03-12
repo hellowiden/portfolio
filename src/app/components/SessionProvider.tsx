@@ -1,4 +1,4 @@
-//src/app/SessionProvider.tsx
+//src/app/components/SessionProvider.tsx
 
 'use client';
 

@@ -1,4 +1,4 @@
-//src/libs/mongodb.tsx
+//src/libs/mongodb.ts
 
 import mongoose from 'mongoose';
 

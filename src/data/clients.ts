@@ -1,4 +1,4 @@
-// src/data/clients.ts
+//src/data/clients.ts
 
 export type Client = {
   name: string;

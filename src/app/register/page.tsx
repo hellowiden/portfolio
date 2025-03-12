@@ -1,3 +1,5 @@
+//src/app/register/page.ts
+
 'use client';
 
 import { useState } from 'react';

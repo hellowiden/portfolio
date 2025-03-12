@@ -16,10 +16,28 @@ export async function POST(req: NextRequest) {
     }
 
     const { message, budget, reason } = await req.json();
-    if (!message || !budget || !reason) {
-      console.error('Missing fields:', { message, budget, reason });
+
+    if (!message?.trim()) {
       return NextResponse.json(
-        { error: 'All fields are required' },
+        { error: 'Message is required' },
+        { status: 400 }
+      );
+    }
+
+    // Validate budget if provided
+    const validBudgets = ['under_100', '100_500', '500_1000', '1000_plus'];
+    if (budget && !validBudgets.includes(budget)) {
+      return NextResponse.json(
+        { error: 'Invalid budget value' },
+        { status: 400 }
+      );
+    }
+
+    // Validate reason if provided
+    const validReasons = ['job_offer', 'issues', 'general'];
+    if (reason && !validReasons.includes(reason)) {
+      return NextResponse.json(
+        { error: 'Invalid reason value' },
         { status: 400 }
       );
     }
@@ -28,9 +46,9 @@ export async function POST(req: NextRequest) {
       userId: token.id,
       userName: token.name,
       userEmail: token.email,
-      message,
-      budget,
-      reason,
+      message: message.trim(),
+      budget: budget || null,
+      reason: reason || null,
     });
 
     return NextResponse.json(
@@ -39,6 +57,24 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     console.error('Error in POST:', error);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+  }
+}
+
+export async function GET(req: NextRequest) {
+  try {
+    await connectToDatabase();
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+
+    if (!token) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const messages = await Message.find().sort({ createdAt: -1 });
+
+    return NextResponse.json({ messages }, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching messages:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }
