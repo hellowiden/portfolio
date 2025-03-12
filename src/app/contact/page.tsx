@@ -6,10 +6,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const budgetOptions = [
-  { value: 'under_4000', label: 'Under $4,000' },
-  { value: '4000_5000', label: '$4,000 - $5,000' },
-  { value: '5000_6000', label: '$5,000 - $6,000' },
-  { value: '6000_plus', label: 'Over $6,000' },
+  { value: 'under_3000', label: 'Under $3,000' }, // Entry-level or part-time consultants
+  { value: '3000_4500', label: '$3,000 - $4,500' }, // Mid-tier professionals or smaller projects
+  { value: '4500_6000', label: '$4,500 - $6,000' }, // Competitive pricing for senior talent
+  { value: '6000_8000', label: '$6,000 - $8,000' }, // Premium pricing for top-tier expertise
+  { value: '8000_plus', label: 'Over $8,000' }, // High-end consulting & enterprise-level services
 ];
 
 const contactReasons = [
