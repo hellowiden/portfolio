@@ -14,16 +14,18 @@ export default function Layout({ children }: LayoutProps) {
   const { data: session, status } = useSession();
   const router = useRouter();
 
+  // Combined authentication and admin check
   const isAdmin = useMemo(
     () => session?.user?.roles.includes('admin'),
     [session]
   );
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.replace('/login');
-    } else if (status === 'authenticated' && !isAdmin) {
-      router.replace('/');
+    if (
+      status === 'unauthenticated' ||
+      (status === 'authenticated' && !isAdmin)
+    ) {
+      router.replace(status === 'unauthenticated' ? '/login' : '/');
     }
   }, [status, isAdmin, router]);
 
@@ -32,7 +34,6 @@ export default function Layout({ children }: LayoutProps) {
 
   return (
     <div className="h-full border-x dark:border-light bg-zinc-100 dark:bg-zinc-900">
-      {/* Header */}
       <header className="bg-zinc-200 dark:bg-zinc-900 text-zinc-900 dark:text-white p-4">
         <div className="container mx-auto flex justify-between items-center">
           <h1 className="text-2xl font-bold">Admin Dashboard</h1>

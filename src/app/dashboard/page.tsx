@@ -3,8 +3,8 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState, useMemo, useCallback } from 'react';
 import EditUserModal from '../components/EditUserModal';
 
 interface User {
@@ -17,6 +17,22 @@ interface User {
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
+
+  // Consolidated authentication check (same logic as in layout.tsx)
+  const isAdmin = useMemo(
+    () => session?.user?.roles.includes('admin'),
+    [session]
+  );
+
+  useEffect(() => {
+    if (
+      status === 'unauthenticated' ||
+      (status === 'authenticated' && !isAdmin)
+    ) {
+      router.replace(status === 'unauthenticated' ? '/login' : '/');
+    }
+  }, [status, isAdmin, router]);
+
   const [users, setUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [modalState, setModalState] = useState<{
@@ -27,25 +43,11 @@ export default function Dashboard() {
     user: null,
   });
 
-  const isAdmin = useMemo(
-    () => session?.user?.roles.includes('admin'),
-    [session]
-  );
-
-  useEffect(() => {
-    if (status === 'unauthenticated') {
-      router.push('/login');
-    } else if (status === 'authenticated' && !isAdmin) {
-      router.push('/');
-    }
-  }, [status, isAdmin, router]);
-
   const fetchUsers = useCallback(async () => {
     if (!isAdmin) return;
     try {
       const response = await fetch('/api/users');
       if (!response.ok) throw new Error('Failed to fetch users');
-
       const { users } = await response.json();
       setUsers(users);
     } catch (error) {
@@ -99,7 +101,6 @@ export default function Dashboard() {
   }, []);
 
   if (status === 'loading') return <p>Loading...</p>;
-  if (!session?.user) return <p>User data not available</p>;
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
@@ -144,13 +145,13 @@ export default function Dashboard() {
                 <td className="p-2 border border-zinc-300 dark:border-zinc-700">
                   <div className="grid grid-cols-2 gap-2">
                     <button
-                      className="p-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white dark:text-white dark:border-zinc-600 dark:hover:bg-zinc-600"
+                      className="p-2 text-sm border text-zinc-700 rounded hover:bg-zinc-800 hover:text-white"
                       onClick={() => handleEdit(user)}
                     >
                       Edit
                     </button>
                     <button
-                      className="p-2 text-sm border border-zinc-700 bg-zinc-800 text-zinc-300 rounded transition hover:bg-zinc-100 hover:text-black dark:bg-zinc-600 dark:text-white dark:hover:bg-red-500"
+                      className="p-2 text-sm border bg-zinc-800 text-zinc-300 rounded hover:bg-zinc-100 hover:text-black"
                       onClick={() => handleDelete(user._id)}
                     >
                       Remove
