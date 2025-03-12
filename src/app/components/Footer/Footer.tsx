@@ -13,7 +13,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-black/70 transition">
+    <footer className="w-full z-40 border-t border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-black/70 transition">
       <div className="w-full px-6 sm:px-8 py-10 grid gap-6 grid-cols-1 md:grid-cols-[1fr_auto] items-end">
         <div>
           <h4 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
