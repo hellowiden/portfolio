@@ -1,3 +1,4 @@
+//src/app/about/layout.tsx
 'use client';
 
 import { ReactNode } from 'react';

@@ -115,30 +115,30 @@ export async function PUT(req: NextRequest) {
 
 */
 
-export async function DELETE(context: { params: { id: string } }) {
-  try {
-    await connectToDatabase();
+// export async function DELETE(context: { params: { id: string } }) {
+//   try {
+//     await connectToDatabase();
 
-    const { id } = context.params;
+//     const { id } = context.params;
 
-    if (!id) {
-      return NextResponse.json(
-        { error: 'Message ID is required' },
-        { status: 400 }
-      );
-    }
+//     if (!id) {
+//       return NextResponse.json(
+//         { error: 'Message ID is required' },
+//         { status: 400 }
+//       );
+//     }
 
-    // Delete the message by ID
-    const deletedMessage = await Message.findByIdAndDelete(id);
+//     // Delete the message by ID
+//     const deletedMessage = await Message.findByIdAndDelete(id);
 
-    if (!deletedMessage) {
-      return NextResponse.json({ error: 'Message not found' }, { status: 404 });
-    }
+//     if (!deletedMessage) {
+//       return NextResponse.json({ error: 'Message not found' }, { status: 404 });
+//     }
 
-    console.log('Attempting to delete message with ID:', id);
-    return NextResponse.json({ message: 'Message deleted' }, { status: 200 });
-  } catch (error) {
-    console.error('Error deleting message:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
-  }
-}
+//     console.log('Attempting to delete message with ID:', id);
+//     return NextResponse.json({ message: 'Message deleted' }, { status: 200 });
+//   } catch (error) {
+//     console.error('Error deleting message:', error);
+//     return NextResponse.json({ error: 'Server error' }, { status: 500 });
+//   }
+// }

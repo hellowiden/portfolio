@@ -1,4 +1,4 @@
-// src/app/api/users/[id]/route.tsx
+//src/app/api/users/[id]/route.ts
 
 import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
