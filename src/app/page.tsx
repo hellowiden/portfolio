@@ -2,8 +2,8 @@
 
 'use client';
 
-import ClientsCarousel from './components/ClientsCarousel/ClientsCarousel';
 import IntroductionSection from './components/IntroductionSection/IntroductionSection';
+import ClientsCarousel from './components/ClientsCarousel/ClientsCarousel';
 import ProjectOpener from './components/ProjectOpener/ProjectOpener';
 import ExperienceOpener from './components/ExperienceOpener/ExperienceOpener';
 import ContactOpener from './components/ContactOpener/ContactOpener';
