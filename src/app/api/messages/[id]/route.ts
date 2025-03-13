@@ -18,8 +18,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Awaiting params to fix the error
-    const { id } = await params; // <-- Awaiting params here
+    const { id } = await params;
 
     console.log('Received ID for deletion:', id);
 

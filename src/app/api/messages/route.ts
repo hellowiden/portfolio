@@ -39,8 +39,8 @@ export async function POST(req: NextRequest) {
 
     const { message, budget, reason } = await req.json();
 
-    console.log('Received budget:', budget); // DEBUG
-    console.log('Expected budgets:', VALID_BUDGETS); // DEBUG
+    console.log('Received budget:', budget);
+    console.log('Expected budgets:', VALID_BUDGETS);
 
     if (!message?.trim()) return errorResponse('Message is required', 400);
     if (budget && !VALID_BUDGETS.includes(budget))
@@ -96,12 +96,11 @@ export async function DELETE(
     let id = params?.id;
 
     if (!id) {
-      // Fallback: Try extracting ID from the body if not in URL
       const body = await req.json();
       id = body.id;
     }
 
-    console.log('Received ID for deletion:', id); // Debugging log
+    console.log('Received ID for deletion:', id);
 
     if (!id)
       return NextResponse.json(
@@ -112,11 +111,11 @@ export async function DELETE(
     const deletedMessage = await Message.findByIdAndDelete(id);
 
     if (!deletedMessage) {
-      console.log('Message not found in DB:', id); // Debugging log
+      console.log('Message not found in DB:', id);
       return NextResponse.json({ error: 'Message not found' }, { status: 404 });
     }
 
-    console.log('Message deleted successfully:', id); // Debugging log
+    console.log('Message deleted successfully:', id);
 
     return NextResponse.json(
       { message: 'Message deleted successfully' },

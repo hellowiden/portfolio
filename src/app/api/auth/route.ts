@@ -9,7 +9,6 @@ import { JWT } from 'next-auth/jwt';
 import { Session, User as NextAuthUser } from 'next-auth';
 import { AdapterUser } from 'next-auth/adapters';
 
-// Extend NextAuth User Type
 declare module 'next-auth' {
   interface Session {
     user: {

@@ -85,12 +85,11 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
 // Delete user
 export async function DELETE(
   req: Request,
-  context: { params: { id: string } } // Keep `context` here and extract `params`
+  context: { params: { id: string } }
 ) {
   try {
     await connectToDatabase();
 
-    // Await params before accessing
     const { id } = await context.params;
 
     if (!id) {
