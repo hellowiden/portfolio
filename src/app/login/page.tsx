@@ -41,7 +41,6 @@ export default function Login() {
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 w-full h-full border-x dark:border-light">
-      {/* Login Section */}
       <section className="grid place-items-center p-6 bg-zinc-100 dark:bg-zinc-800">
         <form
           onSubmit={handleSubmit}
@@ -90,7 +89,6 @@ export default function Login() {
         </form>
       </section>
 
-      {/* AdBar Section */}
       <section className="hidden md:grid place-items-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
         <AdBar />
       </section>
