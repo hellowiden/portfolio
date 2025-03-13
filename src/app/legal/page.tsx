@@ -107,7 +107,7 @@ export default function LegalPage() {
             <li key={id}>
               <Link href={`#${id}`} scroll={true}>
                 <span
-                  className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200 px-2 py-1 rounded-md transition cursor-pointer"
+                  className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200  transition cursor-pointer"
                   onClick={() => setActiveSection(id)}
                 >
                   {title}
@@ -126,10 +126,10 @@ export default function LegalPage() {
           <section
             key={id}
             id={id}
-            className={`grid gap-2 p-4 text-sm border rounded-xl transition text-black dark:text-white ${
+            className={`grid gap-2 p-4 text-sm border dark:border-light rounded-xl transition text-black dark:text-white ${
               activeSection === id
                 ? 'bg-zinc-300 dark:bg-zinc-700'
-                : 'hover:bg-zinc-200 dark:hover:bg-zinc-600'
+                : 'hover:bg-zinc-200 dark:hover:bg-zinc-800'
             }`}
           >
             <h2 className="text-2xl font-semibold text-zinc-800 dark:text-white">
