@@ -1,19 +1,18 @@
 //src/app/about/page.tsx
 'use client';
 import Link from 'next/link';
-
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
 export default function About() {
   return (
-    <div id="about" className="w-full p-6 container mx-auto ">
+    <div id="about" className="w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 place-items-center">
-        <div className="w-full min-h-[500px] max-h-auto md:max-h-none border dark:border-light rounded-xl relative overflow-hidden">
+        <div className="w-full min-h-[500px] border dark:border-light rounded-xl relative overflow-hidden">
           <Image
             src="/adventure.jpg"
             alt="Descriptive Alt Text"
-            fill={true}
+            fill
             sizes="(max-width: 768px) 100vw, 50vw"
             style={{ objectFit: 'cover' }}
             priority
