@@ -115,20 +115,22 @@ export default function IntroductionSection() {
         </div>
 
         {/* Row 1, Column 2 */}
-        <div className="grid grid-cols-2 gap-4 text-sm items-center">
+        <div className="grid grid-cols-1 gap-4 text-sm items-center">
           <Link
             href="/contact"
             className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
           >
             Work with me
           </Link>
-          <Link
-            href="/resume.pdf"
-            download
-            className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
-          >
-            Download resume
-          </Link>
+          {/* 
+<Link
+  href="/resume.pdf"
+  download
+  className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
+>
+  Download resume
+</Link> 
+*/}
         </div>
 
         {/* Row 2, Column 1 (Expanding on Large Screens) */}
