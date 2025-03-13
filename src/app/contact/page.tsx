@@ -4,13 +4,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Listbox,
-  ListboxButton,
-  ListboxOptions,
-  ListboxOption,
-} from '@headlessui/react';
-import { ChevronDown, Check } from 'lucide-react';
+import { Listbox } from '@headlessui/react';
+import { Check, ChevronDown } from 'lucide-react';
 
 const budgetOptions = [
   { value: 'under_3000', label: 'Under $3,000' },
@@ -66,36 +61,38 @@ function CustomDropdown({
 
   return (
     <Listbox value={value} onChange={onChange}>
-      <div className="relative mt-4 border dark:border-light rounded-xl">
-        <ListboxButton className="w-full flex items-center justify-between p-3 border border-light dark:border-dark rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
-          {selectedOption ? selectedOption.label : 'Select an Option'}
+      <div className="border dark:border-light rounded-xl grid gap-2 p-2">
+        <Listbox.Button className="w-full grid grid-cols-[1fr_auto] items-center p-3 border border-light dark:border-dark rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
+          <span>
+            {selectedOption ? selectedOption.label : 'Select an Option'}
+          </span>
           <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-        </ListboxButton>
+        </Listbox.Button>
 
-        <ListboxOptions className="absolute w-full mt-2 bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded-xl">
+        <Listbox.Options className="w-full bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded-xl grid gap-1 p-2">
           {options.map((option) => (
-            <ListboxOption
+            <Listbox.Option
               key={option.value}
               value={option.value}
-              className={({ active }: { active: boolean }) =>
-                `p-2 cursor-pointer ${
+              className={({ active }) =>
+                `p-2 cursor-pointer grid ${
                   active
                     ? 'bg-green-500 text-white'
                     : 'text-black dark:text-white'
                 }`
               }
             >
-              {({ selected }: { selected: boolean }) => (
-                <div className="flex items-center justify-between rounded-xl">
-                  {option.label}
+              {({ selected }) => (
+                <div className="grid grid-cols-[1fr_auto] items-center p-2 rounded-xl">
+                  <span>{option.label}</span>
                   {selected && (
                     <Check className="w-4 h-4 text-green-500 rounded-xl" />
                   )}
                 </div>
               )}
-            </ListboxOption>
+            </Listbox.Option>
           ))}
-        </ListboxOptions>
+        </Listbox.Options>
       </div>
     </Listbox>
   );
