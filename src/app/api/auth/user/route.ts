@@ -1,30 +1,36 @@
 //src/app/api/auth/user/route.ts
 
 import { NextResponse } from 'next/server';
-import { connectToDatabase } from '@/libs/mongodb';
 import { getToken } from 'next-auth/jwt';
+import { connectToDatabase } from '@/libs/mongodb';
 import User from '@/models/user';
 import { NextRequest } from 'next/server';
 
 export async function GET(req: NextRequest) {
   try {
-    await connectToDatabase();
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-
-    console.log('Token Data:', token);
 
     if (!token || !token.id) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const user = await User.findById(token.id).select('role');
+    if (token.roles) {
+      return NextResponse.json({ roles: token.roles }, { status: 200 });
+    }
+
+    await connectToDatabase();
+    const user = await User.findById(token.id).select('roles');
+
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
-    return NextResponse.json({ role: user.role }, { status: 200 });
+    return NextResponse.json({ roles: user.roles }, { status: 200 });
   } catch (error) {
-    console.error('Error in GET user role:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    console.error('Error retrieving user roles:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
   }
 }
