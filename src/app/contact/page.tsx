@@ -74,7 +74,7 @@ function CustomDropdown({
               className={({ active }: { active: boolean }) =>
                 `p-2 cursor-pointer ${
                   active
-                    ? 'bg-blue-500 text-white'
+                    ? 'bg-green-500 text-white'
                     : 'text-black dark:text-white'
                 }`
               }
@@ -176,7 +176,7 @@ export default function Contact() {
           <button
             onClick={() => setStep(2)}
             disabled={!formData.reason}
-            className="mt-4 p-2 bg-blue-500 dark:bg-blue-400 text-white rounded w-full"
+            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
           >
             Next
           </button>
@@ -193,7 +193,7 @@ export default function Contact() {
           <button
             onClick={() => setStep(3)}
             disabled={!formData.budget}
-            className="mt-4 p-2 bg-blue-500 dark:bg-blue-400 text-white rounded w-full"
+            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
           >
             Next
           </button>
@@ -211,7 +211,7 @@ export default function Contact() {
           <button
             onClick={() => setStep(4)}
             disabled={!formData.message}
-            className="mt-4 p-2 bg-blue-500 dark:bg-blue-400 text-white rounded w-full"
+            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
           >
             Next
           </button>
