@@ -4,7 +4,13 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Listbox } from '@headlessui/react';
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption,
+} from '@headlessui/react';
+
 import { Check, ChevronDown } from 'lucide-react';
 
 const budgetOptions = [
@@ -62,16 +68,16 @@ function CustomDropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="border dark:border-light rounded-xl grid gap-2 p-2">
-        <Listbox.Button className="w-full grid grid-cols-[1fr_auto] items-center p-3 border border-light dark:border-dark rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
+        <ListboxButton className="w-full grid grid-cols-[1fr_auto] items-center p-3 border border-light dark:border-dark rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
           <span>
             {selectedOption ? selectedOption.label : 'Select an Option'}
           </span>
           <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-        </Listbox.Button>
+        </ListboxButton>
 
-        <Listbox.Options className="w-full bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded-xl grid gap-1 p-2">
+        <ListboxOptions className="w-full bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded-xl grid gap-1 p-2">
           {options.map((option) => (
-            <Listbox.Option
+            <ListboxOption
               key={option.value}
               value={option.value}
               className={({ active }) =>
@@ -90,9 +96,9 @@ function CustomDropdown({
                   )}
                 </div>
               )}
-            </Listbox.Option>
+            </ListboxOption>
           ))}
-        </Listbox.Options>
+        </ListboxOptions>
       </div>
     </Listbox>
   );
