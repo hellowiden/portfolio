@@ -1,3 +1,5 @@
+//src/data/legal.ts
+
 export const legal = [
   {
     id: 'legal-terms',

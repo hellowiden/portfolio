@@ -1,3 +1,5 @@
+//src/data/brandingMessages.ts
+
 export const brandingMessages = [
   {
     id: 1,

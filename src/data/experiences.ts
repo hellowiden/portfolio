@@ -1,3 +1,5 @@
+//src/data/experiences.ts
+
 import { CgWorkAlt } from 'react-icons/cg';
 import { FaGraduationCap } from 'react-icons/fa';
 import React from 'react';

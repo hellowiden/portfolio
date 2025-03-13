@@ -2,7 +2,7 @@
 
 import mongoose from 'mongoose';
 
-let isConnected = false; // Global connection state
+let isConnected = false;
 
 export async function connectToDatabase() {
   if (isConnected) return mongoose.connection;
@@ -14,7 +14,7 @@ export async function connectToDatabase() {
   try {
     const db = await mongoose.connect(process.env.MONGODB_URI, {
       dbName: process.env.DB_NAME || 'portfolio',
-      bufferCommands: true, // Allow queries to be queued until connected
+      bufferCommands: true,
     });
 
     isConnected = db.connection.readyState === 1;
