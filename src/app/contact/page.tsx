@@ -67,7 +67,7 @@ function CustomDropdown({
 
   return (
     <Listbox value={value} onChange={onChange}>
-      <div className="border dark:border-light rounded-xl grid gap-2 p-2">
+      <div className="grid gap-2 p-2">
         <ListboxButton className="w-full grid grid-cols-[1fr_auto] items-center p-3 border border-light dark:border-dark rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
           <span>
             {selectedOption ? selectedOption.label : 'Select an Option'}
