@@ -14,8 +14,15 @@ interface AuthUser {
 }
 
 declare module 'next-auth' {
+  interface User {
+    id: string;
+    name: string;
+    email: string;
+    roles: string[];
+  }
+
   interface Session {
-    user: AuthUser;
+    user: User;
   }
 }
 
@@ -38,7 +45,7 @@ const authOptions: NextAuthOptions = {
         },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials) {
+      async authorize(credentials): Promise<AuthUser | null> {
         if (!credentials?.email || !credentials?.password) {
           throw new Error('Missing credentials');
         }
@@ -54,12 +61,14 @@ const authOptions: NextAuthOptions = {
         );
         if (!isValidPassword) throw new Error('Invalid password');
 
-        return {
+        const authUser: AuthUser = {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
           roles: user.roles || [],
         };
+
+        return authUser;
       },
     }),
   ],
