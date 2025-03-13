@@ -12,20 +12,17 @@ interface AuthUser {
   email: string;
   roles: string[];
 }
+
+declare module 'next-auth' {
+  interface Session {
+    user: AuthUser;
+  }
+}
+
 declare module 'next-auth/jwt' {
   interface JWT {
     id: string;
     roles: string[];
-  }
-}
-declare module 'next-auth' {
-  interface Session {
-    user: {
-      id: string;
-      name: string;
-      email: string;
-      roles: string[];
-    };
   }
 }
 
@@ -42,31 +39,27 @@ const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        if (!credentials || !credentials.email || !credentials.password) {
+        if (!credentials?.email || !credentials?.password) {
           throw new Error('Missing credentials');
         }
 
         await connectToDatabase();
         const user = await User.findOne({ email: credentials.email });
 
-        if (!user) {
-          throw new Error('User not found');
-        }
+        if (!user) throw new Error('User not found');
 
         const isValidPassword = await bcrypt.compare(
           credentials.password,
           user.password
         );
-        if (!isValidPassword) {
-          throw new Error('Invalid password');
-        }
+        if (!isValidPassword) throw new Error('Invalid password');
 
         return {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
           roles: user.roles || [],
-        } as AuthUser;
+        };
       },
     }),
   ],
@@ -81,15 +74,14 @@ const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.roles = user.roles;
+        token.roles = user.roles || [];
       }
       return token;
     },
     async session({ session, token }) {
       session.user = {
+        ...session.user,
         id: token.id as string,
-        name: session.user.name,
-        email: session.user.email,
         roles: token.roles as string[],
       };
       return session;
