@@ -11,63 +11,63 @@ import Link from 'next/link';
 const messages = [
   {
     id: 1,
-    heading: 'strategic branding ⇄ sustainable growth.',
+    heading: 'Strategic Branding ⇄ Sustainable Growth',
     subtext:
-      'I develop branding and market positioning strategies that drive long-term business success through clarity, creativity, and insight.',
+      'I craft brand strategies that drive lasting success through insight, clarity, and creative intelligence.',
   },
   {
     id: 2,
-    heading: 'smart branding ⇄ sharp strategy.',
+    heading: 'Smart Brands ⇄ Sharp Strategies',
     subtext:
-      'I create branding solutions that are not just memorable but also strategically designed, data-driven, and built for sustainable success.',
+      'Branding should be both memorable and strategic—data-driven, insightful, and built for long-term impact.',
   },
   {
     id: 3,
-    heading: 'branding with insight ⇄ strategy with purpose.',
+    heading: 'Insight-Led Brands ⇄ Purpose-Driven Growth',
     subtext:
-      'Your brand should not only stand out but also stand for something. I build strategic, insight-driven solutions that foster trust and results.',
+      'A brand should stand out and stand for something. I create strategies that build trust and deliver results.',
   },
   {
     id: 4,
-    heading: 'authority through strategy ⇄ confidence in leadership.',
+    heading: 'Authority Through Strategy ⇄ Trusted Leadership',
     subtext:
-      'Through intelligent branding and positioning, I help businesses establish authority and become trusted industry leaders.',
+      'I position businesses as industry leaders through intelligent branding and strategic market positioning.',
   },
   {
     id: 5,
-    heading: 'clear branding ⇄ strong influence.',
+    heading: 'Clear Positioning ⇄ Strong Influence',
     subtext:
-      'I craft branding solutions that are both intelligent and creative, ensuring businesses make a strong and lasting impact in their industry.',
+      'I develop brand strategies that combine intelligence and creativity to maximize impact and industry authority.',
   },
   {
     id: 6,
-    heading: 'purposeful branding ⇄ impactful growth.',
+    heading: 'Purpose-Driven Brands ⇄ Lasting Growth',
     subtext:
-      'Branding should be more than aesthetics—it should be smart, strategic, and built for real business growth and leadership.',
+      'Branding goes beyond visuals—it’s about strategy, leadership, and building sustainable business success.',
   },
   {
     id: 7,
-    heading: 'winning brands ⇄ strategic foundations.',
+    heading: 'Winning Brands ⇄ Strategic Foundations',
     subtext:
-      'With the right balance of insight, strategy, and creativity, I develop strong, influential brands positioned for long-term success.',
+      'By blending insight, strategy, and creativity, I shape brands that are built to influence and thrive long term.',
   },
   {
     id: 8,
-    heading: 'from vision to strategy ⇄ from strategy to legacy.',
+    heading: 'Vision Into Strategy ⇄ Strategy Into Legacy',
     subtext:
-      'I transform ideas into impactful brands, ensuring businesses not only grow but also leave a lasting industry legacy.',
+      'I transform ambitious ideas into impactful brands, ensuring businesses grow and leave a lasting legacy.',
   },
   {
     id: 9,
-    heading: 'insight-driven branding ⇄ future-proof strategy.',
+    heading: 'Insight-Driven Brands ⇄ Future-Proof Strategies',
     subtext:
-      'I create brands that are rooted in strategy and insight, ensuring they remain relevant, trusted, and impactful in the long run.',
+      'I develop brands rooted in strategy and intelligence, ensuring they remain relevant, trusted, and impactful.',
   },
   {
     id: 10,
-    heading: 'smart strategy ⇄ lasting success.',
+    heading: 'Smart Strategy ⇄ Sustainable Success',
     subtext:
-      'Through intelligent brand positioning and strategy, I help businesses build credibility, influence, and long-term success.',
+      'I create brand positioning strategies that enhance credibility, influence, and long-term market leadership.',
   },
 ];
 
