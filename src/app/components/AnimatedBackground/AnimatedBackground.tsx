@@ -3,6 +3,7 @@
 'use client';
 
 import React, { useState, useRef, useEffect } from 'react';
+
 interface Ripple {
   x: number;
   y: number;
@@ -10,9 +11,10 @@ interface Ripple {
   startTime: number;
 }
 
-const duration = 2500;
-const baseRadius = 10;
-const maxRadius = 40;
+const DURATION = 2500;
+const BASE_RADIUS = 10;
+const MAX_RADIUS = 40;
+const RIPPLE_COOLDOWN = 100;
 
 function easeOut(t: number): number {
   return 1 - Math.pow(1 - t, 3);
@@ -31,7 +33,7 @@ const MathRipple: React.FC<MathRippleProps> = ({ ripple, onComplete }) => {
 
     const update = () => {
       const elapsed = Date.now() - ripple.startTime;
-      const newProgress = Math.min(elapsed / duration, 1);
+      const newProgress = Math.min(elapsed / DURATION, 1);
       setProgress(newProgress);
 
       if (newProgress < 1) {
@@ -42,12 +44,11 @@ const MathRipple: React.FC<MathRippleProps> = ({ ripple, onComplete }) => {
     };
 
     animationFrameId = requestAnimationFrame(update);
-
     return () => cancelAnimationFrame(animationFrameId);
   }, [ripple, onComplete]);
 
   const eased = easeOut(progress);
-  const computedRadius = baseRadius + (maxRadius - baseRadius) * eased;
+  const computedRadius = BASE_RADIUS + (MAX_RADIUS - BASE_RADIUS) * eased;
   const opacity = 0.2 * (1 - progress);
 
   return (
@@ -64,26 +65,25 @@ const MathRipple: React.FC<MathRippleProps> = ({ ripple, onComplete }) => {
 export default function AnimatedBackground() {
   const [ripples, setRipples] = useState<Ripple[]>([]);
   const containerRef = useRef<HTMLDivElement>(null);
-
   const lastRippleTime = useRef<number>(0);
-  const rippleCooldown = 100;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
 
     const now = Date.now();
-    if (now - lastRippleTime.current < rippleCooldown) return;
+    if (now - lastRippleTime.current < RIPPLE_COOLDOWN) return;
     lastRippleTime.current = now;
 
     const rect = containerRef.current.getBoundingClientRect();
-    const newRipple: Ripple = {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      id: now,
-      startTime: now,
-    };
-
-    setRipples((prev) => [...prev, newRipple]);
+    setRipples((prev) => [
+      ...prev,
+      {
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+        id: now,
+        startTime: now,
+      },
+    ]);
   };
 
   const removeRipple = (id: number) => {
