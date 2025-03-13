@@ -118,7 +118,7 @@ export default function IntroductionSection() {
         <div className="grid grid-cols-1 gap-4 text-sm items-center">
           <Link
             href="/about"
-            className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
+            className="grid place-items-center gap-2 text-sm dark:border-dark text-black/60 rounded hover:text-black dark:text-white/50 dark:hover:text-white transition hover:text-opacity-80 dark:hover:text-opacity-80"
           >
             About me
           </Link>
