@@ -4,6 +4,8 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Listbox } from '@headlessui/react';
+import { ChevronDown, Check } from 'lucide-react';
 
 const budgetOptions = [
   { value: 'under_3000', label: 'Under $3,000' },
@@ -32,14 +34,15 @@ function Step({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
     >
-      <h1 className="text-2xl font-bold">{title}</h1>
+      <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">
+        {title}
+      </h1>
       {children}
     </motion.div>
   );
 }
 
-function Dropdown({
-  name,
+function CustomDropdown({
   value,
   options,
   onChange,
@@ -47,25 +50,66 @@ function Dropdown({
   name: string;
   value: string;
   options: { value: string; label: string }[];
-  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (value: string) => void;
+}) {
+  const selectedOption = options.find((option) => option.value === value);
+
+  return (
+    <Listbox value={value} onChange={onChange}>
+      <div className="relative mt-4">
+        <Listbox.Button className="w-full flex items-center justify-between p-3 border border-light dark:border-dark rounded bg-white dark:bg-zinc-800 text-black dark:text-white">
+          {selectedOption ? selectedOption.label : 'Select an Option'}
+          <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+        </Listbox.Button>
+
+        <Listbox.Options className="absolute w-full mt-2 bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded shadow-lg">
+          {options.map((option) => (
+            <Listbox.Option
+              key={option.value}
+              value={option.value}
+              className={({ active }) =>
+                `p-2 cursor-pointer ${
+                  active
+                    ? 'bg-blue-500 text-white'
+                    : 'text-black dark:text-white'
+                }`
+              }
+            >
+              {({ selected }) => (
+                <div className="flex items-center justify-between">
+                  {option.label}
+                  {selected && <Check className="w-4 h-4 text-green-500" />}
+                </div>
+              )}
+            </Listbox.Option>
+          ))}
+        </Listbox.Options>
+      </div>
+    </Listbox>
+  );
+}
+
+function CustomInput({
+  name,
+  value,
+  onChange,
+  placeholder,
+}: {
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 }) {
   return (
-    <select
-      name={name}
-      value={value}
-      onChange={onChange}
-      required
-      className="p-2 border rounded mt-4 w-full"
-    >
-      <option value="" disabled>
-        Select an Option
-      </option>
-      {options.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-      ))}
-    </select>
+    <div className="relative mt-4">
+      <input
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        className="w-full p-3 border border-light dark:border-dark rounded bg-white dark:bg-zinc-800 text-black dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 outline-none"
+      />
+    </div>
   );
 }
 
@@ -78,12 +122,8 @@ export default function Contact() {
   const [status, setStatus] = useState('');
   const [step, setStep] = useState(1);
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >
-  ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleChange = (name: string, value: string) => {
+    setFormData({ ...formData, [name]: value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -98,7 +138,6 @@ export default function Contact() {
       });
 
       const responseData = await res.json();
-      console.log('API Response:', responseData);
       if (!res.ok)
         throw new Error(responseData.error || 'Failed to send message');
 
@@ -106,7 +145,6 @@ export default function Contact() {
       setFormData({ message: '', budget: '', reason: '' });
       setStep(1);
     } catch (error) {
-      console.error('Error sending message:', error);
       setStatus(
         error instanceof Error ? error.message : 'An unknown error occurred.'
       );
@@ -114,11 +152,11 @@ export default function Contact() {
   };
 
   return (
-    <div className="">
+    <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md">
       {step > 1 && (
         <button
           onClick={() => setStep(step - 1)}
-          className="mb-4 p-2 bg-gray-300 text-black rounded w-full"
+          className="mb-4 p-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded w-full"
         >
           Back
         </button>
@@ -126,16 +164,16 @@ export default function Contact() {
 
       {step === 1 && (
         <Step title="Let's Start - What Brings You Here?">
-          <Dropdown
+          <CustomDropdown
             name="reason"
             value={formData.reason}
             options={contactReasons}
-            onChange={handleChange}
+            onChange={(value) => handleChange('reason', value)}
           />
           <button
             onClick={() => setStep(2)}
             disabled={!formData.reason}
-            className="mt-4 p-2 bg-blue-500 text-white rounded w-full"
+            className="mt-4 p-2 bg-blue-500 dark:bg-blue-400 text-white rounded w-full"
           >
             Next
           </button>
@@ -144,16 +182,16 @@ export default function Contact() {
 
       {step === 2 && formData.reason === 'job_offer' && (
         <Step title="Great! Let's Talk Budget">
-          <Dropdown
+          <CustomDropdown
             name="budget"
             value={formData.budget}
             options={budgetOptions}
-            onChange={handleChange}
+            onChange={(value) => handleChange('budget', value)}
           />
           <button
             onClick={() => setStep(3)}
             disabled={!formData.budget}
-            className="mt-4 p-2 bg-blue-500 text-white rounded w-full"
+            className="mt-4 p-2 bg-blue-500 dark:bg-blue-400 text-white rounded w-full"
           >
             Next
           </button>
@@ -162,18 +200,16 @@ export default function Contact() {
 
       {((step === 2 && formData.reason !== 'job_offer') || step === 3) && (
         <Step title="Tell Me More">
-          <textarea
+          <CustomInput
             name="message"
-            placeholder="I want you to help me recreate my website."
             value={formData.message}
-            onChange={handleChange}
-            required
-            className="p-2 border rounded mt-4 w-full"
+            onChange={(e) => handleChange('message', e.target.value)}
+            placeholder="I want you to help me recreate my website."
           />
           <button
             onClick={() => setStep(4)}
             disabled={!formData.message}
-            className="mt-4 p-2 bg-blue-500 text-white rounded w-full"
+            className="mt-4 p-2 bg-blue-500 dark:bg-blue-400 text-white rounded w-full"
           >
             Next
           </button>
@@ -184,14 +220,18 @@ export default function Contact() {
         <Step title="Ready to Submit?">
           <button
             onClick={handleSubmit}
-            className="mt-4 p-2 bg-green-500 text-white rounded w-full"
+            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
           >
             Send
           </button>
         </Step>
       )}
 
-      {status && <p className="mt-2 text-sm">{status}</p>}
+      {status && (
+        <p className="mt-2 text-sm text-zinc-900 dark:text-zinc-100">
+          {status}
+        </p>
+      )}
     </div>
   );
 }
