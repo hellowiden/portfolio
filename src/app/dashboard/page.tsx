@@ -18,7 +18,6 @@ export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  // Consolidated authentication check (same logic as in layout.tsx)
   const isAdmin = useMemo(
     () => session?.user?.roles.includes('admin'),
     [session]

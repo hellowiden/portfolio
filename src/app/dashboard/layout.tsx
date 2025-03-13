@@ -14,7 +14,6 @@ export default function Layout({ children }: LayoutProps) {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  // Combined authentication and admin check
   const isAdmin = useMemo(
     () => session?.user?.roles.includes('admin'),
     [session]

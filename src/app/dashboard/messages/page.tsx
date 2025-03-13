@@ -22,7 +22,6 @@ export default function Messages() {
     {}
   );
 
-  // ✅ Fetch messages from API
   const fetchMessages = useCallback(async () => {
     try {
       const res = await fetch('/api/messages');
@@ -38,7 +37,6 @@ export default function Messages() {
     fetchMessages();
   }, [fetchMessages]);
 
-  // ✅ Handle response input changes
   const handleResponseChange = useCallback(
     (messageId: string, response: string) => {
       setResponseText((prev) => ({ ...prev, [messageId]: response }));
@@ -46,7 +44,6 @@ export default function Messages() {
     []
   );
 
-  // ✅ Handle sending response
   const handleSendResponse = useCallback(
     async (messageId: string) => {
       const response = responseText[messageId]?.trim();
@@ -85,7 +82,6 @@ export default function Messages() {
     [responseText]
   );
 
-  // ✅ Handle deleting message
   const handleDeleteMessage = useCallback(async (messageId: string) => {
     if (!confirm('Are you sure you want to delete this message?')) return;
 
@@ -129,7 +125,6 @@ export default function Messages() {
               {new Date(msg.createdAt).toLocaleString()}
             </p>
 
-            {/* Response Input */}
             {!msg.isResolved && (
               <div className="mt-3">
                 <textarea
@@ -150,7 +145,6 @@ export default function Messages() {
               </div>
             )}
 
-            {/* Actions */}
             <div className="mt-3 flex gap-2">
               <button
                 className="px-3 py-2 bg-red-500 text-white rounded"

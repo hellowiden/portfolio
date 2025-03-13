@@ -17,7 +17,6 @@ function ContactOpener({
 }: ContactOpenerProps) {
   return (
     <section className="w-full h-full border dark:border-light rounded-xl bg-cover bg-center overflow-hidden grid grid-cols-1 grid-rows-1 relative">
-      {/* Background Image */}
       <Image
         src="/issues.jpg"
         alt={title}
@@ -28,16 +27,13 @@ function ContactOpener({
         priority
       />
 
-      {/* Content Overlay */}
       <div className="relative w-full grid grid-cols-2 grid-rows-[auto_auto] gap-4 bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white">
-        {/* Contact Info */}
         <div className="flex items-center gap-3 col-span-1">
           <h1 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
             {title}
           </h1>
         </div>
 
-        {/* Contact Link */}
         <div className="flex justify-end items-center col-span-1">
           <Link
             href="/contact"
@@ -47,7 +43,6 @@ function ContactOpener({
           </Link>
         </div>
 
-        {/* Contact Description */}
         <div className="col-span-2">
           <div className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
             Let&apos;s Connect

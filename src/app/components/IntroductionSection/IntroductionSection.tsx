@@ -8,7 +8,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { brandingMessages } from './../../../data/brandingMessages';
 
-// Branding messages
 const messages = brandingMessages;
 
 export default function IntroductionSection() {
@@ -17,7 +16,7 @@ export default function IntroductionSection() {
   useEffect(() => {
     const interval = setInterval(() => {
       setMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
-    }, 15000); // Change message every 15 seconds
+    }, 15000);
 
     return () => clearInterval(interval);
   }, []);
@@ -27,7 +26,6 @@ export default function IntroductionSection() {
       id="home"
       className="w-full h-[500px] border-2 dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
     >
-      {/* Background Video */}
       <video
         autoPlay
         loop
@@ -39,9 +37,7 @@ export default function IntroductionSection() {
         Your browser does not support the video tag.
       </video>
 
-      {/* Content Overlay */}
       <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/75 dark:bg-zinc-800/75 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
-        {/* Row 1, Column 1 */}
         <div className="grid grid-cols-[auto_1fr] items-center gap-3">
           <Image
             src="/MW.png"
@@ -54,7 +50,6 @@ export default function IntroductionSection() {
           <h1 className="text-xl font-medium">Marcus Widén</h1>
         </div>
 
-        {/* Row 1, Column 2 */}
         <div className="grid grid-cols-1 gap-4 text-sm items-center">
           <Link
             href="/about"
@@ -74,7 +69,6 @@ export default function IntroductionSection() {
 */}
         </div>
 
-        {/* Row 2, Column 1 (Expanding on Large Screens) */}
         <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
           <motion.h2
             key={messageIndex}
