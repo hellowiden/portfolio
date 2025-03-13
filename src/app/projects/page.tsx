@@ -6,7 +6,6 @@ import Link from 'next/link';
 import { projects } from '@/data/projects';
 
 export default function ProjectsPage() {
-  // Sort projects by date in descending order (newest first)
   const sortedProjects = [...projects].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   );
@@ -39,7 +38,6 @@ export default function ProjectsPage() {
                 </div>
                 <div className="text-xs text-gray-500 dark:text-gray-500">
                   {new Date(project.date).toLocaleDateString()}{' '}
-                  {/* Formats date */}
                 </div>
               </div>
             ))}
