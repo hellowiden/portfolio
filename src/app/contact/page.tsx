@@ -114,7 +114,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded">
+    <div className="">
       {step > 1 && (
         <button
           onClick={() => setStep(step - 1)}
