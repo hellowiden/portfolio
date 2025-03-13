@@ -26,6 +26,12 @@ const contactReasons = [
   { value: 'general', label: 'General Conversations' },
 ];
 
+const placeholders: { [key: string]: string } = {
+  job_offer: 'Tell me about the role, requirements, and expectations.',
+  issues: 'Describe the issue in detail so I can assist you better.',
+  general: 'What’s on your mind? Feel free to share your thoughts.',
+};
+
 function Step({
   title,
   children,
@@ -206,8 +212,11 @@ export default function Contact() {
             name="message"
             value={formData.message}
             onChange={(e) => handleChange('message', e.target.value)}
-            placeholder="I want you to help me recreate my website."
+            placeholder={
+              placeholders[formData.reason] || 'Enter your message...'
+            }
           />
+
           <button
             onClick={() => setStep(4)}
             disabled={!formData.message}
