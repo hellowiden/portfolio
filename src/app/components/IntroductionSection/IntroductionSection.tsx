@@ -11,63 +11,63 @@ import Link from 'next/link';
 const messages = [
   {
     id: 1,
-    heading: 'Strategic brands. intelligent growth.',
+    heading: 'strategic branding ⇄ sustainable growth.',
     subtext:
-      'Insight-driven branding and market positioning that elevate your business with clarity, creativity, and long-term impact.',
+      'I develop branding and market positioning strategies that drive long-term business success through clarity, creativity, and insight.',
   },
   {
     id: 2,
-    heading: 'Smart brands. Sharp strategies.',
+    heading: 'smart branding ⇄ sharp strategy.',
     subtext:
-      'I craft branding and positioning that aren’t just memorable—they’re meaningful, data-backed, and built for lasting success.',
+      'I create branding solutions that are not just memorable but also strategically designed, data-driven, and built for sustainable success.',
   },
   {
     id: 3,
-    heading: 'Branding with depth. Strategies with purpose.',
+    heading: 'branding with insight ⇄ strategy with purpose.',
     subtext:
-      'Your brand should do more than stand out—it should stand for something. I create insightful, strategic solutions that inspire trust and drive results.',
+      'Your brand should not only stand out but also stand for something. I build strategic, insight-driven solutions that foster trust and results.',
   },
   {
     id: 4,
-    heading: 'Elevate with strategy. Lead with wisdom.',
+    heading: 'authority through strategy ⇄ confidence in leadership.',
     subtext:
-      'Thoughtful branding and positioning that turn businesses into trusted industry leaders.',
+      'Through intelligent branding and positioning, I help businesses establish authority and become trusted industry leaders.',
   },
   {
     id: 5,
-    heading: 'Clarity creates influence.',
+    heading: 'clear branding ⇄ strong influence.',
     subtext:
-      'I transform businesses with branding and strategy rooted in intelligence, creativity, and meaningful impact.',
+      'I craft branding solutions that are both intelligent and creative, ensuring businesses make a strong and lasting impact in their industry.',
   },
   {
     id: 6,
-    heading: 'Your brand, Redefined with purpose.',
+    heading: 'purposeful branding ⇄ impactful growth.',
     subtext:
-      'I craft smart, strategic, and creative brand solutions that help businesses lead, innovate, and grow.',
+      'Branding should be more than aesthetics—it should be smart, strategic, and built for real business growth and leadership.',
   },
   {
     id: 7,
-    heading: 'Smart brands win. Let’s build yours.',
+    heading: 'winning brands ⇄ strategic foundations.',
     subtext:
-      'With a blend of strategy, insight, and creativity, I help businesses develop strong, trusted, and influential brands.',
+      'With the right balance of insight, strategy, and creativity, I develop strong, influential brands positioned for long-term success.',
   },
   {
     id: 8,
-    heading: 'From vision to strategy — strategy to legacy.',
+    heading: 'from vision to strategy ⇄ from strategy to legacy.',
     subtext:
-      'Intelligent brand-building that turns ideas into impact and businesses into industry leaders.',
+      'I transform ideas into impactful brands, ensuring businesses not only grow but also leave a lasting industry legacy.',
   },
   {
     id: 9,
-    heading: 'Wisdom-driven brands. Creative market strategies.',
+    heading: 'insight-driven branding ⇄ future-proof strategy.',
     subtext:
-      'I help businesses craft meaningful, future-proof brands that command trust and drive real results.',
+      'I create brands that are rooted in strategy and insight, ensuring they remain relevant, trusted, and impactful in the long run.',
   },
   {
     id: 10,
-    heading: 'Knowledge builds brands. Strategy sustains them.',
+    heading: 'smart strategy ⇄ lasting success.',
     subtext:
-      'I develop brands with intelligence, positioning them for credibility, influence, and long-term success.',
+      'Through intelligent brand positioning and strategy, I help businesses build credibility, influence, and long-term success.',
   },
 ];
 
