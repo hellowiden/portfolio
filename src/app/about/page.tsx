@@ -36,8 +36,10 @@ export default function About() {
             <h1 className="text-3xl font-medium text-zinc-900 dark:text-zinc-50">
               Why me?
             </h1>
+            <p>
+              <strong>Because informed strategy fuels enduring success.</strong>
+            </p>
             <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
-              <strong>Because informed strategy fuels enduring success.</strong>{' '}
               With deep strategic insight and a decade of experience leading
               500+ global projects, I’ve learned that the strongest brands don’t
               demand attention—they earn trust, inspire action, and evolve with
