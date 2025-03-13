@@ -6,6 +6,11 @@ import Link from 'next/link';
 import { projects } from '@/data/projects';
 
 export default function ProjectsPage() {
+  // Sort projects by date in descending order (newest first)
+  const sortedProjects = [...projects].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
   return (
     <>
       <section className="grid gap-4">
@@ -18,7 +23,7 @@ export default function ProjectsPage() {
         </p>
         <div className="grid gap-4 text-zinc-900 dark:text-zinc-100">
           <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded-xl">
-            {projects.map((project) => (
+            {sortedProjects.map((project) => (
               <div
                 key={project.id}
                 className="border-b last:border-none border-zinc-300 dark:border-zinc-700 pb-2"
@@ -31,6 +36,10 @@ export default function ProjectsPage() {
                 </Link>
                 <div className="text-xs text-gray-600 dark:text-gray-400">
                   {project.tags.join(' • ')}
+                </div>
+                <div className="text-xs text-gray-500 dark:text-gray-500">
+                  {new Date(project.date).toLocaleDateString()}{' '}
+                  {/* Formats date */}
                 </div>
               </div>
             ))}

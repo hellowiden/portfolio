@@ -29,6 +29,10 @@ export default function ProjectDetail() {
       </div>
       <div className="grid gap-2">
         <h1 className="text-3xl font-bold">{selectedProject.name}</h1>
+        <div className="text-sm text-gray-500 dark:text-gray-400">
+          {new Date(selectedProject.date).toLocaleDateString()}{' '}
+          {/* Display date */}
+        </div>
         <div className="text-xs text-gray-600 dark:text-gray-400">
           {selectedProject.tags.join(' • ')}
         </div>
