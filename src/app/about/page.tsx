@@ -1,6 +1,6 @@
 //src/app/about/page.tsx
-
 'use client';
+import Link from 'next/link';
 
 import { motion } from 'framer-motion';
 import Image from 'next/image';
@@ -71,6 +71,12 @@ export default function About() {
               branding; it’s about gaining lasting influence and a true
               competitive edge. Let’s build a brand that becomes indispensable.
             </p>
+            <Link
+              href="/contact"
+              className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed"
+            >
+              Work with me
+            </Link>
           </motion.div>
         </motion.section>
       </div>
