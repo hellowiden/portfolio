@@ -76,27 +76,32 @@ function CustomDropdown({
         </ListboxButton>
 
         <ListboxOptions className="w-full bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded-xl grid gap-1 p-2">
-          {options.map((option) => (
-            <ListboxOption
-              key={option.value}
-              value={option.value}
-              className={({ active }) =>
-                `p-2 cursor-pointer grid ${
-                  active
-                    ? 'bg-green-500 text-white'
-                    : 'text-black dark:text-white'
-                }`
-              }
-            >
-              {({ selected }) => (
-                <div className="grid grid-cols-[1fr_auto] items-center p-2 rounded-xl">
-                  <span>{option.label}</span>
-                  {selected && (
-                    <Check className="w-4 h-4 text-green-500 rounded-xl" />
-                  )}
-                </div>
+          {options.map((option, index) => (
+            <div key={option.value}>
+              <ListboxOption
+                key={option.value}
+                value={option.value}
+                className={({ active }) =>
+                  `p-2 cursor-pointer grid ${
+                    active
+                      ? 'bg-green-500 text-white'
+                      : 'text-black dark:text-white'
+                  }`
+                }
+              >
+                {({ selected }) => (
+                  <div className="grid grid-cols-[1fr_auto] items-center p-2 rounded-xl">
+                    <span>{option.label}</span>
+                    {selected && (
+                      <Check className="w-4 h-4 text-green-500 rounded-xl" />
+                    )}
+                  </div>
+                )}
+              </ListboxOption>
+              {index < options.length - 1 && (
+                <hr className="border-gray-300 dark:border-gray-700" />
               )}
-            </ListboxOption>
+            </div>
           ))}
         </ListboxOptions>
       </div>
