@@ -40,31 +40,37 @@ export default function About() {
               <strong>
                 In short, because informed strategy fuels enduring success.
               </strong>{' '}
-              I don’t just build brands—I shape legacies. With a decade of
-              experience leading 500+ projects internationally, I’ve proven that
-              a brand’s true power lies in commanding attention, fostering
-              loyalty, and driving action. My strategies have generated $7.5
-              billion in revenue growth. They’ve increased customer retention by
-              25% and consistently delivered a 20% sales boost.
+              I don’t just build brands—I unlock their full potential. With deep
+              strategic insight and a decade of experience leading 500+ global
+              projects, I’ve learned that the strongest brands don’t just demand
+              attention—they earn trust, inspire action, and evolve with their
+              audience. By blending data-driven wisdom with creative vision, my
+              strategies have driven $7.5 billion in revenue growth, increased
+              customer retention by 25%, and consistently delivered a 20% sales
+              boost. Every brand has a story. I help shape the ones that last.
               <br />
               <br />
-              Strong brands don’t follow trends—they set the standard. I
-              position organizations as industry leaders through strategic
-              branding, UX/UI design, and market-defining campaigns. My focus is
-              on influence, perception, and dominance. The result? An unshakable
-              market presence.
+              Strong brands don’t chase trends—they shape the future. I help
+              organizations carve out their place as industry leaders through
+              strategic branding, intuitive UX/UI design, and campaigns that
+              redefine markets. By blending deep market insight with bold
+              creativity, I focus on influence, perception, and meaningful
+              differentiation. The result? A brand that doesn’t just stand out
+              but stands the test of time.
               <br />
               <br />
-              My approach is both analytical and visionary. I turn complexity
-              into clarity and brand potential into results. Executives trust me
-              to decode market shifts and simplify challenges. I architect
-              brands that resonate on a deeper level.
+              My approach blends analysis with vision. I transform complexity
+              into clarity and brand potential into measurable impact.
+              Executives rely on me to decode market shifts, distill insights,
+              and navigate change with confidence. With a strategic yet creative
+              mindset, I design brands that don’t just attract attention—they
+              forge lasting connections and inspire action.
               <br />
               <br />
               Beyond business, I draw from history, philosophy, and human
-              behavior. The best brands don’t just grow—they endure. Partnering
-              with me isn’t just about services; it’s about securing a
-              competitive edge. Let’s make your brand indispensable.
+              behavior, to craft strategies that stand the test of time.
+              Partnering with me isn’t just about services; it’s about securing
+              a competitive edge. Let’s make your brand indispensable.
             </p>
           </motion.div>
         </motion.section>
