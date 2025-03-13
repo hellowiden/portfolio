@@ -8,7 +8,7 @@ export default function ClientBanner() {
   return (
     <section
       id="clients"
-      className="w-full grid place-items-center py-4 border dark:border-light bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-100 rounded-xl text-center relative"
+      className="w-full grid place-items-center py-4 backdrop-blur-md  rounded-xl text-center relative border dark:border-light bg-zinc-100/80 dark:bg-zinc-900/80 text-zinc-900 dark:text-zinc-100"
     >
       <div className="w-full grid">
         <Marquee
