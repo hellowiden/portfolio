@@ -14,8 +14,8 @@ export default function Header() {
   const isAdmin = isAuthenticated && session?.user?.roles?.includes('admin');
 
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-zinc-200 dark:border-zinc-800 transition backdrop-blur-md bg-white/80 dark:bg-black/70">
-      <div className="text-md transition text-black hover:text-opacity-80 dark:text-white dark:hover:text-opacity-80">
+    <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-zinc-200 dark:border-zinc-800 backdrop-blur-md bg-white/80 dark:bg-black/70">
+      <div className="text-md text-black hover:text-opacity-80 dark:text-white dark:hover:text-opacity-80 transition">
         <Link href="/">
           {isAuthenticated ? `Welcome, ${session.user?.name}` : 'MW-Portfolio'}
         </Link>
@@ -41,6 +41,7 @@ export default function Header() {
                 </button>
               </Link>
             )}
+
             <Link href="/profile">
               <button className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2">
                 <motion.div
