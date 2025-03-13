@@ -15,7 +15,6 @@ export default function LegalPage() {
 
   return (
     <div className="grid gap-6">
-      {/* Table of Contents */}
       <nav aria-label="Table of Contents" className="grid gap-2">
         <h2 className="text-xl font-semibold dark:text-white">Contents</h2>
         <ul className="grid text-zinc-700 dark:text-zinc-300 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto gap-2">
@@ -36,7 +35,6 @@ export default function LegalPage() {
 
       <hr />
 
-      {/* Sections */}
       <main className="grid gap-4">
         {sectionList.map(({ id, title, content }) => (
           <section
