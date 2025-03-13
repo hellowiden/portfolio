@@ -115,7 +115,13 @@ export default function IntroductionSection() {
         </div>
 
         {/* Row 1, Column 2 */}
-        <div className="grid grid-cols-1 gap-4 text-sm items-center">
+        <div className="grid grid-cols-2 gap-4 text-sm items-center">
+          <Link
+            href="/about"
+            className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
+          >
+            About me
+          </Link>
           <Link
             href="/contact"
             className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
@@ -155,12 +161,6 @@ export default function IntroductionSection() {
             transition={{ duration: 0.8, ease: 'easeInOut' }}
           >
             {messages[messageIndex].subtext}
-            <Link
-              href="/about"
-              className="ml-2 text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition"
-            >
-              Learn more about me
-            </Link>
           </motion.p>
         </div>
       </div>
