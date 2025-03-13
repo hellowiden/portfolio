@@ -4,7 +4,12 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Listbox } from '@headlessui/react';
+import {
+  Listbox,
+  ListboxButton,
+  ListboxOptions,
+  ListboxOption,
+} from '@headlessui/react';
 import { ChevronDown, Check } from 'lucide-react';
 
 const budgetOptions = [
@@ -47,7 +52,6 @@ function CustomDropdown({
   options,
   onChange,
 }: {
-  name: string;
   value: string;
   options: { value: string; label: string }[];
   onChange: (value: string) => void;
@@ -57,17 +61,17 @@ function CustomDropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="relative mt-4">
-        <Listbox.Button className="w-full flex items-center justify-between p-3 border border-light dark:border-dark rounded bg-white dark:bg-zinc-800 text-black dark:text-white">
+        <ListboxButton className="w-full flex items-center justify-between p-3 border border-light dark:border-dark rounded bg-white dark:bg-zinc-800 text-black dark:text-white">
           {selectedOption ? selectedOption.label : 'Select an Option'}
           <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-        </Listbox.Button>
+        </ListboxButton>
 
-        <Listbox.Options className="absolute w-full mt-2 bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded shadow-lg">
+        <ListboxOptions className="absolute w-full mt-2 bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded shadow-lg">
           {options.map((option) => (
-            <Listbox.Option
+            <ListboxOption
               key={option.value}
               value={option.value}
-              className={({ active }) =>
+              className={({ active }: { active: boolean }) =>
                 `p-2 cursor-pointer ${
                   active
                     ? 'bg-blue-500 text-white'
@@ -75,15 +79,15 @@ function CustomDropdown({
                 }`
               }
             >
-              {({ selected }) => (
+              {({ selected }: { selected: boolean }) => (
                 <div className="flex items-center justify-between">
                   {option.label}
                   {selected && <Check className="w-4 h-4 text-green-500" />}
                 </div>
               )}
-            </Listbox.Option>
+            </ListboxOption>
           ))}
-        </Listbox.Options>
+        </ListboxOptions>
       </div>
     </Listbox>
   );
@@ -165,7 +169,6 @@ export default function Contact() {
       {step === 1 && (
         <Step title="Let's Start - What Brings You Here?">
           <CustomDropdown
-            name="reason"
             value={formData.reason}
             options={contactReasons}
             onChange={(value) => handleChange('reason', value)}
@@ -183,7 +186,6 @@ export default function Contact() {
       {step === 2 && formData.reason === 'job_offer' && (
         <Step title="Great! Let's Talk Budget">
           <CustomDropdown
-            name="budget"
             value={formData.budget}
             options={budgetOptions}
             onChange={(value) => handleChange('budget', value)}
