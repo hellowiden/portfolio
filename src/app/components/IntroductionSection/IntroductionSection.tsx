@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -12,13 +12,14 @@ const messages = brandingMessages;
 
 export default function IntroductionSection() {
   const [messageIndex, setMessageIndex] = useState(0);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setMessageIndex((prevIndex) => (prevIndex + 1) % messages.length);
+    intervalRef.current = setInterval(() => {
+      setMessageIndex((prevIndex) => (prevIndex + 1) % brandingMessages.length);
     }, 15000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalRef.current!);
   }, []);
 
   return (
