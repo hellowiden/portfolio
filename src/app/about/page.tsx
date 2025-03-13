@@ -41,29 +41,30 @@ export default function About() {
                 In short, because informed strategy fuels enduring success.
               </strong>{' '}
               I don’t just build brands—I shape legacies. With a decade of
-              experience leading 500+ projects, I’ve proven that a brand’s power
-              lies in its ability to command attention, foster loyalty, and
-              drive action. My strategies have generated $7.5 billion in revenue
-              growth, increased customer retention by 25%, and consistently
-              delivered a 20% sales boost.
+              experience leading 500+ projects internationally, I’ve proven that
+              a brand’s true power lies in commanding attention, fostering
+              loyalty, and driving action. My strategies have generated $7.5
+              billion in revenue growth. They’ve increased customer retention by
+              25% and consistently delivered a 20% sales boost.
               <br />
               <br />
-              Strong brands don’t follow trends; they set the standard. I
+              Strong brands don’t follow trends—they set the standard. I
               position organizations as industry leaders through strategic
-              branding, UX/UI design, and market-defining campaigns—focusing on
-              influence, perception, and an unshakable market presence.
+              branding, UX/UI design, and market-defining campaigns. My focus is
+              on influence, perception, and dominance. The result? An unshakable
+              market presence.
               <br />
               <br />
-              My approach is both analytical and visionary, turning complexity
+              My approach is both analytical and visionary. I turn complexity
               into clarity and brand potential into results. Executives trust me
-              to decode market shifts, simplify challenges, and architect brands
-              that resonate on a deeper level.
+              to decode market shifts and simplify challenges. I architect
+              brands that resonate on a deeper level.
               <br />
               <br />
               Beyond business, I draw from history, philosophy, and human
-              behavior because the best brands don’t just grow—they endure.
-              Partnering with me isn’t just about services; it’s about securing
-              a competitive edge. Let’s make your brand indispensable.
+              behavior. The best brands don’t just grow—they endure. Partnering
+              with me isn’t just about services; it’s about securing a
+              competitive edge. Let’s make your brand indispensable.
             </p>
           </motion.div>
         </motion.section>
