@@ -66,13 +66,13 @@ function CustomDropdown({
 
   return (
     <Listbox value={value} onChange={onChange}>
-      <div className="relative mt-4">
-        <ListboxButton className="w-full flex items-center justify-between p-3 border border-light dark:border-dark rounded bg-white dark:bg-zinc-800 text-black dark:text-white">
+      <div className="relative mt-4 border dark:border-light rounded-xl">
+        <ListboxButton className="w-full flex items-center justify-between p-3 border border-light dark:border-dark rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
           {selectedOption ? selectedOption.label : 'Select an Option'}
           <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
         </ListboxButton>
 
-        <ListboxOptions className="absolute w-full mt-2 bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded shadow-lg">
+        <ListboxOptions className="absolute w-full mt-2 bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded-xl">
           {options.map((option) => (
             <ListboxOption
               key={option.value}
@@ -86,9 +86,11 @@ function CustomDropdown({
               }
             >
               {({ selected }: { selected: boolean }) => (
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between rounded-xl">
                   {option.label}
-                  {selected && <Check className="w-4 h-4 text-green-500" />}
+                  {selected && (
+                    <Check className="w-4 h-4 text-green-500 rounded-xl" />
+                  )}
                 </div>
               )}
             </ListboxOption>
