@@ -6,23 +6,18 @@ import bcrypt from 'bcryptjs';
 import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 
-// Define User Type
 interface AuthUser {
   id: string;
   name: string;
   email: string;
   roles: string[];
 }
-
-// Extend JWT Token Type
 declare module 'next-auth/jwt' {
   interface JWT {
     id: string;
     roles: string[];
   }
 }
-
-// Extend Session Type
 declare module 'next-auth' {
   interface Session {
     user: {
@@ -66,7 +61,6 @@ const authOptions: NextAuthOptions = {
           throw new Error('Invalid password');
         }
 
-        // Ensure the returned object contains all required fields
         return {
           id: user._id.toString(),
           name: user.name,
@@ -81,7 +75,7 @@ const authOptions: NextAuthOptions = {
     strategy: 'jwt',
   },
   pages: {
-    signIn: '/login', // Redirect failed logins here
+    signIn: '/login',
   },
   callbacks: {
     async jwt({ token, user }) {
