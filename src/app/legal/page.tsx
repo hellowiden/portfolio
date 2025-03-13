@@ -28,7 +28,7 @@ const sections = [
     id: 'dispute-resolution',
     title: 'Dispute Resolution',
     content:
-      'Any disputes arising from the use of this website will be governed by the laws of the State of New York. Disputes must be resolved through binding arbitration, and users waive the right to participate in class-action lawsuits.',
+      'Any disputes arising from the use of this website will be governed by the laws of Sweden. Disputes must be resolved through binding arbitration, and users waive the right to participate in class-action lawsuits.',
   },
   {
     id: 'limitation-liability',
@@ -58,7 +58,7 @@ const sections = [
     id: 'cookie-policy',
     title: 'Cookie Policy',
     content:
-      'We use cookies to enhance website functionality, analyze site performance, and improve your experience. By continuing to use this website, you agree to our use of cookies as described in our Cookie Policy.',
+      'We use cookies to enhance website functionality, analyze site performance, and improve your experience. By continuing to use this website, you agree to our use of cookies as described in in this policy.',
   },
   {
     id: 'accessibility',
@@ -88,7 +88,7 @@ const sections = [
     id: 'contact',
     title: 'Responsible Publisher',
     content:
-      'The responsible publisher for this website is Marcus Widén. For inquiries, please contact us using the information provided on this website.',
+      'The responsible publisher for this website is Marcus Widén. For inquiries, please contact him using the information provided on this website.',
   },
 ];
 
