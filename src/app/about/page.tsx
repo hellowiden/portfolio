@@ -37,40 +37,39 @@ export default function About() {
               Why me?
             </h1>
             <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
-              <strong>
-                In short, because informed strategy fuels enduring success.
-              </strong>{' '}
-              I don’t just build brands—I unlock their full potential. With deep
-              strategic insight and a decade of experience leading 500+ global
-              projects, I’ve learned that the strongest brands don’t just demand
-              attention—they earn trust, inspire action, and evolve with their
-              audience. By blending data-driven wisdom with creative vision, my
-              strategies have driven $7.5 billion in revenue growth, increased
-              customer retention by 25%, and consistently delivered a 20% sales
-              boost. Every brand has a story. I help shape the ones that last.
+              <strong>Because informed strategy fuels enduring success.</strong>{' '}
+              With deep strategic insight and a decade of experience leading
+              500+ global projects, I’ve learned that the strongest brands don’t
+              demand attention—they earn trust, inspire action, and evolve with
+              their audience. By blending data-driven wisdom with creative
+              vision, my strategies have driven $7.5 billion in revenue growth,
+              increased customer retention by 25%, and consistently delivered a
+              20% sales boost. Every brand has a story. I help shape the ones
+              that last.
               <br />
               <br />
               Strong brands don’t chase trends—they shape the future. I help
               organizations carve out their place as industry leaders through
               strategic branding, intuitive UX/UI design, and campaigns that
-              redefine markets. By blending deep market insight with bold
+              redefine markets. By merging deep market insight with bold
               creativity, I focus on influence, perception, and meaningful
               differentiation. The result? A brand that doesn’t just stand out
               but stands the test of time.
               <br />
               <br />
-              My approach blends analysis with vision. I transform complexity
-              into clarity and brand potential into measurable impact.
-              Executives rely on me to decode market shifts, distill insights,
-              and navigate change with confidence. With a strategic yet creative
-              mindset, I design brands that don’t just attract attention—they
-              forge lasting connections and inspire action.
+              My approach blends analysis with vision. I turn complexity into
+              clarity and brand potential into measurable impact. Executives
+              rely on me to decode market shifts, distill insights, and navigate
+              change with confidence. With a strategic yet creative mindset, I
+              design brands that don’t just attract attention—they forge lasting
+              connections and inspire action.
               <br />
               <br />
-              Beyond business, I draw from history, philosophy, and human
-              behavior, to craft strategies that stand the test of time.
-              Partnering with me isn’t just about services; it’s about securing
-              a competitive edge. Let’s make your brand indispensable.
+              Brand success isn’t just about growth—it’s about endurance. I draw
+              from history, philosophy, and human behavior to craft strategies
+              that stand the test of time. Partnering with me isn’t just about
+              branding; it’s about gaining lasting influence and a true
+              competitive edge. Let’s build a brand that becomes indispensable.
             </p>
           </motion.div>
         </motion.section>
