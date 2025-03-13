@@ -162,7 +162,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg shadow-md">
+    <div className="bg-white dark:bg-zinc-900 p-6 border dark:border-light rounded-xl">
       {step > 1 && (
         <button
           onClick={() => setStep(step - 1)}
