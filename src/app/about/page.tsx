@@ -69,13 +69,13 @@ export default function About() {
               from history, philosophy, and human behavior to craft strategies
               that stand the test of time. Partnering with me isn’t just about
               branding; it’s about gaining lasting influence and a true
-              competitive edge. Let’s build a brand that becomes indispensable.
+              competitive edge.
             </p>
             <Link
               href="/contact"
               className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed"
             >
-              Work with me
+              Let’s build a brand that becomes indispensable.
             </Link>
           </motion.div>
         </motion.section>
