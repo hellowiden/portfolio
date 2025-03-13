@@ -17,7 +17,7 @@ export default function ThemeSwitch() {
       onClick={toggleTheme}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      aria-label={`Switch to ${isLight ? 'dark' : 'light'} mode`}
+      aria-label="Toggle theme"
       className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
     >
       <motion.div
@@ -28,15 +28,9 @@ export default function ThemeSwitch() {
         transition={{ duration: 0.3 }}
       >
         {isHovered ? (
-          isLight ? (
-            <FiMoon className="text-lg" />
-          ) : (
-            <FiSun className="text-lg" />
-          )
-        ) : isLight ? (
-          <FiSun className="text-lg" />
-        ) : (
           <FiMoon className="text-lg" />
+        ) : (
+          <FiSun className="text-lg" />
         )}
       </motion.div>
       <span className="hidden sm:inline">

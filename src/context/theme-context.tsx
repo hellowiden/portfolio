@@ -24,7 +24,7 @@ interface ThemeContextProviderProps {
 }
 
 export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
+  const getStoredTheme = (): Theme => {
     if (typeof window === 'undefined') return 'light';
     return (
       (localStorage.getItem('theme') as Theme | null) ??
@@ -32,25 +32,26 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
         ? 'dark'
         : 'light')
     );
-  });
+  };
+
+  const [theme, setTheme] = useState<Theme>(getStoredTheme);
+
+  const applyTheme = (newTheme: Theme) => {
+    document.documentElement.classList.toggle('dark', newTheme === 'dark');
+    localStorage.setItem('theme', newTheme);
+  };
 
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleThemeChange = (e: MediaQueryListEvent) => {
-      setTheme(e.matches ? 'dark' : 'light');
-    };
-
-    mediaQuery.addEventListener('change', handleThemeChange);
-    return () => mediaQuery.removeEventListener('change', handleThemeChange);
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-    localStorage.setItem('theme', theme);
+    applyTheme(theme);
   }, [theme]);
 
-  const toggleTheme = () =>
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  const toggleTheme = () => {
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
+      applyTheme(newTheme);
+      return newTheme;
+    });
+  };
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
