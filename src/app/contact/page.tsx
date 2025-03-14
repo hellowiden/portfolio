@@ -46,7 +46,7 @@ function Step({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
     >
-      <h1 className="text-2xl font-bold text-zinc-900 dark:text-white">
+      <h1 className="text-2xl text-center font-bold text-zinc-900 dark:text-white">
         {title}
       </h1>
       {children}
