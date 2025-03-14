@@ -15,7 +15,9 @@ export async function GET(
     }
 
     await connectToDatabase();
-    const { id } = context.params;
+    const params = await context.params;
+    const { id } = params;
+
     const project = await Project.findById(id);
 
     if (!project) {
@@ -40,7 +42,9 @@ export async function PUT(
     }
 
     await connectToDatabase();
-    const { id } = context.params;
+    const params = await context.params;
+    const { id } = params;
+
     const { name, date, description, image, link, tags } = await req.json();
 
     const updatedProject = await Project.findByIdAndUpdate(
@@ -74,7 +78,8 @@ export async function DELETE(
     }
 
     await connectToDatabase();
-    const { id } = context.params;
+    const params = await context.params;
+    const { id } = params;
 
     const deletedProject = await Project.findByIdAndDelete(id);
     if (!deletedProject) {
