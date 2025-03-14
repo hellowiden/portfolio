@@ -67,7 +67,6 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
         if (!res.ok) throw new Error('Failed to fetch projects');
 
         const data: ProjectsResponse = await res.json();
-
         setProjectIds(data.projects.map((p) => p._id));
       } catch (error) {
         console.error(error);

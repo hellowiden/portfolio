@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 
 interface Project {
   _id: string;
-  title: string;
-  location?: string;
+  name: string;
+  link?: string;
   date?: string;
   description?: string;
   image?: string;
@@ -35,8 +35,8 @@ export default function ProjectsDashboard() {
 
   const [projects, setProjects] = useState<Project[]>([]);
   const [formData, setFormData] = useState<Partial<Project>>({
-    title: '',
-    location: '',
+    name: '',
+    link: '',
     date: '',
     description: '',
     image: '',
@@ -73,9 +73,11 @@ export default function ProjectsDashboard() {
   // Create or Update
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { title } = formData;
-    if (!title) {
-      alert('Title is required.');
+    const { name, date, description } = formData;
+
+    // The schema requires name, date, and description
+    if (!name || !date || !description) {
+      alert('Name, date, and description are required.');
       return;
     }
 
@@ -98,9 +100,10 @@ export default function ProjectsDashboard() {
         if (!res.ok) throw new Error('Error creating project');
       }
 
+      // Reset form
       setFormData({
-        title: '',
-        location: '',
+        name: '',
+        link: '',
         date: '',
         description: '',
         image: '',
@@ -141,22 +144,22 @@ export default function ProjectsDashboard() {
       {/* CREATE / UPDATE FORM */}
       <form onSubmit={handleSubmit} className="grid gap-2 border p-4 rounded">
         <label>
-          Title:
+          Name:
           <input
             className="border p-1 w-full"
             type="text"
-            name="title"
-            value={formData.title || ''}
+            name="name"
+            value={formData.name || ''}
             onChange={handleChange}
           />
         </label>
         <label>
-          Location:
+          Link:
           <input
             className="border p-1 w-full"
             type="text"
-            name="location"
-            value={formData.location || ''}
+            name="link"
+            value={formData.link || ''}
             onChange={handleChange}
           />
         </label>
@@ -218,8 +221,8 @@ export default function ProjectsDashboard() {
       <table className="w-full border">
         <thead className="bg-gray-100">
           <tr>
-            <th className="p-2 border">Title</th>
-            <th className="p-2 border">Location</th>
+            <th className="p-2 border">Name</th>
+            <th className="p-2 border">Link</th>
             <th className="p-2 border">Date</th>
             <th className="p-2 border">Actions</th>
           </tr>
@@ -227,8 +230,8 @@ export default function ProjectsDashboard() {
         <tbody>
           {projects.map((project) => (
             <tr key={project._id} className="border-b">
-              <td className="p-2 border">{project.title}</td>
-              <td className="p-2 border">{project.location}</td>
+              <td className="p-2 border">{project.name}</td>
+              <td className="p-2 border">{project.link}</td>
               <td className="p-2 border">{project.date}</td>
               <td className="p-2 border">
                 <div className="flex gap-2">

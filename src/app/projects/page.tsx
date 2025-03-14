@@ -16,7 +16,6 @@ interface Project {
 }
 
 export default function ProjectsPage() {
-  // Explicitly type the array as Project[]
   const [projects, setProjects] = useState<Project[]>([]);
 
   useEffect(() => {
@@ -25,7 +24,6 @@ export default function ProjectsPage() {
         const res = await fetch('/api/projects');
         if (!res.ok) throw new Error('Failed to fetch projects');
         const data = await res.json();
-        // data.projects should be an array of Project
         setProjects(data.projects);
       } catch (error) {
         console.error(error);
