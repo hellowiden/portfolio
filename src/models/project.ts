@@ -19,7 +19,7 @@ const ProjectSchema = new mongoose.Schema(
       required: true,
     },
     date: {
-      type: Date,
+      type: Date, // 2025-03-14
       required: true,
     },
     description: {
