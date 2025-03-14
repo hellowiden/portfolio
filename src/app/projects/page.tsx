@@ -39,7 +39,7 @@ export default function ProjectsPage() {
 
   return (
     <section className="grid gap-4">
-      <p className="italic">
+      <p className="italic ">
         <strong>Note:</strong> Due to strict NDAs, I cannot disclose specifics
         of past projects. However, I’ve learned my lesson and moving forward,
         all relevant opportunities will be displayed here.
