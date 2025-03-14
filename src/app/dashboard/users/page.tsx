@@ -47,7 +47,6 @@ export default function UsersPage() {
     fetchUsers();
   }, [fetchUsers]);
 
-  // UserForm component
   const UserForm = ({ fetchUsers }: { fetchUsers: () => void }) => {
     const [formData, setFormData] = useState({
       name: '',
@@ -117,7 +116,6 @@ export default function UsersPage() {
     );
   };
 
-  // UserItem component
   const UserItem = ({
     user,
     fetchUsers,
