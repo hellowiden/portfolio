@@ -45,11 +45,12 @@ function Step({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
+      className="grid gap-4"
     >
       <h1 className="text-2xl text-center font-bold text-zinc-900 dark:text-white">
         {title}
       </h1>
-      {children}
+      <div>{children}</div>
     </motion.div>
   );
 }
@@ -68,21 +69,21 @@ function CustomDropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="grid gap-2 p-2">
-        <ListboxButton className="w-full grid grid-cols-[1fr_auto] items-start p-3 border border-light dark:border-dark rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
-          <span>
+        <ListboxButton className="w-full grid grid-cols-[1fr_auto] items-center p-3 border border-light rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
+          <span className="truncate">
             {selectedOption ? selectedOption.label : 'Select an Option'}
           </span>
-          <ChevronDown className="w-4 h-4 text-gray-500 dark:text-gray-400" />
+          <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400 justify-self-end" />
         </ListboxButton>
 
-        <ListboxOptions className="w-full bg-white dark:bg-zinc-800 border border-light dark:border-dark rounded-xl grid gap-1 p-2">
+        <ListboxOptions className="w-full backdrop-blur-md bg-white/50 dark:bg-black/50 text-zinc-900 dark:text-zinc-100 border rounded-xl grid gap-1">
           {options.map((option, index) => (
-            <div key={option.value}>
+            <div key={option.value} className="grid">
               <ListboxOption
                 key={option.value}
                 value={option.value}
                 className={({ active }) =>
-                  `p-2 cursor-pointer grid ${
+                  `p-2 cursor-pointer grid rounded-xl ${
                     active
                       ? 'bg-green-500 text-white'
                       : 'text-black dark:text-white'
@@ -90,7 +91,7 @@ function CustomDropdown({
                 }
               >
                 {({ selected }) => (
-                  <div className="grid grid-cols-[1fr_auto] items-start p-2 rounded-xl">
+                  <div className="grid grid-cols-[1fr_auto] items-center p-2 rounded-xl">
                     <span>{option.label}</span>
                     {selected && (
                       <Check className="w-4 h-4 text-green-500 rounded-xl" />
@@ -121,7 +122,7 @@ function CustomInput({
   placeholder?: string;
 }) {
   return (
-    <div className="relative mt-4">
+    <div className="grid">
       <input
         name={name}
         value={value}
@@ -172,82 +173,88 @@ export default function Contact() {
   };
 
   return (
-    <div className="bg-white dark:bg-zinc-900 p-6 border dark:border-light rounded-xl">
+    <div className="grid gap-4 bg-white dark:bg-zinc-900 p-6 border dark:border-light rounded-xl">
       {step === 1 && (
         <Step title="Let's Start - What Brings You Here?">
-          <CustomDropdown
-            value={formData.reason}
-            options={contactReasons}
-            onChange={(value) => handleChange('reason', value)}
-          />
-          <button
-            onClick={() => setStep(2)}
-            disabled={!formData.reason}
-            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-center text-white rounded w-full"
-          >
-            Next
-          </button>
+          <div className="grid gap-4">
+            <CustomDropdown
+              value={formData.reason}
+              options={contactReasons}
+              onChange={(value) => handleChange('reason', value)}
+            />
+            <button
+              onClick={() => setStep(2)}
+              disabled={!formData.reason}
+              className="p-2 bg-green-500 dark:bg-green-400 text-center text-white rounded w-full"
+            >
+              Next
+            </button>
+          </div>
         </Step>
       )}
 
       {step === 2 && formData.reason === 'job_offer' && (
         <Step title="Great! Let's Talk Budget">
-          <CustomDropdown
-            value={formData.budget}
-            options={budgetOptions}
-            onChange={(value) => handleChange('budget', value)}
-          />
-          <button
-            onClick={() => setStep(3)}
-            disabled={!formData.budget}
-            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
-          >
-            Next
-          </button>
+          <div className="grid gap-4">
+            <CustomDropdown
+              value={formData.budget}
+              options={budgetOptions}
+              onChange={(value) => handleChange('budget', value)}
+            />
+            <button
+              onClick={() => setStep(3)}
+              disabled={!formData.budget}
+              className="p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
+            >
+              Next
+            </button>
+          </div>
         </Step>
       )}
 
       {((step === 2 && formData.reason !== 'job_offer') || step === 3) && (
         <Step title="Tell Me More">
-          <CustomInput
-            name="message"
-            value={formData.message}
-            onChange={(e) => handleChange('message', e.target.value)}
-            placeholder={
-              placeholders[formData.reason] || 'Enter your message...'
-            }
-          />
-
-          <button
-            onClick={() => setStep(4)}
-            disabled={!formData.message}
-            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
-          >
-            Next
-          </button>
+          <div className="grid gap-4">
+            <CustomInput
+              name="message"
+              value={formData.message}
+              onChange={(e) => handleChange('message', e.target.value)}
+              placeholder={
+                placeholders[formData.reason] || 'Enter your message...'
+              }
+            />
+            <button
+              onClick={() => setStep(4)}
+              disabled={!formData.message}
+              className="p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
+            >
+              Next
+            </button>
+          </div>
         </Step>
       )}
 
       {step === 4 && (
         <Step title="Ready to Submit?">
-          <button
-            onClick={handleSubmit}
-            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
-          >
-            Send
-          </button>
+          <div className="grid gap-4">
+            <button
+              onClick={handleSubmit}
+              className="p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
+            >
+              Send
+            </button>
+          </div>
         </Step>
       )}
 
       {status && (
-        <p className="mt-2 text-sm text-zinc-900 dark:text-zinc-100">
-          {status}
-        </p>
+        <p className="text-sm text-zinc-900 dark:text-zinc-100">{status}</p>
       )}
+
       {step > 1 && (
         <button
           onClick={() => setStep(step - 1)}
-          className="mb-4 p-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded w-full"
+          className="p-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded w-full"
         >
           Back
         </button>
