@@ -142,11 +142,14 @@ export default function ProjectsDashboard() {
       <h1 className="text-2xl font-bold">Manage Projects</h1>
 
       {/* CREATE / UPDATE FORM */}
-      <form onSubmit={handleSubmit} className="grid gap-2 border p-4 rounded">
+      <form
+        onSubmit={handleSubmit}
+        className="grid bg-zinc-200 dark:bg-zinc-800 gap-2 border border-light rounded-md p-4"
+      >
         <label>
           Name:
           <input
-            className="border p-1 w-full"
+            className="border border-light rounded-md p-1 w-full"
             type="text"
             name="name"
             value={formData.name || ''}
@@ -156,7 +159,7 @@ export default function ProjectsDashboard() {
         <label>
           Link:
           <input
-            className="border p-1 w-full"
+            className="border border-light rounded-md p-1 w-full"
             type="text"
             name="link"
             value={formData.link || ''}
@@ -166,7 +169,7 @@ export default function ProjectsDashboard() {
         <label>
           Date:
           <input
-            className="border p-1 w-full"
+            className="border border-light rounded-md p-1 w-full"
             type="text"
             name="date"
             value={formData.date || ''}
@@ -176,7 +179,7 @@ export default function ProjectsDashboard() {
         <label>
           Description:
           <textarea
-            className="border p-1 w-full"
+            className="border border-light rounded-md p-1 w-full"
             name="description"
             rows={3}
             value={formData.description || ''}
@@ -186,7 +189,7 @@ export default function ProjectsDashboard() {
         <label>
           Image URL:
           <input
-            className="border p-1 w-full"
+            className="border border-light rounded-md p-1 w-full"
             type="text"
             name="image"
             value={formData.image || ''}
@@ -196,7 +199,7 @@ export default function ProjectsDashboard() {
         <label>
           Tags (comma separated):
           <input
-            className="border p-1 w-full"
+            className="border border-light rounded-md p-1 w-full"
             type="text"
             name="tags"
             value={Array.isArray(formData.tags) ? formData.tags.join(', ') : ''}
@@ -218,22 +221,28 @@ export default function ProjectsDashboard() {
       </form>
 
       {/* PROJECTS LIST */}
-      <table className="w-full border">
+      <table className="w-full border border-light rounded-md">
         <thead className="bg-gray-100">
           <tr>
-            <th className="p-2 border">Name</th>
-            <th className="p-2 border">Link</th>
-            <th className="p-2 border">Date</th>
-            <th className="p-2 border">Actions</th>
+            <th className="p-2 border border-light rounded-md">Name</th>
+            <th className="p-2 border border-light rounded-md">Link</th>
+            <th className="p-2 border border-light rounded-md">Date</th>
+            <th className="p-2 border border-light rounded-md">Actions</th>
           </tr>
         </thead>
         <tbody>
           {projects.map((project) => (
             <tr key={project._id} className="border-b">
-              <td className="p-2 border">{project.name}</td>
-              <td className="p-2 border">{project.link}</td>
-              <td className="p-2 border">{project.date}</td>
-              <td className="p-2 border">
+              <td className="p-2 border border-light rounded-md">
+                {project.name}
+              </td>
+              <td className="p-2 border border-light rounded-md">
+                {project.link}
+              </td>
+              <td className="p-2 border border-light rounded-md">
+                {project.date}
+              </td>
+              <td className="p-2 border border-light rounded-md">
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => handleEdit(project)}
