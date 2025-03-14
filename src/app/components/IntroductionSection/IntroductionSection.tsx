@@ -51,10 +51,10 @@ export default function IntroductionSection() {
           <h1 className="text-xl font-medium">Marcus Widén</h1>
         </div>
 
-        <div className="grid grid-cols-1 gap-4 text-sm items-center">
+        <div className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2">
           <Link
             href="/about"
-            className="grid place-items-center gap-2 text-sm dark:border-dark text-black/60 rounded hover:text-black dark:text-white/50 dark:hover:text-white transition hover:text-opacity-80 dark:hover:text-opacity-80"
+            className="grid place-items-center gap-2 text-sm text-black dark:text-white dark:border-dark border-light hover:text-white dark:hover:text-white  rounded transition"
           >
             About me
           </Link>
