@@ -192,7 +192,7 @@ export default function Contact() {
           <button
             onClick={() => setStep(2)}
             disabled={!formData.reason}
-            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
+            className="mt-4 p-2 bg-green-500 dark:bg-green-400 text-center text-white rounded w-full"
           >
             Next
           </button>
