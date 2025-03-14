@@ -4,6 +4,7 @@ import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Experience from '@/models/experience';
 
+/** GET /api/experiences */
 export async function GET() {
   try {
     await connectToDatabase();
@@ -15,6 +16,7 @@ export async function GET() {
   }
 }
 
+/** POST /api/experiences */
 export async function POST(req: NextRequest) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
