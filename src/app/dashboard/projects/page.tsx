@@ -211,7 +211,7 @@ export default function ProjectsDashboard() {
 
         <button
           type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded mt-2"
+          className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
         >
           {editingProjectId ? 'Update Project' : 'Create Project'}
         </button>
@@ -234,16 +234,16 @@ export default function ProjectsDashboard() {
               <td className="p-2 border">{project.link}</td>
               <td className="p-2 border">{project.date}</td>
               <td className="p-2 border">
-                <div className="flex gap-2">
+                <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => handleEdit(project)}
-                    className="px-3 py-1 border rounded hover:bg-gray-200"
+                    className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(project._id)}
-                    className="px-3 py-1 border rounded text-red-500 hover:bg-gray-200"
+                    className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
                   >
                     Remove
                   </button>

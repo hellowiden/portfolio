@@ -145,7 +145,7 @@ export default function Dashboard() {
 
       <button
         onClick={handleAddUserModal}
-        className="mb-4 p-2 bg-blue-600 text-white rounded"
+        className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
       >
         Add User
       </button>
@@ -229,13 +229,13 @@ export default function Dashboard() {
               <td className="border border-zinc-300 dark:border-zinc-700 p-2">
                 <div className="grid grid-cols-2 gap-2">
                   <button
-                    className="text-sm border text-zinc-700 rounded hover:bg-zinc-800 hover:text-white px-2 py-1"
+                    className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
                     onClick={() => handleEdit(user)}
                   >
                     Edit
                   </button>
                   <button
-                    className="text-sm border bg-zinc-800 text-zinc-300 rounded hover:bg-zinc-100 hover:text-black px-2 py-1"
+                    className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
                     onClick={() => handleDelete(user._id)}
                   >
                     Remove
