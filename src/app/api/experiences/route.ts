@@ -4,13 +4,8 @@ import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Experience from '@/models/experience';
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    if (!token || !token.roles.includes('admin')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     await connectToDatabase();
     const experiences = await Experience.find().sort({ date: -1 });
     return NextResponse.json({ experiences }, { status: 200 });
