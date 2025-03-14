@@ -103,65 +103,63 @@ export default function Dashboard() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="p-4 grid gap-4 justify-center">
+    <div className="w-full p-4 grid gap-4 justify-center">
       <input
         type="text"
         placeholder="Search by name, email, or role"
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="p-2 border rounded w-full border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+        className="w-full border p-2 rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
       />
 
-      <div className="overflow-x-auto">
-        <table className="min-w-full border border-zinc-300 bg-white dark:bg-zinc-800 dark:border-zinc-700">
-          <thead>
-            <tr className="bg-zinc-200 dark:bg-zinc-700 border-b dark:border-zinc-600">
-              {['Name', 'Email', 'Role', 'Actions'].map((header) => (
-                <th
-                  key={header}
-                  className="px-4 py-2 text-left border border-zinc-300 dark:border-zinc-600"
-                >
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {filteredUsers.map((user) => (
-              <tr
-                key={user._id}
-                className="border-b border-zinc-300 dark:border-zinc-700"
+      <table className=" w-full border border-zinc-300 bg-white dark:bg-zinc-800 dark:border-zinc-700">
+        <thead>
+          <tr className="bg-zinc-200 dark:bg-zinc-700 border-b dark:border-zinc-600">
+            {['Name', 'Email', 'Role', 'Actions'].map((header) => (
+              <th
+                key={header}
+                className="text-left border border-zinc-300 dark:border-zinc-600 p-2"
               >
-                <td className="p-2 border border-zinc-300 text-zinc-900 dark:border-zinc-700 dark:text-white">
-                  {user.name}
-                </td>
-                <td className="p-2 border border-zinc-300 text-zinc-900 dark:border-zinc-700 dark:text-white">
-                  {user.email}
-                </td>
-                <td className="p-2 border border-zinc-300 text-zinc-900 dark:border-zinc-700 dark:text-white">
-                  {user.roles.join(', ')}
-                </td>
-                <td className="p-2 border border-zinc-300 dark:border-zinc-700">
-                  <div className="grid grid-cols-2 gap-2">
-                    <button
-                      className="p-2 text-sm border text-zinc-700 rounded hover:bg-zinc-800 hover:text-white"
-                      onClick={() => handleEdit(user)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="p-2 text-sm border bg-zinc-800 text-zinc-300 rounded hover:bg-zinc-100 hover:text-black"
-                      onClick={() => handleDelete(user._id)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </td>
-              </tr>
+                {header}
+              </th>
             ))}
-          </tbody>
-        </table>
-      </div>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredUsers.map((user) => (
+            <tr
+              key={user._id}
+              className="border-b border-zinc-300 dark:border-zinc-700"
+            >
+              <td className="border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white p-2">
+                {user.name}
+              </td>
+              <td className="border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white p-2">
+                {user.email}
+              </td>
+              <td className="border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white p-2">
+                {user.roles.join(', ')}
+              </td>
+              <td className="border border-zinc-300 dark:border-zinc-700 p-2">
+                <div className="grid grid-cols-2 gap-2">
+                  <button
+                    className="text-sm border text-zinc-700 rounded hover:bg-zinc-800 hover:text-white px-2 py-1"
+                    onClick={() => handleEdit(user)}
+                  >
+                    Edit
+                  </button>
+                  <button
+                    className="text-sm border bg-zinc-800 text-zinc-300 rounded hover:bg-zinc-100 hover:text-black px-2 py-1"
+                    onClick={() => handleDelete(user._id)}
+                  >
+                    Remove
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
 
       {modalState.isOpen && modalState.user && (
         <EditUserModal
