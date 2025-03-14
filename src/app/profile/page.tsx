@@ -77,7 +77,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 p-6 w-full mx-auto bg-zinc-50 dark:bg-zinc-800 rounded-lg border-4 border-zinc-300 dark:border-zinc-600">
+    <div className="grid grid-cols-1 gap-6 p-6 w-full mx-auto bg-zinc-50 dark:bg-zinc-800 rounded-lg border dark:border-light">
       <div className="grid grid-cols-[min-content_1fr] gap-4 items-center">
         <ProfileAvatar name={formData.name} />
         <span className="text-zinc-800 dark:text-zinc-200">
@@ -121,18 +121,18 @@ export default function Profile() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-green-500 dark:bg-green-600 text-white py-2 rounded-md border-2 border-green-400 dark:border-green-500 hover:bg-green-600 dark:hover:bg-green-700 transition"
+          className="w-full bg-green-500 dark:bg-green-600 text-white py-2 rounded-md border dark:border-light hover:bg-green-600 dark:hover:bg-green-700 transition"
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>
 
-      <div className="border-t border-zinc-300 dark:border-zinc-600" />
+      <div className="border dark:border-light dark:border-zinc-600" />
 
       <button
         onClick={handleDeleteAccount}
         disabled={loading}
-        className="w-full bg-red-500 dark:bg-red-600 text-white py-2 rounded-md border-2 border-red-400 dark:border-red-500 hover:bg-red-600 dark:hover:bg-red-700 transition"
+        className="w-full bg-red-500 dark:bg-red-600 text-white py-2 rounded-md border dark:border-light dark:border-red-500 hover:bg-red-600 dark:hover:bg-red-700 transition"
       >
         {loading ? 'Processing...' : 'Remove Account'}
       </button>
@@ -182,7 +182,7 @@ const FormInput = ({
       disabled={disabled}
       readOnly={readOnly}
       aria-label={label}
-      className={`p-2 border border-zinc-300 dark:border-zinc-600 rounded-md focus:ring-green-500 dark:focus:ring-green-500 focus:border-green-500 dark:focus:border-green-500 bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 ${
+      className={`p-2 border dark:border-light dark:border-zinc-600 rounded-md focus:ring-green-500 dark:focus:ring-green-500 focus:border-green-500 dark:focus:border-green-500 bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       }`}
     />
