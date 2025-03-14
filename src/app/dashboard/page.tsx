@@ -132,14 +132,55 @@ export default function Dashboard() {
               className="border-b border-zinc-300 dark:border-zinc-700"
             >
               <td className="border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white p-2">
-                {user.name}
+                {user.name
+                  .split(new RegExp(`(${searchQuery})`, 'gi'))
+                  .map((part, index) =>
+                    part.toLowerCase() === searchQuery.toLowerCase() ? (
+                      <span
+                        key={index}
+                        className="bg-yellow-200 dark:bg-yellow-600"
+                      >
+                        {part}
+                      </span>
+                    ) : (
+                      part
+                    )
+                  )}
               </td>
               <td className="border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white p-2">
-                {user.email}
+                {user.email
+                  .split(new RegExp(`(${searchQuery})`, 'gi'))
+                  .map((part, index) =>
+                    part.toLowerCase() === searchQuery.toLowerCase() ? (
+                      <span
+                        key={index}
+                        className="bg-yellow-200 dark:bg-yellow-600"
+                      >
+                        {part}
+                      </span>
+                    ) : (
+                      part
+                    )
+                  )}
               </td>
               <td className="border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white p-2">
-                {user.roles.join(', ')}
+                {user.roles
+                  .join(', ')
+                  .split(new RegExp(`(${searchQuery})`, 'gi'))
+                  .map((part, index) =>
+                    part.toLowerCase() === searchQuery.toLowerCase() ? (
+                      <span
+                        key={index}
+                        className="bg-yellow-200 dark:bg-yellow-600"
+                      >
+                        {part}
+                      </span>
+                    ) : (
+                      part
+                    )
+                  )}
               </td>
+
               <td className="border border-zinc-300 dark:border-zinc-700 p-2">
                 <div className="grid grid-cols-2 gap-2">
                   <button
