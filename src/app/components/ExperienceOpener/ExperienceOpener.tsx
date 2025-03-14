@@ -33,7 +33,7 @@ export default function ExperienceOpener({
           </h1>
           <Link
             href="/experiences"
-            className="text-sm font-medium text-black/60 dark:text-white/50 hover:text-black dark:hover:text-white transition"
+            className="grid items-center p-2 text-sm border dark:border-zinc-600 rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white "
           >
             View Experiences
           </Link>
