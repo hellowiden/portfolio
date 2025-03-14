@@ -173,15 +173,6 @@ export default function Contact() {
 
   return (
     <div className="bg-white dark:bg-zinc-900 p-6 border dark:border-light rounded-xl">
-      {step > 1 && (
-        <button
-          onClick={() => setStep(step - 1)}
-          className="mb-4 p-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded w-full"
-        >
-          Back
-        </button>
-      )}
-
       {step === 1 && (
         <Step title="Let's Start - What Brings You Here?">
           <CustomDropdown
@@ -252,6 +243,14 @@ export default function Contact() {
         <p className="mt-2 text-sm text-zinc-900 dark:text-zinc-100">
           {status}
         </p>
+      )}
+      {step > 1 && (
+        <button
+          onClick={() => setStep(step - 1)}
+          className="mb-4 p-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded w-full"
+        >
+          Back
+        </button>
       )}
     </div>
   );
