@@ -1,5 +1,4 @@
 // src/app/dashboard/experiences/page.tsx
-// src/app/dashboard/experiences/page.tsx
 
 'use client';
 
