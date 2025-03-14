@@ -3,13 +3,16 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
+const PROTECTED_ROUTES = ['/dashboard', '/about', '/experiences']; // Define high-level protected routes
+
 export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  const path = req.nextUrl.pathname;
 
-  if (
-    !token &&
-    config.matcher.some((route) => req.nextUrl.pathname.startsWith(route))
-  ) {
+  // Check if the request matches any protected route dynamically
+  const requiresAuth = PROTECTED_ROUTES.some((route) => path.startsWith(route));
+
+  if (!token && requiresAuth) {
     return NextResponse.redirect(new URL('/login', req.url));
   }
 
@@ -17,5 +20,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/dashboard/:path*', '/about', '/experiences/:path*'],
+  matcher: ['/((?!_next|api|static|public|favicon.ico).*)'], // Matches all except Next.js internals
 };
