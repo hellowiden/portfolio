@@ -33,11 +33,11 @@ export default function Layout({ children }: LayoutProps) {
   if (!isAdmin) return null;
 
   return (
-    <div className="flex min-h-screen bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white">
+    <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] min-h-screen bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white gap-4">
       {/* SIDEBAR NAVIGATION */}
-      <aside className="w-64 bg-zinc-200 dark:bg-zinc-800 flex-shrink-0 border-r dark:border-zinc-700 p-4">
-        <h2 className="text-xl font-bold mb-6">Admin Dashboard</h2>
-        <nav className="flex flex-col gap-2">
+      <aside className=" gap-4 w-64 bg-zinc-200 dark:bg-zinc-800 border-r dark:border-zinc-700 p-4">
+        <h2 className="text-xl font-bold">Admin Dashboard</h2>
+        <nav className="grid gap-2">
           <Link
             href="/dashboard"
             className={`px-2 py-1 rounded ${
@@ -82,7 +82,7 @@ export default function Layout({ children }: LayoutProps) {
       </aside>
 
       {/* MAIN CONTENT */}
-      <main className="flex-grow p-4">{children}</main>
+      <main className="p-4">{children}</main>
     </div>
   );
 }
