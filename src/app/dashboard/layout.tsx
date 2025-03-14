@@ -4,7 +4,7 @@
 
 import { ReactNode, useEffect, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter, usePathname } from 'next/navigation'; // Import usePathname
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 interface LayoutProps {
@@ -14,7 +14,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const pathname = usePathname(); // Get the current pathname
+  const pathname = usePathname();
 
   const isAdmin = useMemo(() => {
     return session?.user?.roles.includes('admin');
