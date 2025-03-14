@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 export interface IProject extends mongoose.Document {
   name: string;
-  date: Date;
+  date: string;
   description: string;
   image: string;
   link?: string;
