@@ -1,16 +1,15 @@
 //src/app/components/Footer/Footer.tsx
 
-'use client';
-
+import { useMemo } from 'react';
 import Link from 'next/link';
 
 export default function Footer() {
-  const currentYear = new Date().getFullYear();
+  const currentYear = useMemo(() => new Date().getFullYear(), []);
 
   return (
     <footer className="w-full z-20 border-t border-zinc-200 dark:border-zinc-800 bg-white/80 dark:bg-black/70 transition">
       <div className="w-full px-6 sm:px-8 py-10 grid gap-6 md:grid-cols-[1fr_auto]">
-        <div>
+        <section>
           <h4 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
             Portfolio Techstack
           </h4>
@@ -18,8 +17,8 @@ export default function Footer() {
             Built with Next.js, TypeScript, Tailwind CSS, and more. Designed in
             Figma & coded in VS Code. Hosted on Vercel.
           </p>
-        </div>
-        <div className="md:text-right">
+        </section>
+        <nav className="md:text-right">
           <h4 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
             Docs
           </h4>
@@ -30,11 +29,13 @@ export default function Footer() {
           >
             Legal
           </Link>
-        </div>
+        </nav>
       </div>
       <div className="grid gap-4 border-t border-zinc-200 dark:border-zinc-800 p-4 text-sm text-zinc-700 dark:text-zinc-300 sm:px-8 md:grid-cols-[1fr_auto]">
-        <p>&copy; {currentYear} Marcus Widén — Personal Portfolio.</p>
-        <p>All rights reserved.</p>
+        <small>
+          &copy; {currentYear} Marcus Widén — Personal Portfolio. All rights
+          reserved.
+        </small>
       </div>
     </footer>
   );
