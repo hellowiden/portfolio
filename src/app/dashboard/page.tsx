@@ -103,7 +103,10 @@ export default function Dashboard() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="w-full p-4 grid gap-4 justify-center">
+    <div className="w-full grid gap-4">
+      <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
+
+      {/* Search */}
       <input
         type="text"
         placeholder="Search by name, email, or role"
@@ -112,10 +115,11 @@ export default function Dashboard() {
         className="w-full border p-2 rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
       />
 
-      <table className=" w-full border border-zinc-300 bg-white dark:bg-zinc-800 dark:border-zinc-700">
+      {/* Users Table */}
+      <table className="w-full border border-zinc-300 bg-white dark:bg-zinc-800 dark:border-zinc-700">
         <thead>
           <tr className="bg-zinc-200 dark:bg-zinc-700 border-b dark:border-zinc-600">
-            {['Name', 'Email', 'Role', 'Actions'].map((header) => (
+            {['Name', 'Email', 'Roles', 'Actions'].map((header) => (
               <th
                 key={header}
                 className="text-left border border-zinc-300 dark:border-zinc-600 p-2"
@@ -180,7 +184,6 @@ export default function Dashboard() {
                     )
                   )}
               </td>
-
               <td className="border border-zinc-300 dark:border-zinc-700 p-2">
                 <div className="grid grid-cols-2 gap-2">
                   <button
@@ -202,6 +205,7 @@ export default function Dashboard() {
         </tbody>
       </table>
 
+      {/* Edit User Modal */}
       {modalState.isOpen && modalState.user && (
         <EditUserModal
           user={modalState.user}

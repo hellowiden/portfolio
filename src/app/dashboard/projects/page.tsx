@@ -5,18 +5,17 @@ import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
-interface Experience {
+interface Project {
   _id: string;
   title: string;
-  location: string;
-  date: string;
-  description: string;
-  image: string;
-  tags: string[];
-  type: 'work' | 'education';
+  location?: string;
+  date?: string;
+  description?: string;
+  image?: string;
+  tags?: string[];
 }
 
-export default function ExperiencesDashboard() {
+export default function ProjectsDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
@@ -34,35 +33,32 @@ export default function ExperiencesDashboard() {
     }
   }, [status, isAdmin, router]);
 
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [formData, setFormData] = useState<Partial<Experience>>({
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [formData, setFormData] = useState<Partial<Project>>({
     title: '',
     location: '',
     date: '',
     description: '',
     image: '',
     tags: [],
-    type: 'work',
   });
-  const [editingExperienceId, setEditingExperienceId] = useState<string | null>(
-    null
-  );
+  const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
 
-  // Fetch all experiences (admin only)
-  const fetchExperiences = useCallback(async () => {
+  // Fetch all projects
+  const fetchProjects = useCallback(async () => {
     try {
-      const res = await fetch('/api/experiences');
-      if (!res.ok) throw new Error('Error fetching experiences');
+      const res = await fetch('/api/projects');
+      if (!res.ok) throw new Error('Error fetching projects');
       const data = await res.json();
-      setExperiences(data.experiences);
+      setProjects(data.projects);
     } catch (error) {
       console.error(error);
     }
   }, []);
 
   useEffect(() => {
-    if (isAdmin) fetchExperiences();
-  }, [isAdmin, fetchExperiences]);
+    if (isAdmin) fetchProjects();
+  }, [isAdmin, fetchProjects]);
 
   // Update form state
   const handleChange = (
@@ -74,32 +70,32 @@ export default function ExperiencesDashboard() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Create or Update experience
+  // Create or Update
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { title, location, date, description, type } = formData;
-    if (!title || !location || !date || !description || !type) {
-      alert('All fields are required.');
+    const { title } = formData;
+    if (!title) {
+      alert('Title is required.');
       return;
     }
 
     try {
-      if (editingExperienceId) {
+      if (editingProjectId) {
         // Update existing
-        const res = await fetch(`/api/experiences/${editingExperienceId}`, {
+        const res = await fetch(`/api/projects/${editingProjectId}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
         });
-        if (!res.ok) throw new Error('Error updating experience');
+        if (!res.ok) throw new Error('Error updating project');
       } else {
         // Create new
-        const res = await fetch('/api/experiences', {
+        const res = await fetch('/api/projects', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(formData),
         });
-        if (!res.ok) throw new Error('Error creating experience');
+        if (!res.ok) throw new Error('Error creating project');
       }
 
       setFormData({
@@ -109,28 +105,27 @@ export default function ExperiencesDashboard() {
         description: '',
         image: '',
         tags: [],
-        type: 'work',
       });
-      setEditingExperienceId(null);
-      await fetchExperiences();
+      setEditingProjectId(null);
+      await fetchProjects();
     } catch (error) {
       console.error(error);
     }
   };
 
   // Edit button
-  const handleEdit = (experience: Experience) => {
-    setEditingExperienceId(experience._id);
-    setFormData(experience);
+  const handleEdit = (project: Project) => {
+    setEditingProjectId(project._id);
+    setFormData(project);
   };
 
-  // Delete experience
+  // Delete
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this experience?')) return;
+    if (!confirm('Are you sure you want to delete this project?')) return;
     try {
-      const res = await fetch(`/api/experiences/${id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('Error deleting experience');
-      await fetchExperiences();
+      const res = await fetch(`/api/projects/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Error deleting project');
+      await fetchProjects();
     } catch (error) {
       console.error(error);
     }
@@ -140,8 +135,8 @@ export default function ExperiencesDashboard() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="p-4 grid gap-6">
-      <h1 className="text-2xl font-bold">Manage Experiences</h1>
+    <div className="grid gap-6">
+      <h1 className="text-2xl font-bold">Manage Projects</h1>
 
       {/* CREATE / UPDATE FORM */}
       <form onSubmit={handleSubmit} className="grid gap-2 border p-4 rounded">
@@ -171,7 +166,6 @@ export default function ExperiencesDashboard() {
             className="border p-1 w-full"
             type="text"
             name="date"
-            placeholder="e.g., August 2023 - June 2025"
             value={formData.date || ''}
             onChange={handleChange}
           />
@@ -211,28 +205,16 @@ export default function ExperiencesDashboard() {
             }
           />
         </label>
-        <label>
-          Type:
-          <select
-            className="border p-1 w-full"
-            name="type"
-            value={formData.type}
-            onChange={handleChange}
-          >
-            <option value="work">Work</option>
-            <option value="education">Education</option>
-          </select>
-        </label>
 
         <button
           type="submit"
           className="bg-green-600 text-white px-4 py-2 rounded mt-2"
         >
-          {editingExperienceId ? 'Update Experience' : 'Create Experience'}
+          {editingProjectId ? 'Update Project' : 'Create Project'}
         </button>
       </form>
 
-      {/* EXPERIENCE LIST */}
+      {/* PROJECTS LIST */}
       <table className="w-full border">
         <thead className="bg-gray-100">
           <tr>
@@ -243,21 +225,21 @@ export default function ExperiencesDashboard() {
           </tr>
         </thead>
         <tbody>
-          {experiences.map((experience) => (
-            <tr key={experience._id} className="border-b">
-              <td className="p-2 border">{experience.title}</td>
-              <td className="p-2 border">{experience.location}</td>
-              <td className="p-2 border">{experience.date}</td>
+          {projects.map((project) => (
+            <tr key={project._id} className="border-b">
+              <td className="p-2 border">{project.title}</td>
+              <td className="p-2 border">{project.location}</td>
+              <td className="p-2 border">{project.date}</td>
               <td className="p-2 border">
                 <div className="flex gap-2">
                   <button
-                    onClick={() => handleEdit(experience)}
+                    onClick={() => handleEdit(project)}
                     className="px-3 py-1 border rounded hover:bg-gray-200"
                   >
                     Edit
                   </button>
                   <button
-                    onClick={() => handleDelete(experience._id)}
+                    onClick={() => handleDelete(project._id)}
                     className="px-3 py-1 border rounded text-red-500 hover:bg-gray-200"
                   >
                     Remove

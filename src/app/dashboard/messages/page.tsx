@@ -2,7 +2,9 @@
 
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 interface Message {
   _id: string;
@@ -17,6 +19,23 @@ interface Message {
 }
 
 export default function Messages() {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  const isAdmin = useMemo(
+    () => session?.user?.roles.includes('admin'),
+    [session]
+  );
+
+  useEffect(() => {
+    if (
+      status === 'unauthenticated' ||
+      (status === 'authenticated' && !isAdmin)
+    ) {
+      router.replace(status === 'unauthenticated' ? '/login' : '/');
+    }
+  }, [status, isAdmin, router]);
+
   const [messages, setMessages] = useState<Message[]>([]);
   const [responseText, setResponseText] = useState<{ [key: string]: string }>(
     {}
@@ -34,8 +53,8 @@ export default function Messages() {
   }, []);
 
   useEffect(() => {
-    fetchMessages();
-  }, [fetchMessages]);
+    if (isAdmin) fetchMessages();
+  }, [isAdmin, fetchMessages]);
 
   const handleResponseChange = useCallback(
     (messageId: string, response: string) => {
@@ -103,27 +122,28 @@ export default function Messages() {
     }
   }, []);
 
+  if (status === 'loading') return <p>Loading...</p>;
+  if (!isAdmin) return <p>Access denied</p>;
+
   return (
-    <div className="grid p-4 gap-4">
-      <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-        Messages
-      </h1>
+    <div className="grid gap-4">
+      <h1 className="text-2xl font-bold">Messages</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {messages.map((msg) => (
           <div
             key={msg._id}
-            className="border p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-light dark:border-dark grid grid-cols-1 gap-2"
+            className="border p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-light dark:border-dark grid gap-2"
           >
-            <p className="text-zinc-900 dark:text-zinc-50">
+            <p>
               <strong>From:</strong> {msg.userName} ({msg.userEmail})
             </p>
-            <p className="text-zinc-700 dark:text-zinc-200">
+            <p>
               <strong>Message:</strong> {msg.message}
             </p>
-            <p className="text-zinc-700 dark:text-zinc-200">
+            <p>
               <strong>Budget:</strong> {msg.budget}
             </p>
-            <p className="text-zinc-700 dark:text-zinc-200">
+            <p>
               <strong>Reason:</strong> {msg.reason}
             </p>
             <p className="text-sm text-zinc-500 dark:text-zinc-400">
@@ -158,11 +178,11 @@ export default function Messages() {
 
             {msg.isResolved && (
               <div className="grid grid-cols-2 gap-2">
-                <span className="w-full h-full grid place-items-center text-green-600 dark:text-green-400">
+                <span className="grid place-items-center text-green-600 dark:text-green-400">
                   ✅ Resolved
                 </span>
                 <button
-                  className="w-full h-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+                  className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
                   onClick={() => handleDeleteMessage(msg._id)}
                 >
                   Remove

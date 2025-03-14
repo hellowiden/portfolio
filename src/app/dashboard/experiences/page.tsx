@@ -1,8 +1,10 @@
 // src/app/dashboard/experiences/page.tsx
+// src/app/dashboard/experiences/page.tsx
+
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useMemo, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface Experience {
@@ -20,7 +22,10 @@ export default function ExperiencesDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
 
-  const isAdmin = session?.user?.roles.includes('admin');
+  const isAdmin = useMemo(
+    () => session?.user?.roles.includes('admin'),
+    [session]
+  );
 
   useEffect(() => {
     if (
@@ -32,7 +37,18 @@ export default function ExperiencesDashboard() {
   }, [status, isAdmin, router]);
 
   const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [formData, setFormData] = useState<Partial<Experience>>({
+    title: '',
+    location: '',
+    date: '',
+    description: '',
+    image: '',
+    tags: [],
+    type: 'work',
+  });
+  const [editingExpId, setEditingExpId] = useState<string | null>(null);
 
+  // Fetch experiences
   const fetchExperiences = useCallback(async () => {
     try {
       const res = await fetch('/api/experiences');
@@ -48,28 +64,213 @@ export default function ExperiencesDashboard() {
     if (isAdmin) fetchExperiences();
   }, [isAdmin, fetchExperiences]);
 
+  // Handle form field changes
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  // Create or Update
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const { title } = formData;
+
+    // Basic check (adjust as needed)
+    if (!title) {
+      alert('Title is required.');
+      return;
+    }
+
+    try {
+      if (editingExpId) {
+        // Update existing
+        const res = await fetch(`/api/experiences/${editingExpId}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        if (!res.ok) throw new Error('Error updating experience');
+      } else {
+        // Create new
+        const res = await fetch('/api/experiences', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        });
+        if (!res.ok) throw new Error('Error creating experience');
+      }
+
+      // Reset form & refresh list
+      setFormData({
+        title: '',
+        location: '',
+        date: '',
+        description: '',
+        image: '',
+        tags: [],
+        type: 'work',
+      });
+      setEditingExpId(null);
+      await fetchExperiences();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Edit button
+  const handleEdit = (experience: Experience) => {
+    setEditingExpId(experience._id);
+    setFormData(experience);
+  };
+
+  // Delete experience
+  const handleDelete = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this experience?')) return;
+
+    try {
+      const res = await fetch(`/api/experiences/${id}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Error deleting experience');
+      await fetchExperiences();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (status === 'loading') return <p>Loading...</p>;
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Manage Experiences</h1>
+    <div className="grid gap-6">
+      <h1 className="text-2xl font-bold">Manage Experiences</h1>
 
-      {/* ✅ Display Experiences */}
-      {experiences.length > 0 ? (
-        <ul className="space-y-4">
-          {experiences.map((experience) => (
-            <li key={experience._id} className="border p-4 rounded-lg shadow">
-              <h2 className="text-xl font-semibold">{experience.title}</h2>
-              <p className="text-gray-600">{experience.location}</p>
-              <p className="text-sm text-gray-500">{experience.date}</p>
-              <p className="mt-2">{experience.description}</p>
-            </li>
+      {/* CREATE / UPDATE FORM */}
+      <form onSubmit={handleSubmit} className="grid gap-2 border p-4 rounded">
+        <label>
+          Title:
+          <input
+            className="border p-1 w-full"
+            type="text"
+            name="title"
+            value={formData.title || ''}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Location:
+          <input
+            className="border p-1 w-full"
+            type="text"
+            name="location"
+            value={formData.location || ''}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Date:
+          <input
+            className="border p-1 w-full"
+            type="text"
+            name="date"
+            value={formData.date || ''}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Description:
+          <textarea
+            className="border p-1 w-full"
+            name="description"
+            rows={3}
+            value={formData.description || ''}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Image URL:
+          <input
+            className="border p-1 w-full"
+            type="text"
+            name="image"
+            value={formData.image || ''}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
+          Tags (comma separated):
+          <input
+            className="border p-1 w-full"
+            type="text"
+            name="tags"
+            value={Array.isArray(formData.tags) ? formData.tags.join(', ') : ''}
+            onChange={(e) =>
+              setFormData((prev) => ({
+                ...prev,
+                tags: e.target.value.split(',').map((tag) => tag.trim()),
+              }))
+            }
+          />
+        </label>
+        <label>
+          Type:
+          <select
+            className="border p-1 w-full"
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+          >
+            <option value="work">Work</option>
+            <option value="education">Education</option>
+          </select>
+        </label>
+
+        <button
+          type="submit"
+          className="bg-green-600 text-white px-4 py-2 rounded mt-2"
+        >
+          {editingExpId ? 'Update Experience' : 'Create Experience'}
+        </button>
+      </form>
+
+      {/* EXPERIENCES LIST */}
+      <table className="w-full border">
+        <thead className="bg-gray-100">
+          <tr>
+            <th className="p-2 border">Title</th>
+            <th className="p-2 border">Location</th>
+            <th className="p-2 border">Date</th>
+            <th className="p-2 border">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {experiences.map((exp) => (
+            <tr key={exp._id} className="border-b">
+              <td className="p-2 border">{exp.title}</td>
+              <td className="p-2 border">{exp.location}</td>
+              <td className="p-2 border">{exp.date}</td>
+              <td className="p-2 border">
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => handleEdit(exp)}
+                    className="px-3 py-1 border rounded hover:bg-gray-200"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(exp._id)}
+                    className="px-3 py-1 border rounded text-red-500 hover:bg-gray-200"
+                  >
+                    Remove
+                  </button>
+                </div>
+              </td>
+            </tr>
           ))}
-        </ul>
-      ) : (
-        <p>No experiences found.</p>
-      )}
+        </tbody>
+      </table>
     </div>
   );
 }
