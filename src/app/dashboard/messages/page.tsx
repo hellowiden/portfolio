@@ -112,7 +112,7 @@ export default function Messages() {
         {messages.map((msg) => (
           <div
             key={msg._id}
-            className="border p-4 rounded shadow-sm bg-zinc-50 dark:bg-zinc-900 border-light dark:border-dark flex flex-col gap-2"
+            className="border p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-light dark:border-dark grid grid-cols-1 gap-2"
           >
             <p className="text-zinc-900 dark:text-zinc-50">
               <strong>From:</strong> {msg.userName} ({msg.userEmail})
@@ -131,7 +131,7 @@ export default function Messages() {
             </p>
 
             {!msg.isResolved && (
-              <div className="flex flex-col gap-2">
+              <div className="grid grid-cols-1 gap-2">
                 <textarea
                   className="w-full p-2 border rounded bg-zinc-100 dark:bg-zinc-800 border-light dark:border-dark text-zinc-900 dark:text-zinc-50"
                   placeholder="Write a response..."
@@ -150,15 +150,15 @@ export default function Messages() {
               </div>
             )}
 
-            <div className="flex gap-2">
+            <div className="grid grid-cols-2 gap-2">
               <button
-                className="w-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+                className="w-full h-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
                 onClick={() => handleDeleteMessage(msg._id)}
               >
                 Remove
               </button>
               {msg.isResolved && (
-                <span className="text-green-600 dark:text-green-400">
+                <span className="w-full h-full grid place-items-center text-green-600 dark:text-green-400">
                   ✅ Resolved
                 </span>
               )}
