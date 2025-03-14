@@ -4,7 +4,7 @@
 
 import { ReactNode, useEffect, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation'; // Import usePathname
 import Link from 'next/link';
 
 interface LayoutProps {
@@ -14,6 +14,7 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const pathname = usePathname(); // Get the current pathname
 
   const isAdmin = useMemo(() => {
     return session?.user?.roles.includes('admin');
@@ -39,25 +40,41 @@ export default function Layout({ children }: LayoutProps) {
         <nav className="flex flex-col gap-2">
           <Link
             href="/dashboard"
-            className="px-2 py-1 rounded hover:bg-zinc-300 dark:hover:bg-zinc-700"
+            className={`px-2 py-1 rounded ${
+              pathname === '/dashboard'
+                ? 'bg-zinc-300 dark:bg-zinc-700'
+                : 'hover:bg-zinc-300 dark:hover:bg-zinc-700'
+            }`}
           >
             Users
           </Link>
           <Link
             href="/dashboard/projects"
-            className="px-2 py-1 rounded hover:bg-zinc-300 dark:hover:bg-zinc-700"
+            className={`px-2 py-1 rounded ${
+              pathname === '/dashboard/projects'
+                ? 'bg-zinc-300 dark:bg-zinc-700'
+                : 'hover:bg-zinc-300 dark:hover:bg-zinc-700'
+            }`}
           >
             Projects
           </Link>
           <Link
             href="/dashboard/messages"
-            className="px-2 py-1 rounded hover:bg-zinc-300 dark:hover:bg-zinc-700"
+            className={`px-2 py-1 rounded ${
+              pathname === '/dashboard/messages'
+                ? 'bg-zinc-300 dark:bg-zinc-700'
+                : 'hover:bg-zinc-300 dark:hover:bg-zinc-700'
+            }`}
           >
             Messages
           </Link>
           <Link
             href="/dashboard/experiences"
-            className="px-2 py-1 rounded hover:bg-zinc-300 dark:hover:bg-zinc-700"
+            className={`px-2 py-1 rounded ${
+              pathname === '/dashboard/experiences'
+                ? 'bg-zinc-300 dark:bg-zinc-700'
+                : 'hover:bg-zinc-300 dark:hover:bg-zinc-700'
+            }`}
           >
             Experiences
           </Link>
