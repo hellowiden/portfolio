@@ -104,31 +104,36 @@ export default function Messages() {
   }, []);
 
   return (
-    <div className="p-4 max-w-2xl mx-auto">
-      <h1 className="text-2xl font-bold">Messages</h1>
-      <ul className="mt-4 space-y-4">
+    <div className="grid p-4 gap-4">
+      <h1 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
+        Messages
+      </h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {messages.map((msg) => (
-          <li key={msg._id} className="border p-4 rounded shadow-sm bg-white">
-            <p>
+          <div
+            key={msg._id}
+            className="border p-4 rounded shadow-sm bg-zinc-50 dark:bg-zinc-900 border-light dark:border-dark flex flex-col gap-2"
+          >
+            <p className="text-zinc-900 dark:text-zinc-50">
               <strong>From:</strong> {msg.userName} ({msg.userEmail})
             </p>
-            <p>
+            <p className="text-zinc-700 dark:text-zinc-200">
               <strong>Message:</strong> {msg.message}
             </p>
-            <p>
+            <p className="text-zinc-700 dark:text-zinc-200">
               <strong>Budget:</strong> {msg.budget}
             </p>
-            <p>
+            <p className="text-zinc-700 dark:text-zinc-200">
               <strong>Reason:</strong> {msg.reason}
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-zinc-500 dark:text-zinc-400">
               {new Date(msg.createdAt).toLocaleString()}
             </p>
 
             {!msg.isResolved && (
-              <div className="mt-3">
+              <div className="flex flex-col gap-2">
                 <textarea
-                  className="w-full p-2 border rounded"
+                  className="w-full p-2 border rounded bg-zinc-100 dark:bg-zinc-800 border-light dark:border-dark text-zinc-900 dark:text-zinc-50"
                   placeholder="Write a response..."
                   value={responseText[msg._id] || ''}
                   onChange={(e) =>
@@ -136,7 +141,7 @@ export default function Messages() {
                   }
                 />
                 <button
-                  className="mt-2 px-3 py-2 bg-green-500 text-white rounded"
+                  className="w-full px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded"
                   onClick={() => handleSendResponse(msg._id)}
                   disabled={!responseText[msg._id]?.trim()}
                 >
@@ -145,20 +150,22 @@ export default function Messages() {
               </div>
             )}
 
-            <div className="mt-3 flex gap-2">
+            <div className="flex gap-2">
               <button
-                className="px-3 py-2 bg-red-500 text-white rounded"
+                className="w-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
                 onClick={() => handleDeleteMessage(msg._id)}
               >
                 Remove
               </button>
               {msg.isResolved && (
-                <span className="text-green-600">✅ Resolved</span>
+                <span className="text-green-600 dark:text-green-400">
+                  ✅ Resolved
+                </span>
               )}
             </div>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }
