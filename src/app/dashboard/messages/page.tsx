@@ -161,14 +161,14 @@ export default function Messages() {
                   }
                 />
                 <button
-                  className="w-full px-3 py-2 bg-green-500 hover:bg-green-600 text-white rounded"
+                  className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
                   onClick={() => handleSendResponse(msg._id)}
                   disabled={!responseText[msg._id]?.trim()}
                 >
                   Respond
                 </button>
                 <button
-                  className="w-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+                  className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
                   onClick={() => handleDeleteMessage(msg._id)}
                 >
                   Remove
@@ -178,11 +178,11 @@ export default function Messages() {
 
             {msg.isResolved && (
               <div className="grid grid-cols-2 gap-2">
-                <span className="grid place-items-center text-green-600 dark:text-green-400">
-                  ✅ Resolved
+                <span className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2">
+                  Resolved
                 </span>
                 <button
-                  className="px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+                  className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
                   onClick={() => handleDeleteMessage(msg._id)}
                 >
                   Remove
