@@ -54,7 +54,7 @@ export default function IntroductionSection() {
         <div className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2">
           <Link
             href="/about"
-            className="grid place-items-center gap-2 text-sm text-black dark:text-white dark:border-dark border-light hover:text-white dark:hover:text-white  rounded transition"
+            className="grid place-items-center gap-2 text-sm text-black dark:text-white  dark:border-light border-dark  dark:hover:bg-zinc-300 hover:text-white dark:hover:text-black rounded transition"
           >
             About me
           </Link>
