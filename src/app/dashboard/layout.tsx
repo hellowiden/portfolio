@@ -33,7 +33,7 @@ export default function Layout({ children }: LayoutProps) {
   if (!isAdmin) return null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] min-h-screen bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] h-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white gap-4">
       {/* SIDEBAR NAVIGATION */}
       <aside className=" gap-4 w-64 bg-zinc-200 dark:bg-zinc-800 border-r dark:border-zinc-700 p-4">
         <h2 className="text-xl font-bold">Admin Dashboard</h2>
