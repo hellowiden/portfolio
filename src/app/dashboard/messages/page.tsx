@@ -131,9 +131,9 @@ export default function Messages() {
             </p>
 
             {!msg.isResolved && (
-              <div className="grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 <textarea
-                  className="w-full p-2 border rounded bg-zinc-100 dark:bg-zinc-800 border-light dark:border-dark text-zinc-900 dark:text-zinc-50"
+                  className="w-full p-2 border rounded bg-zinc-100 dark:bg-zinc-800 border-light dark:border-dark text-zinc-900 dark:text-zinc-50 col-span-2"
                   placeholder="Write a response..."
                   value={responseText[msg._id] || ''}
                   onChange={(e) =>
@@ -147,22 +147,28 @@ export default function Messages() {
                 >
                   Respond
                 </button>
+                <button
+                  className="w-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+                  onClick={() => handleDeleteMessage(msg._id)}
+                >
+                  Remove
+                </button>
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                className="w-full h-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
-                onClick={() => handleDeleteMessage(msg._id)}
-              >
-                Remove
-              </button>
-              {msg.isResolved && (
+            {msg.isResolved && (
+              <div className="grid grid-cols-2 gap-2">
                 <span className="w-full h-full grid place-items-center text-green-600 dark:text-green-400">
                   ✅ Resolved
                 </span>
-              )}
-            </div>
+                <button
+                  className="w-full h-full px-3 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+                  onClick={() => handleDeleteMessage(msg._id)}
+                >
+                  Remove
+                </button>
+              </div>
+            )}
           </div>
         ))}
       </div>
