@@ -45,12 +45,12 @@ function Step({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="grid gap-4"
+      className="grid gap-4 p-0"
     >
-      <h1 className="text-2xl text-center font-bold text-zinc-900 dark:text-white">
+      <h1 className="text-2xl text-center font-bold text-zinc-900 dark:text-white p-0">
         {title}
       </h1>
-      <div>{children}</div>
+      <div className="grid gap-4 p-0">{children}</div>
     </motion.div>
   );
 }
@@ -68,7 +68,7 @@ function CustomDropdown({
 
   return (
     <Listbox value={value} onChange={onChange}>
-      <div className="grid gap-2 p-2">
+      <div className="grid gap-2 p-0">
         <ListboxButton className="w-full grid grid-cols-[1fr_auto] items-center p-3 border border-light rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
           <span className="truncate">
             {selectedOption ? selectedOption.label : 'Select an Option'}
@@ -76,9 +76,9 @@ function CustomDropdown({
           <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400 justify-self-end" />
         </ListboxButton>
 
-        <ListboxOptions className="w-full backdrop-blur-md bg-white/50 dark:bg-black/50 text-zinc-900 dark:text-zinc-100 border rounded-xl grid gap-1">
+        <ListboxOptions className="w-full backdrop-blur-md bg-white/50 dark:bg-black/50 text-zinc-900 dark:text-zinc-100 border rounded-xl grid gap-1 p-0">
           {options.map((option, index) => (
-            <div key={option.value} className="grid">
+            <div key={option.value} className="grid p-0">
               <ListboxOption
                 key={option.value}
                 value={option.value}
@@ -122,7 +122,7 @@ function CustomInput({
   placeholder?: string;
 }) {
   return (
-    <div className="grid">
+    <div className="grid p-0 gap-0">
       <input
         name={name}
         value={value}
@@ -176,7 +176,7 @@ export default function Contact() {
     <div className="grid gap-4 bg-white dark:bg-zinc-900 p-6 border dark:border-light rounded-xl">
       {step === 1 && (
         <Step title="Let's Start - What Brings You Here?">
-          <div className="grid gap-4">
+          <div className="grid gap-4 p-0">
             <CustomDropdown
               value={formData.reason}
               options={contactReasons}
@@ -195,7 +195,7 @@ export default function Contact() {
 
       {step === 2 && formData.reason === 'job_offer' && (
         <Step title="Great! Let's Talk Budget">
-          <div className="grid gap-4">
+          <div className="grid gap-4 p-0">
             <CustomDropdown
               value={formData.budget}
               options={budgetOptions}
@@ -214,7 +214,7 @@ export default function Contact() {
 
       {((step === 2 && formData.reason !== 'job_offer') || step === 3) && (
         <Step title="Tell Me More">
-          <div className="grid gap-4">
+          <div className="grid gap-4 p-0">
             <CustomInput
               name="message"
               value={formData.message}
@@ -236,7 +236,7 @@ export default function Contact() {
 
       {step === 4 && (
         <Step title="Ready to Submit?">
-          <div className="grid gap-4">
+          <div className="grid gap-4 p-0">
             <button
               onClick={handleSubmit}
               className="p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
@@ -248,7 +248,7 @@ export default function Contact() {
       )}
 
       {status && (
-        <p className="text-sm text-zinc-900 dark:text-zinc-100">{status}</p>
+        <p className="text-sm text-zinc-900 dark:text-zinc-100 p-0">{status}</p>
       )}
 
       {step > 1 && (
