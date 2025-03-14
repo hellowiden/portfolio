@@ -26,7 +26,7 @@ export default function Profile() {
     }
   }, [session]);
 
-  if (status === 'loading') return <p className="text-gray-500">Loading...</p>;
+  if (status === 'loading') return <p className="text-zinc-500">Loading...</p>;
   if (status !== 'authenticated')
     return (
       <p className="text-red-500">You need to log in to view this page.</p>
@@ -77,13 +77,15 @@ export default function Profile() {
   };
 
   return (
-    <div className="w-full bg-gray-200 p-6 rounded-lg border-4 border-gray-400">
-      <div className="grid grid-cols-[min-content_1fr] gap-2 items-center ">
+    <div className="grid grid-cols-1 gap-6 p-6 w-full mx-auto bg-zinc-50 dark:bg-zinc-800 rounded-lg border-4 border-zinc-300 dark:border-zinc-600">
+      <div className="grid grid-cols-[min-content_1fr] gap-4 items-center">
         <ProfileAvatar name={formData.name} />
-        <span className="text-gray-800">{formData.name}</span>
+        <span className="text-zinc-800 dark:text-zinc-200">
+          {formData.name}
+        </span>
       </div>
 
-      <hr className="border-gray-400 my-4" />
+      <div className="border-t border-zinc-300 dark:border-zinc-600" />
 
       <form onSubmit={handleUpdate} className="grid gap-4">
         <FormInput
@@ -119,18 +121,18 @@ export default function Profile() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gray-400 text-black py-2 rounded-md mt-2 border-2 border-gray-500 hover:bg-gray-500 transition"
+          className="w-full bg-green-500 dark:bg-green-600 text-white py-2 rounded-md border-2 border-green-400 dark:border-green-500 hover:bg-green-600 dark:hover:bg-green-700 transition"
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </button>
       </form>
 
-      <hr className="border-gray-400 my-4" />
+      <div className="border-t border-zinc-300 dark:border-zinc-600" />
 
       <button
         onClick={handleDeleteAccount}
         disabled={loading}
-        className="w-full bg-gray-500 text-white py-2 rounded-md mt-2 border-2 border-gray-600 hover:bg-gray-600 transition"
+        className="w-full bg-red-500 dark:bg-red-600 text-white py-2 rounded-md border-2 border-red-400 dark:border-red-500 hover:bg-red-600 dark:hover:bg-red-700 transition"
       >
         {loading ? 'Processing...' : 'Remove Account'}
       </button>
@@ -139,8 +141,8 @@ export default function Profile() {
 }
 
 const ProfileAvatar = memo(({ name }: { name: string }) => (
-  <div className="w-12 h-12 grid place-items-center bg-gray-300 text-lg font-semibold rounded-md">
-    <span className="text-gray-800">
+  <div className="w-12 h-12 grid place-items-center bg-zinc-300 dark:bg-zinc-600 text-lg font-semibold rounded-md">
+    <span className="text-zinc-800 dark:text-zinc-200">
       {name ? name.charAt(0).toUpperCase() : '?'}
     </span>
   </div>
@@ -165,7 +167,10 @@ const FormInput = ({
   readOnly?: boolean;
 }) => (
   <div className="grid gap-2">
-    <label htmlFor={name} className="text-sm font-medium text-gray-700">
+    <label
+      htmlFor={name}
+      className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
+    >
       {label}
     </label>
     <input
@@ -177,7 +182,7 @@ const FormInput = ({
       disabled={disabled}
       readOnly={readOnly}
       aria-label={label}
-      className={`p-2 border border-gray-400 rounded-md shadow-md focus:ring-blue-500 focus:border-blue-500 bg-white text-gray-800 ${
+      className={`p-2 border border-zinc-300 dark:border-zinc-600 rounded-md focus:ring-green-500 dark:focus:ring-green-500 focus:border-green-500 dark:focus:border-green-500 bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 ${
         disabled ? 'opacity-50 cursor-not-allowed' : ''
       }`}
     />
