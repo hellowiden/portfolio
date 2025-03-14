@@ -68,7 +68,7 @@ function CustomDropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="grid gap-2 p-2">
-        <ListboxButton className="w-full grid grid-cols-[1fr_auto] items-center p-3 border border-light dark:border-dark rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
+        <ListboxButton className="w-full grid grid-cols-[1fr_auto] items-start p-3 border border-light dark:border-dark rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
           <span>
             {selectedOption ? selectedOption.label : 'Select an Option'}
           </span>
@@ -90,7 +90,7 @@ function CustomDropdown({
                 }
               >
                 {({ selected }) => (
-                  <div className="grid grid-cols-[1fr_auto] items-center p-2 rounded-xl">
+                  <div className="grid grid-cols-[1fr_auto] items-start p-2 rounded-xl">
                     <span>{option.label}</span>
                     {selected && (
                       <Check className="w-4 h-4 text-green-500 rounded-xl" />
