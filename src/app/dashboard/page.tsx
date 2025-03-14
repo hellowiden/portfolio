@@ -109,7 +109,12 @@ export default function Dashboard() {
     setAddUserModalState(false);
   };
 
-  const handleAddUser = async (newUser: User) => {
+  const handleAddUser = async (newUser: {
+    name: string;
+    email: string;
+    password: string;
+    roles: string[];
+  }) => {
     try {
       const response = await fetch('/api/users', {
         method: 'POST',
