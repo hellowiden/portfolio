@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react';
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import EditUserModal from '../components/EditUserModal';
+import AddUserModal from '../components/AddUserModal';
 
 interface User {
   _id: string;
@@ -40,6 +41,8 @@ export default function Dashboard() {
     isOpen: false,
     user: null,
   });
+
+  const [addUserModalState, setAddUserModalState] = useState<boolean>(false); // State for Add User Modal
 
   const fetchUsers = useCallback(async () => {
     if (!isAdmin) return;
@@ -98,12 +101,49 @@ export default function Dashboard() {
     }
   }, []);
 
+  const handleAddUserModal = () => {
+    setAddUserModalState(true);
+  };
+
+  const handleCloseAddUserModal = () => {
+    setAddUserModalState(false);
+  };
+
+  const handleAddUser = async (newUser: User) => {
+    try {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create user');
+      }
+
+      const { user } = await response.json();
+      setUsers((prevUsers) => [...prevUsers, user]);
+      handleCloseAddUserModal();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   if (status === 'loading') return <p>Loading...</p>;
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
     <div className="w-full grid gap-4">
       <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
+
+      <button
+        onClick={handleAddUserModal}
+        className="mb-4 p-2 bg-blue-600 text-white rounded"
+      >
+        Add User
+      </button>
 
       <input
         type="text"
@@ -208,6 +248,14 @@ export default function Dashboard() {
           isOpen={modalState.isOpen}
           onClose={handleCloseModal}
           onSave={handleSaveUser}
+        />
+      )}
+
+      {addUserModalState && (
+        <AddUserModal
+          isOpen={addUserModalState}
+          onClose={handleCloseAddUserModal}
+          onSave={handleAddUser}
         />
       )}
     </div>
