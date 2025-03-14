@@ -40,8 +40,9 @@ export default function ProjectsPage() {
   return (
     <section className="grid gap-4">
       <p className="italic">
-        <strong>Note:</strong> The majority of my past projects are protected by
-        strict NDAs...
+        <strong>Note:</strong> Due to strict NDAs, I cannot disclose specifics
+        of past projects. However, I’ve learned my lesson and moving forward,
+        all relevant opportunities will be displayed here.
       </p>
       <div className="grid gap-4 text-zinc-900 dark:text-zinc-100">
         <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded-xl">
