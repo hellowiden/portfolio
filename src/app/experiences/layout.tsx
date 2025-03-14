@@ -50,8 +50,8 @@ export default function ExperiencesLayout({
   };
 
   return (
-    <div className="h-full bg-zinc-100 dark:bg-zinc-900 ...">
-      <header className="flex justify-between items-center p-4 ...">
+    <div className="h-full bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-100 container mx-auto border-x dark:border-light backdrop-blur-md bg-zinc-100/80 dark:bg-zinc-900/80">
+      <header className="flex justify-between items-center p-4 border-b border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-white">
         <Link href="/experiences" className="text-2xl font-bold">
           Experiences
         </Link>
@@ -88,7 +88,7 @@ function NavButton({
   return (
     <button
       onClick={onClick}
-      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition ..."
+      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
     >
       {isPrev && <MotionIcon isPrev />}
       <span className="hidden sm:inline">
