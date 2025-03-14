@@ -141,7 +141,7 @@ export default function Dashboard() {
 
   return (
     <div className="w-full grid gap-4">
-      <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
+      <h1 className="text-2xl font-bold">Manage Users</h1>
 
       <button
         onClick={handleAddUserModal}
