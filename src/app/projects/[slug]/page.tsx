@@ -3,14 +3,39 @@
 'use client';
 
 import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { projects } from '@/data/projects';
+
+interface Project {
+  _id: string;
+  name: string;
+  date: string;
+  image?: string;
+  link?: string;
+  tags?: string[];
+  description?: string;
+}
 
 export default function ProjectDetail() {
   const { slug } = useParams();
-  const selectedProject = projects.find((p) => p.id === slug);
+  const [project, setProject] = useState<Project | null>(null);
 
-  if (!selectedProject) {
+  useEffect(() => {
+    async function fetchProject() {
+      try {
+        const res = await fetch(`/api/projects/${slug}`);
+        if (!res.ok) throw new Error('Failed to fetch project');
+        const data = await res.json();
+        setProject(data.project);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    if (slug) fetchProject();
+  }, [slug]);
+
+  if (!project) {
     return (
       <p className="text-zinc-900 dark:text-zinc-100">Project not found.</p>
     );
@@ -20,31 +45,31 @@ export default function ProjectDetail() {
     <div className="grid gap-6 p-6 text-zinc-900 dark:text-zinc-100">
       <div className="grid">
         <Image
-          src={selectedProject.image}
-          alt={selectedProject.name}
+          src={project.image || '/fallback.jpg'}
+          alt={project.name}
           width={800}
           height={400}
           className="w-full h-80 object-cover border dark:border-light rounded-xl"
         />
       </div>
       <div className="grid gap-2">
-        <h1 className="text-3xl font-bold">{selectedProject.name}</h1>
+        <h1 className="text-3xl font-bold">{project.name}</h1>
         <div className="text-sm text-gray-500 dark:text-gray-400">
-          {new Date(selectedProject.date).toLocaleDateString()}{' '}
+          {new Date(project.date).toLocaleDateString()}
         </div>
         <div className="text-xs text-gray-600 dark:text-gray-400">
-          {selectedProject.tags.join(' • ')}
+          {project.tags?.join(' • ')}
         </div>
       </div>
       <div className="grid">
         <p className="text-zinc-700 dark:text-zinc-300">
-          {selectedProject.description}
+          {project.description}
         </p>
       </div>
-      {selectedProject.link && (
+      {project.link && (
         <div className="grid">
           <a
-            href={selectedProject.link}
+            href={project.link}
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-500 hover:underline"
