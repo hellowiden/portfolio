@@ -1,27 +1,24 @@
 // src/app/api/experiences/[id]/route.ts
+// src/app/api/experiences/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Experience from '@/models/experience';
 
-// Define the type for the params object
-interface ExperienceParams {
-  id: string;
-}
-
 export async function GET(
   req: NextRequest,
-  context: { params: ExperienceParams }
+  context: { params: { id: string } }
 ) {
   try {
-    const { id } = await context.params; // Await params before using
+    const { id } = context.params; // No need to await
     console.log('Experience ID:', id);
+
     if (!id) {
       return NextResponse.json({ error: 'No id provided' }, { status: 400 });
     }
 
-    const experience = await Experience.findById(id); // Use findById to query by the id
-    console.log('Experience found:', experience);
+    await connectToDatabase();
+    const experience = await Experience.findById(id);
 
     if (!experience) {
       return NextResponse.json(
@@ -39,7 +36,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  context: { params: ExperienceParams }
+  context: { params: { id: string } }
 ) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
@@ -48,15 +45,12 @@ export async function PUT(
     }
 
     await connectToDatabase();
-    const { id } = await context.params; // Await params before using
-    const { title, location, description, date, image, tags, type } =
-      await req.json();
+    const { id } = context.params; // No need to await
+    const body = await req.json();
 
-    const updatedExperience = await Experience.findByIdAndUpdate(
-      id,
-      { title, location, description, date, image, tags, type },
-      { new: true }
-    );
+    const updatedExperience = await Experience.findByIdAndUpdate(id, body, {
+      new: true,
+    });
 
     if (!updatedExperience) {
       return NextResponse.json(
@@ -77,7 +71,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: ExperienceParams }
+  context: { params: { id: string } }
 ) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
@@ -86,7 +80,7 @@ export async function DELETE(
     }
 
     await connectToDatabase();
-    const { id } = await context.params; // Await params before using
+    const { id } = context.params; // No need to await
 
     const deletedExperience = await Experience.findByIdAndDelete(id);
     if (!deletedExperience) {
