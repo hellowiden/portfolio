@@ -1,16 +1,18 @@
 // src/app/api/experiences/[id]/route.ts
-// src/app/api/experiences/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Experience from '@/models/experience';
 
-export async function GET(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
+// Use explicit type for Next.js context
+interface Context {
+  params: { id: string };
+}
+
+// ✅ Fixed GET handler
+export async function GET(req: NextRequest, { params }: Context) {
   try {
-    const { id } = context.params; // No need to await
+    const { id } = params;
     console.log('Experience ID:', id);
 
     if (!id) {
@@ -34,10 +36,8 @@ export async function GET(
   }
 }
 
-export async function PUT(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
+// ✅ Fixed PUT handler
+export async function PUT(req: NextRequest, { params }: Context) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token || !token.roles.includes('admin')) {
@@ -45,7 +45,7 @@ export async function PUT(
     }
 
     await connectToDatabase();
-    const { id } = context.params; // No need to await
+    const { id } = params;
     const body = await req.json();
 
     const updatedExperience = await Experience.findByIdAndUpdate(id, body, {
@@ -69,10 +69,8 @@ export async function PUT(
   }
 }
 
-export async function DELETE(
-  req: NextRequest,
-  context: { params: { id: string } }
-) {
+// ✅ Fixed DELETE handler
+export async function DELETE(req: NextRequest, { params }: Context) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token || !token.roles.includes('admin')) {
@@ -80,7 +78,7 @@ export async function DELETE(
     }
 
     await connectToDatabase();
-    const { id } = context.params; // No need to await
+    const { id } = params;
 
     const deletedExperience = await Experience.findByIdAndDelete(id);
     if (!deletedExperience) {
