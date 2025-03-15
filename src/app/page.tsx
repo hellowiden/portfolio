@@ -1,12 +1,14 @@
 //src/app/page.tsx
 
+// src/app/page.tsx
+
 'use client';
 
-import IntroductionSection from './components/IntroductionSection/IntroductionSection';
-import ClientsCarousel from './components/ClientsCarousel/ClientsCarousel';
-import ProjectOpener from './components/ProjectOpener/ProjectOpener';
-import ExperienceOpener from './components/ExperienceOpener/ExperienceOpener';
-import ContactOpener from './components/ContactOpener/ContactOpener';
+import IntroductionSection from '@/app/components/IntroductionSection/IntroductionSection';
+import ClientsCarousel from '@/app/components/ClientsCarousel/ClientsCarousel';
+import ProjectOpener from '@/app/components/ProjectOpener/ProjectOpener';
+import ExperienceOpener from '@/app/components/ExperienceOpener/ExperienceOpener';
+import ContactOpener from '@/app/components/ContactOpener/ContactOpener';
 
 export default function Home() {
   return (
