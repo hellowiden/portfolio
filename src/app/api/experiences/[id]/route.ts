@@ -4,23 +4,24 @@ import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Experience from '@/models/experience';
 
-// Use explicit type for Next.js context
-interface Context {
-  params: { id: string };
+// Define the type for the params object
+interface ExperienceParams {
+  id: string;
 }
 
-// ✅ Fixed GET handler
-export async function GET(req: NextRequest, { params }: Context) {
+export async function GET(
+  req: NextRequest,
+  context: { params: ExperienceParams }
+) {
   try {
-    const { id } = params;
+    const { id } = await context.params; // Await params before using
     console.log('Experience ID:', id);
-
     if (!id) {
       return NextResponse.json({ error: 'No id provided' }, { status: 400 });
     }
 
-    await connectToDatabase();
-    const experience = await Experience.findById(id);
+    const experience = await Experience.findById(id); // Use findById to query by the id
+    console.log('Experience found:', experience);
 
     if (!experience) {
       return NextResponse.json(
@@ -36,8 +37,10 @@ export async function GET(req: NextRequest, { params }: Context) {
   }
 }
 
-// ✅ Fixed PUT handler
-export async function PUT(req: NextRequest, { params }: Context) {
+export async function PUT(
+  req: NextRequest,
+  context: { params: ExperienceParams }
+) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token || !token.roles.includes('admin')) {
@@ -45,12 +48,15 @@ export async function PUT(req: NextRequest, { params }: Context) {
     }
 
     await connectToDatabase();
-    const { id } = params;
-    const body = await req.json();
+    const { id } = await context.params; // Await params before using
+    const { title, location, description, date, image, tags, type } =
+      await req.json();
 
-    const updatedExperience = await Experience.findByIdAndUpdate(id, body, {
-      new: true,
-    });
+    const updatedExperience = await Experience.findByIdAndUpdate(
+      id,
+      { title, location, description, date, image, tags, type },
+      { new: true }
+    );
 
     if (!updatedExperience) {
       return NextResponse.json(
@@ -69,8 +75,10 @@ export async function PUT(req: NextRequest, { params }: Context) {
   }
 }
 
-// ✅ Fixed DELETE handler
-export async function DELETE(req: NextRequest, { params }: Context) {
+export async function DELETE(
+  req: NextRequest,
+  context: { params: ExperienceParams }
+) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token || !token.roles.includes('admin')) {
@@ -78,7 +86,7 @@ export async function DELETE(req: NextRequest, { params }: Context) {
     }
 
     await connectToDatabase();
-    const { id } = params;
+    const { id } = await context.params; // Await params before using
 
     const deletedExperience = await Experience.findByIdAndDelete(id);
     if (!deletedExperience) {
