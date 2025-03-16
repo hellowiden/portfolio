@@ -4,6 +4,12 @@ import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Project from '@/models/project';
 
+// Centralized error response function
+function errorResponse(message: string, status: number): NextResponse {
+  return NextResponse.json({ error: message }, { status });
+}
+
+/** GET `/api/projects` → Fetch all projects */
 export async function GET(): Promise<NextResponse> {
   try {
     await connectToDatabase();
@@ -11,27 +17,22 @@ export async function GET(): Promise<NextResponse> {
     return NextResponse.json({ projects }, { status: 200 });
   } catch (error) {
     console.error('Error fetching projects:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return errorResponse('Server error', 500);
   }
 }
 
+/** POST `/api/projects` → Create a new project */
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    if (!token || !token.roles.includes('admin')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     await connectToDatabase();
-    const body = await req.json();
-    const { name, date, description, image, link, tags } = body;
 
-    if (!name || !date || !description) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    if (!token || !token.roles.includes('admin'))
+      return errorResponse('Unauthorized', 401);
+
+    const { name, date, description, image, link, tags } = await req.json();
+    if (!name || !date || !description)
+      return errorResponse('Missing required fields', 400);
 
     const newProject = await Project.create({
       name,
@@ -41,13 +42,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       link,
       tags,
     });
-
     return NextResponse.json(
       { message: 'Project created', project: newProject },
       { status: 201 }
     );
   } catch (error) {
     console.error('Error creating project:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return errorResponse('Server error', 500);
   }
 }
