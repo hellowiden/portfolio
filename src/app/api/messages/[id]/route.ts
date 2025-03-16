@@ -94,10 +94,11 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: Record<string, string> }
+  context: { params: Promise<Record<string, string>> } // Ensure params is a Promise
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
+
     const token = (await getToken({
       req,
       secret: process.env.NEXTAUTH_SECRET,
@@ -107,7 +108,8 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = context.params.id;
+    const { id } = await context.params; // Await params before destructuring
+
     if (!id) {
       return NextResponse.json(
         { error: 'Message ID is required' },
