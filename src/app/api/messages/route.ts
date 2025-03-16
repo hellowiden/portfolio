@@ -94,7 +94,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params?: { id?: string } }
+  context: { params: Promise<{ id?: string }> } // Ensure params is a Promise
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
@@ -107,20 +107,19 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    let id = params?.id;
+    const { id } = await context.params; // Await params before destructuring
 
     if (!id) {
       const body = await req.json();
-      id = body.id;
+      if (!body.id) {
+        return NextResponse.json(
+          { error: 'Message ID is required' },
+          { status: 400 }
+        );
+      }
     }
 
     console.log('Received ID for deletion:', id);
-
-    if (!id)
-      return NextResponse.json(
-        { error: 'Message ID is required' },
-        { status: 400 }
-      );
 
     const deletedMessage = await Message.findByIdAndDelete(id);
 
