@@ -8,12 +8,17 @@ import { useSession, signOut } from 'next-auth/react';
 export default function Profile() {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
-  const [formData, setFormData] = useState(() => ({
-    name: session?.user?.name || '',
-    email: session?.user?.email || '',
-    roles: Array.isArray(session?.user?.roles) ? session.user.roles : [],
+  const [formData, setFormData] = useState<{
+    name: string;
+    email: string;
+    roles: string[];
+    newPassword: string;
+  }>({
+    name: '',
+    email: '',
+    roles: [],
     newPassword: '',
-  }));
+  });
 
   useEffect(() => {
     if (session?.user) {
@@ -36,44 +41,51 @@ export default function Profile() {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleUpdate = async (e: FormEvent) => {
-    e.preventDefault();
+  const handleApiRequest = async (
+    url: string,
+    method: string,
+    body?: object
+  ) => {
     setLoading(true);
     try {
-      const res = await fetch(`/api/users/${session.user.id}`, {
-        method: 'PUT',
+      const res = await fetch(url, {
+        method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: formData.name.trim(),
-          email: formData.email.trim(),
-          password: formData.newPassword.trim() || undefined,
-          roles: session.user.roles.includes('admin')
-            ? formData.roles
-            : session.user.roles,
-        }),
+        body: body ? JSON.stringify(body) : undefined,
       });
-
-      if (!res.ok) throw new Error('Update failed');
+      if (!res.ok) throw new Error(`${method} request failed`);
+      return res;
     } catch {
     } finally {
       setLoading(false);
     }
   };
 
+  const handleUpdate = (e: FormEvent) => {
+    e.preventDefault();
+    handleApiRequest(`/api/users/${session.user.id}`, 'PUT', {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      password: formData.newPassword.trim() || undefined,
+      roles: session.user.roles.includes('admin')
+        ? formData.roles
+        : session.user.roles,
+    });
+  };
+
+  const handleUpdateClick = () => {
+    const fakeEvent = { preventDefault: () => {} } as unknown as FormEvent;
+    handleUpdate(fakeEvent);
+  };
+
   const handleDeleteAccount = async () => {
     if (!confirm('Are you sure you want to permanently delete your account?'))
       return;
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/users/${session.user.id}`, {
-        method: 'DELETE',
-      });
-      if (!res.ok) throw new Error('Failed to delete account');
-      signOut();
-    } catch {
-    } finally {
-      setLoading(false);
-    }
+    const res = await handleApiRequest(
+      `/api/users/${session.user.id}`,
+      'DELETE'
+    );
+    if (res) signOut();
   };
 
   return (
@@ -84,9 +96,7 @@ export default function Profile() {
           {formData.name}
         </span>
       </div>
-
       <div className="border-t border-zinc-300 dark:border-zinc-600" />
-
       <form onSubmit={handleUpdate} className="grid gap-4">
         <FormInput
           label="Name"
@@ -117,25 +127,18 @@ export default function Profile() {
           value={formData.newPassword}
           onChange={handleChange}
         />
-
-        <button
-          type="submit"
+        <Button
+          onClick={handleUpdateClick}
           disabled={loading}
-          className="w-full bg-green-500 dark:bg-green-600 text-white py-2 rounded-md border dark:border-light hover:bg-green-600 dark:hover:bg-green-700 transition"
+          variant="primary"
         >
           {loading ? 'Updating...' : 'Update Profile'}
-        </button>
+        </Button>
       </form>
-
       <div className="border dark:border-light dark:border-zinc-600" />
-
-      <button
-        onClick={handleDeleteAccount}
-        disabled={loading}
-        className="w-full bg-red-500 dark:bg-red-600 text-white py-2 rounded-md border dark:border-light dark:border-red-500 hover:bg-red-600 dark:hover:bg-red-700 transition"
-      >
+      <Button onClick={handleDeleteAccount} disabled={loading} variant="danger">
         {loading ? 'Processing...' : 'Remove Account'}
-      </button>
+      </Button>
     </div>
   );
 }
@@ -187,4 +190,28 @@ const FormInput = ({
       }`}
     />
   </div>
+);
+
+const Button = ({
+  onClick,
+  children,
+  disabled,
+  variant,
+}: {
+  onClick?: () => void;
+  children: React.ReactNode;
+  disabled: boolean;
+  variant: 'primary' | 'danger';
+}) => (
+  <button
+    onClick={onClick}
+    disabled={disabled}
+    className={`w-full py-2 rounded-md border dark:border-light transition ${
+      variant === 'primary'
+        ? 'bg-green-500 dark:bg-green-600 text-white hover:bg-green-600 dark:hover:bg-green-700'
+        : 'bg-red-500 dark:bg-red-600 text-white hover:bg-red-600 dark:hover:bg-red-700'
+    }`}
+  >
+    {children}
+  </button>
 );
