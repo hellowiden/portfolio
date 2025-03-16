@@ -11,16 +11,17 @@ interface ExperienceParams {
 
 export async function GET(
   req: NextRequest,
-  context: { params: ExperienceParams }
+  context: { params: Promise<ExperienceParams> } // params is a Promise
 ) {
   try {
     const { id } = await context.params; // Await params before using
     console.log('Experience ID:', id);
+
     if (!id) {
       return NextResponse.json({ error: 'No id provided' }, { status: 400 });
     }
 
-    const experience = await Experience.findById(id); // Use findById to query by the id
+    const experience = await Experience.findById(id); // Ensure Experience is properly imported
     console.log('Experience found:', experience);
 
     if (!experience) {
