@@ -8,11 +8,11 @@ import { connectToDatabase } from '@/libs/mongodb';
 // Fetch a user by ID
 export async function GET(
   req: Request,
-  context: { params: Promise<{ id: string }> } // Ensure params is a Promise
+  context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const { id } = await context.params; // Await params before destructuring
+    const { id } = await context.params; // Ensure you await params
 
     if (!id) {
       return NextResponse.json(
@@ -22,7 +22,6 @@ export async function GET(
     }
 
     const user = await User.findById(id).select('-password');
-
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
@@ -40,11 +39,11 @@ export async function GET(
 // Update user
 export async function PUT(
   req: Request,
-  context: { params: Promise<{ id: string }> } // Ensure params is a Promise
+  context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const { id } = await context.params; // Await params before destructuring
+    const { id } = await context.params; // Ensure you await params
 
     if (!id) {
       return NextResponse.json(
@@ -96,8 +95,7 @@ export async function DELETE(
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
-
-    const { id } = await context.params;
+    const { id } = await context.params; // Ensure you await params
 
     if (!id) {
       return NextResponse.json(
