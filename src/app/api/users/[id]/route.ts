@@ -5,14 +5,19 @@ import bcrypt from 'bcryptjs';
 import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 
+// Helper function to connect and get params
+async function getParams(context: { params: Promise<{ id: string }> }) {
+  await connectToDatabase();
+  return await context.params;
+}
+
 // Fetch a user by ID
 export async function GET(
   req: Request,
   context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
-    await connectToDatabase();
-    const { id } = await context.params; // Ensure you await params
+    const { id } = await getParams(context);
 
     if (!id) {
       return NextResponse.json(
@@ -22,9 +27,8 @@ export async function GET(
     }
 
     const user = await User.findById(id).select('-password');
-    if (!user) {
+    if (!user)
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
 
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
@@ -42,8 +46,7 @@ export async function PUT(
   context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
-    await connectToDatabase();
-    const { id } = await context.params; // Ensure you await params
+    const { id } = await getParams(context);
 
     if (!id) {
       return NextResponse.json(
@@ -52,9 +55,7 @@ export async function PUT(
       );
     }
 
-    const body = await req.json();
-    const { name, email, password, roles } = body;
-
+    const { name, email, password, roles } = await req.json();
     const updateFields: Partial<{
       name: string;
       email: string;
@@ -64,19 +65,14 @@ export async function PUT(
       name,
       email,
       roles,
+      ...(password && { password: await bcrypt.hash(password, 10) }),
     };
-
-    if (password) {
-      updateFields.password = await bcrypt.hash(password, 10);
-    }
 
     const updatedUser = await User.findByIdAndUpdate(id, updateFields, {
       new: true,
     }).select('-password');
-
-    if (!updatedUser) {
+    if (!updatedUser)
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
 
     return NextResponse.json(
       { message: 'User updated', user: updatedUser },
@@ -94,8 +90,7 @@ export async function DELETE(
   context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
-    await connectToDatabase();
-    const { id } = await context.params; // Ensure you await params
+    const { id } = await getParams(context);
 
     if (!id) {
       return NextResponse.json(
@@ -105,10 +100,8 @@ export async function DELETE(
     }
 
     const deletedUser = await User.findByIdAndDelete(id);
-
-    if (!deletedUser) {
+    if (!deletedUser)
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
-    }
 
     return NextResponse.json({ message: 'User deleted' }, { status: 200 });
   } catch (error) {
