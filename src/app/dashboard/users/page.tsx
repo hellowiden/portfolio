@@ -90,62 +90,70 @@ export default function UsersPage() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="grid gap-4">
+    <div className="space-y-6">
       <h1 className="text-2xl font-bold">Manage Users</h1>
-      <button
-        onClick={() => setAddUserModalState(true)}
-        className="bg-blue-600 text-white px-4 py-2 rounded"
-      >
-        Add User
-      </button>
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="border p-2 rounded w-full"
-      />
 
-      {/* Users List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredUsers.map((user) => (
-          <div
-            key={user._id}
-            className="border p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-light dark:border-dark grid gap-2"
-          >
-            <p>
-              <strong>Name:</strong> {user.name}
-            </p>
-            <p>
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p>
-              <strong>Roles:</strong> {user.roles.join(', ')}
-            </p>
-            <p>
-              <strong>Created At:</strong>{' '}
-              {new Date(user.createdAt).toLocaleString()}
-            </p>
-            <p>
-              <strong>Updated At:</strong>{' '}
-              {new Date(user.updatedAt).toLocaleString()}
-            </p>
-            <div className="grid grid-cols-2 gap-2">
-              <button
-                onClick={() => handleEdit(user)}
-                className="bg-green-600 text-white px-3 py-1 rounded"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(user._id)}
-                className="bg-red-600 text-white px-3 py-1 rounded"
-              >
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
+      <div className="flex justify-between">
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="border p-2 rounded w-1/3"
+        />
+        <button
+          onClick={() => setAddUserModalState(true)}
+          className="bg-blue-600 text-white px-4 py-2 rounded"
+        >
+          Add User
+        </button>
+      </div>
+
+      {/* Users Table */}
+      <div className="overflow-x-auto">
+        <table className="w-full border-collapse border border-gray-300">
+          <thead className="bg-gray-200">
+            <tr className="text-left">
+              <th className="border p-2">Name</th>
+              <th className="border p-2">Email</th>
+              <th className="border p-2">Roles</th>
+              <th className="border p-2">Password</th>
+              <th className="border p-2">Created At</th>
+              <th className="border p-2">Updated At</th>
+              <th className="border p-2 text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user) => (
+              <tr key={user._id} className="hover:bg-gray-100">
+                <td className="border p-2">{user.name}</td>
+                <td className="border p-2">{user.email}</td>
+                <td className="border p-2">{user.roles.join(', ')}</td>
+                <td className="border p-2">********</td>
+                <td className="border p-2">
+                  {new Date(user.createdAt).toLocaleString()}
+                </td>
+                <td className="border p-2">
+                  {new Date(user.updatedAt).toLocaleString()}
+                </td>
+                <td className="border p-2 text-center">
+                  <button
+                    onClick={() => handleEdit(user)}
+                    className="bg-green-600 text-white px-3 py-1 rounded mr-2"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(user._id)}
+                    className="bg-red-600 text-white px-3 py-1 rounded"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
       {/* Edit User Modal */}
@@ -154,7 +162,7 @@ export default function UsersPage() {
           user={modalState.user}
           isOpen={modalState.isOpen}
           onClose={handleCloseModal}
-          onSave={fetchUsers} // Refresh user list after saving
+          onSave={fetchUsers}
         />
       )}
 
@@ -163,7 +171,7 @@ export default function UsersPage() {
         <AddUserModal
           isOpen={addUserModalState}
           onClose={() => setAddUserModalState(false)}
-          onSave={fetchUsers} // Refresh user list after adding
+          onSave={fetchUsers}
         />
       )}
     </div>
