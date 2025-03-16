@@ -12,7 +12,10 @@ interface User {
   _id: string;
   name: string;
   email: string;
+  password: string;
   roles: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export default function UsersPage() {
@@ -69,13 +72,6 @@ export default function UsersPage() {
 
   const handleEdit = (user: User) => setModalState({ isOpen: true, user });
   const handleCloseModal = () => setModalState({ isOpen: false, user: null });
-  const handleSaveUser = (updatedUser: User) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user) =>
-        user._id === updatedUser._id ? updatedUser : user
-      )
-    );
-  };
 
   const handleDelete = async (userId: string) => {
     if (!confirm('Are you sure you want to delete this user?')) return;
@@ -90,36 +86,15 @@ export default function UsersPage() {
     }
   };
 
-  const handleAddUser = async (newUser: {
-    name: string;
-    email: string;
-    password: string;
-    roles: string[];
-  }) => {
-    try {
-      const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newUser),
-      });
-      if (!response.ok) throw new Error('Failed to create user');
-      const { user } = await response.json();
-      setUsers((prevUsers) => [...prevUsers, user]);
-      setAddUserModalState(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   if (status === 'loading') return <p>Loading...</p>;
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="w-full grid gap-4">
+    <div className="grid gap-4">
       <h1 className="text-2xl font-bold">Manage Users</h1>
       <button
         onClick={() => setAddUserModalState(true)}
-        className="bg-blue-600 text-white p-2 rounded"
+        className="bg-blue-600 text-white px-4 py-2 rounded"
       >
         Add User
       </button>
@@ -128,15 +103,50 @@ export default function UsersPage() {
         placeholder="Search..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="border p-2 rounded"
+        className="border p-2 rounded w-full"
       />
 
-      {/* User Table */}
-      <UserTable
-        users={filteredUsers}
-        onEdit={handleEdit}
-        onDelete={handleDelete}
-      />
+      {/* Users List */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredUsers.map((user) => (
+          <div
+            key={user._id}
+            className="border p-4 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-light dark:border-dark grid gap-2"
+          >
+            <p>
+              <strong>Name:</strong> {user.name}
+            </p>
+            <p>
+              <strong>Email:</strong> {user.email}
+            </p>
+            <p>
+              <strong>Roles:</strong> {user.roles.join(', ')}
+            </p>
+            <p>
+              <strong>Created At:</strong>{' '}
+              {new Date(user.createdAt).toLocaleString()}
+            </p>
+            <p>
+              <strong>Updated At:</strong>{' '}
+              {new Date(user.updatedAt).toLocaleString()}
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                onClick={() => handleEdit(user)}
+                className="bg-green-600 text-white px-3 py-1 rounded"
+              >
+                Edit
+              </button>
+              <button
+                onClick={() => handleDelete(user._id)}
+                className="bg-red-600 text-white px-3 py-1 rounded"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
       {/* Edit User Modal */}
       {modalState.isOpen && modalState.user && (
@@ -144,7 +154,7 @@ export default function UsersPage() {
           user={modalState.user}
           isOpen={modalState.isOpen}
           onClose={handleCloseModal}
-          onSave={handleSaveUser}
+          onSave={fetchUsers} // Refresh user list after saving
         />
       )}
 
@@ -153,53 +163,9 @@ export default function UsersPage() {
         <AddUserModal
           isOpen={addUserModalState}
           onClose={() => setAddUserModalState(false)}
-          onSave={handleAddUser}
+          onSave={fetchUsers} // Refresh user list after adding
         />
       )}
     </div>
   );
 }
-
-const UserTable = ({
-  users,
-  onEdit,
-  onDelete,
-}: {
-  users: User[];
-  onEdit: (user: User) => void;
-  onDelete: (userId: string) => void;
-}) => (
-  <table className="w-full border-collapse text-left text-sm">
-    <thead>
-      <tr>
-        <th className="px-4 py-3 border-b">Name</th>
-        <th className="px-4 py-3 border-b">Email</th>
-        <th className="px-4 py-3 border-b">Roles</th>
-        <th className="px-4 py-3 border-b">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {users.map((user) => (
-        <tr key={user._id} className="hover:bg-gray-100">
-          <td className="px-4 py-3 border-b">{user.name}</td>
-          <td className="px-4 py-3 border-b">{user.email}</td>
-          <td className="px-4 py-3 border-b">{user.roles.join(', ')}</td>
-          <td className="px-4 py-3 border-b flex gap-2">
-            <button
-              onClick={() => onEdit(user)}
-              className="px-3 py-1 bg-green-500 text-white rounded"
-            >
-              Edit
-            </button>
-            <button
-              onClick={() => onDelete(user._id)}
-              className="px-3 py-1 bg-red-500 text-white rounded"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      ))}
-    </tbody>
-  </table>
-);
