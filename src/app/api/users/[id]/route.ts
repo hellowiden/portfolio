@@ -92,11 +92,12 @@ export async function PUT(
 // Delete user
 export async function DELETE(
   req: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const { id } = context.params;
+
+    const { id } = await context.params;
 
     if (!id) {
       return NextResponse.json(
