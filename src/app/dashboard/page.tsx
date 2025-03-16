@@ -2,7 +2,7 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import EditUserModal from '../components/EditUserModal';
 import AddUserModal from '../components/AddUserModal';
@@ -17,11 +17,7 @@ interface User {
 export default function Dashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-
-  const isAdmin = useMemo(
-    () => session?.user?.roles.includes('admin'),
-    [session]
-  );
+  const isAdmin = session?.user?.roles.includes('admin');
 
   useEffect(() => {
     if (
@@ -41,24 +37,22 @@ export default function Dashboard() {
     isOpen: false,
     user: null,
   });
-
-  const [addUserModalState, setAddUserModalState] = useState<boolean>(false); // State for Add User Modal
-
-  const fetchUsers = useCallback(async () => {
-    if (!isAdmin) return;
-    try {
-      const response = await fetch('/api/users');
-      if (!response.ok) throw new Error('Failed to fetch users');
-      const { users } = await response.json();
-      setUsers(users);
-    } catch (error) {
-      console.error(error);
-    }
-  }, [isAdmin]);
+  const [addUserModalState, setAddUserModalState] = useState(false);
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      if (!isAdmin) return;
+      try {
+        const response = await fetch('/api/users');
+        if (!response.ok) throw new Error('Failed to fetch users');
+        const { users } = await response.json();
+        setUsers(users);
+      } catch (error) {
+        console.error(error);
+      }
+    };
     fetchUsers();
-  }, [fetchUsers]);
+  }, [isAdmin]);
 
   const filteredUsers = useMemo(() => {
     const query = searchQuery.toLowerCase();
@@ -70,45 +64,31 @@ export default function Dashboard() {
     );
   }, [users, searchQuery]);
 
-  const handleEdit = useCallback((user: User) => {
-    setModalState({ isOpen: true, user });
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setModalState({ isOpen: false, user: null });
-  }, []);
-
-  const handleSaveUser = useCallback((updatedUser: User) => {
+  const handleEdit = (user: User) => setModalState({ isOpen: true, user });
+  const handleCloseModal = () => setModalState({ isOpen: false, user: null });
+  const handleSaveUser = (updatedUser: User) => {
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
         user._id === updatedUser._id ? updatedUser : user
       )
     );
-  }, []);
+  };
 
-  const handleDelete = useCallback(async (userId: string) => {
+  const handleDelete = async (userId: string) => {
     if (!confirm('Are you sure you want to delete this user?')) return;
-
     try {
       const response = await fetch(`/api/users/${userId}`, {
         method: 'DELETE',
       });
       if (!response.ok) throw new Error('Failed to delete user');
-
       setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
     } catch (error) {
       console.error(error);
     }
-  }, []);
-
-  const handleAddUserModal = () => {
-    setAddUserModalState(true);
   };
 
-  const handleCloseAddUserModal = () => {
-    setAddUserModalState(false);
-  };
-
+  const handleAddUserModal = () => setAddUserModalState(true);
+  const handleCloseAddUserModal = () => setAddUserModalState(false);
   const handleAddUser = async (newUser: {
     name: string;
     email: string;
@@ -118,16 +98,10 @@ export default function Dashboard() {
     try {
       const response = await fetch('/api/users', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser),
       });
-
-      if (!response.ok) {
-        throw new Error('Failed to create user');
-      }
-
+      if (!response.ok) throw new Error('Failed to create user');
       const { user } = await response.json();
       setUsers((prevUsers) => [...prevUsers, user]);
       handleCloseAddUserModal();
@@ -142,111 +116,42 @@ export default function Dashboard() {
   return (
     <div className="w-full grid gap-4">
       <h1 className="text-2xl font-bold">Manage Users</h1>
-
       <button
         onClick={handleAddUserModal}
-        className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+        className="bg-blue-600 text-white p-2 rounded"
       >
         Add User
       </button>
-
       <input
         type="text"
-        placeholder="Search by name, email, or role"
+        placeholder="Search..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="w-full border p-2 rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
+        className="border p-2 rounded"
       />
-
-      <table className="w-full border border-zinc-300 bg-white dark:bg-zinc-800 dark:border-zinc-700">
+      <table className="w-full border">
         <thead>
-          <tr className="bg-zinc-200 dark:bg-zinc-700 border-b dark:border-zinc-600">
-            {['Name', 'Email', 'Roles', 'Actions'].map((header) => (
-              <th
-                key={header}
-                className="text-left border border-zinc-300 dark:border-zinc-600 p-2"
-              >
-                {header}
-              </th>
-            ))}
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {filteredUsers.map((user) => (
-            <tr
-              key={user._id}
-              className="border-b border-zinc-300 dark:border-zinc-700"
-            >
-              <td className="border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white p-2">
-                {user.name
-                  .split(new RegExp(`(${searchQuery})`, 'gi'))
-                  .map((part, index) =>
-                    part.toLowerCase() === searchQuery.toLowerCase() ? (
-                      <span
-                        key={index}
-                        className="bg-yellow-200 dark:bg-yellow-600"
-                      >
-                        {part}
-                      </span>
-                    ) : (
-                      part
-                    )
-                  )}
-              </td>
-              <td className="border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white p-2">
-                {user.email
-                  .split(new RegExp(`(${searchQuery})`, 'gi'))
-                  .map((part, index) =>
-                    part.toLowerCase() === searchQuery.toLowerCase() ? (
-                      <span
-                        key={index}
-                        className="bg-yellow-200 dark:bg-yellow-600"
-                      >
-                        {part}
-                      </span>
-                    ) : (
-                      part
-                    )
-                  )}
-              </td>
-              <td className="border border-zinc-300 dark:border-zinc-700 text-zinc-900 dark:text-white p-2">
-                {user.roles
-                  .join(', ')
-                  .split(new RegExp(`(${searchQuery})`, 'gi'))
-                  .map((part, index) =>
-                    part.toLowerCase() === searchQuery.toLowerCase() ? (
-                      <span
-                        key={index}
-                        className="bg-yellow-200 dark:bg-yellow-600"
-                      >
-                        {part}
-                      </span>
-                    ) : (
-                      part
-                    )
-                  )}
-              </td>
-              <td className="border border-zinc-300 dark:border-zinc-700 p-2">
-                <div className="grid grid-cols-2 gap-2">
-                  <button
-                    className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
-                    onClick={() => handleEdit(user)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
-                    onClick={() => handleDelete(user._id)}
-                  >
-                    Remove
-                  </button>
-                </div>
+            <tr key={user._id}>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
+              <td>{user.roles.join(', ')}</td>
+              <td>
+                <button onClick={() => handleEdit(user)}>Edit</button>
+                <button onClick={() => handleDelete(user._id)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-
       {modalState.isOpen && modalState.user && (
         <EditUserModal
           user={modalState.user}
@@ -255,7 +160,6 @@ export default function Dashboard() {
           onSave={handleSaveUser}
         />
       )}
-
       {addUserModalState && (
         <AddUserModal
           isOpen={addUserModalState}
