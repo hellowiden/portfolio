@@ -4,7 +4,12 @@ import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Experience from '@/models/experience';
 
-/** GET /api/experiences */
+// Centralized error response function
+function errorResponse(message: string, status: number): NextResponse {
+  return NextResponse.json({ error: message }, { status });
+}
+
+/** GET `/api/experiences` → Fetch all experiences */
 export async function GET(): Promise<NextResponse> {
   try {
     await connectToDatabase();
@@ -12,28 +17,23 @@ export async function GET(): Promise<NextResponse> {
     return NextResponse.json({ experiences }, { status: 200 });
   } catch (error) {
     console.error('Error fetching experiences:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return errorResponse('Server error', 500);
   }
 }
 
-/** POST /api/experiences */
+/** POST `/api/experiences` → Create a new experience */
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    if (!token || !token.roles.includes('admin')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     await connectToDatabase();
-    const body = await req.json();
-    const { title, location, description, date, image, tags, type } = body;
 
-    if (!title || !location || !description || !date || !type) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
-    }
+    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    if (!token || !token.roles.includes('admin'))
+      return errorResponse('Unauthorized', 401);
+
+    const { title, location, description, date, image, tags, type } =
+      await req.json();
+    if (!title || !location || !description || !date || !type)
+      return errorResponse('Missing required fields', 400);
 
     const newExperience = await Experience.create({
       title,
@@ -44,13 +44,12 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       tags,
       type,
     });
-
     return NextResponse.json(
       { message: 'Experience created', experience: newExperience },
       { status: 201 }
     );
   } catch (error) {
     console.error('Error creating experience:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return errorResponse('Server error', 500);
   }
 }

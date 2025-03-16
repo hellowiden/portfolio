@@ -17,7 +17,7 @@ async function getParams(context: { params: Promise<{ id: string }> }) {
   return await context.params;
 }
 
-// Helper function for authentication
+// Helper function for admin authentication
 async function authenticateAdmin(
   req: NextRequest
 ): Promise<NextResponse | null> {
@@ -25,9 +25,8 @@ async function authenticateAdmin(
     req,
     secret: process.env.NEXTAUTH_SECRET,
   })) as AuthToken | null;
-  if (!token || !token.roles?.includes('admin')) {
+  if (!token || !token.roles?.includes('admin'))
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
   return null;
 }
 
@@ -36,7 +35,7 @@ function errorResponse(message: string, status: number): NextResponse {
   return NextResponse.json({ error: message }, { status });
 }
 
-/** GET /api/experiences/[id] */
+/** GET `/api/experiences/[id]` → Fetch an experience by ID */
 export async function GET(
   req: NextRequest,
   context: { params: Promise<{ id: string }> }
@@ -55,7 +54,7 @@ export async function GET(
   }
 }
 
-/** PUT /api/experiences/[id] */
+/** PUT `/api/experiences/[id]` → Update an existing experience */
 export async function PUT(
   req: NextRequest,
   context: { params: Promise<{ id: string }> }
@@ -76,7 +75,6 @@ export async function PUT(
     );
 
     if (!updatedExperience) return errorResponse('Experience not found', 404);
-
     return NextResponse.json(
       { message: 'Experience updated', experience: updatedExperience },
       { status: 200 }
@@ -87,7 +85,7 @@ export async function PUT(
   }
 }
 
-/** DELETE /api/experiences/[id] */
+/** DELETE `/api/experiences/[id]` → Delete an experience */
 export async function DELETE(
   req: NextRequest,
   context: { params: Promise<{ id: string }> }
