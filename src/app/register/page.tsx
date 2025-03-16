@@ -48,7 +48,7 @@ export default function Register() {
         throw new Error(responseData.error || 'Registration failed');
       }
 
-      router.push('/login');
+      router.push('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
