@@ -67,6 +67,21 @@ export default function Messages() {
     if (isAdmin) fetchMessages();
   }, [isAdmin, fetchMessages]);
 
+  const handleDeleteMessage = async (messageId: string) => {
+    if (!confirm('Are you sure you want to delete this message?')) return;
+    try {
+      const res = await fetch(`/api/messages/${messageId}`, {
+        method: 'DELETE',
+      });
+      if (!res.ok) throw new Error('Failed to delete message');
+      setMessages((prevMessages) =>
+        prevMessages.filter((msg) => msg._id !== messageId)
+      );
+    } catch (error) {
+      console.error('Error deleting message:', error);
+    }
+  };
+
   if (status === 'loading') return <p>Loading...</p>;
   if (!isAdmin) return <p>Access denied</p>;
 
@@ -110,6 +125,12 @@ export default function Messages() {
             <p className="text-sm text-zinc-500 dark:text-zinc-400">
               {new Date(msg.createdAt).toLocaleString()}
             </p>
+            <button
+              onClick={() => handleDeleteMessage(msg._id)}
+              className="bg-red-600 text-white px-3 py-1 rounded mt-2"
+            >
+              Delete Message
+            </button>
           </div>
         ))}
       </div>
