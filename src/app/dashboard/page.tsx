@@ -129,24 +129,51 @@ export default function Dashboard() {
         onChange={(e) => setSearchQuery(e.target.value)}
         className="border p-2 rounded"
       />
-      <table className="w-full border">
-        <thead>
+      <table className="w-full border-collapse text-left text-sm text-zinc-800 dark:text-zinc-200">
+        <thead className="bg-zinc-200 dark:bg-zinc-800">
           <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Roles</th>
-            <th>Actions</th>
+            <th className="px-4 py-3 border-b border-zinc-300 dark:border-zinc-700">
+              Name
+            </th>
+            <th className="px-4 py-3 border-b border-zinc-300 dark:border-zinc-700">
+              Email
+            </th>
+            <th className="px-4 py-3 border-b border-zinc-300 dark:border-zinc-700">
+              Roles
+            </th>
+            <th className="px-4 py-3 border-b border-zinc-300 dark:border-zinc-700">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
           {filteredUsers.map((user) => (
-            <tr key={user._id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.roles.join(', ')}</td>
-              <td>
-                <button onClick={() => handleEdit(user)}>Edit</button>
-                <button onClick={() => handleDelete(user._id)}>Delete</button>
+            <tr
+              key={user._id}
+              className="hover:bg-zinc-100 dark:hover:bg-zinc-700 transition-colors"
+            >
+              <td className="px-4 py-3 border-b border-zinc-300 dark:border-zinc-700">
+                {user.name}
+              </td>
+              <td className="px-4 py-3 border-b border-zinc-300 dark:border-zinc-700">
+                {user.email}
+              </td>
+              <td className="px-4 py-3 border-b border-zinc-300 dark:border-zinc-700">
+                {user.roles.join(', ')}
+              </td>
+              <td className="px-4 py-3 border-b border-zinc-300 dark:border-zinc-700 flex gap-2">
+                <button
+                  onClick={() => handleEdit(user)}
+                  className="px-3 py-1 text-sm font-medium text-white bg-green-500 hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-700 rounded-lg transition"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(user._id)}
+                  className="px-3 py-1 text-sm font-medium text-white bg-red-500 hover:bg-red-600 dark:bg-red-600 dark:hover:bg-red-700 rounded-lg transition"
+                >
+                  Delete
+                </button>
               </td>
             </tr>
           ))}
