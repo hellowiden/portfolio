@@ -9,6 +9,8 @@ interface User {
   name: string;
   email: string;
   roles: string[];
+  createdAt: string;
+  updatedAt: string;
 }
 
 export default function UsersPage() {
@@ -70,25 +72,29 @@ export default function UsersPage() {
         const res = await fetch('/api/users', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
+          body: JSON.stringify({
+            name,
+            email,
+            roles: roles.split(',').map((role) => role.trim()), // Convert roles to array
+          }),
         });
         if (!res.ok) throw new Error('Failed to create user');
+        setFormData({ name: '', email: '', roles: '' }); // Reset form after success
         await fetchUsers();
-        setFormData({ name: '', email: '', roles: '' });
       } catch (error) {
         console.error(error);
       }
     };
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="space-y-2">
         <input
           type="text"
           name="name"
           value={formData.name}
           onChange={handleChange}
           placeholder="Name"
-          className="p-2 border"
+          className="p-2 border w-full"
         />
         <input
           type="email"
@@ -96,7 +102,7 @@ export default function UsersPage() {
           value={formData.email}
           onChange={handleChange}
           placeholder="Email"
-          className="p-2 border"
+          className="p-2 border w-full"
         />
         <input
           type="text"
@@ -104,11 +110,11 @@ export default function UsersPage() {
           value={formData.roles}
           onChange={handleChange}
           placeholder="Roles (comma separated)"
-          className="p-2 border"
+          className="p-2 border w-full"
         />
         <button
           type="submit"
-          className="bg-green-600 text-white px-4 py-2 rounded"
+          className="bg-green-600 text-white px-4 py-2 rounded w-full"
         >
           Create User
         </button>
@@ -135,13 +141,39 @@ export default function UsersPage() {
     };
 
     return (
-      <div className="border p-4">
-        <p>{user.name}</p>
-        <p>{user.email}</p>
-        <p>{user.roles.join(', ')}</p>
+      <div className="border p-4 rounded-lg shadow-sm bg-white">
+        <p>
+          <strong>Name:</strong> {user.name}
+        </p>
+        <p>
+          <strong>Email:</strong> {user.email}
+        </p>
+        <p>
+          <strong>Roles:</strong> {user.roles.join(', ')}
+        </p>
+        <p>
+          <strong>Created At:</strong>{' '}
+          {new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          }).format(new Date(user.createdAt))}
+        </p>
+        <p>
+          <strong>Updated At:</strong>{' '}
+          {new Intl.DateTimeFormat('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+          }).format(new Date(user.updatedAt))}
+        </p>
         <button
           onClick={handleDelete}
-          className="bg-red-500 text-white p-2 rounded"
+          className="bg-red-500 text-white px-3 py-2 rounded mt-2"
         >
           Delete
         </button>
@@ -150,13 +182,17 @@ export default function UsersPage() {
   };
 
   return (
-    <div className="w-full grid gap-4">
+    <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
       <UserForm fetchUsers={fetchUsers} />
-      <div className="space-y-4">
-        {users.map((user) => (
-          <UserItem key={user._id} user={user} fetchUsers={fetchUsers} />
-        ))}
+      <div className="space-y-4 mt-4">
+        {users.length > 0 ? (
+          users.map((user) => (
+            <UserItem key={user._id} user={user} fetchUsers={fetchUsers} />
+          ))
+        ) : (
+          <p className="text-gray-500">No users found.</p>
+        )}
       </div>
     </div>
   );
