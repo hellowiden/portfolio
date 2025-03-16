@@ -33,6 +33,33 @@ declare module 'next-auth/jwt' {
   }
 }
 
+// Centralized function to authenticate user credentials
+async function authenticateUser(
+  credentials: Record<string, string> | undefined
+): Promise<AuthUser | null> {
+  if (!credentials?.email || !credentials?.password) {
+    throw new Error('Missing credentials');
+  }
+
+  await connectToDatabase();
+  const user = await User.findOne({ email: credentials.email });
+
+  if (!user) throw new Error('User not found');
+
+  const isValidPassword = await bcrypt.compare(
+    credentials.password,
+    user.password
+  );
+  if (!isValidPassword) throw new Error('Invalid password');
+
+  return {
+    id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    roles: user.roles || [],
+  };
+}
+
 const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
@@ -45,40 +72,14 @@ const authOptions: NextAuthOptions = {
         },
         password: { label: 'Password', type: 'password' },
       },
-      async authorize(credentials): Promise<AuthUser | null> {
-        if (!credentials?.email || !credentials?.password) {
-          throw new Error('Missing credentials');
-        }
-
-        await connectToDatabase();
-        const user = await User.findOne({ email: credentials.email });
-
-        if (!user) throw new Error('User not found');
-
-        const isValidPassword = await bcrypt.compare(
-          credentials.password,
-          user.password
-        );
-        if (!isValidPassword) throw new Error('Invalid password');
-
-        const authUser: AuthUser = {
-          id: user._id.toString(),
-          name: user.name,
-          email: user.email,
-          roles: user.roles || [],
-        };
-
-        return authUser;
+      async authorize(credentials) {
+        return authenticateUser(credentials);
       },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/login',
-  },
+  session: { strategy: 'jwt' },
+  pages: { signIn: '/login' },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
