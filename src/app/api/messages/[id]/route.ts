@@ -8,7 +8,7 @@ import { NextRequest } from 'next/server';
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: { id: string } }
+  { params }: { params: { id: string } } // ✅ Correctly destructuring params
 ) {
   try {
     await connectToDatabase();
@@ -18,16 +18,14 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const id = context.params.id;
-
-    if (!id) {
+    if (!params.id) {
       return NextResponse.json(
         { error: 'Message ID is required' },
         { status: 400 }
       );
     }
 
-    const deletedMessage = await Message.findByIdAndDelete(id);
+    const deletedMessage = await Message.findByIdAndDelete(params.id);
 
     if (!deletedMessage) {
       return NextResponse.json({ error: 'Message not found' }, { status: 404 });
