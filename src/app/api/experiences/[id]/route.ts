@@ -4,7 +4,6 @@ import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Experience from '@/models/experience';
 
-// Define the type for the params object
 interface ExperienceParams {
   id: string;
 }

@@ -1,5 +1,4 @@
 //src/app/page.tsx
-
 'use client';
 
 import IntroductionSection from '@/app/components/IntroductionSection/IntroductionSection';
