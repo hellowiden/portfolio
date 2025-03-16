@@ -21,7 +21,7 @@ export async function GET(
       return NextResponse.json({ error: 'No id provided' }, { status: 400 });
     }
 
-    const experience = await Experience.findById(id); // Ensure Experience is properly imported
+    const experience = await Experience.findById(id);
     console.log('Experience found:', experience);
 
     if (!experience) {
@@ -40,7 +40,7 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  context: { params: ExperienceParams }
+  context: { params: Promise<ExperienceParams> } // params is a Promise
 ) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
@@ -78,7 +78,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: ExperienceParams }
+  context: { params: Promise<ExperienceParams> } // params is a Promise
 ) {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
