@@ -6,12 +6,13 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import AdBar from '../components/AdBar/AdBar';
+import AdBar from '@/app/components/AdBar/AdBar';
 
 export default function Login() {
   const router = useRouter();
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -19,6 +20,8 @@ export default function Login() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+    setError('');
 
     try {
       const result = await signIn('credentials', {
@@ -26,13 +29,15 @@ export default function Login() {
         ...formData,
       });
 
-      if (result?.error) {
-        setError(result.error);
+      if (!result || result.error) {
+        setError(result?.error || 'Invalid credentials');
       } else {
         router.push('/');
       }
     } catch {
       setError('Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,9 +78,10 @@ export default function Login() {
           />
           <button
             type="submit"
-            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition dark:bg-green-600 dark:hover:bg-green-500"
+            disabled={loading}
+            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition dark:bg-green-600 dark:hover:bg-green-500 disabled:opacity-50"
           >
-            Login
+            {loading ? 'Logging in...' : 'Login'}
           </button>
           <p className="text-center text-sm text-zinc-800 dark:text-zinc-300">
             Not an account?{' '}
