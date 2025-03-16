@@ -4,16 +4,15 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
-import { NextRequest } from 'next/server';
 
 // Fetch a user by ID
 export async function GET(
-  req: NextRequest,
-  context: { params: { id: string } } // ✅ Fix: No need for Promise<>
+  req: Request,
+  context: { params: Promise<{ id: string }> } // Ensure params is a Promise
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const { id } = context.params; // ✅ Directly access params (No need to await)
+    const { id } = await context.params; // Await params before destructuring
 
     if (!id) {
       return NextResponse.json(
@@ -40,12 +39,12 @@ export async function GET(
 
 // Update user
 export async function PUT(
-  req: NextRequest,
-  context: { params: { id: string } } // ✅ Fix: No need for Promise<>
+  req: Request,
+  context: { params: Promise<{ id: string }> } // Ensure params is a Promise
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const { id } = context.params; // ✅ Directly access params (No need to await)
+    const { id } = await context.params; // Await params before destructuring
 
     if (!id) {
       return NextResponse.json(
@@ -92,13 +91,13 @@ export async function PUT(
 
 // Delete user
 export async function DELETE(
-  req: NextRequest,
-  context: { params: { id: string } } // ✅ Fix: No need for Promise<>
+  req: Request,
+  context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
 
-    const { id } = context.params; // ✅ Directly access params (No need to await)
+    const { id } = await context.params;
 
     if (!id) {
       return NextResponse.json(
