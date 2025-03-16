@@ -6,7 +6,10 @@ import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 
 // Fetch a user by ID
-export async function GET(req: Request, context: { params: { id: string } }) {
+export async function GET(
+  req: Request,
+  context: { params: { id: string } }
+): Promise<NextResponse> {
   try {
     await connectToDatabase();
     const { id } = context.params;
@@ -34,11 +37,14 @@ export async function GET(req: Request, context: { params: { id: string } }) {
   }
 }
 
-export async function PUT(req: Request, context: { params: { id: string } }) {
+// Update user
+export async function PUT(
+  req: Request,
+  context: { params: { id: string } }
+): Promise<NextResponse> {
   try {
     await connectToDatabase();
-
-    const { id } = await context.params;
+    const { id } = context.params;
 
     if (!id) {
       return NextResponse.json(
@@ -47,7 +53,8 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
       );
     }
 
-    const { name, email, password, roles } = await req.json();
+    const body = await req.json();
+    const { name, email, password, roles } = body;
 
     const updateFields: Partial<{
       name: string;
@@ -86,11 +93,10 @@ export async function PUT(req: Request, context: { params: { id: string } }) {
 export async function DELETE(
   req: Request,
   context: { params: { id: string } }
-) {
+): Promise<NextResponse> {
   try {
     await connectToDatabase();
-
-    const { id } = await context.params;
+    const { id } = context.params;
 
     if (!id) {
       return NextResponse.json(

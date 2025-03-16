@@ -6,7 +6,7 @@ import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 
 // Fetch all users
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   try {
     await connectToDatabase();
     const users = await User.find().select('-password');
@@ -18,10 +18,11 @@ export async function GET() {
 }
 
 // Create a new user
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const { name, email, password, roles } = await req.json();
+    const body = await req.json();
+    const { name, email, password, roles } = body;
 
     if (!name || !email || !password) {
       return NextResponse.json(

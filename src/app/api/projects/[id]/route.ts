@@ -1,12 +1,11 @@
 // src/app/api/projects/[id]/route.ts
-// src/app/api/projects/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Project from '@/models/project';
 
 /** GET /api/projects/[id] */
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     await connectToDatabase();
 
@@ -31,7 +30,7 @@ export async function GET(req: NextRequest) {
 }
 
 /** PUT /api/projects/[id] */
-export async function PUT(req: NextRequest) {
+export async function PUT(req: NextRequest): Promise<NextResponse> {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token || !token.roles.includes('admin')) {
@@ -49,7 +48,8 @@ export async function PUT(req: NextRequest) {
     }
 
     // Update the project
-    const { name, date, description, image, link, tags } = await req.json();
+    const body = await req.json();
+    const { name, date, description, image, link, tags } = body;
     const updatedProject = await Project.findByIdAndUpdate(
       id,
       { name, date, description, image, link, tags },
@@ -71,7 +71,7 @@ export async function PUT(req: NextRequest) {
 }
 
 /** DELETE /api/projects/[id] */
-export async function DELETE(req: NextRequest) {
+export async function DELETE(req: NextRequest): Promise<NextResponse> {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token || !token.roles.includes('admin')) {

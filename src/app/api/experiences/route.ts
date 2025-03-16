@@ -5,7 +5,7 @@ import { connectToDatabase } from '@/libs/mongodb';
 import Experience from '@/models/experience';
 
 /** GET /api/experiences */
-export async function GET() {
+export async function GET(): Promise<NextResponse> {
   try {
     await connectToDatabase();
     const experiences = await Experience.find().sort({ date: -1 });
@@ -17,7 +17,7 @@ export async function GET() {
 }
 
 /** POST /api/experiences */
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token || !token.roles.includes('admin')) {

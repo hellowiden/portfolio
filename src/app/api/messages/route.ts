@@ -17,8 +17,18 @@ const VALID_BUDGETS = [
 const VALID_REASONS = ['job_offer', 'issues', 'general'];
 
 // Helper function for authentication
-async function authenticateUser(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+interface AuthToken {
+  id: string;
+  name: string;
+  email: string;
+  roles?: string[];
+}
+
+async function authenticateUser(req: NextRequest): Promise<AuthToken | null> {
+  const token = (await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  })) as AuthToken | null;
   if (!token || !token.id || !token.name || !token.email) {
     console.error('Unauthorized access attempt');
     return null;
@@ -27,17 +37,18 @@ async function authenticateUser(req: NextRequest) {
 }
 
 // Centralized error response
-function errorResponse(message: string, status: number) {
+function errorResponse(message: string, status: number): NextResponse {
   return NextResponse.json({ error: message }, { status });
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     await connectToDatabase();
     const token = await authenticateUser(req);
     if (!token) return errorResponse('Unauthorized', 401);
 
-    const { message, budget, reason } = await req.json();
+    const body = await req.json();
+    const { message, budget, reason } = body;
 
     console.log('Received budget:', budget);
     console.log('Expected budgets:', VALID_BUDGETS);
@@ -67,7 +78,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     await connectToDatabase();
     const token = await authenticateUser(req);
@@ -84,10 +95,13 @@ export async function GET(req: NextRequest) {
 export async function DELETE(
   req: NextRequest,
   { params }: { params?: { id?: string } }
-) {
+): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+    const token = (await getToken({
+      req,
+      secret: process.env.NEXTAUTH_SECRET,
+    })) as AuthToken | null;
 
     if (!token || !token.roles?.includes('admin')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });

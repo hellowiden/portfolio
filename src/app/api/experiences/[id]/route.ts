@@ -11,10 +11,10 @@ interface ExperienceParams {
 
 export async function GET(
   req: NextRequest,
-  context: { params: Promise<ExperienceParams> } // params is a Promise
-) {
+  context: { params: Promise<ExperienceParams> }
+): Promise<NextResponse> {
   try {
-    const { id } = await context.params; // Await params before using
+    const { id } = await context.params;
     console.log('Experience ID:', id);
 
     if (!id) {
@@ -40,8 +40,8 @@ export async function GET(
 
 export async function PUT(
   req: NextRequest,
-  context: { params: Promise<ExperienceParams> } // params is a Promise
-) {
+  context: { params: Promise<ExperienceParams> }
+): Promise<NextResponse> {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token || !token.roles.includes('admin')) {
@@ -49,9 +49,9 @@ export async function PUT(
     }
 
     await connectToDatabase();
-    const { id } = await context.params; // Await params before using
-    const { title, location, description, date, image, tags, type } =
-      await req.json();
+    const { id } = await context.params;
+    const body = await req.json();
+    const { title, location, description, date, image, tags, type } = body;
 
     const updatedExperience = await Experience.findByIdAndUpdate(
       id,
@@ -78,8 +78,8 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: Promise<ExperienceParams> } // params is a Promise
-) {
+  context: { params: Promise<ExperienceParams> }
+): Promise<NextResponse> {
   try {
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
     if (!token || !token.roles.includes('admin')) {
@@ -87,7 +87,7 @@ export async function DELETE(
     }
 
     await connectToDatabase();
-    const { id } = await context.params; // Await params before using
+    const { id } = await context.params;
 
     const deletedExperience = await Experience.findByIdAndDelete(id);
     if (!deletedExperience) {
