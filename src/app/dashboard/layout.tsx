@@ -38,46 +38,23 @@ export default function Layout({ children }: LayoutProps) {
       <aside className="flex flex-col gap-4 w-64 bg-zinc-200 dark:bg-zinc-800 border-r dark:border-zinc-700 p-4">
         <h2 className="text-xl font-bold">Admin Dashboard</h2>
         <nav className="grid gap-2">
-          <Link
-            href="/dashboard"
-            className={`px-2 py-1 rounded ${
-              pathname === '/dashboard'
-                ? 'bg-zinc-300 dark:bg-zinc-700'
-                : 'hover:bg-zinc-300 dark:hover:bg-zinc-700'
-            }`}
-          >
-            Users
-          </Link>
-          <Link
+          <NavItem href="/dashboard" label="Dashboard" pathname={pathname} />
+          <NavItem href="/dashboard/users" label="Users" pathname={pathname} />
+          <NavItem
             href="/dashboard/projects"
-            className={`px-2 py-1 rounded ${
-              pathname === '/dashboard/projects'
-                ? 'bg-zinc-300 dark:bg-zinc-700'
-                : 'hover:bg-zinc-300 dark:hover:bg-zinc-700'
-            }`}
-          >
-            Projects
-          </Link>
-          <Link
+            label="Projects"
+            pathname={pathname}
+          />
+          <NavItem
             href="/dashboard/messages"
-            className={`px-2 py-1 rounded ${
-              pathname === '/dashboard/messages'
-                ? 'bg-zinc-300 dark:bg-zinc-700'
-                : 'hover:bg-zinc-300 dark:hover:bg-zinc-700'
-            }`}
-          >
-            Messages
-          </Link>
-          <Link
+            label="Messages"
+            pathname={pathname}
+          />
+          <NavItem
             href="/dashboard/experiences"
-            className={`px-2 py-1 rounded ${
-              pathname === '/dashboard/experiences'
-                ? 'bg-zinc-300 dark:bg-zinc-700'
-                : 'hover:bg-zinc-300 dark:hover:bg-zinc-700'
-            }`}
-          >
-            Experiences
-          </Link>
+            label="Experiences"
+            pathname={pathname}
+          />
         </nav>
       </aside>
 
@@ -86,3 +63,24 @@ export default function Layout({ children }: LayoutProps) {
     </div>
   );
 }
+
+const NavItem = ({
+  href,
+  label,
+  pathname,
+}: {
+  href: string;
+  label: string;
+  pathname: string;
+}) => (
+  <Link
+    href={href}
+    className={`px-2 py-1 rounded ${
+      pathname === href
+        ? 'bg-zinc-300 dark:bg-zinc-700'
+        : 'hover:bg-zinc-300 dark:hover:bg-zinc-700'
+    }`}
+  >
+    {label}
+  </Link>
+);

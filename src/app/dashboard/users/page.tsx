@@ -130,11 +130,15 @@ export default function UsersPage() {
         onChange={(e) => setSearchQuery(e.target.value)}
         className="border p-2 rounded"
       />
+
+      {/* User Table */}
       <UserTable
         users={filteredUsers}
         onEdit={handleEdit}
         onDelete={handleDelete}
       />
+
+      {/* Edit User Modal */}
       {modalState.isOpen && modalState.user && (
         <EditUserModal
           user={modalState.user}
@@ -143,6 +147,8 @@ export default function UsersPage() {
           onSave={handleSaveUser}
         />
       )}
+
+      {/* Add User Modal */}
       {addUserModalState && (
         <AddUserModal
           isOpen={addUserModalState}
