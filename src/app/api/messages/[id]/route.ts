@@ -94,7 +94,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
@@ -107,14 +107,15 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    if (!params.id) {
+    const { id } = context.params;
+    if (!id) {
       return NextResponse.json(
         { error: 'Message ID is required' },
         { status: 400 }
       );
     }
 
-    const deletedMessage = await Message.findByIdAndDelete(params.id);
+    const deletedMessage = await Message.findByIdAndDelete(id);
 
     if (!deletedMessage) {
       return NextResponse.json({ error: 'Message not found' }, { status: 404 });
