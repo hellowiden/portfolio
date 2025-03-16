@@ -90,8 +90,8 @@ export default function UsersPage() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Manage Users</h1>
+    <div className="space-y-6 p-4">
+      <h1 className="text-2xl font-bold dark:text-white">Manage Users</h1>
 
       <div className="flex justify-between">
         <input
@@ -99,53 +99,80 @@ export default function UsersPage() {
           placeholder="Search..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="border p-2 rounded w-1/3"
+          className="border border-light dark:border-dark p-2 rounded w-1/3 bg-white dark:bg-zinc-800 dark:text-white"
         />
         <button
           onClick={() => setAddUserModalState(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded"
+          className="bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded"
         >
           Add User
         </button>
       </div>
 
       {/* Users Table */}
-      <div className="overflow-x-auto">
-        <table className="w-full border-collapse border border-gray-300">
-          <thead className="bg-gray-200">
+      <div className="overflow-x-auto border border-light dark:border-dark rounded-lg">
+        <table className="w-full border-collapse">
+          <thead className="bg-gray-200 dark:bg-zinc-700 text-gray-900 dark:text-white">
             <tr className="text-left">
-              <th className="border p-2">Name</th>
-              <th className="border p-2">Email</th>
-              <th className="border p-2">Roles</th>
-              <th className="border p-2">Password</th>
-              <th className="border p-2">Created At</th>
-              <th className="border p-2">Updated At</th>
-              <th className="border p-2 text-center">Actions</th>
+              <th className="border border-light dark:border-dark p-3">Name</th>
+              <th className="border border-light dark:border-dark p-3">
+                Email
+              </th>
+              <th className="border border-light dark:border-dark p-3">
+                Roles
+              </th>
+              <th className="border border-light dark:border-dark p-3">
+                Password
+              </th>
+              <th className="border border-light dark:border-dark p-3">
+                Created At
+              </th>
+              <th className="border border-light dark:border-dark p-3">
+                Updated At
+              </th>
+              <th className="border border-light dark:border-dark p-3 text-center">
+                Actions
+              </th>
             </tr>
           </thead>
-          <tbody>
-            {filteredUsers.map((user) => (
-              <tr key={user._id} className="hover:bg-gray-100">
-                <td className="border p-2">{user.name}</td>
-                <td className="border p-2">{user.email}</td>
-                <td className="border p-2">{user.roles.join(', ')}</td>
-                <td className="border p-2">********</td>
-                <td className="border p-2">
+          <tbody className="dark:bg-zinc-800 text-gray-900 dark:text-white">
+            {filteredUsers.map((user, index) => (
+              <tr
+                key={user._id}
+                className={`${
+                  index % 2 === 0
+                    ? 'bg-zinc-50 dark:bg-zinc-900'
+                    : 'bg-white dark:bg-zinc-800'
+                } hover:bg-gray-100 dark:hover:bg-zinc-700`}
+              >
+                <td className="border border-light dark:border-dark p-3">
+                  {user.name}
+                </td>
+                <td className="border border-light dark:border-dark p-3">
+                  {user.email}
+                </td>
+                <td className="border border-light dark:border-dark p-3">
+                  {user.roles.join(', ')}
+                </td>
+                <td className="border border-light dark:border-dark p-3">
+                  ********
+                </td>
+                <td className="border border-light dark:border-dark p-3">
                   {new Date(user.createdAt).toLocaleString()}
                 </td>
-                <td className="border p-2">
+                <td className="border border-light dark:border-dark p-3">
                   {new Date(user.updatedAt).toLocaleString()}
                 </td>
-                <td className="border p-2 text-center">
+                <td className="border border-light dark:border-dark p-3 text-center">
                   <button
                     onClick={() => handleEdit(user)}
-                    className="bg-green-600 text-white px-3 py-1 rounded mr-2"
+                    className="bg-green-500 dark:bg-green-600 text-white px-3 py-1 rounded mr-2"
                   >
                     Edit
                   </button>
                   <button
                     onClick={() => handleDelete(user._id)}
-                    className="bg-red-600 text-white px-3 py-1 rounded"
+                    className="bg-red-500 dark:bg-red-600 text-white px-3 py-1 rounded"
                   >
                     Delete
                   </button>
