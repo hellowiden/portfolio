@@ -1,11 +1,16 @@
 // src/app/api/users/route.tsx
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 
-// Fetch all users
+// Centralized error response function
+function errorResponse(message: string, status: number): NextResponse {
+  return NextResponse.json({ error: message }, { status });
+}
+
+/** GET `/api/users` → Fetch all users */
 export async function GET(): Promise<NextResponse> {
   try {
     await connectToDatabase();
@@ -13,30 +18,23 @@ export async function GET(): Promise<NextResponse> {
     return NextResponse.json({ users }, { status: 200 });
   } catch (error) {
     console.error('Error fetching users:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return errorResponse('Server error', 500);
   }
 }
 
-// Create a new user
-export async function POST(req: Request): Promise<NextResponse> {
+/** POST `/api/users` → Create a new user */
+export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const body = await req.json();
-    const { name, email, password, roles } = body;
+    const { name, email, password, roles } = await req.json();
 
     if (!name || !email || !password) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      );
+      return errorResponse('Missing required fields', 400);
     }
 
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return NextResponse.json(
-        { error: 'User already exists' },
-        { status: 400 }
-      );
+      return errorResponse('User already exists', 400);
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -53,6 +51,6 @@ export async function POST(req: Request): Promise<NextResponse> {
     );
   } catch (error) {
     console.error('Error creating user:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return errorResponse('Server error', 500);
   }
 }

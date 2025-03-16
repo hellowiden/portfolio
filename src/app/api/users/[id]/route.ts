@@ -1,59 +1,48 @@
 //src/app/api/users/[id]/route.ts
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 
-// Helper function to connect and get params
+// Helper function to connect and get params (Next.js 14+ requires awaiting params)
 async function getParams(context: { params: Promise<{ id: string }> }) {
   await connectToDatabase();
   return await context.params;
 }
 
-// Fetch a user by ID
+// Centralized error response function
+function errorResponse(message: string, status: number): NextResponse {
+  return NextResponse.json({ error: message }, { status });
+}
+
+/** GET `/api/users/[id]` → Fetch a user by ID */
 export async function GET(
-  req: Request,
+  req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     const { id } = await getParams(context);
-
-    if (!id) {
-      return NextResponse.json(
-        { error: 'User ID is required' },
-        { status: 400 }
-      );
-    }
+    if (!id) return errorResponse('User ID is required', 400);
 
     const user = await User.findById(id).select('-password');
-    if (!user)
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    if (!user) return errorResponse('User not found', 404);
 
     return NextResponse.json({ user }, { status: 200 });
   } catch (error) {
     console.error('Error fetching user:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return errorResponse('Server error', 500);
   }
 }
 
-// Update user
+/** PUT `/api/users/[id]` → Update an existing user */
 export async function PUT(
-  req: Request,
+  req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     const { id } = await getParams(context);
-
-    if (!id) {
-      return NextResponse.json(
-        { error: 'User ID is required' },
-        { status: 400 }
-      );
-    }
+    if (!id) return errorResponse('User ID is required', 400);
 
     const { name, email, password, roles } = await req.json();
     const updateFields: Partial<{
@@ -71,8 +60,7 @@ export async function PUT(
     const updatedUser = await User.findByIdAndUpdate(id, updateFields, {
       new: true,
     }).select('-password');
-    if (!updatedUser)
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    if (!updatedUser) return errorResponse('User not found', 404);
 
     return NextResponse.json(
       { message: 'User updated', user: updatedUser },
@@ -80,32 +68,25 @@ export async function PUT(
     );
   } catch (error) {
     console.error('Error updating user:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return errorResponse('Server error', 500);
   }
 }
 
-// Delete user
+/** DELETE `/api/users/[id]` → Delete a user */
 export async function DELETE(
-  req: Request,
+  req: NextRequest,
   context: { params: Promise<{ id: string }> }
 ): Promise<NextResponse> {
   try {
     const { id } = await getParams(context);
-
-    if (!id) {
-      return NextResponse.json(
-        { error: 'User ID is required' },
-        { status: 400 }
-      );
-    }
+    if (!id) return errorResponse('User ID is required', 400);
 
     const deletedUser = await User.findByIdAndDelete(id);
-    if (!deletedUser)
-      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    if (!deletedUser) return errorResponse('User not found', 404);
 
     return NextResponse.json({ message: 'User deleted' }, { status: 200 });
   } catch (error) {
     console.error('Error deleting user:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+    return errorResponse('Server error', 500);
   }
 }
