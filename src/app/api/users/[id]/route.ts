@@ -8,11 +8,11 @@ import { connectToDatabase } from '@/libs/mongodb';
 // Fetch a user by ID
 export async function GET(
   req: Request,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> } // Ensure params is a Promise
 ): Promise<NextResponse> {
   try {
     await connectToDatabase();
-    const { id } = context.params;
+    const { id } = await context.params; // Await params before destructuring
 
     if (!id) {
       return NextResponse.json(
