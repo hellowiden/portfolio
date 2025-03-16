@@ -4,23 +4,36 @@ import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Project from '@/models/project';
 
+// Helper function to connect and get ID from params
+async function getParams(context: { params: Promise<{ id: string }> }) {
+  await connectToDatabase();
+  return await context.params;
+}
+
+// Helper function for admin authentication
+async function authenticateAdmin(
+  req: NextRequest
+): Promise<NextResponse | null> {
+  const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
+  if (!token || !token.roles.includes('admin')) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+  return null;
+}
+
 /** GET /api/projects/[id] */
-export async function GET(req: NextRequest): Promise<NextResponse> {
+export async function GET(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+): Promise<NextResponse> {
   try {
-    await connectToDatabase();
-
-    // Manually parse the final path segment for ID
-    const url = new URL(req.url);
-    const id = url.pathname.split('/').pop();
-
-    if (!id) {
+    const { id } = await getParams(context);
+    if (!id)
       return NextResponse.json({ error: 'No ID provided' }, { status: 400 });
-    }
 
     const project = await Project.findById(id);
-    if (!project) {
+    if (!project)
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
-    }
 
     return NextResponse.json({ project }, { status: 200 });
   } catch (error) {
@@ -30,35 +43,28 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 }
 
 /** PUT /api/projects/[id] */
-export async function PUT(req: NextRequest): Promise<NextResponse> {
+export async function PUT(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+): Promise<NextResponse> {
   try {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    if (!token || !token.roles.includes('admin')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const authResponse = await authenticateAdmin(req);
+    if (authResponse) return authResponse;
 
-    await connectToDatabase();
-
-    // Manually parse the final path segment for ID
-    const url = new URL(req.url);
-    const id = url.pathname.split('/').pop();
-
-    if (!id) {
+    const { id } = await getParams(context);
+    if (!id)
       return NextResponse.json({ error: 'No ID provided' }, { status: 400 });
-    }
 
-    // Update the project
-    const body = await req.json();
-    const { name, date, description, image, link, tags } = body;
+    // Update project
+    const { name, date, description, image, link, tags } = await req.json();
     const updatedProject = await Project.findByIdAndUpdate(
       id,
       { name, date, description, image, link, tags },
       { new: true }
     );
 
-    if (!updatedProject) {
+    if (!updatedProject)
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
-    }
 
     return NextResponse.json(
       { message: 'Project updated', project: updatedProject },
@@ -71,27 +77,21 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
 }
 
 /** DELETE /api/projects/[id] */
-export async function DELETE(req: NextRequest): Promise<NextResponse> {
+export async function DELETE(
+  req: NextRequest,
+  context: { params: Promise<{ id: string }> }
+): Promise<NextResponse> {
   try {
-    const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
-    if (!token || !token.roles.includes('admin')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
+    const authResponse = await authenticateAdmin(req);
+    if (authResponse) return authResponse;
 
-    await connectToDatabase();
-
-    // Manually parse the final path segment for ID
-    const url = new URL(req.url);
-    const id = url.pathname.split('/').pop();
-
-    if (!id) {
+    const { id } = await getParams(context);
+    if (!id)
       return NextResponse.json({ error: 'No ID provided' }, { status: 400 });
-    }
 
     const deletedProject = await Project.findByIdAndDelete(id);
-    if (!deletedProject) {
+    if (!deletedProject)
       return NextResponse.json({ error: 'Project not found' }, { status: 404 });
-    }
 
     return NextResponse.json({ message: 'Project deleted' }, { status: 200 });
   } catch (error) {
