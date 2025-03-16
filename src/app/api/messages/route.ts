@@ -83,7 +83,7 @@ export async function GET(req: NextRequest) {
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params?: { id?: string } }
 ) {
   try {
     await connectToDatabase();
@@ -93,7 +93,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    let id = params.id;
+    let id = params?.id;
 
     if (!id) {
       const body = await req.json();
@@ -102,12 +102,11 @@ export async function DELETE(
 
     console.log('Received ID for deletion:', id);
 
-    if (!id) {
+    if (!id)
       return NextResponse.json(
         { error: 'Message ID is required' },
         { status: 400 }
       );
-    }
 
     const deletedMessage = await Message.findByIdAndDelete(id);
 
