@@ -37,33 +37,17 @@ export default function Register() {
     setError('');
 
     try {
-      // Register user
-      const registerResponse = await fetch('/api/users', {
+      const response = await fetch('/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
 
-      if (!registerResponse.ok) {
-        const responseData = await registerResponse.json();
+      if (!response.ok) {
+        const responseData = await response.json();
         throw new Error(responseData.error || 'Registration failed');
       }
 
-      // Automatically log in the user
-      const loginResponse = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-        }),
-      });
-
-      if (!loginResponse.ok) {
-        throw new Error('Login failed after registration.');
-      }
-
-      // Redirect to home after successful login
       router.push('/');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
