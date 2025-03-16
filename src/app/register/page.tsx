@@ -5,7 +5,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import AdBar from '../components/AdBar/AdBar';
+import AdBar from '@/app/components/AdBar/AdBar';
 
 export default function Register() {
   const router = useRouter();
@@ -16,6 +16,7 @@ export default function Register() {
   });
   const [agreed, setAgreed] = useState(false);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const inputClass =
     'w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white';
@@ -27,7 +28,13 @@ export default function Register() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!agreed) return setError('You must agree to the legal terms.');
+    if (!agreed) {
+      setError('You must agree to the legal terms.');
+      return;
+    }
+
+    setLoading(true);
+    setError('');
 
     try {
       const response = await fetch('/api/users', {
@@ -44,6 +51,8 @@ export default function Register() {
       router.push('/login');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -113,9 +122,10 @@ export default function Register() {
 
           <button
             type="submit"
-            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition dark:bg-green-600 dark:hover:bg-green-500"
+            disabled={loading}
+            className="text-sm bg-zinc-700 text-white p-2 rounded hover:bg-zinc-800 transition dark:bg-green-600 dark:hover:bg-green-500 disabled:opacity-50"
           >
-            Register
+            {loading ? 'Registering...' : 'Register'}
           </button>
 
           <p className="text-center text-sm text-zinc-800 dark:text-zinc-300">
