@@ -8,7 +8,7 @@ import { NextRequest } from 'next/server';
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> } // params is a Promise
 ) {
   try {
     await connectToDatabase();
@@ -18,7 +18,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = await params;
+    const { id } = await params; // Await params before using
 
     console.log('Received ID for deletion:', id);
 
