@@ -1,10 +1,9 @@
 //src/app/api/messages/route.ts
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import Message from '@/models/message';
 import { connectToDatabase } from '@/libs/mongodb';
 import { getToken } from 'next-auth/jwt';
-import { NextRequest } from 'next/server';
 
 // Constants for validation
 const VALID_BUDGETS = [
@@ -16,7 +15,6 @@ const VALID_BUDGETS = [
 ];
 const VALID_REASONS = ['job_offer', 'issues', 'general'];
 
-// Helper function for authentication
 interface AuthToken {
   id: string;
   name: string;
@@ -24,35 +22,28 @@ interface AuthToken {
   roles?: string[];
 }
 
+// Centralized authentication function
 async function authenticateUser(req: NextRequest): Promise<AuthToken | null> {
   const token = (await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET,
   })) as AuthToken | null;
-  if (!token || !token.id || !token.name || !token.email) {
-    console.error('Unauthorized access attempt');
-    return null;
-  }
-  return token;
+  return token?.id && token?.name && token?.email ? token : null;
 }
 
-// Centralized error response
+// Centralized error response function
 function errorResponse(message: string, status: number): NextResponse {
   return NextResponse.json({ error: message }, { status });
 }
 
+/** POST `/api/messages` → Create a new message */
 export async function POST(req: NextRequest): Promise<NextResponse> {
   try {
     await connectToDatabase();
     const token = await authenticateUser(req);
     if (!token) return errorResponse('Unauthorized', 401);
 
-    const body = await req.json();
-    const { message, budget, reason } = body;
-
-    console.log('Received budget:', budget);
-    console.log('Expected budgets:', VALID_BUDGETS);
-
+    const { message, budget, reason } = await req.json();
     if (!message?.trim()) return errorResponse('Message is required', 400);
     if (budget && !VALID_BUDGETS.includes(budget))
       return errorResponse(`Invalid budget value: ${budget}`, 400);
@@ -78,6 +69,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 }
 
+/** GET `/api/messages` → Fetch all messages */
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     await connectToDatabase();
@@ -89,53 +81,5 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
   } catch (error) {
     console.error('Error fetching messages:', error);
     return errorResponse('Server error', 500);
-  }
-}
-
-export async function DELETE(
-  req: NextRequest,
-  context: { params: Promise<{ id?: string }> } // Ensure params is a Promise
-): Promise<NextResponse> {
-  try {
-    await connectToDatabase();
-    const token = (await getToken({
-      req,
-      secret: process.env.NEXTAUTH_SECRET,
-    })) as AuthToken | null;
-
-    if (!token || !token.roles?.includes('admin')) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const { id } = await context.params; // Await params before destructuring
-
-    if (!id) {
-      const body = await req.json();
-      if (!body.id) {
-        return NextResponse.json(
-          { error: 'Message ID is required' },
-          { status: 400 }
-        );
-      }
-    }
-
-    console.log('Received ID for deletion:', id);
-
-    const deletedMessage = await Message.findByIdAndDelete(id);
-
-    if (!deletedMessage) {
-      console.log('Message not found in DB:', id);
-      return NextResponse.json({ error: 'Message not found' }, { status: 404 });
-    }
-
-    console.log('Message deleted successfully:', id);
-
-    return NextResponse.json(
-      { message: 'Message deleted successfully' },
-      { status: 200 }
-    );
-  } catch (error) {
-    console.error('Error deleting message:', error);
-    return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }
