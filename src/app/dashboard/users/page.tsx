@@ -2,23 +2,22 @@
 
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import EditUserModal from '@/app/components/EditUserModal';
+import AddUserModal from '@/app/components/AddUserModal';
 
 interface User {
   _id: string;
   name: string;
   email: string;
   roles: string[];
-  createdAt: string;
-  updatedAt: string;
 }
 
 export default function UsersPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-
   const isAdmin = session?.user?.roles.includes('admin');
 
   useEffect(() => {
@@ -31,167 +30,170 @@ export default function UsersPage() {
   }, [status, isAdmin, router]);
 
   const [users, setUsers] = useState<User[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    user: User | null;
+  }>({
+    isOpen: false,
+    user: null,
+  });
+  const [addUserModalState, setAddUserModalState] = useState(false);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      if (!isAdmin) return;
-      try {
-        const res = await fetch('/api/users');
-        if (!res.ok) throw new Error('Failed to fetch users');
-        const { users } = await res.json();
-        setUsers(users);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchUsers();
+  // Fetch users
+  const fetchUsers = useCallback(async () => {
+    if (!isAdmin) return;
+    try {
+      const response = await fetch('/api/users');
+      if (!response.ok) throw new Error('Failed to fetch users');
+      const { users } = await response.json();
+      setUsers(users);
+    } catch (error) {
+      console.error(error);
+    }
   }, [isAdmin]);
 
+  useEffect(() => {
+    fetchUsers();
+  }, [fetchUsers]);
+
+  const filteredUsers = useMemo(() => {
+    const query = searchQuery.toLowerCase();
+    return users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(query) ||
+        user.email.toLowerCase().includes(query) ||
+        user.roles.some((role) => role.toLowerCase().includes(query))
+    );
+  }, [users, searchQuery]);
+
+  const handleEdit = (user: User) => setModalState({ isOpen: true, user });
+  const handleCloseModal = () => setModalState({ isOpen: false, user: null });
+  const handleSaveUser = (updatedUser: User) => {
+    setUsers((prevUsers) =>
+      prevUsers.map((user) =>
+        user._id === updatedUser._id ? updatedUser : user
+      )
+    );
+  };
+
+  const handleDelete = async (userId: string) => {
+    if (!confirm('Are you sure you want to delete this user?')) return;
+    try {
+      const response = await fetch(`/api/users/${userId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Failed to delete user');
+      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleAddUser = async (newUser: {
+    name: string;
+    email: string;
+    password: string;
+    roles: string[];
+  }) => {
+    try {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newUser),
+      });
+      if (!response.ok) throw new Error('Failed to create user');
+      const { user } = await response.json();
+      setUsers((prevUsers) => [...prevUsers, user]);
+      setAddUserModalState(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  if (status === 'loading') return <p>Loading...</p>;
+  if (!isAdmin) return <p>Access denied</p>;
+
   return (
-    <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Manage Users</h1>
-      <UserForm fetchUsers={() => setUsers([])} />
-      <div className="space-y-4 mt-4">
-        {users.length > 0 ? (
-          users.map((user) => (
-            <UserItem
-              key={user._id}
-              user={user}
-              fetchUsers={() => setUsers([])}
-            />
-          ))
-        ) : (
-          <p className="text-gray-500">No users found.</p>
-        )}
-      </div>
+    <div className="w-full grid gap-4">
+      <h1 className="text-2xl font-bold">Manage Users</h1>
+      <button
+        onClick={() => setAddUserModalState(true)}
+        className="bg-blue-600 text-white p-2 rounded"
+      >
+        Add User
+      </button>
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        className="border p-2 rounded"
+      />
+      <UserTable
+        users={filteredUsers}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+      />
+      {modalState.isOpen && modalState.user && (
+        <EditUserModal
+          user={modalState.user}
+          isOpen={modalState.isOpen}
+          onClose={handleCloseModal}
+          onSave={handleSaveUser}
+        />
+      )}
+      {addUserModalState && (
+        <AddUserModal
+          isOpen={addUserModalState}
+          onClose={() => setAddUserModalState(false)}
+          onSave={handleAddUser}
+        />
+      )}
     </div>
   );
 }
 
-const UserForm = ({ fetchUsers }: { fetchUsers: () => void }) => {
-  const [formData, setFormData] = useState({ name: '', email: '', roles: '' });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const { name, email, roles } = formData;
-    if (!name || !email || !roles) {
-      alert('All fields are required.');
-      return;
-    }
-    try {
-      const res = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name,
-          email,
-          roles: roles.split(',').map((role) => role.trim()),
-        }),
-      });
-      if (!res.ok) throw new Error('Failed to create user');
-      setFormData({ name: '', email: '', roles: '' });
-      fetchUsers();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-2">
-      <input
-        type="text"
-        name="name"
-        value={formData.name}
-        onChange={handleChange}
-        placeholder="Name"
-        className="p-2 border w-full"
-      />
-      <input
-        type="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-        placeholder="Email"
-        className="p-2 border w-full"
-      />
-      <input
-        type="text"
-        name="roles"
-        value={formData.roles}
-        onChange={handleChange}
-        placeholder="Roles (comma separated)"
-        className="p-2 border w-full"
-      />
-      <button
-        type="submit"
-        className="bg-green-600 text-white px-4 py-2 rounded w-full"
-      >
-        Create User
-      </button>
-    </form>
-  );
-};
-
-const UserItem = ({
-  user,
-  fetchUsers,
+const UserTable = ({
+  users,
+  onEdit,
+  onDelete,
 }: {
-  user: User;
-  fetchUsers: () => void;
-}) => {
-  const handleDelete = async () => {
-    if (!confirm('Are you sure you want to delete this user?')) return;
-    try {
-      const res = await fetch(`/api/users/${user._id}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error('Failed to delete user');
-      fetchUsers();
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return (
-    <div className="border p-4 rounded-lg shadow-sm bg-white">
-      <p>
-        <strong>Name:</strong> {user.name}
-      </p>
-      <p>
-        <strong>Email:</strong> {user.email}
-      </p>
-      <p>
-        <strong>Roles:</strong> {user.roles.join(', ')}
-      </p>
-      <p>
-        <strong>Created At:</strong>{' '}
-        {new Intl.DateTimeFormat('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        }).format(new Date(user.createdAt))}
-      </p>
-      <p>
-        <strong>Updated At:</strong>{' '}
-        {new Intl.DateTimeFormat('en-US', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit',
-        }).format(new Date(user.updatedAt))}
-      </p>
-      <button
-        onClick={handleDelete}
-        className="bg-red-500 text-white px-3 py-2 rounded mt-2"
-      >
-        Delete
-      </button>
-    </div>
-  );
-};
+  users: User[];
+  onEdit: (user: User) => void;
+  onDelete: (userId: string) => void;
+}) => (
+  <table className="w-full border-collapse text-left text-sm">
+    <thead>
+      <tr>
+        <th className="px-4 py-3 border-b">Name</th>
+        <th className="px-4 py-3 border-b">Email</th>
+        <th className="px-4 py-3 border-b">Roles</th>
+        <th className="px-4 py-3 border-b">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {users.map((user) => (
+        <tr key={user._id} className="hover:bg-gray-100">
+          <td className="px-4 py-3 border-b">{user.name}</td>
+          <td className="px-4 py-3 border-b">{user.email}</td>
+          <td className="px-4 py-3 border-b">{user.roles.join(', ')}</td>
+          <td className="px-4 py-3 border-b flex gap-2">
+            <button
+              onClick={() => onEdit(user)}
+              className="px-3 py-1 bg-green-500 text-white rounded"
+            >
+              Edit
+            </button>
+            <button
+              onClick={() => onDelete(user._id)}
+              className="px-3 py-1 bg-red-500 text-white rounded"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+);
