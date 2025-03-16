@@ -41,7 +41,7 @@ As my final thesis project for the JavaScriptutvecklare program at Folkuniversit
 ## Deployment
 
 This project is deployed on versel  
-Check out the live demo:
+Check out the live demo: https://portfolio-marcus-projects-d26bf86a.vercel.app/login
 
 ## Contact
 
