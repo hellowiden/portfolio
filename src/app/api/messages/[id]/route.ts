@@ -8,7 +8,7 @@ import { NextRequest } from 'next/server';
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> } // params is a Promise
+  context: { params: { id: string } }
 ) {
   try {
     await connectToDatabase();
@@ -18,9 +18,7 @@ export async function DELETE(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = await params; // Await params before using
-
-    console.log('Received ID for deletion:', id);
+    const id = context.params.id;
 
     if (!id) {
       return NextResponse.json(
@@ -30,12 +28,11 @@ export async function DELETE(
     }
 
     const deletedMessage = await Message.findByIdAndDelete(id);
+
     if (!deletedMessage) {
-      console.log('Message not found in DB:', id);
       return NextResponse.json({ error: 'Message not found' }, { status: 404 });
     }
 
-    console.log('Message deleted successfully:', id);
     return NextResponse.json(
       { message: 'Message deleted successfully' },
       { status: 200 }
