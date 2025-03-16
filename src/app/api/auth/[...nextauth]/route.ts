@@ -61,18 +61,24 @@ const authOptions: NextAuthOptions = {
         );
         if (!isValidPassword) throw new Error('Invalid password');
 
-        return {
+        const authUser: AuthUser = {
           id: user._id.toString(),
           name: user.name,
           email: user.email,
           roles: user.roles || [],
         };
+
+        return authUser;
       },
     }),
   ],
   secret: process.env.NEXTAUTH_SECRET,
-  session: { strategy: 'jwt' },
-  pages: { signIn: '/login' }, // Ensure this is correctly set
+  session: {
+    strategy: 'jwt',
+  },
+  pages: {
+    signIn: '/login',
+  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -82,11 +88,14 @@ const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.user = { ...session.user, id: token.id, roles: token.roles };
+      session.user = {
+        ...session.user,
+        id: token.id as string,
+        roles: token.roles as string[],
+      };
       return session;
     },
   },
-  debug: true, // Enable debugging in production logs
 };
 
 const handler = NextAuth(authOptions);
