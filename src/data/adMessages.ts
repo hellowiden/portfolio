@@ -2,53 +2,53 @@
 
 export const adMessages = [
   {
-    heading: 'Strategic Brands. Intelligent Growth.',
+    heading: 'Power in Knowledge, Strength in Action.',
     subtext:
-      'Insight-driven branding and market positioning that elevate your business with clarity, creativity, and long-term impact.',
+      'Business success comes from understanding the landscape and making strategic moves before the competition does.',
   },
   {
-    heading: 'Smart Brands. Sharp Strategies.',
+    heading: 'Lead. Influence. Leave a Legacy.',
     subtext:
-      'I craft branding and positioning that aren’t just memorable—they’re meaningful, data-backed, and built for lasting success.',
+      'The strongest brands are built on leadership, vision, and a commitment to long-term impact.',
   },
   {
-    heading: 'Branding with Depth. Strategies with Purpose.',
+    heading: 'Invent the Future. Own the Market.',
     subtext:
-      'Your brand should do more than stand out—it should stand for something. I create insightful, strategic solutions that inspire trust and drive results.',
+      'Innovation is not just about new ideas—it’s about executing them before anyone else does.',
   },
   {
-    heading: 'Elevate with Strategy. Lead with Wisdom.',
+    heading: 'Smart Moves. Sharp Results.',
     subtext:
-      'Thoughtful branding and positioning that turn businesses into trusted industry leaders.',
+      'Success isn’t about doing more—it’s about making the right moves at the right time with absolute precision.',
   },
   {
-    heading: 'Clarity Creates Influence.',
+    heading: 'Turn Challenges into Wins.',
     subtext:
-      'I transform businesses with branding and strategy rooted in intelligence, creativity, and meaningful impact.',
+      'The best businesses don’t avoid obstacles—they use them as fuel for growth and innovation.',
   },
   {
-    heading: 'Your Brand, Redefined with Purpose.',
+    heading: 'Master the Game. Dominate the Market.',
     subtext:
-      'I craft smart, strategic, and creative brand solutions that help businesses lead, innovate, and grow.',
+      'Great businesses don’t leave success to chance—they understand the rules and rewrite them in their favor.',
   },
   {
-    heading: 'Smart Brands Win. Let’s Build Yours.',
+    heading: 'Big Decisions. Bigger Impact.',
     subtext:
-      'With a blend of strategy, insight, and creativity, I help businesses develop strong, trusted, and influential brands.',
+      'Every breakthrough starts with one bold decision. Step forward, take action, and shape your future.',
   },
   {
-    heading: 'From Vision to Strategy. From Strategy to Legacy.',
+    heading: 'See Beyond Today. Build for Tomorrow.',
     subtext:
-      'Intelligent brand-building that turns ideas into impact and businesses into industry leaders.',
+      'True leaders don’t just react to change—they create it and position themselves ahead of the curve.',
   },
   {
-    heading: 'Wisdom-Driven Brands. Creative Market Strategies.',
+    heading: 'Consistency Builds Empires.',
     subtext:
-      'I help businesses craft meaningful, future-proof brands that command trust and drive real results.',
+      'Success isn’t a one-time achievement—it’s the result of strategic execution, day after day.',
   },
   {
-    heading: 'Knowledge Builds Brands. Strategy Sustains Them.',
+    heading: 'Evolve or Get Left Behind.',
     subtext:
-      'I develop brands with intelligence, positioning them for credibility, influence, and long-term success.',
+      'In business, those who embrace change before it happens are the ones who define the future.',
   },
 ];

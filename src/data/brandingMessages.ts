@@ -3,62 +3,62 @@
 export const brandingMessages = [
   {
     id: 1,
-    heading: 'Strategic Branding for Sustainable Growth',
+    heading: 'Knowledge is Power',
     subtext:
-      'I craft brand strategies that drive lasting success through insight, clarity, and creative intelligence.',
+      'The most powerful advantage in business is not speed or scale—it’s understanding the game better than anyone else.',
   },
   {
     id: 2,
-    heading: 'Memorable Brands, Strategic Success',
+    heading: 'Lead with Legacy',
     subtext:
-      'Branding should be both memorable and strategic—data-driven, insightful, and built for long-term impact.',
+      'A true leader doesn’t just build an empire—they create a legacy that outlasts them.',
   },
   {
     id: 3,
-    heading: 'Insight-Driven Brands for Purposeful Growth',
+    heading: 'Creating the Future',
     subtext:
-      'A brand should stand out and stand for something. I create strategies that build trust and deliver results.',
+      'The future belongs to those who dare to create what doesn’t yet exist.',
   },
   {
     id: 4,
-    heading: 'Strategic Authority, Trusted Leadership',
+    heading: 'Precision Wins',
     subtext:
-      'I position businesses as industry leaders through intelligent branding and strategic market positioning.',
+      'Success is not about doing everything—it’s about doing the right things at the right time with precision.',
   },
   {
     id: 5,
-    heading: 'Clear Positioning, Strong Industry Influence',
+    heading: 'Turning Barriers into Steps',
     subtext:
-      'I develop brand strategies that combine intelligence and creativity to maximize impact and industry authority.',
+      'Obstacles are not barriers; they are stepping stones for those willing to fight for success.',
   },
   {
     id: 6,
-    heading: 'Purpose-Driven Brands for Lasting Success',
+    heading: 'Mastering the Game',
     subtext:
-      'Branding goes beyond visuals—it’s about strategy, leadership, and building sustainable business success.',
+      'Business is not about luck—it’s about knowing the rules and playing them better than anyone else.',
   },
   {
     id: 7,
-    heading: 'Winning Brands with Strategic Foundations',
+    heading: 'Decisions Shape Destiny',
     subtext:
-      'By blending insight, strategy, and creativity, I shape brands that are built to influence and thrive long term.',
+      'Every great business was built on a single decision—the courage to take the first step.',
   },
   {
     id: 8,
-    heading: 'Visionary Strategy, Lasting Legacy',
+    heading: 'Vision Drives Success',
     subtext:
-      'I transform ambitious ideas into impactful brands, ensuring businesses grow and leave a lasting legacy.',
+      'Those who see beyond the present create the innovations that shape tomorrow.',
   },
   {
     id: 9,
-    heading: 'Insight-Driven Brands, Future-Proof Strategies',
+    heading: 'Empires Are Built Daily',
     subtext:
-      'I develop brands rooted in strategy and intelligence, ensuring they remain relevant, trusted, and impactful.',
+      'Success is not a one-time event—it’s the result of consistent, relentless execution.',
   },
   {
     id: 10,
-    heading: 'Smart Strategy for Sustainable Success',
+    heading: 'Adapt or Be Left Behind',
     subtext:
-      'I create brand positioning strategies that enhance credibility, influence, and long-term market leadership.',
+      'In business, survival belongs to those who embrace change before it’s forced upon them.',
   },
 ];
