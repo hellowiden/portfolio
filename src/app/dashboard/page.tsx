@@ -89,8 +89,8 @@ export default function Dashboard() {
 }
 
 const StatCard = ({ title, value }: { title: string; value: number }) => (
-  <div className="bg-white dark:bg-zinc-800 p-6 rounded-lg shadow-md flex flex-col items-center">
-    <h2 className="text-xl font-semibold">{title}</h2>
-    <p className="text-4xl font-bold mt-2">{value}</p>
+  <div className="bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border border-light dark:border-dark p-6 rounded grid grid-rows-2 gap-2 place-items-center">
+    <h2 className="text-md font-semibold">{title}</h2>
+    <p className="text-4xl font-bold">{value}</p>
   </div>
 );
