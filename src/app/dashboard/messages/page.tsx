@@ -18,21 +18,16 @@ interface Message {
   budget?: string;
 }
 
-const getPriorityColor = (reason: string) => {
+const getPriorityColor = (reason: string, budget?: string) => {
   const lowerReason = reason.toLowerCase();
-  if (
-    lowerReason.includes('urgent') ||
-    lowerReason.includes('complaint') ||
-    lowerReason.includes('critical')
-  ) {
+  if (lowerReason.includes('issue')) {
     return 'bg-red-600';
   }
-  if (
-    lowerReason.includes('request') ||
-    lowerReason.includes('inquiry') ||
-    lowerReason.includes('issue')
-  ) {
-    return 'bg-orange-500';
+  if (lowerReason.includes('job') && budget) {
+    const budgetValue = parseFloat(budget.replace(/[^0-9.]/g, ''));
+    if (budgetValue > 10000) return 'bg-green-500';
+    if (budgetValue > 5000) return 'bg-orange-500';
+    return 'bg-yellow-500';
   }
   return 'bg-green-500';
 };
@@ -130,13 +125,18 @@ export default function Messages() {
           <h2 className="text-xl font-semibold text-zinc-800 dark:text-zinc-200">
             {category}
           </h2>
-          <hr className={`h-3 rounded ${getPriorityColor(category)}`} />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {msgs.map((msg) => (
               <div
                 key={msg._id}
                 className={`border dark:border-zinc-600 p-5 rounded transition-all bg-zinc-200 dark:bg-zinc-900 grid gap-4`}
               >
+                <hr
+                  className={`h-3 rounded ${getPriorityColor(
+                    msg.reason,
+                    msg.budget
+                  )}`}
+                />
                 <p className="text-lg">
                   <strong>From:</strong> {msg.userName} ({msg.userEmail})
                 </p>
