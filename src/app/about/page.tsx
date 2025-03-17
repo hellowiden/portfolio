@@ -7,7 +7,7 @@ import Image from 'next/image';
 export default function About() {
   return (
     <div id="about" className="w-full p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 place-items-center">
+      <div className="grid grid-cols-1 gap-6 place-items-center">
         <div className="w-full min-h-[500px] border dark:border-light rounded-xl relative overflow-hidden">
           <Image
             src="/adventure.jpg"
