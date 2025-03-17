@@ -107,7 +107,9 @@ export default function Messages() {
               <div
                 key={msg._id}
                 className={`border p-4 rounded-xl ${
-                  msg.budget && budgetPriority[msg.budget] === 'high'
+                  category === 'issues'
+                    ? 'bg-black text-white dark:bg-white dark:text-black'
+                    : msg.budget && budgetPriority[msg.budget] === 'high'
                     ? 'bg-red-100 dark:bg-red-900'
                     : msg.budget && budgetPriority[msg.budget] === 'medium'
                     ? 'bg-yellow-100 dark:bg-yellow-900'
