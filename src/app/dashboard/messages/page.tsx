@@ -24,10 +24,14 @@ const getPriorityColor = (reason: string, budget?: string) => {
     return 'bg-red-600';
   }
   if (lowerReason.includes('job') && budget) {
-    const budgetValue = parseFloat(budget.replace(/[^0-9.]/g, ''));
-    if (budgetValue > 10000) return 'bg-green-500';
-    if (budgetValue > 5000) return 'bg-orange-500';
-    return 'bg-yellow-500';
+    const budgetEnum: Record<string, string> = {
+      under_3000: 'bg-red-500',
+      '3000_4500': 'bg-orange-500',
+      '4500_6000': 'bg-yellow-500',
+      '6000_8000': 'bg-green-500',
+      '8000_plus': 'bg-blue-500',
+    };
+    return budgetEnum[budget] || 'bg-gray-500';
   }
   return 'bg-green-500';
 };
