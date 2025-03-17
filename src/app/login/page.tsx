@@ -32,7 +32,8 @@ export default function Login() {
       if (!result || result.error) {
         setError(result?.error || 'Invalid credentials');
       } else {
-        router.push('/');
+        router.replace('/');
+        router.refresh();
       }
     } catch {
       setError('Something went wrong');
