@@ -3,62 +3,62 @@
 export const brandingMessages = [
   {
     id: 1,
-    heading: 'Knowledge is Power',
+    heading: 'Wisdom Creates Wealth.',
     subtext:
-      'The most powerful advantage in business is not speed or scale—it’s understanding the game better than anyone else.',
+      'True success is not about chasing profits, but about mastering the principles that make wealth inevitable.',
   },
   {
     id: 2,
-    heading: 'Lead with Legacy',
+    heading: 'Lead with Insight, Not Instinct.',
     subtext:
-      'A true leader doesn’t just build an empire—they create a legacy that outlasts them.',
+      'The strongest businesses are built on deep understanding, not impulsive decisions. Strategy is the path to lasting success.',
   },
   {
     id: 3,
-    heading: 'Creating the Future',
+    heading: 'Master the Invisible Forces of Success.',
     subtext:
-      'The future belongs to those who dare to create what doesn’t yet exist.',
+      'The unseen principles of business—positioning, perception, and patience—shape fortunes more than any single action.',
   },
   {
     id: 4,
-    heading: 'Precision Wins',
+    heading: 'Stillness Precedes Strategy.',
     subtext:
-      'Success is not about doing everything—it’s about doing the right things at the right time with precision.',
+      'The wisest leaders do not rush. They observe, understand, and move only when the time is right.',
   },
   {
     id: 5,
-    heading: 'Turning Barriers into Steps',
+    heading: 'Control the Game, Not the Players.',
     subtext:
-      'Obstacles are not barriers; they are stepping stones for those willing to fight for success.',
+      'Influence does not come from force but from understanding the deeper currents that move markets and minds.',
   },
   {
     id: 6,
-    heading: 'Mastering the Game',
+    heading: 'Decisions Shape Destinies.',
     subtext:
-      'Business is not about luck—it’s about knowing the rules and playing them better than anyone else.',
+      'Every choice you make carves the future of your business. Make them with clarity, not chaos.',
   },
   {
     id: 7,
-    heading: 'Decisions Shape Destiny',
+    heading: 'The Market Rewards Clarity.',
     subtext:
-      'Every great business was built on a single decision—the courage to take the first step.',
+      'A brand that speaks with wisdom and confidence does not chase customers—customers seek it out.',
   },
   {
     id: 8,
-    heading: 'Vision Drives Success',
+    heading: 'Time is a Strategy.',
     subtext:
-      'Those who see beyond the present create the innovations that shape tomorrow.',
+      'The impatient fight battles. The wise position themselves to win the war before it begins.',
   },
   {
     id: 9,
-    heading: 'Empires Are Built Daily',
+    heading: 'Power Belongs to the Perceptive.',
     subtext:
-      'Success is not a one-time event—it’s the result of consistent, relentless execution.',
+      'The most successful businesses do not react to trends—they anticipate them before they emerge.',
   },
   {
     id: 10,
-    heading: 'Adapt or Be Left Behind',
+    heading: 'Enlightenment is Execution.',
     subtext:
-      'In business, survival belongs to those who embrace change before it’s forced upon them.',
+      'Understanding is not enough—true wisdom in business comes from aligning thought with deliberate action.',
   },
 ];

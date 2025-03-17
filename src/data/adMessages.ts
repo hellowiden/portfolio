@@ -3,62 +3,62 @@
 export const adMessages = [
   {
     id: 1,
-    heading: 'Power in Knowledge, Strength in Action.',
+    heading: 'Wisdom Creates Wealth.',
     subtext:
-      'Business success comes from understanding the landscape and making strategic moves before the competition does.',
+      'True success is not about chasing profits, but about mastering the principles that make wealth inevitable.',
   },
   {
     id: 2,
-    heading: 'Lead. Influence. Leave a Legacy.',
+    heading: 'Lead with Insight, Not Instinct.',
     subtext:
-      'The strongest brands are built on leadership, vision, and a commitment to long-term impact.',
+      'The strongest businesses are built on deep understanding, not impulsive decisions. Strategy is the path to lasting success.',
   },
   {
     id: 3,
-    heading: 'Invent the Future. Own the Market.',
+    heading: 'Master the Invisible Forces of Success.',
     subtext:
-      'Innovation is not just about new ideas—it’s about executing them before anyone else does.',
+      'The unseen principles of business—positioning, perception, and patience—shape fortunes more than any single action.',
   },
   {
     id: 4,
-    heading: 'Smart Moves. Sharp Results.',
+    heading: 'Stillness Precedes Strategy.',
     subtext:
-      'Success isn’t about doing more—it’s about making the right moves at the right time with absolute precision.',
+      'The wisest leaders do not rush. They observe, understand, and move only when the time is right.',
   },
   {
     id: 5,
-    heading: 'Turn Challenges into Wins.',
+    heading: 'Control the Game, Not the Players.',
     subtext:
-      'The best businesses don’t avoid obstacles—they use them as fuel for growth and innovation.',
+      'Influence does not come from force but from understanding the deeper currents that move markets and minds.',
   },
   {
     id: 6,
-    heading: 'Master the Game. Dominate the Market.',
+    heading: 'Decisions Shape Destinies.',
     subtext:
-      'Great businesses don’t leave success to chance—they understand the rules and rewrite them in their favor.',
+      'Every choice you make carves the future of your business. Make them with clarity, not chaos.',
   },
   {
     id: 7,
-    heading: 'Big Decisions. Bigger Impact.',
+    heading: 'The Market Rewards Clarity.',
     subtext:
-      'Every breakthrough starts with one bold decision. Step forward, take action, and shape your future.',
+      'A brand that speaks with wisdom and confidence does not chase customers—customers seek it out.',
   },
   {
     id: 8,
-    heading: 'See Beyond Today. Build for Tomorrow.',
+    heading: 'Time is a Strategy.',
     subtext:
-      'True leaders don’t just react to change—they create it and position themselves ahead of the curve.',
+      'The impatient fight battles. The wise position themselves to win the war before it begins.',
   },
   {
     id: 9,
-    heading: 'Consistency Builds Empires.',
+    heading: 'Power Belongs to the Perceptive.',
     subtext:
-      'Success isn’t a one-time achievement—it’s the result of strategic execution, day after day.',
+      'The most successful businesses do not react to trends—they anticipate them before they emerge.',
   },
   {
     id: 10,
-    heading: 'Evolve or Get Left Behind.',
+    heading: 'Enlightenment is Execution.',
     subtext:
-      'In business, those who embrace change before it happens are the ones who define the future.',
+      'Understanding is not enough—true wisdom in business comes from aligning thought with deliberate action.',
   },
 ];
