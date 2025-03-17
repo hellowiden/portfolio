@@ -115,7 +115,7 @@ export default function Messages() {
             {msgs.map((msg) => (
               <div
                 key={msg._id}
-                className={`border p-5 rounded transition-all bg-zinc-100 dark:bg-zinc-900 border-light dark:border-dark grid gap-4`}
+                className={`border dark:border-zinc-600 p-5 rounded transition-all bg-zinc-200 dark:bg-zinc-900 grid gap-4`}
               >
                 <p className="text-lg">
                   <strong>From:</strong> {msg.userName} ({msg.userEmail})
