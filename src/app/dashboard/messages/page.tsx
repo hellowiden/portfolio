@@ -107,20 +107,20 @@ export default function Messages() {
         Messages
       </h1>
       {Object.entries(messages).map(([category, msgs]) => (
-        <div key={category} className="mt-6">
-          <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-200 mb-4">
+        <div key={category} className="gap-6 grid">
+          <h2 className="text-xl font-semibold text-zinc-800 dark:text-zinc-200 gap-4 grid">
             {category}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {msgs.map((msg) => (
               <div
                 key={msg._id}
-                className={`border p-5 rounded-2xl shadow-md transition-all bg-zinc-100 dark:bg-zinc-900 border-light dark:border-dark grid gap-4`}
+                className={`border p-5 rounded transition-all bg-zinc-100 dark:bg-zinc-900 border-light dark:border-dark grid gap-4`}
               >
                 <p className="text-lg">
                   <strong>From:</strong> {msg.userName} ({msg.userEmail})
                 </p>
-                <p className="text-lg">
+                <p className="text-lg font-bold">
                   <strong>Message:</strong> {msg.message}
                 </p>
                 {msg.message.startsWith('http') && (
@@ -134,11 +134,11 @@ export default function Messages() {
                   </a>
                 )}
                 {msg.budget && (
-                  <p className="text-lg">
+                  <p className="text-lg font-bold">
                     <strong>Budget:</strong> {msg.budget}
                   </p>
                 )}
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="text text-zinc-500 dark:text-zinc-400">
                   {new Date(msg.createdAt).toLocaleString()}
                 </p>
                 <button
