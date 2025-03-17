@@ -69,7 +69,12 @@ const authOptions: NextAuthOptions = {
         password: { label: 'Password', type: 'password' },
       },
       async authorize(credentials) {
-        return authenticateUser(credentials);
+        try {
+          return await authenticateUser(credentials);
+        } catch (error) {
+          console.error('Authorization error:', error);
+          throw new Error('Invalid email or password');
+        }
       },
     }),
   ],
@@ -85,11 +90,13 @@ const authOptions: NextAuthOptions = {
       return token;
     },
     async session({ session, token }) {
-      session.user = { ...session.user, id: token.id, roles: token.roles };
+      if (token?.id) {
+        session.user = { ...session.user, id: token.id, roles: token.roles };
+      }
       return session;
     },
     async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : baseUrl;
+      return url.startsWith(baseUrl) ? url : '/';
     },
   },
 };
