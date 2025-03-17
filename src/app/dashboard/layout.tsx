@@ -50,27 +50,40 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* SIDEBAR / NAVBAR */}
       <aside
-        className={`grid ${
-          menuOpen ? 'grid-rows-[1fr]' : 'hidden'
-        } md:grid md:grid-rows-[1fr] md:grid-cols-[auto] w-full md:w-64 bg-zinc-200 dark:bg-zinc-800 border-r dark:border-zinc-700 p-4 absolute md:relative top-16 left-0 md:top-0 md:left-auto`}
+        className={`grid grid-rows-[1fr] md:grid-cols-[1fr] w-full md:w-64 bg-zinc-200 dark:bg-zinc-800 border-r dark:border-zinc-700 p-4 md:relative absolute top-16 left-0 md:top-0 md:left-auto ${
+          menuOpen ? 'block' : 'hidden md:grid'
+        }`}
       >
         <nav className="grid gap-2">
-          <NavItem href="/dashboard" label="Dashboard" pathname={pathname} />
-          <NavItem href="/dashboard/users" label="Users" pathname={pathname} />
+          <NavItem
+            href="/dashboard"
+            label="Dashboard"
+            pathname={pathname}
+            setMenuOpen={setMenuOpen}
+          />
+          <NavItem
+            href="/dashboard/users"
+            label="Users"
+            pathname={pathname}
+            setMenuOpen={setMenuOpen}
+          />
           <NavItem
             href="/dashboard/projects"
             label="Projects"
             pathname={pathname}
+            setMenuOpen={setMenuOpen}
           />
           <NavItem
             href="/dashboard/messages"
             label="Messages"
             pathname={pathname}
+            setMenuOpen={setMenuOpen}
           />
           <NavItem
             href="/dashboard/experiences"
             label="Experiences"
             pathname={pathname}
+            setMenuOpen={setMenuOpen}
           />
         </nav>
       </aside>
@@ -85,13 +98,16 @@ const NavItem = ({
   href,
   label,
   pathname,
+  setMenuOpen,
 }: {
   href: string;
   label: string;
   pathname: string;
+  setMenuOpen: (open: boolean) => void;
 }) => (
   <Link
     href={href}
+    onClick={() => setMenuOpen(false)}
     className={`px-2 py-1 rounded ${
       pathname === href
         ? 'bg-zinc-300 dark:bg-zinc-700'
