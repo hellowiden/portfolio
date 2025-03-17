@@ -103,7 +103,7 @@ export default function UsersPage() {
         />
         <button
           onClick={() => setAddUserModalState(true)}
-          className="bg-green-500 dark:bg-green-600 text-white px-4 py-2 rounded"
+          className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition hover:underline"
         >
           Add User
         </button>
@@ -166,7 +166,7 @@ export default function UsersPage() {
                 <td className="border border-light dark:border-dark p-3 text-center">
                   <button
                     onClick={() => handleEdit(user)}
-                    className="bg-green-500 dark:bg-green-600 text-white px-3 py-1 rounded mr-2"
+                    className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition hover:underline"
                   >
                     Edit
                   </button>
