@@ -44,20 +44,33 @@ export default function Messages() {
     }
   }, [status, isAdmin, router]);
 
-  const [messages, setMessages] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Record<string, Message[]>>({});
 
   const fetchMessages = useCallback(async () => {
     try {
       const res = await fetch('/api/messages');
       if (!res.ok) throw new Error('Failed to fetch messages');
       const data = await res.json();
-      const sortedMessages = data.messages.sort((a: Message, b: Message) => {
-        return (
-          ((budgetPriority[b.budget] || 'low') === 'high' ? 1 : -1) -
-          ((budgetPriority[a.budget] || 'low') === 'high' ? 1 : -1)
+
+      const categorizedMessages = data.messages.reduce(
+        (acc: Record<string, Message[]>, msg: Message) => {
+          if (!acc[msg.reason]) {
+            acc[msg.reason] = [];
+          }
+          acc[msg.reason].push(msg);
+          return acc;
+        },
+        {}
+      );
+
+      Object.keys(categorizedMessages).forEach((category: string) => {
+        categorizedMessages[category].sort(
+          (a: Message, b: Message) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         );
       });
-      setMessages(sortedMessages);
+
+      setMessages(categorizedMessages);
     } catch (error) {
       console.error('Error fetching messages:', error);
     }
@@ -74,9 +87,7 @@ export default function Messages() {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Failed to delete message');
-      setMessages((prevMessages) =>
-        prevMessages.filter((msg) => msg._id !== messageId)
-      );
+      fetchMessages();
     } catch (error) {
       console.error('Error deleting message:', error);
     }
@@ -88,52 +99,54 @@ export default function Messages() {
   return (
     <div className="grid gap-4">
       <h1 className="text-2xl font-bold">Messages</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {messages.map((msg) => (
-          <div
-            key={msg._id}
-            className={`border p-4 rounded-xl ${
-              budgetPriority[msg.budget] === 'high'
-                ? 'bg-red-100 dark:bg-red-900'
-                : budgetPriority[msg.budget] === 'medium'
-                ? 'bg-yellow-100 dark:bg-yellow-900'
-                : 'bg-green-100 dark:bg-green-900'
-            } border-light dark:border-dark grid gap-2`}
-          >
-            <p>
-              <strong>From:</strong> {msg.userName} ({msg.userEmail})
-            </p>
-            <p>
-              <strong>Message:</strong> {msg.message}
-            </p>
-            {msg.message.startsWith('http') && (
-              <a
-                href={msg.message}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 dark:text-blue-400 underline"
+      {Object.entries(messages).map(([category, msgs]: [string, Message[]]) => (
+        <div key={category}>
+          <h2 className="text-xl font-semibold mt-4">{category}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {msgs.map((msg: Message) => (
+              <div
+                key={msg._id}
+                className={`border p-4 rounded-xl ${
+                  budgetPriority[msg.budget] === 'high'
+                    ? 'bg-red-100 dark:bg-red-900'
+                    : budgetPriority[msg.budget] === 'medium'
+                    ? 'bg-yellow-100 dark:bg-yellow-900'
+                    : 'bg-green-100 dark:bg-green-900'
+                } border-light dark:border-dark grid gap-2`}
               >
-                View Attachment
-              </a>
-            )}
-            <p>
-              <strong>Budget:</strong> {msg.budget}
-            </p>
-            <p>
-              <strong>Category:</strong> {msg.reason}
-            </p>
-            <p className="text-sm text-zinc-500 dark:text-zinc-400">
-              {new Date(msg.createdAt).toLocaleString()}
-            </p>
-            <button
-              onClick={() => handleDeleteMessage(msg._id)}
-              className="bg-red-600 text-white px-3 py-1 rounded mt-2"
-            >
-              Delete Message
-            </button>
+                <p>
+                  <strong>From:</strong> {msg.userName} ({msg.userEmail})
+                </p>
+                <p>
+                  <strong>Message:</strong> {msg.message}
+                </p>
+                {msg.message.startsWith('http') && (
+                  <a
+                    href={msg.message}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 dark:text-blue-400 underline"
+                  >
+                    View Attachment
+                  </a>
+                )}
+                <p>
+                  <strong>Budget:</strong> {msg.budget}
+                </p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                  {new Date(msg.createdAt).toLocaleString()}
+                </p>
+                <button
+                  onClick={() => handleDeleteMessage(msg._id)}
+                  className="bg-red-600 text-white px-3 py-1 rounded mt-2"
+                >
+                  Delete Message
+                </button>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      ))}
     </div>
   );
 }
