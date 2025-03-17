@@ -32,50 +32,50 @@ export default function About() {
             className="grid gap-4"
           >
             <h1 className="text-3xl font-medium text-zinc-900 dark:text-zinc-50">
-              Why me?
+              Why Me?
             </h1>
             <p>
-              <strong>Because informed strategy fuels enduring success.</strong>
+              <strong>
+                Because clarity is rare, and strategy is everything.
+              </strong>
             </p>
             <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
-              With deep strategic insight and a decade of experience leading
-              500+ global projects, I’ve learned that the strongest brands don’t
-              demand attention—they earn trust, inspire action, and evolve with
-              their audience. By blending data-driven wisdom with creative
-              vision, my strategies have driven $7.5 billion in revenue growth,
-              increased customer retention by 25%, and consistently delivered a
-              20% sales boost. Every brand has a story. I help shape the ones
-              that last.
+              In a world where most chase noise, I focus on what lasts. I don’t
+              build brands to go viral—I build them to endure. With over a
+              decade of guiding 500+ global projects, I’ve learned one truth:
+              the strongest brands don’t fight for attention. They earn trust,
+              command influence, and move with precision.
               <br />
               <br />
-              Strong brands don’t chase trends—they shape the future. I help
-              organizations carve out their place as industry leaders through
-              strategic branding, intuitive UX/UI design, and campaigns that
-              redefine markets. By merging deep market insight with bold
-              creativity, I focus on influence, perception, and meaningful
-              differentiation. The result? A brand that doesn’t just stand out
-              but stands the test of time.
+              My approach isn’t about hype—it’s about understanding. Through
+              deep strategic insight and a relentless focus on human behavior,
+              my work has driven $7.5 billion in revenue growth, increased
+              customer retention by 25%, and consistently delivered a 20% sales
+              boost. But numbers only tell part of the story. Real success isn’t
+              measured in short-term wins—it’s in the relationships brands build
+              and the loyalty they sustain.
               <br />
               <br />
-              My approach blends analysis with vision. I turn complexity into
-              clarity and brand potential into measurable impact. Executives
-              rely on me to decode market shifts, distill insights, and navigate
-              change with confidence. With a strategic yet creative mindset, I
-              design brands that don’t just attract attention—they forge lasting
-              connections and inspire action.
+              I don’t sell illusions. I translate complexity into clarity,
+              uncertainty into confidence. While others react to trends, I focus
+              on timeless positioning, intuitive UX/UI, and brand strategies
+              that carve out market leadership. My process is simple: I listen,
+              I analyze, and I execute with precision. No fluff, no ego—just
+              results.
               <br />
               <br />
-              Brand success isn’t just about growth—it’s about endurance. I draw
-              from history, philosophy, and human behavior to craft strategies
-              that stand the test of time. Partnering with me isn’t just about
-              branding; it’s about gaining lasting influence and a true
-              competitive edge.
+              Business isn’t about chasing what’s next. It’s about shaping
+              what’s inevitable. I draw from history, philosophy, and human
+              behavior to craft strategies that outlast trends, outthink
+              competitors, and outmaneuver uncertainty. Partnering with me isn’t
+              just about branding—it’s about seeing the game for what it is and
+              playing it to win.
             </p>
             <Link
               href="/contact"
               className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed"
             >
-              Let’s build a brand that becomes indispensable.
+              If you seek strategy, let’s talk.
             </Link>
           </motion.div>
         </motion.section>
