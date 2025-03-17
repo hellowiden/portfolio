@@ -18,21 +18,15 @@ interface Message {
   budget?: string;
 }
 
-const budgetPriority: Record<string, string> = {
-  '8000_plus': 'high',
-  '6000_8000': 'medium',
-  '4500_6000': 'medium',
-  '3000_4500': 'low',
-  under_3000: 'low',
-};
-
 export default function Messages() {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const [messages, setMessages] = useState<Record<string, Message[]>>({});
+  const [loading, setLoading] = useState(false);
 
   const isAdmin = useMemo(
     () => session?.user?.roles.includes('admin'),
-    [session]
+    [session?.user?.roles]
   );
 
   useEffect(() => {
@@ -44,19 +38,16 @@ export default function Messages() {
     }
   }, [status, isAdmin, router]);
 
-  const [messages, setMessages] = useState<Record<string, Message[]>>({});
-
-  const fetchMessages = useCallback(async () => {
+  const fetchMessages = useCallback(async (signal?: AbortSignal) => {
+    setLoading(true);
     try {
-      const res = await fetch('/api/messages');
+      const res = await fetch('/api/messages', { signal });
       if (!res.ok) throw new Error('Failed to fetch messages');
       const data = await res.json();
 
       const categorizedMessages = data.messages.reduce(
         (acc: Record<string, Message[]>, msg: Message) => {
-          if (!acc[msg.reason]) {
-            acc[msg.reason] = [];
-          }
+          if (!acc[msg.reason]) acc[msg.reason] = [];
           acc[msg.reason].push(msg);
           return acc;
         },
@@ -72,12 +63,18 @@ export default function Messages() {
 
       setMessages(categorizedMessages);
     } catch (error) {
-      console.error('Error fetching messages:', error);
+      if (error instanceof Error && error.name !== 'AbortError')
+        console.error('Error fetching messages:', error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
   useEffect(() => {
-    if (isAdmin) fetchMessages();
+    if (!isAdmin) return;
+    const abortController = new AbortController();
+    fetchMessages(abortController.signal);
+    return () => abortController.abort();
   }, [isAdmin, fetchMessages]);
 
   const handleDeleteMessage = async (messageId: string) => {
@@ -87,13 +84,21 @@ export default function Messages() {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Failed to delete message');
-      fetchMessages();
+      setMessages((prev) => {
+        const updated = { ...prev };
+        Object.keys(updated).forEach((category) => {
+          updated[category] = updated[category].filter(
+            (msg) => msg._id !== messageId
+          );
+        });
+        return updated;
+      });
     } catch (error) {
       console.error('Error deleting message:', error);
     }
   };
 
-  if (status === 'loading') return <p>Loading...</p>;
+  if (status === 'loading' || loading) return <p>Loading...</p>;
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
@@ -101,24 +106,16 @@ export default function Messages() {
       <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
         Messages
       </h1>
-      {Object.entries(messages).map(([category, msgs]: [string, Message[]]) => (
+      {Object.entries(messages).map(([category, msgs]) => (
         <div key={category} className="mt-6">
           <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-200 mb-4">
             {category}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {msgs.map((msg: Message) => (
+            {msgs.map((msg) => (
               <div
                 key={msg._id}
-                className={`border p-5 rounded-2xl shadow-md transition-all ${
-                  category === 'issues'
-                    ? 'bg-black text-white dark:bg-white dark:text-black'
-                    : msg.budget && budgetPriority[msg.budget] === 'high'
-                    ? 'bg-red-100 dark:bg-red-900'
-                    : msg.budget && budgetPriority[msg.budget] === 'medium'
-                    ? 'bg-yellow-100 dark:bg-yellow-900'
-                    : 'bg-green-100 dark:bg-green-900'
-                } border-light dark:border-dark grid gap-4`}
+                className={`border p-5 rounded-2xl shadow-md transition-all bg-zinc-100 dark:bg-zinc-900 border-light dark:border-dark grid gap-4`}
               >
                 <p className="text-lg">
                   <strong>From:</strong> {msg.userName} ({msg.userEmail})
