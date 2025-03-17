@@ -163,7 +163,7 @@ export default function UsersPage() {
                 <td className="border border-light dark:border-dark p-3">
                   {new Date(user.updatedAt).toLocaleString()}
                 </td>
-                <td className="border border-light dark:border-dark p-3 text-center">
+                <td className="grid gap-2 border border-light dark:border-dark p-3 text-center">
                   <button
                     onClick={() => handleEdit(user)}
                     className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition hover:underline"
