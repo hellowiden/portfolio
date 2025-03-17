@@ -3,11 +3,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
+export const config = {
+  matcher: ['/', '/dashboard/:path*', '/about', '/experiences/:path*'],
+};
+
 export async function middleware(req: NextRequest) {
+  // Exclude API routes
+  if (req.nextUrl.pathname.startsWith('/api')) {
+    return NextResponse.next();
+  }
+
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
   // Redirect to home if user is logged in and trying to access login
-  if (token && req.nextUrl.pathname === '/login') {
+  if (token && req.nextUrl.pathname.startsWith('/login')) {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
@@ -20,7 +29,3 @@ export async function middleware(req: NextRequest) {
 
   return NextResponse.next();
 }
-
-export const config = {
-  matcher: ['/', '/dashboard/:path*', '/about', '/experiences/:path*'],
-};
