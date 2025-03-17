@@ -97,16 +97,20 @@ export default function Messages() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="grid gap-4">
-      <h1 className="text-2xl font-bold">Messages</h1>
+    <div className="grid gap-6 p-6">
+      <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
+        Messages
+      </h1>
       {Object.entries(messages).map(([category, msgs]: [string, Message[]]) => (
-        <div key={category}>
-          <h2 className="text-xl font-semibold mt-4">{category}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div key={category} className="mt-6">
+          <h2 className="text-2xl font-semibold text-zinc-800 dark:text-zinc-200 mb-4">
+            {category}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {msgs.map((msg: Message) => (
               <div
                 key={msg._id}
-                className={`border p-4 rounded-xl ${
+                className={`border p-5 rounded-2xl shadow-md transition-all ${
                   category === 'issues'
                     ? 'bg-black text-white dark:bg-white dark:text-black'
                     : msg.budget && budgetPriority[msg.budget] === 'high'
@@ -114,12 +118,12 @@ export default function Messages() {
                     : msg.budget && budgetPriority[msg.budget] === 'medium'
                     ? 'bg-yellow-100 dark:bg-yellow-900'
                     : 'bg-green-100 dark:bg-green-900'
-                } border-light dark:border-dark grid gap-2`}
+                } border-light dark:border-dark grid gap-4`}
               >
-                <p>
+                <p className="text-lg">
                   <strong>From:</strong> {msg.userName} ({msg.userEmail})
                 </p>
-                <p>
+                <p className="text-lg">
                   <strong>Message:</strong> {msg.message}
                 </p>
                 {msg.message.startsWith('http') && (
@@ -133,7 +137,7 @@ export default function Messages() {
                   </a>
                 )}
                 {msg.budget && (
-                  <p>
+                  <p className="text-lg">
                     <strong>Budget:</strong> {msg.budget}
                   </p>
                 )}
@@ -142,7 +146,7 @@ export default function Messages() {
                 </p>
                 <button
                   onClick={() => handleDeleteMessage(msg._id)}
-                  className="bg-red-600 text-white px-3 py-1 rounded mt-2"
+                  className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition"
                 >
                   Delete Message
                 </button>
