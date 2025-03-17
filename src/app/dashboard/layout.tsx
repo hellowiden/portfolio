@@ -36,9 +36,9 @@ export default function Layout({ children }: LayoutProps) {
   if (!isAdmin) return null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] h-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white gap-4">
+    <div className="grid grid-rows-[auto_1fr] md:grid-cols-[auto_1fr] h-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white gap-4">
       {/* MOBILE NAVIGATION */}
-      <div className="md:hidden flex justify-between items-center p-4 bg-zinc-200 dark:bg-zinc-800 border-b dark:border-zinc-700">
+      <div className="grid md:hidden grid-cols-[1fr_auto] items-center p-4 bg-zinc-200 dark:bg-zinc-800 border-b dark:border-zinc-700">
         <h2 className="text-xl font-bold">Admin Dashboard</h2>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
@@ -50,9 +50,9 @@ export default function Layout({ children }: LayoutProps) {
 
       {/* SIDEBAR / NAVBAR */}
       <aside
-        className={`${
-          menuOpen ? 'block' : 'hidden'
-        } md:flex flex-col gap-4 w-full md:w-64 bg-zinc-200 dark:bg-zinc-800 border-r dark:border-zinc-700 p-4 absolute md:relative top-16 left-0 md:top-0 md:left-auto`}
+        className={`grid ${
+          menuOpen ? 'grid-rows-[1fr]' : 'hidden'
+        } md:grid md:grid-rows-[1fr] md:grid-cols-[auto] w-full md:w-64 bg-zinc-200 dark:bg-zinc-800 border-r dark:border-zinc-700 p-4 absolute md:relative top-16 left-0 md:top-0 md:left-auto`}
       >
         <nav className="grid gap-2">
           <NavItem href="/dashboard" label="Dashboard" pathname={pathname} />
@@ -76,7 +76,7 @@ export default function Layout({ children }: LayoutProps) {
       </aside>
 
       {/* MAIN CONTENT */}
-      <main className="p-4">{children}</main>
+      <main className="grid p-4">{children}</main>
     </div>
   );
 }
