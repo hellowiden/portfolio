@@ -11,11 +11,11 @@ interface Message {
   userName: string;
   userEmail: string;
   message: string;
-  budget: string;
   reason: string;
   response: string;
   isResolved: boolean;
   createdAt: string;
+  budget?: string;
 }
 
 const budgetPriority: Record<string, string> = {
@@ -107,9 +107,9 @@ export default function Messages() {
               <div
                 key={msg._id}
                 className={`border p-4 rounded-xl ${
-                  budgetPriority[msg.budget] === 'high'
+                  msg.budget && budgetPriority[msg.budget] === 'high'
                     ? 'bg-red-100 dark:bg-red-900'
-                    : budgetPriority[msg.budget] === 'medium'
+                    : msg.budget && budgetPriority[msg.budget] === 'medium'
                     ? 'bg-yellow-100 dark:bg-yellow-900'
                     : 'bg-green-100 dark:bg-green-900'
                 } border-light dark:border-dark grid gap-2`}
@@ -130,9 +130,11 @@ export default function Messages() {
                     View Attachment
                   </a>
                 )}
-                <p>
-                  <strong>Budget:</strong> {msg.budget}
-                </p>
+                {msg.budget && (
+                  <p>
+                    <strong>Budget:</strong> {msg.budget}
+                  </p>
+                )}
                 <p className="text-sm text-zinc-500 dark:text-zinc-400">
                   {new Date(msg.createdAt).toLocaleString()}
                 </p>
