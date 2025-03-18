@@ -2,6 +2,7 @@
 
 'use client';
 
+import { useState } from 'react';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -12,6 +13,9 @@ export default function Header() {
   const { data: session, status } = useSession();
   const isAuthenticated = status === 'authenticated';
   const isAdmin = isAuthenticated && session?.user?.roles?.includes('admin');
+
+  // Hover state for each button
+  const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
   return (
     <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-zinc-200 dark:border-zinc-800 backdrop-blur-md bg-white/80 dark:bg-black/70">
@@ -26,14 +30,17 @@ export default function Header() {
           <>
             {isAdmin && (
               <Link href="/dashboard">
-                <button className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 dark:text-white sm:gap-2">
+                <button
+                  onMouseEnter={() => setHoveredButton('dashboard')}
+                  onMouseLeave={() => setHoveredButton(null)}
+                  className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 dark:text-white sm:gap-2"
+                >
                   <motion.div
-                    key="dashboard"
+                    key={hoveredButton === 'dashboard' ? 'hover' : 'dashboard'}
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
-                    whileHover={{ scale: 1.2, rotate: 10 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ duration: 0.3 }}
                   >
                     <FiGrid className="text-lg" />
                   </motion.div>
@@ -43,14 +50,17 @@ export default function Header() {
             )}
 
             <Link href="/profile">
-              <button className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2">
+              <button
+                onMouseEnter={() => setHoveredButton('profile')}
+                onMouseLeave={() => setHoveredButton(null)}
+                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+              >
                 <motion.div
-                  key="profile"
+                  key={hoveredButton === 'profile' ? 'hover' : 'profile'}
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
-                  whileHover={{ scale: 1.2, rotate: 10 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.3 }}
                 >
                   <FiUser className="text-lg" />
                 </motion.div>
@@ -65,15 +75,16 @@ export default function Header() {
             onClick={() =>
               isAuthenticated ? signOut({ callbackUrl: '/' }) : signIn()
             }
+            onMouseEnter={() => setHoveredButton('auth')}
+            onMouseLeave={() => setHoveredButton(null)}
             className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
           >
             <motion.div
-              key="auth"
+              key={hoveredButton === 'auth' ? 'hover' : 'auth'}
               initial={{ rotate: -90, opacity: 0 }}
               animate={{ rotate: 0, opacity: 1 }}
               exit={{ rotate: 90, opacity: 0 }}
-              whileHover={{ scale: 1.2, rotate: 10 }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.3 }}
             >
               {isAuthenticated ? (
                 <FiLogOut className="text-lg" />
