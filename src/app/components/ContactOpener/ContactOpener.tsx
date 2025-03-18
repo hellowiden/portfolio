@@ -8,38 +8,34 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiMail } from 'react-icons/fi';
 
-interface ContactOpenerProps {
-  title?: string;
-  description?: string;
-}
-
-export default function ContactOpener({
-  title = 'Get in Touch',
-  description = 'Reach out to discuss projects, collaborations, or any inquiries.',
-}: ContactOpenerProps) {
+export default function ContactOpener() {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <section
-      className="border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid"
+      className="border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid h-[300px] md:h-[400px] lg:h-[500px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <Image
         src="/issues.jpg"
-        alt={title}
+        alt="Get in Touch"
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
         className="absolute inset-0 object-cover"
         priority
       />
 
-      {isHovered ? (
-        <div className="relative bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid gap-4">
+      <h1 className="absolute inset-0 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+        Get in Touch
+      </h1>
+
+      {isHovered && (
+        <div className="absolute inset-0 bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid gap-4">
           <div className="flex justify-between items-center">
             <h1 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
-              {title}
+              Get in Touch
             </h1>
 
             <button
@@ -65,14 +61,10 @@ export default function ContactOpener({
               Let&apos;s Connect
             </h2>
             <p className="opacity-80 tracking-wide max-w-[900px] text-zinc-700 dark:text-zinc-300">
-              {description}
+              Reach out to discuss projects, collaborations, or any inquiries.
             </p>
           </div>
         </div>
-      ) : (
-        <h1 className="absolute inset-0 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-          Get in Touch
-        </h1>
       )}
     </section>
   );
