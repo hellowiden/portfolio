@@ -14,7 +14,7 @@ export default function ExperienceOpener() {
 
   return (
     <section
-      className="border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid h-[300px] md:h-[400px] lg:h-[500px]"
+      className="border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid h-[300px] md:h-[300px] lg:h-[300px]"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
