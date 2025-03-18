@@ -14,7 +14,7 @@ export default function ProjectOpener() {
 
   return (
     <section
-      className="border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid h-[300px] md:h-[300px] lg:h-[300px]"
+      className="border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid h-[300px] md:h-[300px] lg:h-[300px] place-items-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -23,18 +23,18 @@ export default function ProjectOpener() {
         alt="My Projects"
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
-        className="absolute inset-0 object-cover"
+        className="object-cover w-full h-full col-start-1 row-start-1"
         priority
       />
 
       {!isHovered && (
-        <h1 className="absolute underline underline-offset-4 inset-0 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+        <h1 className="underline underline-offset-4 col-start-1 row-start-1 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white">
           My Projects
         </h1>
       )}
 
       {isHovered && (
-        <div className="absolute inset-0 bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid gap-4">
+        <div className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid gap-4 col-start-1 row-start-1 w-full h-full">
           <div className="flex justify-between items-center">
             <h1 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
               My Projects
