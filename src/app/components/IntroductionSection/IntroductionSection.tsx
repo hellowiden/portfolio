@@ -53,7 +53,7 @@ export default function IntroductionSection() {
           <h1 className="text-xl font-medium">Marcus Widén</h1>
         </div>
 
-        <div
+        <button
           className="grid grid-cols-[auto_1fr] items-center px-2 py-2 text-sm border dark:border-zinc-600 rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 sm:gap-2"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -70,7 +70,7 @@ export default function IntroductionSection() {
           <Link href="/about" className="ml-2">
             About me
           </Link>
-        </div>
+        </button>
 
         <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
           <motion.h2
