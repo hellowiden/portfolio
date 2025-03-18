@@ -8,18 +8,22 @@ export const config = {
 };
 
 export async function middleware(req: NextRequest) {
-  // Exclude API routes
   if (req.nextUrl.pathname.startsWith('/api')) {
     return NextResponse.next();
   }
 
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  // Redirect to home if user is logged in and trying to access login
-  if (token && req.nextUrl.pathname.startsWith('/login')) {
+  // Om användaren är inloggad, blockera åtkomst till "/login" och "/register"
+  if (
+    token &&
+    (req.nextUrl.pathname.startsWith('/login') ||
+      req.nextUrl.pathname.startsWith('/register'))
+  ) {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
+  // Om användaren INTE är inloggad, blockera skyddade sidor
   if (
     !token &&
     config.matcher.some((route) => req.nextUrl.pathname.startsWith(route))
