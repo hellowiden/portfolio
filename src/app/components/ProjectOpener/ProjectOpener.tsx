@@ -27,9 +27,11 @@ export default function ProjectOpener() {
         priority
       />
 
-      <h1 className="absolute underline underline-offset-4 inset-0 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white">
-        My Projects
-      </h1>
+      {!isHovered && (
+        <h1 className="absolute underline underline-offset-4 inset-0 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+          My Projects
+        </h1>
+      )}
 
       {isHovered && (
         <div className="absolute inset-0 bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid gap-4">
