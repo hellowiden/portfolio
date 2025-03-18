@@ -28,7 +28,7 @@ export default function ProjectOpener() {
       />
 
       {!isHovered && (
-        <h1 className="underline underline-offset-4 col-start-1 row-start-1 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+        <h1 className="underline underline-offset-4 col-start-1 row-start-1 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10">
           My Projects
         </h1>
       )}
