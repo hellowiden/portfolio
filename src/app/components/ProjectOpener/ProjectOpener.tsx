@@ -4,7 +4,9 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { FiFolder } from 'react-icons/fi';
 
 interface ProjectOpenerProps {
   title?: string;
@@ -15,6 +17,8 @@ export default function ProjectOpener({
   title = 'My Projects',
   description = 'Take a look at my most recent projects and let that become proof of what you can expect from me.',
 }: ProjectOpenerProps) {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <section className="border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid">
       <Image
@@ -31,11 +35,23 @@ export default function ProjectOpener({
           <h1 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
             {title}
           </h1>
-          <Link
-            href="/projects"
-            className="grid items-center p-2 text-sm border dark:border-zinc-600 rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white "
-          >
-            View Projects
+          <Link href="/projects">
+            <button
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+            >
+              <motion.div
+                key={isHovered ? 'hover' : 'projects'}
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <FiFolder className="text-lg" />
+              </motion.div>
+              <span className="hidden sm:inline">View Projects</span>
+            </button>
           </Link>
         </div>
 
