@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
+import { FiFileText } from 'react-icons/fi';
 import { brandingMessages } from './../../../data/brandingMessages';
 
 const messages = brandingMessages;
@@ -13,6 +14,7 @@ const messages = brandingMessages;
 export default function IntroductionSection() {
   const [messageIndex, setMessageIndex] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -51,18 +53,23 @@ export default function IntroductionSection() {
           <h1 className="text-xl font-medium">Marcus Widén</h1>
         </div>
 
-        <div className="grid items-center px-2 text-sm border dark:border-zinc-600 rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white ">
-          <Link href="/about">About me</Link>
-
-          {/* 
-<Link
-  href="/resume.pdf"
-  download
-  className="grid place-items-center text-black/60 dark:text-white/50 rounded hover:text-opacity-80 dark:hover:text-opacity-80 transition"
->
-  Download resume
-</Link> 
-*/}
+        <div
+          className="grid grid-cols-[auto_1fr] items-center px-2 py-2 text-sm border dark:border-zinc-600 rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 sm:gap-2"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <motion.div
+            key={isHovered ? 'hover' : 'about'}
+            initial={{ rotate: -90, opacity: 0 }}
+            animate={{ rotate: 0, opacity: 1 }}
+            exit={{ rotate: 90, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <FiFileText className="text-lg" />
+          </motion.div>
+          <Link href="/about" className="ml-2">
+            About me
+          </Link>
         </div>
 
         <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
