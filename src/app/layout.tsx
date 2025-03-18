@@ -11,7 +11,9 @@ import Header from '@/app/components/Header/Header';
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
+  display: 'swap',
   weight: ['300', '400', '500', '700'],
+  variable: '--font-space-grotesk',
 });
 
 export const metadata: Metadata = {
@@ -26,15 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={`${spaceGrotesk.className} !scroll-smooth grid min-h-screen grid-rows-[auto_1fr_auto] backdrop-blur-md bg-white dark:bg-black text-zinc-900 dark:text-zinc-100`}
-      >
+    <html lang="en" className={spaceGrotesk.variable}>
+      <body className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-white dark:bg-black text-zinc-900 dark:text-zinc-100">
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-
-            {children}
+            <div className="backdrop-blur-md">{children}</div>
             <Footer />
           </AuthProvider>
         </ThemeContextProvider>
