@@ -3,15 +3,16 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import Link from 'next/link';
 import { FiFileText } from 'react-icons/fi';
 import { brandingMessages } from './../../../data/brandingMessages';
 
 const messages = brandingMessages;
 
 export default function IntroductionSection() {
+  const router = useRouter();
   const [messageIndex, setMessageIndex] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [isHovered, setIsHovered] = useState(false);
@@ -55,6 +56,7 @@ export default function IntroductionSection() {
 
         <button
           className="grid grid-cols-[auto_1fr] items-center px-2 py-2 text-sm border dark:border-zinc-600 rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 sm:gap-2"
+          onClick={() => router.push('/about')}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
@@ -67,9 +69,7 @@ export default function IntroductionSection() {
           >
             <FiFileText className="text-lg" />
           </motion.div>
-          <Link href="/about" className="ml-2">
-            About me
-          </Link>
+          <span className="ml-2">About me</span>
         </button>
 
         <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
