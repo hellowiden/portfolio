@@ -27,7 +27,7 @@ export default function ProjectOpener() {
         priority
       />
 
-      <h1 className="absolute inset-0 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white">
+      <h1 className="absolute underline underline-offset-4 inset-0 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white">
         My Projects
       </h1>
 
