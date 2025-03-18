@@ -3,7 +3,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FiBriefcase } from 'react-icons/fi';
@@ -17,6 +17,7 @@ export default function ExperienceOpener({
   title = 'My Experiences',
   description = 'Explore my professional journey and see how my experiences have shaped my expertise.',
 }: ExperienceOpenerProps) {
+  const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -35,24 +36,26 @@ export default function ExperienceOpener({
           <h1 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
             {title}
           </h1>
-          <Link href="/experiences">
-            <button
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+
+          {/* Fixed button for navigation */}
+          <button
+            onClick={() => router.push('/experiences')}
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+            aria-label="View Experiences"
+            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+          >
+            <motion.div
+              key={isHovered ? 'hover' : 'experiences'}
+              initial={{ rotate: -90, opacity: 0 }}
+              animate={{ rotate: 0, opacity: 1 }}
+              exit={{ rotate: 90, opacity: 0 }}
+              transition={{ duration: 0.3 }}
             >
-              <motion.div
-                key={isHovered ? 'hover' : 'experiences'}
-                initial={{ rotate: -90, opacity: 0 }}
-                animate={{ rotate: 0, opacity: 1 }}
-                exit={{ rotate: 90, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-              >
-                <FiBriefcase className="text-lg" />
-              </motion.div>
-              <span className="hidden sm:inline">View Experiences</span>
-            </button>
-          </Link>
+              <FiBriefcase className="text-lg" />
+            </motion.div>
+            <span className="hidden sm:inline">View Experiences</span>
+          </button>
         </div>
 
         <div>
