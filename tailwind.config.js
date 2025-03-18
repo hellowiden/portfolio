@@ -42,9 +42,11 @@ const tailwindConfig = {
         green: '#42D08B',
         red: '#D95254',
       },
+      fontFamily: {
+        sans: ['var(--font-space-grotesk)', 'sans-serif'],
+      },
     },
   },
-
   plugins: [],
   darkMode: 'class',
 };
