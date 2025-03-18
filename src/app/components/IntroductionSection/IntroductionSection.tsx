@@ -54,7 +54,7 @@ export default function IntroductionSection() {
         </div>
 
         <div
-          className="grid grid-cols-[auto_1fr] items-center px-2 py-2 text-sm border dark:border-zinc-600 rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 sm:gap-2"
+          className="grid grid-cols-[auto_1fr] items-center px-2 py-2 text-sm border border-zinc-400 dark:border-zinc-600 rounded transition backdrop-blur-md bg-white/60 dark:bg-black/60 text-black dark:text-white hover:bg-zinc-700/20 dark:hover:bg-zinc-500/20 sm:gap-2"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >
