@@ -30,7 +30,7 @@ export default function IntroductionSection() {
         Your browser does not support the video tag.
       </video>
 
-      <div className="grid gap-4">
+      <div className="grid gap-4 bg-slate-50 border-zinc-300 dark:border-zinc-600">
         <div className="grid gap-2 grid-cols-[min-content_1fr] items-center">
           <Image
             src="/MW.png"
