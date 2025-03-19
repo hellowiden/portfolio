@@ -83,10 +83,10 @@ export default function Profile() {
   };
 
   return (
-    <div>
+    <div className="grid gap-4 p-4">
       <ProfileAvatar name={formData.name} />
       <span>{formData.name}</span>
-      <form onSubmit={handleUpdate}>
+      <form onSubmit={handleUpdate} className="grid gap-4">
         <FormInput
           label="Name"
           type="text"
@@ -119,7 +119,7 @@ export default function Profile() {
         <Button
           type="submit"
           disabled={loading}
-          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+          className="grid items-center p-2 text-sm border rounded transition bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </Button>
@@ -127,7 +127,7 @@ export default function Profile() {
       <Button
         onClick={handleDeleteAccount}
         disabled={loading}
-        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+        className="grid items-center p-2 text-sm border rounded transition bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
       >
         {loading ? 'Processing...' : 'Remove Account'}
       </Button>
@@ -136,7 +136,7 @@ export default function Profile() {
 }
 
 const ProfileAvatar = memo(({ name }: { name: string }) => (
-  <div>
+  <div className="grid place-items-center">
     <span>{name ? name.charAt(0).toUpperCase() : '?'}</span>
   </div>
 ));
@@ -159,7 +159,7 @@ const FormInput = ({
   disabled?: boolean;
   readOnly?: boolean;
 }) => (
-  <div>
+  <div className="grid gap-2">
     <label htmlFor={name}>{label}</label>
     <input
       id={name}
@@ -170,6 +170,7 @@ const FormInput = ({
       disabled={disabled}
       readOnly={readOnly}
       aria-label={label}
+      className="p-2 border rounded"
     />
   </div>
 );
