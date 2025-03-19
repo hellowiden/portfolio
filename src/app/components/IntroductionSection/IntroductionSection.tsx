@@ -36,7 +36,10 @@ export default function IntroductionSection() {
           <h1>Marcus Widén</h1>
         </div>
 
-        <button onClick={() => router.push('/about')} className="grid gap-2">
+        <button
+          onClick={() => router.push('/about')}
+          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+        >
           <FiFileText />
           <span>About me</span>
         </button>
