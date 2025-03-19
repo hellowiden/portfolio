@@ -116,11 +116,19 @@ export default function Profile() {
           value={formData.newPassword}
           onChange={handleChange}
         />
-        <Button type="submit" disabled={loading}>
+        <Button
+          type="submit"
+          disabled={loading}
+          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+        >
           {loading ? 'Updating...' : 'Update Profile'}
         </Button>
       </form>
-      <Button onClick={handleDeleteAccount} disabled={loading}>
+      <Button
+        onClick={handleDeleteAccount}
+        disabled={loading}
+        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+      >
         {loading ? 'Processing...' : 'Remove Account'}
       </Button>
     </div>
@@ -171,13 +179,20 @@ const Button = ({
   children,
   disabled,
   type = 'button',
+  className,
 }: {
   onClick?: () => void;
   children: React.ReactNode;
   disabled: boolean;
   type?: 'button' | 'submit';
+  className?: string;
 }) => (
-  <button type={type} onClick={onClick} disabled={disabled}>
+  <button
+    type={type}
+    onClick={onClick}
+    disabled={disabled}
+    className={className}
+  >
     {children}
   </button>
 );
