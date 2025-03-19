@@ -25,7 +25,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-full border border-zinc-300 dark:border-zinc-600 rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-2 gap-4 relative"
+      className="w-full h-full border border-zinc-300 dark:border-zinc-600 rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-2 relative"
     >
       {/* Row 1: Video Background */}
       <div className="grid w-full h-full">
