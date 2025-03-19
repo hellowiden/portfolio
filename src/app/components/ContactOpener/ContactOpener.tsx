@@ -31,7 +31,7 @@ export default function ContactOpener() {
         {isHovered ? (
           <>
             <div className="grid grid-cols-[auto_1fr] items-center w-full max-w-[900px]">
-              <h1 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
+              <h1 className="text-xl font-medium text-black dark:text-black">
                 Get in Touch
               </h1>
               <button
@@ -52,7 +52,7 @@ export default function ContactOpener() {
               </button>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+              <h2 className="text-2xl font-bold text-black dark:text-black">
                 Let&apos;s Connect
               </h2>
               <p className="opacity-80 tracking-wide max-w-[900px] text-zinc-700 dark:text-zinc-300">
