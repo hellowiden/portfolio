@@ -28,32 +28,41 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] border border-zinc-300 dark:border-zinc-600 rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid items-end relative"
+      className="w-full h-[500px] border border-zinc-300 dark:border-zinc-600 rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-[auto_1fr] relative"
     >
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="w-full h-full block object-cover"
-      >
-        <source src="/ads.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+      {/* Row 1: Video Background + Image */}
+      <div className="grid w-full h-full">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover row-span-2"
+        >
+          <source src="/ads.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
 
-      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
-        <div className="grid grid-cols-[auto_1fr] items-center gap-3">
-          <Image
-            src="/MW.png"
-            alt="Marcus Widén"
-            width={50}
-            height={50}
-            className="rounded-xl border border-zinc-300 dark:border-zinc-700"
-            priority
-          />
-          <h1 className="text-xl font-medium">Marcus Widén</h1>
+        {/* Row 1 Content: Image & Name */}
+        <div className="grid place-items-center bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-4 w-full">
+          <div className="grid grid-cols-[auto_1fr] items-center gap-3">
+            <Image
+              src="/MW.png"
+              alt="Marcus Widén"
+              width={50}
+              height={50}
+              className="rounded-xl border border-zinc-300 dark:border-zinc-700"
+              priority
+            />
+            <h1 className="text-xl font-medium text-zinc-900 dark:text-white">
+              Marcus Widén
+            </h1>
+          </div>
         </div>
+      </div>
 
+      {/* Row 2: Main Content */}
+      <div className="grid place-items-start bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         <button
           className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
           onClick={() => router.push('/about')}
@@ -72,7 +81,7 @@ export default function IntroductionSection() {
           <span className="ml-2">About me</span>
         </button>
 
-        <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
+        <div className="grid gap-2 mt-4">
           <motion.h2
             key={messageIndex}
             className="text-3xl font-bold"
