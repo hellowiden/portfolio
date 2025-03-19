@@ -30,7 +30,7 @@ export default function ContactOpener() {
       <div className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm absolute inset-0" />
 
       {!isHovered && (
-        <h1 className="underline underline-offset-4 col-start-1 row-start-1 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-zinc-900 dark:text-zinc-100 z-10">
+        <h1 className="underline underline-offset-4 col-start-1 row-start-1 flex items-center justify-center text-xl font-bold text-zinc-900 dark:text-zinc-100 z-10">
           Get in Touch
         </h1>
       )}
