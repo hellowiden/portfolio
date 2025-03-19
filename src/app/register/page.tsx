@@ -57,7 +57,7 @@ export default function Register() {
   );
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x dark:border-light.border">
+    <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x dark:border-light">
       <div className="grid place-items-center bg-light-zinc-100 dark:bg-dark-zinc-800">
         <form
           onSubmit={handleSubmit}
