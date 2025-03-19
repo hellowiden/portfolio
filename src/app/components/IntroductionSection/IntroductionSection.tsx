@@ -37,7 +37,7 @@ export default function IntroductionSection() {
           loop
           muted
           playsInline
-          className="w-full h-[500px] object-cover row-span-2"
+          className="w-full h-[200px] object-cover row-span-2"
         >
           <source src="/ads.mp4" type="video/mp4" />
           Your browser does not support the video tag.
