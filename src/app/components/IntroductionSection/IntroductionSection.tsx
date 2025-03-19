@@ -28,7 +28,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] border border-zinc-300 dark:border-zinc-600 rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-[auto_1fr] relative"
+      className="w-full h-full border border-zinc-300 dark:border-zinc-600 rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-[auto_1fr] relative"
     >
       {/* Row 1: Video Background + Image */}
       <div className="grid w-full h-full">
@@ -59,10 +59,6 @@ export default function IntroductionSection() {
             </h1>
           </div>
         </div>
-      </div>
-
-      {/* Row 2: Main Content */}
-      <div className="grid place-items-start bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         <button
           className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
           onClick={() => router.push('/about')}
@@ -80,7 +76,10 @@ export default function IntroductionSection() {
           </motion.div>
           <span className="ml-2">About me</span>
         </button>
+      </div>
 
+      {/* Row 2: Main Content */}
+      <div className="grid place-items-start bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         <div className="grid gap-2 mt-4">
           <motion.h2
             key={messageIndex}
