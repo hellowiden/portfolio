@@ -30,7 +30,7 @@ export default function ContactOpener() {
       <div className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid gap-4 col-start-1 row-start-1 w-full h-full text-center place-items-center">
         {isHovered ? (
           <>
-            <div className="grid grid-cols-[1fr_auto] items-center w-full max-w-[900px]">
+            <div className="grid grid-cols-[1fr_auto] items-start w-full max-w-[900px]">
               <h1 className="text-xl font-medium text-black dark:text-black">
                 Get in Touch
               </h1>
