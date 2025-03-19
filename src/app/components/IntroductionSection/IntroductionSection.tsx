@@ -31,8 +31,14 @@ export default function IntroductionSection() {
       </video>
 
       <div className="grid gap-4">
-        <div className="grid gap-2">
-          <Image src="/MW.png" alt="Marcus Widén" width={50} height={50} />
+        <div className="grid gap-2 grid-cols-[min-content_1fr]">
+          <Image
+            src="/MW.png"
+            alt="Marcus Widén"
+            className="rounded-md border-zinc-300 dark:border-zinc-600"
+            width={50}
+            height={50}
+          />
           <h1>Marcus Widén</h1>
         </div>
 
