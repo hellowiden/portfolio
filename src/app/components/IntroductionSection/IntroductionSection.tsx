@@ -4,107 +4,88 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { FiFileText } from 'react-icons/fi';
-import { brandingMessages } from './../../../data/brandingMessages';
+import { brandingMessages } from '../../../data/brandingMessages';
 
 export default function IntroductionSection() {
   const router = useRouter();
   const [messageIndex, setMessageIndex] = useState(0);
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setMessageIndex((prevIndex) => (prevIndex + 1) % brandingMessages.length);
-    }, 15000);
-
+      setMessageIndex((prev) => (prev + 1) % brandingMessages.length);
+    }, 10000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <section
       id="home"
-      className="w-full h-full border border-zinc-300 dark:border-zinc-600 rounded-xl bg-cover bg-center overflow-hidden grid grid-rows-2 relative"
+      className="relative w-full h-screen flex flex-col items-center justify-center text-center overflow-hidden"
     >
-      {/* Row 1: Video Background */}
-      <div className="grid w-full h-full">
-        <video
-          autoPlay
-          loop
-          muted
-          className="w-full h-[200px] object-cover row-span-2"
-        >
-          <source src="/ads.mp4" type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      </div>
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        className="absolute top-0 left-0 w-full h-full object-cover opacity-40"
+      >
+        <source src="/ads.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
 
-      {/* Row 1 Content: Image & Button */}
-      <div className="grid grid-cols-3 gap-4 items-center bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-4 w-full">
-        {/* Column 1: Image & Name */}
-        <div className="grid grid-cols-[auto_1fr] items-center gap-3">
+      {/* Overlay */}
+      <div className="relative z-10 flex flex-col items-center gap-6 p-6 bg-white/80 dark:bg-zinc-900/80 backdrop-blur-lg rounded-xl shadow-xl">
+        {/* Profile */}
+        <div className="flex items-center gap-4">
           <Image
             src="/MW.png"
             alt="Marcus Widén"
-            width={50}
-            height={50}
-            className="rounded-xl border border-zinc-300 dark:border-zinc-700"
+            width={60}
+            height={60}
+            className="rounded-full border border-zinc-300 dark:border-zinc-700"
             priority
           />
-          <h1 className="text-xl font-medium text-zinc-900 dark:text-white">
+          <h1 className="text-2xl font-semibold text-zinc-900 dark:text-white">
             Marcus Widén
           </h1>
         </div>
 
-        {/* Column 3: Button */}
-        <button
-          className={`grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition 
-    text-black border-zinc-300 dark:text-white dark:border-zinc-600
-    ${
-      isHovered
-        ? 'bg-zinc-200 dark:bg-zinc-800'
-        : 'bg-zinc-100 dark:bg-zinc-700'
-    }
-  `}
-          onClick={() => router.push('/about')}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          <motion.div
-            key={isHovered ? 'hover' : 'about'}
-            initial={{ rotate: -90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: 90, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <FiFileText className="text-lg" />
-          </motion.div>
-          <span>About me</span>
-        </button>
-      </div>
-
-      {/* Row 2: Main Content */}
-      <div className="grid place-items-start bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
-        <div className="grid gap-4">
-          <motion.h2
-            className="text-3xl font-bold"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-          >
-            {brandingMessages[messageIndex].heading}
-          </motion.h2>
-
+        {/* Branding Messages */}
+        <div className="flex flex-col items-center">
+          <AnimatePresence mode="wait">
+            <motion.h2
+              key={messageIndex}
+              className="text-3xl font-bold text-zinc-900 dark:text-white"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.6 }}
+            >
+              {brandingMessages[messageIndex].heading}
+            </motion.h2>
+          </AnimatePresence>
           <motion.p
-            className="opacity-80 tracking-wide max-w-[900px]"
+            className="mt-2 max-w-lg text-lg text-zinc-700 dark:text-zinc-300"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
+            transition={{ duration: 0.6 }}
           >
             {brandingMessages[messageIndex].subtext}
           </motion.p>
         </div>
+
+        {/* CTA Button */}
+        <motion.button
+          className="mt-4 flex items-center gap-3 px-5 py-2 text-sm font-medium text-white bg-zinc-900 dark:bg-white dark:text-zinc-900 rounded-lg transition hover:bg-opacity-80"
+          onClick={() => router.push('/about')}
+          whileHover={{ scale: 1.05 }}
+        >
+          <FiFileText className="text-lg" />
+          <span>About Me</span>
+        </motion.button>
       </div>
     </section>
   );
