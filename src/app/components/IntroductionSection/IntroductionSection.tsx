@@ -28,36 +28,37 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="grid gap-4 w-full h-[500px] border-2 dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden"
+      className="w-full h-[500px] border-2 dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
     >
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="w-full h-auto object-cover"
+        className="absolute top-0 left-0 w-full h-full object-cover"
       >
         <source src="/ads.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div className="grid gap-4 p-6 bg-white/85 dark:bg-zinc-800/85 border border-zinc-300 dark:border-zinc-600 text-zinc-900 dark:text-white">
-        <div className="grid gap-2 grid-cols-[min-content_1fr] items-center">
+      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+        <div className="grid grid-cols-[auto_1fr] items-center gap-3">
           <Image
             src="/MW.png"
             alt="Marcus Widén"
-            className="rounded-xl border border-zinc-300 dark:border-zinc-700"
             width={50}
             height={50}
+            className="rounded-xl border border-zinc-300 dark:border-zinc-700"
+            priority
           />
           <h1 className="text-xl font-medium">Marcus Widén</h1>
         </div>
 
         <button
+          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
           onClick={() => router.push('/about')}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
         >
           <motion.div
             key={isHovered ? 'hover' : 'about'}
@@ -71,7 +72,7 @@ export default function IntroductionSection() {
           <span className="ml-2">About me</span>
         </button>
 
-        <div className="grid gap-2">
+        <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
           <motion.h2
             key={messageIndex}
             className="text-3xl font-bold"
