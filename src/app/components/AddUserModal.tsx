@@ -70,13 +70,13 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
         <div className="flex justify-end">
           <button
             onClick={handleSubmit}
-            className="bg-blue-600 text-white p-2 rounded mr-2"
+            className="grid items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
           >
             Save
           </button>
           <button
             onClick={onClose}
-            className="bg-gray-600 text-white p-2 rounded"
+            className="grid items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
           >
             Cancel
           </button>

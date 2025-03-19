@@ -69,7 +69,7 @@ function CustomDropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="grid gap-2 p-0">
-        <ListboxButton className="w-full grid grid-cols-[1fr_auto] items-center p-3 border border-light rounded-xl bg-white dark:bg-zinc-800 text-black dark:text-white">
+        <ListboxButton className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark">
           <span className="truncate">
             {selectedOption ? selectedOption.label : 'Select an Option'}
           </span>
@@ -185,7 +185,7 @@ export default function Contact() {
             <button
               onClick={() => setStep(2)}
               disabled={!formData.reason}
-              className="p-2 bg-green-500 dark:bg-green-400 text-center text-white rounded w-full"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
             >
               Next
             </button>
@@ -204,7 +204,7 @@ export default function Contact() {
             <button
               onClick={() => setStep(3)}
               disabled={!formData.budget}
-              className="p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
             >
               Next
             </button>
@@ -226,7 +226,7 @@ export default function Contact() {
             <button
               onClick={() => setStep(4)}
               disabled={!formData.message}
-              className="p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
             >
               Next
             </button>
@@ -239,7 +239,7 @@ export default function Contact() {
           <div className="grid gap-4 p-0">
             <button
               onClick={handleSubmit}
-              className="p-2 bg-green-500 dark:bg-green-400 text-white rounded w-full"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
             >
               Send
             </button>
@@ -254,7 +254,7 @@ export default function Contact() {
       {step > 1 && (
         <button
           onClick={() => setStep(step - 1)}
-          className="p-2 bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded w-full"
+          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
         >
           Back
         </button>

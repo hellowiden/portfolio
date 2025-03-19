@@ -208,7 +208,7 @@ export default function EditUserModal({
           <div className="flex justify-end gap-2">
             <button
               type="button"
-              className="px-4 py-2 text-sm border border-zinc-700 text-zinc-700 rounded transition hover:bg-zinc-800 hover:text-white dark:text-white dark:border-zinc-600 dark:hover:bg-zinc-600"
+              className="grid items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
               onClick={onClose}
               disabled={formData.loading}
             >
@@ -217,7 +217,7 @@ export default function EditUserModal({
 
             <button
               type="submit"
-              className="px-4 py-2 text-sm border border-zinc-700 bg-green-500 text-white rounded transition hover:bg-green-600 dark:bg-green-600 dark:hover:bg-green-500"
+              className="grid items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
               disabled={formData.loading}
             >
               {formData.loading ? 'Saving...' : 'Save'}
