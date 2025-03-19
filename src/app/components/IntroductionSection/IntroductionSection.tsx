@@ -24,13 +24,22 @@ export default function IntroductionSection() {
   }, []);
 
   return (
-    <section id="home" className="grid gap-4">
-      <video autoPlay loop muted playsInline className="w-full h-auto">
+    <section
+      id="home"
+      className="grid gap-4 rounded-xl container mx-auto bg-cover"
+    >
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-auto object-cover"
+      >
         <source src="/ads.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div className="grid gap-4 bg-slate-50 border-zinc-300 dark:border-zinc-600">
+      <div className="grid gap-4 bg-white/85 dark:bg-zinc-800/85 border-zinc-300 dark:border-zinc-600">
         <div className="grid gap-2 grid-cols-[min-content_1fr] items-center">
           <Image
             src="/MW.png"
