@@ -8,39 +8,34 @@ const tailwindConfig = {
   theme: {
     extend: {
       colors: {
-        zinc: {
-          50: '#FAFAFA',
-          100: '#F4F4F5',
-          200: '#E4E4E7',
-          300: '#D4D4D8',
-          400: '#A1A1AA',
-          500: '#71717A',
-          600: '#52525B',
-          700: '#3F3F46',
-          800: '#27272A',
-          900: '#18181B',
-          950: '#0F0F0F',
+        dark: {
+          light: {
+            background: '#27272A', // Slightly lighter dark
+            foreground: '#FFFFFF', // White text
+            border: '#3F3F46', // Soft dark border
+          },
+          dark: {
+            background: '#18181B', // Deep dark
+            foreground: '#FFFFFF', // Bright white text
+            border: '#52525B', // Stronger dark border
+          },
         },
-        green: {
-          DEFAULT: '#16A34A',
-          50: '#E9FBEF',
-          100: '#CFF7DC',
-          200: '#A8EDBF',
-          300: '#78DC9B',
-          400: '#42C873',
-          500: '#16A34A',
-          600: '#11833D',
-          700: '#0D672F',
-          800: '#094D23',
-          900: '#063A1A',
-          950: '#042D13',
+        light: {
+          light: {
+            background: '#FFFFFF', // Pure white
+            foreground: '#18181B', // Dark text
+            border: '#E4E4E7', // Light gray border
+          },
+          dark: {
+            background: '#F4F4F5', // Muted white
+            foreground: '#27272A', // Deep gray text
+            border: '#D4D4D8', // Soft gray border
+          },
         },
-      },
-      borderColor: {
-        light: '#E4E4E74D',
-        dark: '#18181B4D',
-        green: '#42D08B',
-        red: '#D95254',
+        accent: {
+          greenLight: '#42D08B', // Green accent for light theme
+          greenDark: '#16A34A', // Green accent for dark theme
+        },
       },
       fontFamily: {
         sans: ['var(--font-space-grotesk)', 'sans-serif'],

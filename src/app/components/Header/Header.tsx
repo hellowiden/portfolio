@@ -17,8 +17,8 @@ export default function Header() {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-zinc-200 dark:border-zinc-800 backdrop-blur-md bg-white/80 dark:bg-black/70">
-      <div className="text-md text-black hover:text-opacity-80 dark:text-white dark:hover:text-opacity-80 transition">
+    <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-light-dark-border dark:border-dark-dark-border backdrop-blur-md bg-light-light-background dark:bg-dark-dark-background">
+      <div className="text-md text-light-light-foreground dark:text-dark-light-foreground hover:opacity-80 transition">
         <button onClick={() => router.push('/')} className="focus:outline-none">
           {isAuthenticated ? `Welcome, ${session.user?.name}` : 'MW-Portfolio'}
         </button>
@@ -33,7 +33,7 @@ export default function Header() {
                 onMouseEnter={() => setHoveredButton('dashboard')}
                 onMouseLeave={() => setHoveredButton(null)}
                 aria-label="Go to Dashboard"
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 dark:text-white sm:gap-2"
+                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-light-light-background dark:bg-dark-dark-background hover:bg-accent-greenLight dark:hover:bg-accent-greenDark hover:text-white dark:border-dark-dark-border sm:gap-2"
               >
                 <motion.div
                   key={hoveredButton === 'dashboard' ? 'hover' : 'dashboard'}
@@ -53,7 +53,7 @@ export default function Header() {
               onMouseEnter={() => setHoveredButton('profile')}
               onMouseLeave={() => setHoveredButton(null)}
               aria-label="Go to Profile"
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-light-light-background dark:bg-dark-dark-background hover:bg-accent-greenLight dark:hover:bg-accent-greenDark hover:text-white dark:border-dark-dark-border sm:gap-2"
             >
               <motion.div
                 key={hoveredButton === 'profile' ? 'hover' : 'profile'}
@@ -77,7 +77,7 @@ export default function Header() {
             onMouseEnter={() => setHoveredButton('auth')}
             onMouseLeave={() => setHoveredButton(null)}
             aria-label={isAuthenticated ? 'Logout' : 'Login'}
-            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition bg-light-light-background dark:bg-dark-dark-background hover:bg-accent-greenLight dark:hover:bg-accent-greenDark hover:text-white dark:border-dark-dark-border sm:gap-2"
           >
             <motion.div
               key={hoveredButton === 'auth' ? 'hover' : 'auth'}
