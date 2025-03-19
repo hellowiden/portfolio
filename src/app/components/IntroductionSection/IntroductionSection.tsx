@@ -28,7 +28,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] border border-zinc-300 dark:border-zinc-600 rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-[auto_1fr] relative"
+      className="w-full border border-zinc-300 dark:border-zinc-600 rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-[auto_1fr] relative"
     >
       {/* Row 1: Video Background + Image */}
       <div className="grid w-full h-full">
@@ -37,7 +37,7 @@ export default function IntroductionSection() {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover row-span-2"
+          className="w-full h-[500px] object-cover row-span-2"
         >
           <source src="/ads.mp4" type="video/mp4" />
           Your browser does not support the video tag.
