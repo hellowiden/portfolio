@@ -69,7 +69,7 @@ function CustomDropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="grid gap-2 p-0">
-        <ListboxButton className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark">
+        <ListboxButton className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600">
           <span className="truncate">
             {selectedOption ? selectedOption.label : 'Select an Option'}
           </span>
@@ -185,7 +185,7 @@ export default function Contact() {
             <button
               onClick={() => setStep(2)}
               disabled={!formData.reason}
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
             >
               Next
             </button>
@@ -204,7 +204,7 @@ export default function Contact() {
             <button
               onClick={() => setStep(3)}
               disabled={!formData.budget}
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
             >
               Next
             </button>
@@ -226,7 +226,7 @@ export default function Contact() {
             <button
               onClick={() => setStep(4)}
               disabled={!formData.message}
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
             >
               Next
             </button>
@@ -239,7 +239,7 @@ export default function Contact() {
           <div className="grid gap-4 p-0">
             <button
               onClick={handleSubmit}
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
             >
               Send
             </button>
@@ -254,7 +254,7 @@ export default function Contact() {
       {step > 1 && (
         <button
           onClick={() => setStep(step - 1)}
-          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark"
+          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
         >
           Back
         </button>
