@@ -80,13 +80,13 @@ export default function IntroductionSection() {
           >
             <FiFileText className="text-lg" />
           </motion.div>
-          <span className="ml-2">About me</span>
+          <span>About me</span>
         </button>
       </div>
 
       {/* Row 2: Main Content */}
       <div className="grid place-items-start bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
-        <div className="grid gap-2 mt-4">
+        <div className="grid gap-4">
           <motion.h2
             key={messageIndex}
             className="text-3xl font-bold"
