@@ -41,9 +41,9 @@ export default function IntroductionSection() {
       </div>
 
       {/* Row 1 Content: Image & Button */}
-      <div className="grid grid-cols-[auto_1fr_auto] items-center bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-4 w-full gap-4">
+      <div className="grid grid-cols-3 gap-4 items-center bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-4 w-full">
         {/* Column 1: Image & Name */}
-        <div className="flex items-center gap-3">
+        <div className="grid grid-cols-[auto_1fr] items-center gap-3">
           <Image
             src="/MW.png"
             alt="Marcus Widén"
