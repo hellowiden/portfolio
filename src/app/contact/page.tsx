@@ -69,38 +69,36 @@ function CustomDropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="grid gap-2 p-0">
-        <ListboxButton className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600">
+        <ListboxButton className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition text-gray-900 bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600">
           <span className="truncate">
             {selectedOption ? selectedOption.label : 'Select an Option'}
           </span>
           <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400 justify-self-end" />
         </ListboxButton>
 
-        <ListboxOptions className="w-full backdrop-blur-md bg-white/50 dark:bg-black/50 text-zinc-900 dark:text-zinc-100 border rounded-xl grid gap-1 p-0">
+        <ListboxOptions className="w-full bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 border border-zinc-300 dark:border-zinc-600 rounded-xl shadow-md grid gap-1 p-1">
           {options.map((option, index) => (
             <div key={option.value} className="grid p-0">
               <ListboxOption
                 key={option.value}
                 value={option.value}
                 className={({ active }) =>
-                  `p-2 cursor-pointer grid rounded-xl ${
+                  `p-2 cursor-pointer grid rounded-xl transition ${
                     active
-                      ? 'bg-green-500 text-white'
-                      : 'text-black dark:text-white'
+                      ? 'bg-zinc-200 text-gray-900 dark:bg-zinc-700 dark:text-gray-100'
+                      : 'text-gray-900 dark:text-gray-100'
                   }`
                 }
               >
                 {({ selected }) => (
                   <div className="grid grid-cols-[1fr_auto] items-center p-2 rounded-xl">
                     <span>{option.label}</span>
-                    {selected && (
-                      <Check className="w-4 h-4 text-green-500 rounded-xl" />
-                    )}
+                    {selected && <Check className="w-4 h-4 text-green-500" />}
                   </div>
                 )}
               </ListboxOption>
               {index < options.length - 1 && (
-                <hr className="border-gray-300 dark:border-gray-700" />
+                <hr className="border-zinc-300 dark:border-zinc-600" />
               )}
             </div>
           ))}
