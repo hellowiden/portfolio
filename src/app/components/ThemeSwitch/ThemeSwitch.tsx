@@ -18,7 +18,7 @@ export default function ThemeSwitch() {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       aria-label="Toggle theme"
-      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-white bg-zinc-700 hover:bg-zinc-800"
+      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-white bg-zinc-700 hover:bg-zinc-800 dark:border-dark"
     >
       <motion.div
         key={isHovered ? 'hover' : theme}

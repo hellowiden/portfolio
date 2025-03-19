@@ -33,7 +33,7 @@ export default function Header() {
                 onMouseEnter={() => setHoveredButton('dashboard')}
                 onMouseLeave={() => setHoveredButton(null)}
                 aria-label="Go to Dashboard"
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-white bg-zinc-700 hover:bg-zinc-800"
+                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-white bg-zinc-700 hover:bg-zinc-800 dark:border-dark"
               >
                 <motion.div
                   key={hoveredButton === 'dashboard' ? 'hover' : 'dashboard'}
@@ -53,7 +53,7 @@ export default function Header() {
               onMouseEnter={() => setHoveredButton('profile')}
               onMouseLeave={() => setHoveredButton(null)}
               aria-label="Go to Profile"
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-white bg-zinc-700 hover:bg-zinc-800"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-white bg-zinc-700 hover:bg-zinc-800 dark:border-dark"
             >
               <motion.div
                 key={hoveredButton === 'profile' ? 'hover' : 'profile'}
@@ -77,7 +77,7 @@ export default function Header() {
             onMouseEnter={() => setHoveredButton('auth')}
             onMouseLeave={() => setHoveredButton(null)}
             aria-label={isAuthenticated ? 'Logout' : 'Login'}
-            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-white bg-zinc-700 hover:bg-zinc-800"
+            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-white bg-zinc-700 hover:bg-zinc-800 dark:border-dark"
           >
             <motion.div
               key={hoveredButton === 'auth' ? 'hover' : 'auth'}
