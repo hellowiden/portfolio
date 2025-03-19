@@ -28,7 +28,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] border-2 dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-[1fr] grid-cols-[1fr] relative"
+      className="w-full h-[500px] border-2 dark:border-light rounded-xl container grid grid-rows-[1fr] grid-cols-[1fr] relative"
     >
       <video
         autoPlay
@@ -69,7 +69,7 @@ export default function IntroductionSection() {
           >
             <FiFileText className="text-lg" />
           </motion.div>
-          <span className="ml-2">About me</span>
+          <span className="gap-2">About me</span>
         </button>
 
         <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
