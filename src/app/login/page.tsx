@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -14,37 +14,36 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  }, []);
+  };
 
-  const handleSubmit = useCallback(
-    async (e: React.FormEvent) => {
-      e.preventDefault();
-      setLoading(true);
-      setError('');
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
-      try {
-        const result = await signIn('credentials', {
-          redirect: false,
-          ...formData,
-        });
+    try {
+      const result = await signIn('credentials', {
+        redirect: false,
+        ...formData,
+      });
 
-        if (!result || result.error) {
-          setError(result?.error || 'Invalid credentials');
-        } else {
-          router.replace('/');
-          router.refresh();
-        }
-      } catch (err) {
-        console.error('Login error:', err);
-        setError('Something went wrong');
-      } finally {
-        setLoading(false);
+      if (!result || result.error) {
+        setError(result?.error || 'Invalid credentials');
+      } else {
+        router.replace('/');
+        router.refresh();
       }
-    },
-    [formData, router]
-  );
+    } catch {
+      setError('Something went wrong');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const inputClass =
+    'w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white';
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 w-full h-full border-x dark:border-light">
@@ -57,20 +56,27 @@ export default function Login() {
             Let&apos;s get started!
           </h2>
 
-          {error && <ErrorMessage message={error} />}
-          <InputField
+          {error && (
+            <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm">
+              {error}
+            </p>
+          )}
+          <input
             type="email"
             name="email"
             placeholder="Email"
             onChange={handleChange}
+            className={inputClass}
+            required
           />
-          <InputField
+          <input
             type="password"
             name="password"
             placeholder="Password"
             onChange={handleChange}
+            className={inputClass}
+            required
           />
-
           <button
             type="submit"
             disabled={loading}
@@ -96,34 +102,3 @@ export default function Login() {
     </section>
   );
 }
-
-const InputField = ({
-  type,
-  name,
-  placeholder,
-  onChange,
-}: {
-  type: string;
-  name: string;
-  placeholder: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-}) => {
-  return (
-    <input
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      onChange={onChange}
-      className="w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white"
-      required
-    />
-  );
-};
-
-const ErrorMessage = ({ message }: { message: string }) => {
-  return (
-    <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm">
-      {message}
-    </p>
-  );
-};

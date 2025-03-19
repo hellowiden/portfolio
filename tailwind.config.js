@@ -8,30 +8,39 @@ const tailwindConfig = {
   theme: {
     extend: {
       colors: {
-        light: {
-          zinc: {
-            100: '#F4F4F5',
-            200: '#E4E4E7',
-            300: '#D4D4D8',
-          },
-          green: {
-            DEFAULT: '#16A34A',
-            500: '#16A34A',
-          },
-          border: '#E4E4E74D',
+        zinc: {
+          50: '#FAFAFA',
+          100: '#F4F4F5',
+          200: '#E4E4E7',
+          300: '#D4D4D8',
+          400: '#A1A1AA',
+          500: '#71717A',
+          600: '#52525B',
+          700: '#3F3F46',
+          800: '#27272A',
+          900: '#18181B',
+          950: '#0F0F0F',
         },
-        dark: {
-          zinc: {
-            700: '#3F3F46',
-            800: '#27272A',
-            900: '#18181B',
-          },
-          green: {
-            DEFAULT: '#11833D',
-            600: '#11833D',
-          },
-          border: '#E4E4E74D',
+        green: {
+          DEFAULT: '#16A34A',
+          50: '#E9FBEF',
+          100: '#CFF7DC',
+          200: '#A8EDBF',
+          300: '#78DC9B',
+          400: '#42C873',
+          500: '#16A34A',
+          600: '#11833D',
+          700: '#0D672F',
+          800: '#094D23',
+          900: '#063A1A',
+          950: '#042D13',
         },
+      },
+      borderColor: {
+        light: '#E4E4E74D',
+        dark: '#18181B4D',
+        green: '#42D08B',
+        red: '#D95254',
       },
       fontFamily: {
         sans: ['var(--font-space-grotesk)', 'sans-serif'],
