@@ -73,7 +73,7 @@ export default function About() {
             </p>
             <Link
               href="/contact"
-              className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed"
+              className="grid items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-light dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-dark leading-relaxed"
             >
               If you seek strategy, let’s talk.
             </Link>
