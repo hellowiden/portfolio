@@ -2,27 +2,24 @@
 
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FiFileText } from 'react-icons/fi';
 import { brandingMessages } from './../../../data/brandingMessages';
 
-const messages = brandingMessages;
-
 export default function IntroductionSection() {
   const router = useRouter();
   const [messageIndex, setMessageIndex] = useState(0);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    intervalRef.current = setInterval(() => {
+    const interval = setInterval(() => {
       setMessageIndex((prevIndex) => (prevIndex + 1) % brandingMessages.length);
     }, 15000);
 
-    return () => clearInterval(intervalRef.current!);
+    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -30,13 +27,12 @@ export default function IntroductionSection() {
       id="home"
       className="w-full h-full border border-zinc-300 dark:border-zinc-600 rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-2 gap-4 relative"
     >
-      {/* Row 1: Video Background + Image */}
+      {/* Row 1: Video Background */}
       <div className="grid w-full h-full">
         <video
           autoPlay
           loop
           muted
-          playsInline
           className="w-full h-[200px] object-cover row-span-2"
         >
           <source src="/ads.mp4" type="video/mp4" />
@@ -44,9 +40,9 @@ export default function IntroductionSection() {
         </video>
       </div>
 
-      {/* Row 1 Content: Image & Name and Button */}
+      {/* Row 1 Content: Image & Button */}
       <div className="grid grid-cols-[auto_1fr_auto] items-center bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-4 w-full gap-4">
-        {/* Column 1: Image & Name (Together) */}
+        {/* Column 1: Image & Name */}
         <div className="flex items-center gap-3">
           <Image
             src="/MW.png"
@@ -61,12 +57,16 @@ export default function IntroductionSection() {
           </h1>
         </div>
 
-        {/* Column 2: Empty Space (1fr) */}
-        <div></div>
-
         {/* Column 3: Button */}
         <button
-          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+          className={`grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition 
+    text-black border-zinc-300 dark:text-white dark:border-zinc-600
+    ${
+      isHovered
+        ? 'bg-zinc-200 dark:bg-zinc-800'
+        : 'bg-zinc-100 dark:bg-zinc-700'
+    }
+  `}
           onClick={() => router.push('/about')}
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
@@ -88,25 +88,21 @@ export default function IntroductionSection() {
       <div className="grid place-items-start bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         <div className="grid gap-4">
           <motion.h2
-            key={messageIndex}
             className="text-3xl font-bold"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
           >
-            {messages[messageIndex].heading}
+            {brandingMessages[messageIndex].heading}
           </motion.h2>
 
           <motion.p
-            key={`subtext-${messageIndex}`}
             className="opacity-80 tracking-wide max-w-[900px]"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
           >
-            {messages[messageIndex].subtext}
+            {brandingMessages[messageIndex].subtext}
           </motion.p>
         </div>
       </div>
