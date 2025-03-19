@@ -24,24 +24,24 @@ export default function IntroductionSection() {
   }, []);
 
   return (
-    <section id="home">
-      <video autoPlay loop muted playsInline>
+    <section id="home" className="grid gap-4">
+      <video autoPlay loop muted playsInline className="w-full h-auto">
         <source src="/ads.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div>
-        <div>
+      <div className="grid gap-4">
+        <div className="grid gap-2">
           <Image src="/MW.png" alt="Marcus Widén" width={50} height={50} />
           <h1>Marcus Widén</h1>
         </div>
 
-        <button onClick={() => router.push('/about')}>
+        <button onClick={() => router.push('/about')} className="grid gap-2">
           <FiFileText />
           <span>About me</span>
         </button>
 
-        <div>
+        <div className="grid gap-2">
           <h2>{messages[messageIndex].heading}</h2>
           <p>{messages[messageIndex].subtext}</p>
         </div>
