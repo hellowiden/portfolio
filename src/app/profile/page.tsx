@@ -139,7 +139,7 @@ export default function Profile() {
 }
 
 const ProfileAvatar = memo(({ name }: { name: string }) => (
-  <div className="grid place-items-center p-6 bg-zinc-800 dark:bg-zinc-100 border border-zinc-300 dark:border-zinc-600 rounded">
+  <div className="grid place-items-center p-6 text-zinc-800 dark:text-zinc-100 bg-zinc-800 dark:bg-zinc-100 border border-zinc-300 dark:border-zinc-600 rounded-full ">
     <span>{name ? name.charAt(0).toUpperCase() : '?'}</span>
   </div>
 ));
