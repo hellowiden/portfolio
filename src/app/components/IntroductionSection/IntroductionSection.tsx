@@ -28,7 +28,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] border-2 dark:border-light rounded-full container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
+      className="w-full h-[500px] border-2 dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
     >
       <video
         autoPlay
