@@ -25,7 +25,9 @@ export default function Profile() {
       setFormData({
         name: session.user.name || '',
         email: session.user.email || '',
-        roles: Array.isArray(session.user.roles) ? session.user.roles : [],
+        roles: Array.isArray(session.user.roles)
+          ? (session.user.roles as string[])
+          : [],
         newPassword: '',
       });
     }
@@ -53,7 +55,6 @@ export default function Profile() {
       });
       if (!res.ok) throw new Error(`${method} request failed`);
       return res;
-    } catch {
     } finally {
       setLoading(false);
     }
@@ -71,11 +72,6 @@ export default function Profile() {
     });
   };
 
-  const handleUpdateClick = () => {
-    const fakeEvent = { preventDefault: () => {} } as unknown as FormEvent;
-    handleUpdate(fakeEvent);
-  };
-
   const handleDeleteAccount = async () => {
     if (!confirm('Are you sure you want to permanently delete your account?'))
       return;
@@ -88,11 +84,8 @@ export default function Profile() {
 
   return (
     <div>
-      <div>
-        <ProfileAvatar name={formData.name} />
-        <span>{formData.name}</span>
-      </div>
-      <div />
+      <ProfileAvatar name={formData.name} />
+      <span>{formData.name}</span>
       <form onSubmit={handleUpdate}>
         <FormInput
           label="Name"
@@ -123,15 +116,12 @@ export default function Profile() {
           value={formData.newPassword}
           onChange={handleChange}
         />
-        <Button onClick={handleUpdateClick} disabled={loading}>
-          {' '}
-          {loading ? 'Updating...' : 'Update Profile'}{' '}
+        <Button type="submit" disabled={loading}>
+          {loading ? 'Updating...' : 'Update Profile'}
         </Button>
       </form>
-      <div />
       <Button onClick={handleDeleteAccount} disabled={loading}>
-        {' '}
-        {loading ? 'Processing...' : 'Remove Account'}{' '}
+        {loading ? 'Processing...' : 'Remove Account'}
       </Button>
     </div>
   );
@@ -180,12 +170,14 @@ const Button = ({
   onClick,
   children,
   disabled,
+  type = 'button',
 }: {
   onClick?: () => void;
   children: React.ReactNode;
   disabled: boolean;
+  type?: 'button' | 'submit';
 }) => (
-  <button onClick={onClick} disabled={disabled}>
+  <button type={type} onClick={onClick} disabled={disabled}>
     {children}
   </button>
 );
