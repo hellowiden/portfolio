@@ -33,8 +33,7 @@ export default function Header() {
                 onMouseEnter={() => setHoveredButton('dashboard')}
                 onMouseLeave={() => setHoveredButton(null)}
                 aria-label="Go to Dashboard"
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition 
-                bg-zinc-700 hover:bg-zinc-800 dark:bg-black hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 dark:text-white sm:gap-2"
+                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-white bg-zinc-700 hover:bg-zinc-800"
               >
                 <motion.div
                   key={hoveredButton === 'dashboard' ? 'hover' : 'dashboard'}
