@@ -33,9 +33,14 @@ export default function Profile() {
     }
   }, [session]);
 
-  if (status === 'loading') return <p>Loading...</p>;
+  if (status === 'loading')
+    return <p className="text-gray-800 dark:text-gray-200">Loading...</p>;
   if (status !== 'authenticated')
-    return <p>You need to log in to view this page.</p>;
+    return (
+      <p className="text-gray-800 dark:text-gray-200">
+        You need to log in to view this page.
+      </p>
+    );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -83,7 +88,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="grid gap-4 p-4">
+    <div className="grid gap-4 p-4 text-gray-900 dark:text-gray-100">
       <div className="flex items-center gap-4">
         <ProfileAvatar name={formData.name} />
         <span className="text-lg font-medium">{formData.name}</span>
@@ -140,8 +145,8 @@ export default function Profile() {
 
 const ProfileAvatar = memo(({ name }: { name: string }) => (
   <div
-    className="w-12 h-12 flex items-center justify-center rounded-xl border text-white font-bold text-lg 
-    bg-gray-700 border-gray-500 dark:bg-gray-300 dark:text-gray-900 dark:border-gray-400"
+    className="w-12 h-12 flex items-center justify-center rounded-full border font-bold text-lg 
+    bg-zinc-700 text-white border-gray-500 dark:bg-zinc-300 dark:text-gray-900 dark:border-gray-400"
   >
     <span>{name ? name.charAt(0).toUpperCase() : '?'}</span>
   </div>
@@ -166,7 +171,9 @@ const FormInput = ({
   readOnly?: boolean;
 }) => (
   <div className="grid gap-2">
-    <label htmlFor={name}>{label}</label>
+    <label htmlFor={name} className="text-gray-900 dark:text-gray-100">
+      {label}
+    </label>
     <input
       id={name}
       type={type}
@@ -176,7 +183,7 @@ const FormInput = ({
       disabled={disabled}
       readOnly={readOnly}
       aria-label={label}
-      className="p-2 border rounded"
+      className="p-2 border rounded bg-zinc-100 text-gray-900 border-zinc-300 dark:bg-zinc-800 dark:text-gray-100 dark:border-zinc-600"
     />
   </div>
 );
