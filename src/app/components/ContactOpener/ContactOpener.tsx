@@ -14,7 +14,7 @@ export default function ContactOpener() {
 
   return (
     <section
-      className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid h-[300px] place-items-center"
+      className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid h-[300px] md:h-[300px] lg:h-[300px] place-items-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -27,34 +27,47 @@ export default function ContactOpener() {
         priority
       />
 
-      <div className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white flex flex-col items-center justify-center gap-4 col-start-1 row-start-1 w-full h-full text-center">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10">
+      {!isHovered && (
+        <h1 className="underline underline-offset-4 col-start-1 row-start-1 flex items-center justify-center text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10">
           Get in Touch
         </h1>
+      )}
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="opacity-80 tracking-wide max-w-[900px] text-zinc-700 dark:text-zinc-300 text-lg"
-        >
-          {isHovered
-            ? 'Reach out to discuss projects, collaborations, or any inquiries.'
-            : 'Hover to see more details.'}
-        </motion.p>
+      {isHovered && (
+        <div className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid gap-4 col-start-1 row-start-1 w-full h-full">
+          <div className="flex justify-between items-center">
+            <h1 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
+              Get in Touch
+            </h1>
 
-        <motion.button
-          onClick={() => router.push('/contact')}
-          aria-label="Contact Me"
-          className="flex items-center gap-2 p-3 text-sm border rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-        >
-          <FiMail className="text-lg" />
-          <span>Contact Me</span>
-        </motion.button>
-      </div>
+            <button
+              onClick={() => router.push('/contact')}
+              aria-label="Contact Me"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition backdrop-blur-md bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+            >
+              <motion.div
+                key="contact"
+                initial={{ rotate: -90, opacity: 0 }}
+                animate={{ rotate: 0, opacity: 1 }}
+                exit={{ rotate: 90, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <FiMail className="text-lg" />
+              </motion.div>
+              <span className="hidden sm:inline">Contact Me</span>
+            </button>
+          </div>
+
+          <div>
+            <h2 className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+              Let&apos;s Connect
+            </h2>
+            <p className="opacity-80 tracking-wide max-w-[900px] text-zinc-700 dark:text-zinc-300">
+              Reach out to discuss projects, collaborations, or any inquiries.
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
