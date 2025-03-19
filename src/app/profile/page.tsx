@@ -89,10 +89,12 @@ export default function Profile() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-6 p-6 w-full mx-auto bg-zinc-50 dark:bg-zinc-800 rounded-lg border dark:border-zinc-600">
-      <div className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600">
+    <div className="grid grid-cols-1 gap-6 p-6 w-full mx-auto bg-zinc-50 dark:bg-zinc-800 rounded-lg border dark:border-light">
+      <div className="grid grid-cols-[min-content_1fr] gap-4 items-center">
         <ProfileAvatar name={formData.name} />
-        <span>{formData.name}</span>
+        <span className="text-zinc-800 dark:text-zinc-200">
+          {formData.name}
+        </span>
       </div>
       <div className="border-t border-zinc-300 dark:border-zinc-600" />
       <form onSubmit={handleUpdate} className="grid gap-4">
@@ -133,7 +135,7 @@ export default function Profile() {
           {loading ? 'Updating...' : 'Update Profile'}
         </Button>
       </form>
-      <div className="border dark:border-zinc-600" />
+      <div className="border dark:border-light dark:border-zinc-600" />
       <Button onClick={handleDeleteAccount} disabled={loading} variant="danger">
         {loading ? 'Processing...' : 'Remove Account'}
       </Button>
@@ -142,8 +144,10 @@ export default function Profile() {
 }
 
 const ProfileAvatar = memo(({ name }: { name: string }) => (
-  <div className="grid grid-cols-[auto_1fr] items-center sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600 w-12 h-12 place-items-center text-lg font-semibold">
-    <span>{name ? name.charAt(0).toUpperCase() : '?'}</span>
+  <div className="w-12 h-12 grid place-items-center bg-zinc-300 dark:bg-zinc-600 text-lg font-semibold rounded-md">
+    <span className="text-zinc-800 dark:text-zinc-200">
+      {name ? name.charAt(0).toUpperCase() : '?'}
+    </span>
   </div>
 ));
 ProfileAvatar.displayName = 'ProfileAvatar';
@@ -181,7 +185,9 @@ const FormInput = ({
       disabled={disabled}
       readOnly={readOnly}
       aria-label={label}
-      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+      className={`p-2 border dark:border-light dark:border-zinc-600 rounded-md focus:ring-green-500 dark:focus:ring-green-500 focus:border-green-500 dark:focus:border-green-500 bg-white dark:bg-zinc-700 text-zinc-800 dark:text-zinc-200 ${
+        disabled ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
     />
   </div>
 );
@@ -200,10 +206,10 @@ const Button = ({
   <button
     onClick={onClick}
     disabled={disabled}
-    className={`grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition ${
+    className={`w-full py-2 rounded-md border dark:border-light transition ${
       variant === 'primary'
-        ? 'text-white bg-green-500 hover:bg-green-600 border-green-600 dark:bg-green-600 dark:hover:bg-green-700 dark:border-green-700'
-        : 'text-white bg-red-500 hover:bg-red-600 border-red-600 dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-700'
+        ? 'bg-green-500 dark:bg-green-600 text-white hover:bg-green-600 dark:hover:bg-green-700'
+        : 'bg-red-500 dark:bg-red-600 text-white hover:bg-red-600 dark:hover:bg-red-700'
     }`}
   >
     {children}
