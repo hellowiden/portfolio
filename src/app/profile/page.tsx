@@ -84,8 +84,10 @@ export default function Profile() {
 
   return (
     <div className="grid gap-4 p-4">
-      <ProfileAvatar name={formData.name} />
-      <span>{formData.name}</span>
+      <div className="grid gap-4">
+        <ProfileAvatar name={formData.name} />
+        <span>{formData.name}</span>
+      </div>
       <form onSubmit={handleUpdate} className="grid gap-4">
         <FormInput
           label="Name"
