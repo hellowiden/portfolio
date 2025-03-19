@@ -27,7 +27,7 @@ export default function ContactOpener() {
         priority
       />
 
-      <div className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid place-items-center gap-4 col-start-1 row-start-1 w-full h-full text-center">
+      <div className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white flex flex-col items-center justify-center gap-4 col-start-1 row-start-1 w-full h-full text-center">
         <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white z-10">
           Get in Touch
         </h1>
