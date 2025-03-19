@@ -28,20 +28,20 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] border-2 dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
+      className="w-full h-[500px] border-2 dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden grid grid-rows-[1fr] grid-cols-[1fr] relative"
     >
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="w-full h-full object-cover col-start-1 row-start-1 z-0"
       >
         <source src="/ads.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+      <div className="w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white z-10 col-start-1 row-start-1 self-end">
         <div className="grid grid-cols-[auto_1fr] items-center gap-3">
           <Image
             src="/MW.png"
