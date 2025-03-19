@@ -43,8 +43,8 @@ export default function IntroductionSection() {
           Your browser does not support the video tag.
         </video>
 
-        {/* Row 1 Content: Image & Name */}
-        <div className="grid place-items-center bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-4 w-full">
+        {/* Row 1 Content: Image & Name and button */}
+        <div className="grid grid-cols-[auto_1fr_min-content] place-items-center bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-4 w-full">
           <div className="grid grid-cols-[auto_1fr] items-center gap-3">
             <Image
               src="/MW.png"
