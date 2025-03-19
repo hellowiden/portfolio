@@ -28,20 +28,20 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] border-2 dark:border-light rounded-xl container grid grid-rows-[1fr] grid-cols-[1fr] relative"
+      className="w-full h-[500px] border-2 dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
     >
       <video
         autoPlay
         loop
         muted
         playsInline
-        className="w-full h-full object-cover col-start-1 row-start-1 z-0"
+        className="absolute top-0 left-0 w-full h-full object-cover"
       >
         <source src="/ads.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
 
-      <div className="w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white z-10 col-start-1 row-start-1 self-end">
+      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         <div className="grid grid-cols-[auto_1fr] items-center gap-3">
           <Image
             src="/MW.png"
@@ -69,7 +69,7 @@ export default function IntroductionSection() {
           >
             <FiFileText className="text-lg" />
           </motion.div>
-          <span className="gap-2">About me</span>
+          <span className="ml-2">About me</span>
         </button>
 
         <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
