@@ -14,7 +14,7 @@ export default function Home() {
       <ClientsCarousel />
 
       {/* Dynamic Bento Grid Layout */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-fr gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 auto-rows-fr gap-2">
         <div className="lg:col-span-2">
           <ProjectOpener />
         </div>
