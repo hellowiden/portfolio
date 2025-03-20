@@ -14,7 +14,7 @@ export default function ProjectOpener() {
 
   return (
     <section
-      className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm border dark:border-light rounded-xl bg-cover bg-center overflow-hidden relative grid h-[250px] place-items-center"
+      className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm border border-zinc-300 dark:border-zinc-700 rounded-xl bg-cover bg-center overflow-hidden relative grid h-[250px] place-items-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
