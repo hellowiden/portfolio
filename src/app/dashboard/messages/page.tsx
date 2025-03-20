@@ -167,7 +167,7 @@ export default function Messages() {
                 </p>
                 <button
                   onClick={() => handleDeleteMessage(msg._id)}
-                  className="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition"
+                  className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
                 >
                   Delete Message
                 </button>
