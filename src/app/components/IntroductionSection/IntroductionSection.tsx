@@ -26,20 +26,21 @@ export default function IntroductionSection() {
   }, []);
 
   return (
-    <section
-      id="home"
-      className="w-full h-[500px] border-2 dark:border-light rounded-xl container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
-    >
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
-      >
-        <source src="/ads.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <section className="grid grid-rows-2 w-full h-[500px] rounded-xl text-center overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700">
+      {/* Video in the first row */}
+      <div className="w-full h-full">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+          aria-label="Promotional Video"
+        >
+          <source src="/ads.mp4" type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
+      </div>
 
       <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         <div className="grid grid-cols-[auto_1fr] items-center gap-3">
