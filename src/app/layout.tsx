@@ -29,11 +29,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={spaceGrotesk.variable}>
-      <body className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-white dark:bg-black text-zinc-900 dark:text-zinc-100">
+      <body className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border-zinc-300 dark:border-zinc-700">
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            <div className="backdrop-blur-md">{children}</div>
+            <div className="backdrop-blur-md border-x dark:border-light">
+              {children}
+            </div>
             <Footer />
           </AuthProvider>
         </ThemeContextProvider>
