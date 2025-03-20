@@ -5,7 +5,7 @@ import React from 'react';
 function IntroductionSection() {
   return (
     <>
-      <section className="grid h-[400] items-center rounded-xl p-6 bg-black text-center">
+      <section className="grid items-center rounded-xl p-6 bg-black text-center">
         <h1 className="text-4xl font-bold text-zinc-100">
           Wisdom Creates Wealth.
         </h1>
