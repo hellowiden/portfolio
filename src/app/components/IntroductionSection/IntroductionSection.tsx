@@ -32,7 +32,7 @@ function IntroductionSection() {
       </div>
 
       {/* Content in the second row */}
-      <div className="relative w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+      <div className="relative w-full grid grid-cols-[min-content_1fr] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
         <div className="grid grid-cols-[auto_1fr] items-center gap-3">
           <Image
             src="/MW.png"
