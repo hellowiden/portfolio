@@ -172,8 +172,7 @@ export default function UsersPage() {
                   </button>
                   <button
                     onClick={() => handleDelete(user._id)}
-                    className="text-sm text-red-600 hover:text-red-500 dark:text-red-400 dark:hover:text-red-300 transition hover:underline
-"
+                    className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
                   >
                     Delete
                   </button>

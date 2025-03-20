@@ -262,7 +262,10 @@ export default function ProjectsDashboard() {
               </td>
               <td className="p-2 border border-light rounded flex gap-2">
                 <button onClick={() => handleEdit(project)}>Edit</button>
-                <button onClick={() => handleDelete(project._id)}>
+                <button
+                  onClick={() => handleDelete(project._id)}
+                  className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
+                >
                   Remove
                 </button>
               </td>
