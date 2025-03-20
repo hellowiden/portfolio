@@ -38,13 +38,17 @@ export default function ProjectsPage() {
   }, []);
 
   const sortedProjects = [...projects].sort((a, b) => {
-    const dateA = new Date(
-      a.createdAt.split('-').reverse().join('-')
-    ).getTime();
-    const dateB = new Date(
-      b.createdAt.split('-').reverse().join('-')
-    ).getTime();
-    return dateB - dateA;
+    const dateA = a.completedAt
+      ? new Date(a.completedAt.split('-').reverse().join('-')).getTime()
+      : 0;
+    const dateB = b.completedAt
+      ? new Date(b.completedAt.split('-').reverse().join('-')).getTime()
+      : 0;
+    return (
+      dateB - dateA ||
+      new Date(b.createdAt.split('-').reverse().join('-')).getTime() -
+        new Date(a.createdAt.split('-').reverse().join('-')).getTime()
+    );
   });
 
   const truncateText = (text: string, maxLines: number = 2) => {
