@@ -12,7 +12,7 @@ function IntroductionSection() {
           loop
           muted
           playsInline
-          className="w-full h-full rounded-lg"
+          className="w-full h-full"
           aria-label="Promotional Video"
         >
           <source src="/ads.mp4" type="video/mp4" />
