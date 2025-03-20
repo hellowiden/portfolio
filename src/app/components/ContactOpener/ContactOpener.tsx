@@ -14,7 +14,7 @@ export default function ContactOpener() {
 
   return (
     <section
-      className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm border border-zinc-300 dark:border-zinc-700 rounded bg-cover bg-center overflow-hidden relative grid h-[300px] md:h-[300px] lg:h-[300px] place-items-center"
+      className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm border border-zinc-300 dark:border-zinc-700 rounded bg-cover bg-center overflow-hidden relative grid h-80 place-items-center"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
