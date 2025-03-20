@@ -19,6 +19,7 @@ export default function Home() {
           <ContactOpener />
         </div>
       </div>
+      <div></div>
     </div>
   );
 }
