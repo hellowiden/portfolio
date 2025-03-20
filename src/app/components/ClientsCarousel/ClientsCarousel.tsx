@@ -8,7 +8,7 @@ export default function ClientsCarousel() {
   return (
     <section
       id="clients"
-      className="w-full grid place-items-center py-4 backdrop-blur-md rounded-xl text-center border text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+      className="w-full grid place-items-center py-4 backdrop-blur-md rounded-xl text-center border bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
     >
       <Marquee
         gradient={false}
@@ -28,7 +28,7 @@ export default function ClientsCarousel() {
           >
             {name}
             <motion.div
-              className="absolute bottom-0 left-0 h-[2px] bg-zinc-800 w-full scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300"
+              className="absolute bottom-0 left-0 h-[2px] bg-zinc-800 w-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
               aria-hidden="true"
             />
           </motion.a>
