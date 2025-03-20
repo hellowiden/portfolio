@@ -14,38 +14,59 @@ export default function ExperienceOpener() {
 
   return (
     <section
-      className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm border border-zinc-300 dark:border-zinc-700 rounded bg-cover bg-center overflow-hidden relative grid h-[250px] place-items-center"
+      className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm border border-zinc-300 dark:border-zinc-700 rounded bg-cover bg-center overflow-hidden relative grid h-[250px] place-items-center transition-transform duration-300 hover:scale-105 hover:shadow-lg hover:shadow-zinc-500/50 dark:hover:shadow-zinc-800/50"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Image
-        src="/shake.jpg"
-        alt="My Experiences"
-        fill
-        sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-cover w-full h-full col-start-1 row-start-1"
-        priority
+      <motion.div
+        initial={{ scale: 1 }}
+        animate={isHovered ? { scale: 1.05, y: -5 } : { scale: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+        className="w-full h-full col-start-1 row-start-1"
+      >
+        <Image
+          src="/shake.jpg"
+          alt="My Experiences"
+          fill
+          sizes="(max-width: 768px) 100vw, 50vw"
+          className="object-cover w-full h-full rounded"
+          priority
+        />
+      </motion.div>
+
+      <motion.div
+        initial={{ opacity: 1 }}
+        animate={isHovered ? { opacity: 0 } : { opacity: 1 }}
+        transition={{ duration: 0.2 }}
+        className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm absolute inset-0"
       />
 
-      <div className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm absolute inset-0" />
-
       {!isHovered && (
-        <h1 className="underline underline-offset-4 col-start-1 row-start-1 flex items-center justify-center text-xl font-bold text-zinc-900 dark:text-zinc-100 z-10">
+        <motion.h1
+          initial={{ scale: 1 }}
+          animate={{ scale: 1.1 }}
+          transition={{ duration: 0.2 }}
+          className="underline underline-offset-4 col-start-1 row-start-1 flex items-center justify-center text-xl font-bold text-zinc-900 dark:text-zinc-100 z-10"
+        >
           My Experiences
-        </h1>
+        </motion.h1>
       )}
 
       {isHovered && (
-        <div className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid gap-4 col-start-1 row-start-1 w-full h-full">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+          className="bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm p-6 text-zinc-900 dark:text-white grid gap-4 col-start-1 row-start-1 w-full h-full"
+        >
           <div className="flex justify-between items-center">
             <h1 className="text-xl font-medium text-zinc-900 dark:text-zinc-100">
               My Experiences
             </h1>
-
             <button
               onClick={() => router.push('/experiences')}
               aria-label="View Experiences"
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition-transform transform hover:scale-110 text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
             >
               <motion.div
                 key="experiences"
@@ -69,7 +90,7 @@ export default function ExperienceOpener() {
               shaped my expertise.
             </p>
           </div>
-        </div>
+        </motion.div>
       )}
     </section>
   );
