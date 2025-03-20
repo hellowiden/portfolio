@@ -35,7 +35,7 @@ export default function RootLayout({
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            <div>{children}</div>
+            <div className="relative z-10 ">{children}</div>
             <Footer />
           </AuthProvider>
         </ThemeContextProvider>
