@@ -19,6 +19,7 @@ interface IExperience {
 export default function ExperienceDetail() {
   const { slug } = useParams();
   const [experience, setExperience] = useState<IExperience | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchExperience() {
@@ -29,15 +30,27 @@ export default function ExperienceDetail() {
         setExperience(data.experience);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
 
     if (slug) fetchExperience();
   }, [slug]);
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-32">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+      </div>
+    );
+  }
+
   if (!experience) {
     return (
-      <p className="text-zinc-900 dark:text-zinc-100">Experience not found.</p>
+      <p className="text-zinc-900 dark:text-zinc-100 text-center">
+        Experience not found.
+      </p>
     );
   }
 
