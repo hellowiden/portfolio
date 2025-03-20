@@ -4,7 +4,7 @@
 
 function IntroductionSection() {
   return (
-    <section className="grid grid-rows-2 w-full h-[500px] rounded-xl text-center max-w-screen-xl mx-auto overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700">
+    <section className="grid grid-rows-2 w-full h-[500px] rounded-xl text-center overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700">
       {/* Video in the first row */}
       <div className="w-full h-full">
         <video
