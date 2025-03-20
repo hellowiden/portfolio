@@ -8,7 +8,7 @@ function IntroductionSection() {
       {/* Video spanning both columns in the first row */}
       <div className="row-span-1 col-span-2">
         <video className="w-full h-full rounded-lg" controls>
-          <source src="/path-to-video.mp4" type="video/mp4" />
+          <source src="/ads.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       </div>
