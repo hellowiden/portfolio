@@ -4,11 +4,13 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 interface Project {
   _id: string;
   name: string;
-  date: string;
+  createdAt: string;
+  completedAt?: string;
   tags?: string[];
   link?: string;
   image?: string;
@@ -32,14 +34,19 @@ export default function ProjectsPage() {
     fetchProjects();
   }, []);
 
-  // Sort descending by date
-  const sortedProjects = [...projects].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  const sortedProjects = [...projects].sort((a, b) => {
+    const dateA = new Date(
+      a.createdAt.split('-').reverse().join('-')
+    ).getTime();
+    const dateB = new Date(
+      b.createdAt.split('-').reverse().join('-')
+    ).getTime();
+    return dateB - dateA;
+  });
 
   return (
     <section className="grid gap-4">
-      <p className="italic ">
+      <p className="italic">
         <strong>Note:</strong> Due to strict NDAs, I cannot disclose specifics
         of past projects. However, I’ve learned my lesson and moving forward,
         all relevant opportunities will be displayed here.
@@ -61,8 +68,34 @@ export default function ProjectsPage() {
                 {project.tags?.join(' • ')}
               </div>
               <div className="text-xs text-gray-500 dark:text-gray-500">
-                {new Date(project.date).toLocaleDateString()}
+                Created: {project.createdAt}
+                {project.completedAt && ` • Completed: ${project.completedAt}`}
               </div>
+              {project.image && (
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  width={500}
+                  height={300}
+                  className="mt-2 rounded-md w-full max-w-xs"
+                  layout="responsive"
+                />
+              )}
+              {project.description && (
+                <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                  {project.description}
+                </p>
+              )}
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                >
+                  View Project
+                </a>
+              )}
             </div>
           ))}
         </div>

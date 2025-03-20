@@ -10,6 +10,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 
 interface Project {
   _id: string;
+  createdAt: string;
 }
 
 interface ProjectsResponse {
@@ -56,7 +57,7 @@ function MotionIcon({ isPrev = false }: { isPrev?: boolean }) {
 }
 
 export default function ProjectsLayout({ children }: { children: ReactNode }) {
-  const [projectIds, setProjectIds] = useState<string[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const router = useRouter();
   const params = useParams();
 
@@ -67,7 +68,17 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
         if (!res.ok) throw new Error('Failed to fetch projects');
 
         const data: ProjectsResponse = await res.json();
-        setProjectIds(data.projects.map((p) => p._id));
+        const sortedProjects = data.projects.sort((a, b) => {
+          const dateA = new Date(
+            a.createdAt.split('-').reverse().join('-')
+          ).getTime();
+          const dateB = new Date(
+            b.createdAt.split('-').reverse().join('-')
+          ).getTime();
+          return dateB - dateA;
+        });
+
+        setProjects(sortedProjects);
       } catch (error) {
         console.error(error);
       }
@@ -75,6 +86,7 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
     fetchProjects();
   }, []);
 
+  const projectIds = projects.map((p) => p._id);
   const currentProjectIndex = projectIds.indexOf(params.slug as string);
   const isProjectPage = currentProjectIndex >= 0;
 

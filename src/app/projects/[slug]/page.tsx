@@ -9,7 +9,8 @@ import Image from 'next/image';
 interface Project {
   _id: string;
   name: string;
-  date: string;
+  createdAt: string;
+  completedAt?: string;
   image?: string;
   link?: string;
   tags?: string[];
@@ -50,12 +51,14 @@ export default function ProjectDetail() {
           width={800}
           height={400}
           className="w-full h-80 object-cover border dark:border-light rounded-xl"
+          priority
         />
       </div>
       <div className="grid gap-2">
         <h1 className="text-3xl font-bold">{project.name}</h1>
         <div className="text-sm text-gray-500 dark:text-gray-400">
-          {new Date(project.date).toLocaleDateString()}
+          Created: {project.createdAt}
+          {project.completedAt && ` • Completed: ${project.completedAt}`}
         </div>
         <div className="text-xs text-gray-600 dark:text-gray-400">
           {project.tags?.join(' • ')}

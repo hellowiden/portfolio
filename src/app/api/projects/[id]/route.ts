@@ -1,16 +1,15 @@
 // src/app/api/projects/[id]/route.ts
+
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import { connectToDatabase } from '@/libs/mongodb';
 import Project from '@/models/project';
 
-// Helper function to connect and get ID from params (Next.js 14+ requires awaiting params)
 async function getParams(context: { params: Promise<{ id: string }> }) {
   await connectToDatabase();
   return await context.params;
 }
 
-// Helper function for admin authentication
 async function authenticateAdmin(
   req: NextRequest
 ): Promise<NextResponse | null> {
@@ -20,7 +19,6 @@ async function authenticateAdmin(
   return null;
 }
 
-// Centralized error response function
 function errorResponse(message: string, status: number): NextResponse {
   return NextResponse.json({ error: message }, { status });
 }
@@ -56,10 +54,14 @@ export async function PUT(
     const { id } = await getParams(context);
     if (!id) return errorResponse('No ID provided', 400);
 
-    const { name, date, description, image, link, tags } = await req.json();
+    const { name, createdAt, completedAt, description, image, link, tags } =
+      await req.json();
+    if (!name || !createdAt || !description)
+      return errorResponse('Missing required fields', 400);
+
     const updatedProject = await Project.findByIdAndUpdate(
       id,
-      { name, date, description, image, link, tags },
+      { name, createdAt, completedAt, description, image, link, tags },
       { new: true }
     );
 
