@@ -260,7 +260,7 @@ export default function ExperiencesDashboard() {
                   </button>
                   <button
                     onClick={() => handleDelete(exp._id)}
-                    className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+                    className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
                   >
                     Remove
                   </button>
