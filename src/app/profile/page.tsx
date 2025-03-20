@@ -135,7 +135,7 @@ export default function Profile() {
       <Button
         onClick={handleDeleteAccount}
         disabled={loading}
-        className="grid items-center p-2 text-sm border rounded transition bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+        className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
       >
         {loading ? 'Processing...' : 'Remove Account'}
       </Button>
