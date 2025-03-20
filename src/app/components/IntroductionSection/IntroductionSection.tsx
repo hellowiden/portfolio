@@ -4,7 +4,7 @@ import React from 'react';
 
 function IntroductionSection() {
   return (
-    <section className="grid grid-rows-[3fr_2fr] grid-cols-1 gap-4 items-center h-[500px] rounded-xl text-center bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700">
+    <section className="grid grid-rows-[3fr_2fr] grid-cols-1 gap-4 items-center w-full h-[500px] rounded-xl text-center container mx-auto overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700">
       {/* Video takes full width in the first row */}
       <div className="row-span-1 w-full h-[250px] col-span-1">
         <video
@@ -12,7 +12,7 @@ function IntroductionSection() {
           loop
           muted
           playsInline
-          className="w-full h-full"
+          className="grid w-full h-full object-cover"
           aria-label="Promotional Video"
         >
           <source src="/ads.mp4" type="video/mp4" />
