@@ -44,6 +44,10 @@ export default function ProjectsPage() {
     return dateB - dateA;
   });
 
+  const truncateText = (text: string, maxLines: number = 2) => {
+    return text.split('\n').slice(0, maxLines).join(' ') + '...';
+  };
+
   return (
     <section className="grid gap-4">
       <p className="italic">
@@ -83,7 +87,7 @@ export default function ProjectsPage() {
               )}
               {project.description && (
                 <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">
-                  {project.description}
+                  {truncateText(project.description)}
                 </p>
               )}
               {project.link && (
