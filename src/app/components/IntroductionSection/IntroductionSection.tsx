@@ -1,18 +1,18 @@
 //src/app/components/IntroductionSection/IntroductionSection.tsx
 
-import React from 'react';
+'use client';
 
 function IntroductionSection() {
   return (
-    <section className="grid w-full h-[500px] rounded-xl text-center container mx-auto overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700">
-      {/* Video takes full width in the first row */}
-      <div className="row-span-1 w-full h-[250px] col-span-1">
+    <section className="grid grid-rows-2 w-full h-[500px] rounded-xl text-center max-w-screen-xl mx-auto overflow-hidden bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700">
+      {/* Video in the first row */}
+      <div className="w-full h-full">
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="grid w-full h-full object-cover"
+          className="w-full h-full object-cover"
           aria-label="Promotional Video"
         >
           <source src="/ads.mp4" type="video/mp4" />
@@ -20,8 +20,8 @@ function IntroductionSection() {
         </video>
       </div>
 
-      {/* Content takes full width in the second row */}
-      <div className="row-span-1 col-span-1 px-6">
+      {/* Content in the second row */}
+      <div className="grid place-items-center px-6">
         <h1 className="text-5xl md:text-4xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100">
           Wisdom Creates Wealth.
         </h1>
