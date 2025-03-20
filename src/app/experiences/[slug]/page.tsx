@@ -62,7 +62,7 @@ export default function ExperienceDetail() {
           alt={experience.title}
           width={800}
           height={400}
-          className="w-full h-80 object-cover border dark:border-light rounded-xl"
+          className="w-full h-80 object-cover border dark:border-light rounded"
         />
       </div>
       <h1 className="text-3xl font-bold">{experience.title}</h1>

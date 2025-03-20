@@ -76,14 +76,14 @@ function CustomDropdown({
           <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400 justify-self-end" />
         </ListboxButton>
 
-        <ListboxOptions className="w-full bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 border border-zinc-300 dark:border-zinc-600 rounded-xl shadow-md grid gap-1 p-1">
+        <ListboxOptions className="w-full bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 border border-zinc-300 dark:border-zinc-600 rounded shadow-md grid gap-1 p-1">
           {options.map((option, index) => (
             <div key={option.value} className="grid p-0">
               <ListboxOption
                 key={option.value}
                 value={option.value}
                 className={({ active }) =>
-                  `p-2 cursor-pointer grid rounded-xl transition ${
+                  `p-2 cursor-pointer grid rounded transition ${
                     active
                       ? 'bg-zinc-200 text-gray-900 dark:bg-zinc-700 dark:text-gray-100'
                       : 'text-gray-900 dark:text-gray-100'
@@ -91,7 +91,7 @@ function CustomDropdown({
                 }
               >
                 {({ selected }) => (
-                  <div className="grid grid-cols-[1fr_auto] items-center p-2 rounded-xl">
+                  <div className="grid grid-cols-[1fr_auto] items-center p-2 rounded">
                     <span>{option.label}</span>
                     {selected && <Check className="w-4 h-4 text-green-500" />}
                   </div>
@@ -171,7 +171,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="grid gap-4 bg-white dark:bg-zinc-900 p-6 border dark:border-light rounded-xl">
+    <div className="grid gap-4 bg-white dark:bg-zinc-900 p-6 border dark:border-light rounded">
       {step === 1 && (
         <Step title="Let's Start - What Brings You Here?">
           <div className="grid gap-4 p-0">

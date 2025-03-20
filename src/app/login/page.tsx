@@ -50,7 +50,7 @@ export default function Login() {
       <section className="grid place-items-center p-6 bg-zinc-100 dark:bg-zinc-800">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-md p-6 bg-white dark:bg-zinc-900 rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
+          className="w-full max-w-md p-6 bg-white dark:bg-zinc-900 rounded grid gap-4 border border-zinc-300 dark:border-zinc-700"
         >
           <h2 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
             Let&apos;s get started!

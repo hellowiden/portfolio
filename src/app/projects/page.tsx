@@ -69,7 +69,7 @@ export default function ProjectsPage() {
         </div>
       ) : (
         <div className="grid gap-4 text-zinc-900 dark:text-zinc-100">
-          <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded-xl">
+          <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded">
             {sortedProjects.map((project) => (
               <div
                 key={project._id}
@@ -95,7 +95,7 @@ export default function ProjectsPage() {
                     alt={project.name}
                     width={500}
                     height={300}
-                    className="mt-2 rounded-md w-full max-w-xs"
+                    className="mt-2 rounded w-full max-w-xs"
                     layout="responsive"
                   />
                 )}

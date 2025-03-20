@@ -28,7 +28,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="w-full h-[500px] bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded-xl container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
+      className="w-full h-[500px] bg-zinc-100 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded container mx-auto bg-cover bg-center overflow-hidden flex items-end relative gap-2"
     >
       <video
         autoPlay
@@ -48,7 +48,7 @@ export default function IntroductionSection() {
             alt="Marcus Widén"
             width={50}
             height={50}
-            className="rounded-xl border border-zinc-300 dark:border-zinc-700"
+            className="rounded border border-zinc-300 dark:border-zinc-700"
             priority
           />
           <h1 className="text-xl font-medium">Marcus Widén</h1>

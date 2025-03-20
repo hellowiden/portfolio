@@ -110,7 +110,7 @@ export default function UsersPage() {
       </div>
 
       {/* Users Table */}
-      <div className="overflow-x-auto border border-light dark:border-dark rounded-lg">
+      <div className="overflow-x-auto border border-light dark:border-dark rounded">
         <table className="w-full border-collapse">
           <thead className="bg-gray-200 dark:bg-zinc-700 text-gray-900 dark:text-white">
             <tr className="text-left">

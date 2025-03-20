@@ -154,7 +154,7 @@ export default function ProjectsDashboard() {
         <label>
           Name:
           <input
-            className="border border-light rounded-md p-1 w-full"
+            className="border border-light rounded p-1 w-full"
             type="text"
             name="name"
             value={formData.name || ''}
@@ -164,7 +164,7 @@ export default function ProjectsDashboard() {
         <label>
           Link:
           <input
-            className="border border-light rounded-md p-1 w-full"
+            className="border border-light rounded p-1 w-full"
             type="text"
             name="link"
             value={formData.link || ''}
@@ -174,7 +174,7 @@ export default function ProjectsDashboard() {
         <label>
           Created At:
           <input
-            className="border border-light rounded-md p-1 w-full"
+            className="border border-light rounded p-1 w-full"
             type="text"
             name="createdAt"
             value={formData.createdAt || ''}
@@ -184,7 +184,7 @@ export default function ProjectsDashboard() {
         <label>
           Completed At (optional):
           <input
-            className="border border-light rounded-md p-1 w-full"
+            className="border border-light rounded p-1 w-full"
             type="text"
             name="completedAt"
             value={formData.completedAt || ''}
@@ -194,7 +194,7 @@ export default function ProjectsDashboard() {
         <label>
           Description:
           <textarea
-            className="border border-light rounded-md p-1 w-full"
+            className="border border-light rounded p-1 w-full"
             name="description"
             rows={3}
             value={formData.description || ''}
@@ -204,7 +204,7 @@ export default function ProjectsDashboard() {
         <label>
           Image URL:
           <input
-            className="border border-light rounded-md p-1 w-full"
+            className="border border-light rounded p-1 w-full"
             type="text"
             name="image"
             value={formData.image || ''}
@@ -214,7 +214,7 @@ export default function ProjectsDashboard() {
         <label>
           Tags (comma separated):
           <input
-            className="border border-light rounded-md p-1 w-full"
+            className="border border-light rounded p-1 w-full"
             type="text"
             name="tags"
             value={Array.isArray(formData.tags) ? formData.tags.join(', ') : ''}
@@ -235,32 +235,32 @@ export default function ProjectsDashboard() {
         </button>
       </form>
 
-      <table className="w-full border border-light rounded-md">
+      <table className="w-full rounded border-light">
         <thead className="bg-gray-100">
           <tr>
-            <th className="p-2 border border-light rounded-md">Name</th>
-            <th className="p-2 border border-light rounded-md">Link</th>
-            <th className="p-2 border border-light rounded-md">Created At</th>
-            <th className="p-2 border border-light rounded-md">Completed At</th>
-            <th className="p-2 border border-light rounded-md">Actions</th>
+            <th className="p-2 border border-light rounded">Name</th>
+            <th className="p-2 border border-light rounded">Link</th>
+            <th className="p-2 border border-light rounded">Created At</th>
+            <th className="p-2 border border-light rounded">Completed At</th>
+            <th className="p-2 border border-light rounded">Actions</th>
           </tr>
         </thead>
         <tbody>
           {projects.map((project) => (
             <tr key={project._id} className="border-b">
-              <td className="p-2 border border-light rounded-md">
+              <td className="p-2 border border-light rounded">
                 {project.name}
               </td>
-              <td className="p-2 border border-light rounded-md">
+              <td className="p-2 border border-light rounded">
                 {project.link}
               </td>
-              <td className="p-2 border border-light rounded-md">
+              <td className="p-2 border border-light rounded">
                 {project.createdAt}
               </td>
-              <td className="p-2 border border-light rounded-md">
+              <td className="p-2 border border-light rounded">
                 {project.completedAt || 'Ongoing'}
               </td>
-              <td className="p-2 border border-light rounded-md flex gap-2">
+              <td className="p-2 border border-light rounded flex gap-2">
                 <button onClick={() => handleEdit(project)}>Edit</button>
                 <button onClick={() => handleDelete(project._id)}>
                   Remove

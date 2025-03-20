@@ -63,7 +63,7 @@ export default function ProjectDetail() {
           alt={project.name}
           width={800}
           height={400}
-          className="w-full h-80 object-cover border dark:border-light rounded-xl"
+          className="w-full h-80 object-cover border dark:border-light rounded"
           priority
         />
       </div>
