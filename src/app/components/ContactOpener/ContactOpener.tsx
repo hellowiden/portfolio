@@ -34,7 +34,6 @@ export default function ContactOpener() {
           <h1 className="underline underline-offset-4 col-start-1 row-start-1 flex items-center justify-center text-xl font-bold text-zinc-900 dark:text-zinc-100 z-10">
             Get in Touch
           </h1>
-          <p>hover me 🕴🏻</p>
         </>
       )}
 
