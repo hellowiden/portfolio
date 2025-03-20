@@ -32,7 +32,8 @@ function IntroductionSection() {
       </div>
 
       {/* Content in the second row */}
-      <div className="relative w-full grid grid-cols-[min-content_1fr] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+      <div className="grid grid-cols-2 grid-rows-2 gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white w-full">
+        {/* Row 1, Column 1 */}
         <div className="grid grid-cols-[auto_1fr] items-center gap-3">
           <Image
             src="/MW.png"
@@ -45,6 +46,7 @@ function IntroductionSection() {
           <h1 className="text-xl font-medium">Marcus Widén</h1>
         </div>
 
+        {/* Row 1, Column 2 */}
         <button
           className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
           onClick={() => router.push('/about')}
@@ -63,7 +65,8 @@ function IntroductionSection() {
           <span className="ml-2">About me</span>
         </button>
 
-        <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
+        {/* Row 2, Column 1 & 2 (Spanning Both Columns) */}
+        <div className="col-span-2">
           <h2 className="text-3xl font-bold">
             {messages[messageIndex].heading}
           </h2>
