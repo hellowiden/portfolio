@@ -20,6 +20,7 @@ interface Project {
 export default function ProjectDetail() {
   const { slug } = useParams();
   const [project, setProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchProject() {
@@ -30,15 +31,27 @@ export default function ProjectDetail() {
         setProject(data.project);
       } catch (error) {
         console.error(error);
+      } finally {
+        setLoading(false);
       }
     }
 
     if (slug) fetchProject();
   }, [slug]);
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-32">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+      </div>
+    );
+  }
+
   if (!project) {
     return (
-      <p className="text-zinc-900 dark:text-zinc-100">Project not found.</p>
+      <p className="text-zinc-900 dark:text-zinc-100 text-center">
+        Project not found.
+      </p>
     );
   }
 
