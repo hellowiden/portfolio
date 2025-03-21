@@ -6,7 +6,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-black transition">
+    <footer className="w-full border-t backdrop-blur-md border-zinc-200 dark:border-zinc-800 bg-zinc-200/70 dark:bg-zinc-900/70 transition">
       <div className="w-full px-6 sm:px-8 py-10 grid gap-6 md:grid-cols-[1fr_auto]">
         <section>
           <h4 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50 mb-4">
