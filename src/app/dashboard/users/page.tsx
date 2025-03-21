@@ -81,6 +81,31 @@ export default function UsersPage() {
     }
   };
 
+  const handleAddUser = async (newUser: {
+    name: string;
+    email: string;
+    password: string;
+    roles: string[];
+  }) => {
+    try {
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newUser),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to add user');
+      }
+
+      await fetchUsers();
+      setAddUserModalState(false);
+    } catch (error) {
+      console.error('Error creating user:', error);
+    }
+  };
+
   if (status === 'loading') return <p>Loading...</p>;
   if (!isAdmin) return <p>Access denied</p>;
 
@@ -189,7 +214,7 @@ export default function UsersPage() {
         <AddUserModal
           isOpen={addUserModalState}
           onClose={() => setAddUserModalState(false)}
-          onSave={fetchUsers}
+          onSave={handleAddUser}
         />
       )}
     </div>
