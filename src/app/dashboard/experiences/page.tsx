@@ -5,6 +5,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import SearchInput from '@/app/components/SearchInput/SearchInput';
 
 interface Experience {
   _id: string;
@@ -26,16 +27,11 @@ export default function ExperiencesDashboard() {
     [session]
   );
 
-  useEffect(() => {
-    if (
-      status === 'unauthenticated' ||
-      (status === 'authenticated' && !isAdmin)
-    ) {
-      router.replace(status === 'unauthenticated' ? '/login' : '/');
-    }
-  }, [status, isAdmin, router]);
-
   const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [filteredExperiences, setFilteredExperiences] = useState<Experience[]>(
+    []
+  );
+  const [searchQuery, setSearchQuery] = useState('');
   const [formData, setFormData] = useState<Partial<Experience>>({
     title: '',
     location: '',
@@ -47,7 +43,15 @@ export default function ExperiencesDashboard() {
   });
   const [editingExpId, setEditingExpId] = useState<string | null>(null);
 
-  // Fetch experiences
+  useEffect(() => {
+    if (
+      status === 'unauthenticated' ||
+      (status === 'authenticated' && !isAdmin)
+    ) {
+      router.replace(status === 'unauthenticated' ? '/login' : '/');
+    }
+  }, [status, isAdmin, router]);
+
   const fetchExperiences = useCallback(async () => {
     try {
       const res = await fetch('/api/experiences');
@@ -63,7 +67,10 @@ export default function ExperiencesDashboard() {
     if (isAdmin) fetchExperiences();
   }, [isAdmin, fetchExperiences]);
 
-  // Handle form field changes
+  useEffect(() => {
+    setFilteredExperiences(experiences);
+  }, [experiences]);
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -73,37 +80,27 @@ export default function ExperiencesDashboard() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Create or Update
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { title } = formData;
-
-    // Basic check (adjust as needed)
-    if (!title) {
+    if (!formData.title) {
       alert('Title is required.');
       return;
     }
 
     try {
-      if (editingExpId) {
-        // Update existing
-        const res = await fetch(`/api/experiences/${editingExpId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-        if (!res.ok) throw new Error('Error updating experience');
-      } else {
-        // Create new
-        const res = await fetch('/api/experiences', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-        if (!res.ok) throw new Error('Error creating experience');
-      }
+      const method = editingExpId ? 'PUT' : 'POST';
+      const url = editingExpId
+        ? `/api/experiences/${editingExpId}`
+        : '/api/experiences';
 
-      // Reset form & refresh list
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error('Error saving experience');
+
       setFormData({
         title: '',
         location: '',
@@ -120,13 +117,11 @@ export default function ExperiencesDashboard() {
     }
   };
 
-  // Edit button
   const handleEdit = (experience: Experience) => {
     setEditingExpId(experience._id);
     setFormData(experience);
   };
 
-  // Delete experience
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this experience?')) return;
 
@@ -143,10 +138,16 @@ export default function ExperiencesDashboard() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 p-4">
       <h1 className="text-2xl font-bold">Manage Experiences</h1>
 
-      {/* CREATE / UPDATE FORM */}
+      <SearchInput
+        value={searchQuery}
+        onChange={setSearchQuery}
+        data={experiences}
+        onFilter={setFilteredExperiences}
+      />
+
       <form onSubmit={handleSubmit} className="grid gap-2 border p-4 rounded">
         <label>
           Title:
@@ -234,7 +235,6 @@ export default function ExperiencesDashboard() {
         </button>
       </form>
 
-      {/* EXPERIENCES LIST */}
       <table className="w-full border">
         <thead className="bg-gray-100">
           <tr>
@@ -245,7 +245,7 @@ export default function ExperiencesDashboard() {
           </tr>
         </thead>
         <tbody>
-          {experiences.map((exp) => (
+          {filteredExperiences.map((exp) => (
             <tr key={exp._id} className="border-b">
               <td className="p-2 border">{exp.title}</td>
               <td className="p-2 border">{exp.location}</td>
