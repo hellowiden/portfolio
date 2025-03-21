@@ -10,7 +10,6 @@ import {
   ListboxOptions,
   ListboxOption,
 } from '@headlessui/react';
-
 import { Check, ChevronDown } from 'lucide-react';
 
 const budgetOptions = [
@@ -32,6 +31,13 @@ const placeholders: { [key: string]: string } = {
   issues: 'Describe the issue in detail so I can assist you better.',
   general: 'What’s on your mind? Feel free to share your thoughts.',
 };
+
+const buttonClass =
+  'grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600';
+
+function getPlaceholder(reason: string) {
+  return placeholders[reason] || 'Enter your message...';
+}
 
 function Step({
   title,
@@ -80,7 +86,6 @@ function CustomDropdown({
           {options.map((option, index) => (
             <div key={option.value} className="grid p-0">
               <ListboxOption
-                key={option.value}
                 value={option.value}
                 className={({ active }) =>
                   `p-2 cursor-pointer grid rounded transition ${
@@ -174,74 +179,61 @@ export default function Contact() {
     <div className="grid gap-4 bg-white dark:bg-zinc-900 p-6 border dark:border-light rounded">
       {step === 1 && (
         <Step title="Let's Start - What Brings You Here?">
-          <div className="grid gap-4 p-0">
-            <CustomDropdown
-              value={formData.reason}
-              options={contactReasons}
-              onChange={(value) => handleChange('reason', value)}
-            />
-            <button
-              onClick={() => setStep(2)}
-              disabled={!formData.reason}
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
-            >
-              Next
-            </button>
-          </div>
+          <CustomDropdown
+            value={formData.reason}
+            options={contactReasons}
+            onChange={(value) => handleChange('reason', value)}
+          />
+          <button
+            onClick={() => setStep(2)}
+            disabled={!formData.reason}
+            className={buttonClass}
+          >
+            Next
+          </button>
         </Step>
       )}
 
       {step === 2 && formData.reason === 'job_offer' && (
         <Step title="Great! Let's Talk Budget">
-          <div className="grid gap-4 p-0">
-            <CustomDropdown
-              value={formData.budget}
-              options={budgetOptions}
-              onChange={(value) => handleChange('budget', value)}
-            />
-            <button
-              onClick={() => setStep(3)}
-              disabled={!formData.budget}
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
-            >
-              Next
-            </button>
-          </div>
+          <CustomDropdown
+            value={formData.budget}
+            options={budgetOptions}
+            onChange={(value) => handleChange('budget', value)}
+          />
+          <button
+            onClick={() => setStep(3)}
+            disabled={!formData.budget}
+            className={buttonClass}
+          >
+            Next
+          </button>
         </Step>
       )}
 
       {((step === 2 && formData.reason !== 'job_offer') || step === 3) && (
         <Step title="Tell Me More">
-          <div className="grid gap-4 p-0">
-            <CustomInput
-              name="message"
-              value={formData.message}
-              onChange={(e) => handleChange('message', e.target.value)}
-              placeholder={
-                placeholders[formData.reason] || 'Enter your message...'
-              }
-            />
-            <button
-              onClick={() => setStep(4)}
-              disabled={!formData.message}
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
-            >
-              Next
-            </button>
-          </div>
+          <CustomInput
+            name="message"
+            value={formData.message}
+            onChange={(e) => handleChange('message', e.target.value)}
+            placeholder={getPlaceholder(formData.reason)}
+          />
+          <button
+            onClick={() => setStep(4)}
+            disabled={!formData.message}
+            className={buttonClass}
+          >
+            Next
+          </button>
         </Step>
       )}
 
       {step === 4 && (
         <Step title="Ready to Submit?">
-          <div className="grid gap-4 p-0">
-            <button
-              onClick={handleSubmit}
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
-            >
-              Send
-            </button>
-          </div>
+          <button onClick={handleSubmit} className={buttonClass}>
+            Send
+          </button>
         </Step>
       )}
 
@@ -250,10 +242,7 @@ export default function Contact() {
       )}
 
       {step > 1 && (
-        <button
-          onClick={() => setStep(step - 1)}
-          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
-        >
+        <button onClick={() => setStep(step - 1)} className={buttonClass}>
           Back
         </button>
       )}
