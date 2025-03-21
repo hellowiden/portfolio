@@ -37,6 +37,42 @@ interface SearchInputProps<T extends SearchData> {
   onFilter: (filtered: T[]) => void;
 }
 
+const filters = {
+  '/users': (item: SearchData, q: string) => {
+    const { name, email, roles } = item as User;
+    return (
+      name?.toLowerCase().includes(q) ||
+      email?.toLowerCase().includes(q) ||
+      roles?.some((r) => r.toLowerCase().includes(q))
+    );
+  },
+  '/projects': (item: SearchData, q: string) => {
+    const { name, description, tags } = item as Project;
+    return (
+      name?.toLowerCase().includes(q) ||
+      description?.toLowerCase().includes(q) ||
+      tags?.some((t) => t.toLowerCase().includes(q))
+    );
+  },
+  '/messages': (item: SearchData, q: string) => {
+    const { userName, userEmail, message, reason } = item as Message;
+    return (
+      userName?.toLowerCase().includes(q) ||
+      userEmail?.toLowerCase().includes(q) ||
+      message?.toLowerCase().includes(q) ||
+      reason?.toLowerCase().includes(q)
+    );
+  },
+  '/experiences': (item: SearchData, q: string) => {
+    const { title, location, tags } = item as Experience;
+    return (
+      title?.toLowerCase().includes(q) ||
+      location?.toLowerCase().includes(q) ||
+      tags?.some((t) => t.toLowerCase().includes(q))
+    );
+  },
+};
+
 export default function SearchInput<T extends SearchData>({
   value,
   onChange,
@@ -47,48 +83,10 @@ export default function SearchInput<T extends SearchData>({
 
   const filterData = (query: string) => {
     const q = query.toLowerCase();
-    let result: T[] = [];
-
-    if (pathname.includes('/users')) {
-      result = data.filter((item) => {
-        const user = item as User;
-        return (
-          user.name?.toLowerCase().includes(q) ||
-          user.email?.toLowerCase().includes(q) ||
-          user.roles?.some((r) => r.toLowerCase().includes(q))
-        );
-      });
-    } else if (pathname.includes('/projects')) {
-      result = data.filter((item) => {
-        const project = item as Project;
-        return (
-          project.name?.toLowerCase().includes(q) ||
-          project.description?.toLowerCase().includes(q) ||
-          project.tags?.some((t) => t.toLowerCase().includes(q))
-        );
-      });
-    } else if (pathname.includes('/messages')) {
-      result = data.filter((item) => {
-        const msg = item as Message;
-        return (
-          msg.userName?.toLowerCase().includes(q) ||
-          msg.userEmail?.toLowerCase().includes(q) ||
-          msg.message?.toLowerCase().includes(q) ||
-          msg.reason?.toLowerCase().includes(q)
-        );
-      });
-    } else if (pathname.includes('/experiences')) {
-      result = data.filter((item) => {
-        const exp = item as Experience;
-        return (
-          exp.title?.toLowerCase().includes(q) ||
-          exp.location?.toLowerCase().includes(q) ||
-          exp.tags?.some((t) => t.toLowerCase().includes(q))
-        );
-      });
-    }
-
-    onFilter(result);
+    const filterKeys = Object.keys(filters) as Array<keyof typeof filters>;
+    const match = filterKeys.find((key) => pathname.includes(key));
+    const filterFn = match ? filters[match] : () => false;
+    onFilter(data.filter((item) => filterFn(item, q)));
   };
 
   return (
