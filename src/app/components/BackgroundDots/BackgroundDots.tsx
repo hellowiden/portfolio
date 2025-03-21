@@ -5,7 +5,7 @@ export default function BackgroundDots() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(#555_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[radial-gradient(#aaa_1px,transparent_1px)]"
+      className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(theme(colors.zinc.300)_1px,transparent_1px)] [background-size:16px_16px] dark:bg-[radial-gradient(theme(colors.zinc.700)_1px,transparent_1px)]"
     />
   );
 }
