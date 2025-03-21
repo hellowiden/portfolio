@@ -2,9 +2,7 @@
 
 'use client';
 
-import { useSession } from 'next-auth/react';
-import { useEffect, useMemo, useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useCallback } from 'react';
 import SearchInput from '@/app/components/SearchInput/SearchInput';
 
 interface Experience {
@@ -19,14 +17,6 @@ interface Experience {
 }
 
 export default function ExperiencesDashboard() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  const isAdmin = useMemo(
-    () => session?.user?.roles.includes('admin'),
-    [session]
-  );
-
   const [experiences, setExperiences] = useState<Experience[]>([]);
   const [filteredExperiences, setFilteredExperiences] = useState<Experience[]>(
     []
@@ -43,15 +33,6 @@ export default function ExperiencesDashboard() {
   });
   const [editingExpId, setEditingExpId] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (
-      status === 'unauthenticated' ||
-      (status === 'authenticated' && !isAdmin)
-    ) {
-      router.replace(status === 'unauthenticated' ? '/login' : '/');
-    }
-  }, [status, isAdmin, router]);
-
   const fetchExperiences = useCallback(async () => {
     try {
       const res = await fetch('/api/experiences');
@@ -64,8 +45,8 @@ export default function ExperiencesDashboard() {
   }, []);
 
   useEffect(() => {
-    if (isAdmin) fetchExperiences();
-  }, [isAdmin, fetchExperiences]);
+    fetchExperiences();
+  }, [fetchExperiences]);
 
   useEffect(() => {
     setFilteredExperiences(experiences);
@@ -133,9 +114,6 @@ export default function ExperiencesDashboard() {
       console.error(error);
     }
   };
-
-  if (status === 'loading') return <p>Loading...</p>;
-  if (!isAdmin) return <p>Access denied</p>;
 
   return (
     <div className="grid gap-6 p-4">

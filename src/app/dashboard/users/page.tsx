@@ -3,8 +3,6 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 import EditUserModal from '@/app/components/EditUserModal';
 import AddUserModal from '@/app/components/AddUserModal';
 import SearchInput from '@/app/components/SearchInput/SearchInput';
@@ -20,33 +18,17 @@ interface User {
 }
 
 export default function UsersPage() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-  const isAdmin = session?.user?.roles.includes('admin');
-
   const [users, setUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
     user: User | null;
-  }>({
-    isOpen: false,
-    user: null,
-  });
+  }>({ isOpen: false, user: null });
+
   const [addUserModalState, setAddUserModalState] = useState(false);
 
-  useEffect(() => {
-    if (
-      status === 'unauthenticated' ||
-      (status === 'authenticated' && !isAdmin)
-    ) {
-      router.replace(status === 'unauthenticated' ? '/login' : '/');
-    }
-  }, [status, isAdmin, router]);
-
   const fetchUsers = useCallback(async () => {
-    if (!isAdmin) return;
     try {
       const response = await fetch('/api/users');
       if (!response.ok) throw new Error('Failed to fetch users');
@@ -55,7 +37,7 @@ export default function UsersPage() {
     } catch (error) {
       console.error(error);
     }
-  }, [isAdmin]);
+  }, []);
 
   useEffect(() => {
     fetchUsers();
@@ -105,9 +87,6 @@ export default function UsersPage() {
       console.error('Error creating user:', error);
     }
   };
-
-  if (status === 'loading') return <p>Loading...</p>;
-  if (!isAdmin) return <p>Access denied</p>;
 
   return (
     <div className="space-y-6 p-4">

@@ -2,9 +2,7 @@
 
 'use client';
 
-import { useEffect, useState, useCallback, useMemo } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useCallback } from 'react';
 import SearchInput from '@/app/components/SearchInput/SearchInput';
 
 interface Message {
@@ -36,26 +34,10 @@ const getPriorityColor = (reason: string, budget?: string) => {
 };
 
 export default function Messages() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
   const [allMessages, setAllMessages] = useState<Message[]>([]);
   const [filteredMessages, setFilteredMessages] = useState<Message[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const isAdmin = useMemo(
-    () => session?.user?.roles.includes('admin'),
-    [session?.user?.roles]
-  );
-
-  useEffect(() => {
-    if (
-      status === 'unauthenticated' ||
-      (status === 'authenticated' && !isAdmin)
-    ) {
-      router.replace(status === 'unauthenticated' ? '/login' : '/');
-    }
-  }, [status, isAdmin, router]);
 
   const fetchMessages = useCallback(async (signal?: AbortSignal) => {
     setLoading(true);
@@ -80,11 +62,10 @@ export default function Messages() {
   }, []);
 
   useEffect(() => {
-    if (!isAdmin) return;
     const abortController = new AbortController();
     fetchMessages(abortController.signal);
     return () => abortController.abort();
-  }, [isAdmin, fetchMessages]);
+  }, [fetchMessages]);
 
   useEffect(() => {
     setFilteredMessages(allMessages);
@@ -103,8 +84,7 @@ export default function Messages() {
     }
   };
 
-  if (status === 'loading' || loading) return <p>Loading...</p>;
-  if (!isAdmin) return <p>Access denied</p>;
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div className="grid gap-6 p-6">

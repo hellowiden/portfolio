@@ -2,9 +2,7 @@
 
 'use client';
 
-import { useSession } from 'next-auth/react';
-import { useEffect, useMemo, useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useCallback } from 'react';
 import SearchInput from '@/app/components/SearchInput/SearchInput';
 
 interface Project {
@@ -19,14 +17,6 @@ interface Project {
 }
 
 export default function ProjectsDashboard() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-
-  const isAdmin = useMemo(
-    () => session?.user?.roles.includes('admin'),
-    [session]
-  );
-
   const [projects, setProjects] = useState<Project[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -40,15 +30,6 @@ export default function ProjectsDashboard() {
     tags: [],
   });
   const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (
-      status === 'unauthenticated' ||
-      (status === 'authenticated' && !isAdmin)
-    ) {
-      router.replace(status === 'unauthenticated' ? '/login' : '/');
-    }
-  }, [status, isAdmin, router]);
 
   const fetchProjects = useCallback(async () => {
     try {
@@ -73,8 +54,8 @@ export default function ProjectsDashboard() {
   }, []);
 
   useEffect(() => {
-    if (isAdmin) fetchProjects();
-  }, [isAdmin, fetchProjects]);
+    fetchProjects();
+  }, [fetchProjects]);
 
   useEffect(() => {
     setFilteredProjects(projects);
@@ -141,9 +122,6 @@ export default function ProjectsDashboard() {
       console.error(error);
     }
   };
-
-  if (status === 'loading') return <p>Loading...</p>;
-  if (!isAdmin) return <p>Access denied</p>;
 
   return (
     <div className="grid gap-6 p-4">
