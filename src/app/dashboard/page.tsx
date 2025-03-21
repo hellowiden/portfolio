@@ -1,24 +1,10 @@
 //src/app/dashboard/page.tsx
+
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 export default function Dashboard() {
-  const { data: session, status } = useSession();
-  const router = useRouter();
-  const isAdmin = session?.user?.roles.includes('admin');
-
-  useEffect(() => {
-    if (
-      status === 'unauthenticated' ||
-      (status === 'authenticated' && !isAdmin)
-    ) {
-      router.replace(status === 'unauthenticated' ? '/login' : '/');
-    }
-  }, [status, isAdmin, router]);
-
   const [stats, setStats] = useState({
     users: 0,
     messages: 0,
@@ -27,8 +13,6 @@ export default function Dashboard() {
   });
 
   useEffect(() => {
-    if (!isAdmin) return;
-
     const fetchStats = async () => {
       try {
         const [usersRes, messagesRes, projectsRes, experiencesRes] =
@@ -65,10 +49,7 @@ export default function Dashboard() {
     };
 
     fetchStats();
-  }, [isAdmin]);
-
-  if (status === 'loading') return <p>Loading...</p>;
-  if (!isAdmin) return <p>Access denied</p>;
+  }, []);
 
   return (
     <div className="w-full grid gap-6">
@@ -77,7 +58,6 @@ export default function Dashboard() {
         Welcome to the admin dashboard. Manage your data using the navigation.
       </p>
 
-      {/* GRID LAYOUT FOR STATS */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard title="Total Users" value={stats.users} />
         <StatCard title="Total Messages" value={stats.messages} />
