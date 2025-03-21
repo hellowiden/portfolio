@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, type ReactNode } from 'react';
+import { useState, useRef, useEffect, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { FiUser, FiLogIn, FiLogOut, FiGrid, FiMenu, FiX } from 'react-icons/fi';
@@ -8,6 +8,7 @@ import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
   const { data: session, status } = useSession();
 
@@ -28,8 +29,24 @@ export default function HamburgerMenu() {
     setIsOpen(false);
   };
 
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      window.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      window.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <div className="grid gap-2">
+    <div className="relative" ref={menuRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
@@ -39,7 +56,7 @@ export default function HamburgerMenu() {
       </button>
 
       {isOpen && (
-        <div className="grid gap-2 w-48 p-3 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 rounded shadow">
+        <div className="absolute right-0 mt-2 w-48 p-3 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 rounded shadow grid gap-2 z-50">
           {isAuthenticated && (
             <>
               {isAdmin && (
