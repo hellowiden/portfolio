@@ -5,6 +5,7 @@
 import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import SearchInput from '@/app/components/SearchInput/SearchInput';
 
 interface Message {
   _id: string;
@@ -20,9 +21,7 @@ interface Message {
 
 const getPriorityColor = (reason: string, budget?: string) => {
   const lowerReason = reason.toLowerCase();
-  if (lowerReason.includes('issue')) {
-    return 'bg-red-600';
-  }
+  if (lowerReason.includes('issue')) return 'bg-red-600';
   if (lowerReason.includes('job') && budget) {
     const budgetEnum: Record<string, string> = {
       under_3000: 'bg-red-500',
@@ -39,7 +38,9 @@ const getPriorityColor = (reason: string, budget?: string) => {
 export default function Messages() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [messages, setMessages] = useState<Record<string, Message[]>>({});
+  const [allMessages, setAllMessages] = useState<Message[]>([]);
+  const [filteredMessages, setFilteredMessages] = useState<Message[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
 
   const isAdmin = useMemo(
@@ -63,26 +64,16 @@ export default function Messages() {
       if (!res.ok) throw new Error('Failed to fetch messages');
       const data = await res.json();
 
-      const categorizedMessages = data.messages.reduce(
-        (acc: Record<string, Message[]>, msg: Message) => {
-          if (!acc[msg.reason]) acc[msg.reason] = [];
-          acc[msg.reason].push(msg);
-          return acc;
-        },
-        {}
+      const sorted = data.messages.sort(
+        (a: Message, b: Message) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
 
-      Object.keys(categorizedMessages).forEach((category: string) => {
-        categorizedMessages[category].sort(
-          (a: Message, b: Message) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        );
-      });
-
-      setMessages(categorizedMessages);
+      setAllMessages(sorted);
     } catch (error) {
-      if (error instanceof Error && error.name !== 'AbortError')
+      if (error instanceof Error && error.name !== 'AbortError') {
         console.error('Error fetching messages:', error);
+      }
     } finally {
       setLoading(false);
     }
@@ -95,6 +86,10 @@ export default function Messages() {
     return () => abortController.abort();
   }, [isAdmin, fetchMessages]);
 
+  useEffect(() => {
+    setFilteredMessages(allMessages);
+  }, [allMessages]);
+
   const handleDeleteMessage = async (messageId: string) => {
     if (!confirm('Are you sure you want to delete this message?')) return;
     try {
@@ -102,15 +97,7 @@ export default function Messages() {
         method: 'DELETE',
       });
       if (!res.ok) throw new Error('Failed to delete message');
-      setMessages((prev) => {
-        const updated = { ...prev };
-        Object.keys(updated).forEach((category) => {
-          updated[category] = updated[category].filter(
-            (msg) => msg._id !== messageId
-          );
-        });
-        return updated;
-      });
+      setAllMessages((prev) => prev.filter((msg) => msg._id !== messageId));
     } catch (error) {
       console.error('Error deleting message:', error);
     }
@@ -124,7 +111,21 @@ export default function Messages() {
       <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
         Messages
       </h1>
-      {Object.entries(messages).map(([category, msgs]) => (
+
+      <SearchInput
+        value={searchQuery}
+        onChange={setSearchQuery}
+        data={allMessages}
+        onFilter={setFilteredMessages}
+      />
+
+      {Object.entries(
+        filteredMessages.reduce((acc: Record<string, Message[]>, msg) => {
+          if (!acc[msg.reason]) acc[msg.reason] = [];
+          acc[msg.reason].push(msg);
+          return acc;
+        }, {})
+      ).map(([category, msgs]) => (
         <div key={category} className="gap-6 grid">
           <h2 className="text-xl font-semibold text-zinc-800 dark:text-zinc-200">
             {category}
@@ -133,7 +134,7 @@ export default function Messages() {
             {msgs.map((msg) => (
               <div
                 key={msg._id}
-                className={`border dark:border-zinc-600 p-5 rounded transition-all bg-zinc-200 dark:bg-zinc-900 grid gap-4`}
+                className="border dark:border-zinc-600 p-5 rounded transition-all bg-zinc-200 dark:bg-zinc-900 grid gap-4"
               >
                 <hr
                   className={`h-3 rounded ${getPriorityColor(
