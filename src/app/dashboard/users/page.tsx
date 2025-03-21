@@ -2,11 +2,12 @@
 
 'use client';
 
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import EditUserModal from '@/app/components/EditUserModal';
 import AddUserModal from '@/app/components/AddUserModal';
+import SearchInput from '@/app/components/SearchInput/SearchInput';
 
 interface User {
   _id: string;
@@ -23,16 +24,8 @@ export default function UsersPage() {
   const router = useRouter();
   const isAdmin = session?.user?.roles.includes('admin');
 
-  useEffect(() => {
-    if (
-      status === 'unauthenticated' ||
-      (status === 'authenticated' && !isAdmin)
-    ) {
-      router.replace(status === 'unauthenticated' ? '/login' : '/');
-    }
-  }, [status, isAdmin, router]);
-
   const [users, setUsers] = useState<User[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [modalState, setModalState] = useState<{
     isOpen: boolean;
@@ -43,7 +36,15 @@ export default function UsersPage() {
   });
   const [addUserModalState, setAddUserModalState] = useState(false);
 
-  // Fetch users
+  useEffect(() => {
+    if (
+      status === 'unauthenticated' ||
+      (status === 'authenticated' && !isAdmin)
+    ) {
+      router.replace(status === 'unauthenticated' ? '/login' : '/');
+    }
+  }, [status, isAdmin, router]);
+
   const fetchUsers = useCallback(async () => {
     if (!isAdmin) return;
     try {
@@ -60,15 +61,9 @@ export default function UsersPage() {
     fetchUsers();
   }, [fetchUsers]);
 
-  const filteredUsers = useMemo(() => {
-    const query = searchQuery.toLowerCase();
-    return users.filter(
-      (user) =>
-        user.name.toLowerCase().includes(query) ||
-        user.email.toLowerCase().includes(query) ||
-        user.roles.some((role) => role.toLowerCase().includes(query))
-    );
-  }, [users, searchQuery]);
+  useEffect(() => {
+    setFilteredUsers(users);
+  }, [users]);
 
   const handleEdit = (user: User) => setModalState({ isOpen: true, user });
   const handleCloseModal = () => setModalState({ isOpen: false, user: null });
@@ -94,12 +89,11 @@ export default function UsersPage() {
       <h1 className="text-2xl font-bold dark:text-white">Manage Users</h1>
 
       <div className="flex justify-between">
-        <input
-          type="text"
-          placeholder="Search..."
+        <SearchInput
           value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          className="border border-light dark:border-dark p-2 rounded w-1/3 bg-white dark:bg-zinc-800 dark:text-white"
+          onChange={setSearchQuery}
+          data={users}
+          onFilter={setFilteredUsers}
         />
         <button
           onClick={() => setAddUserModalState(true)}
@@ -109,7 +103,6 @@ export default function UsersPage() {
         </button>
       </div>
 
-      {/* Users Table */}
       <div className="overflow-x-auto border border-light dark:border-dark rounded">
         <table className="w-full border-collapse">
           <thead className="bg-gray-200 dark:bg-zinc-700 text-gray-900 dark:text-white">
@@ -183,7 +176,6 @@ export default function UsersPage() {
         </table>
       </div>
 
-      {/* Edit User Modal */}
       {modalState.isOpen && modalState.user && (
         <EditUserModal
           user={modalState.user}
@@ -193,7 +185,6 @@ export default function UsersPage() {
         />
       )}
 
-      {/* Add User Modal */}
       {addUserModalState && (
         <AddUserModal
           isOpen={addUserModalState}
