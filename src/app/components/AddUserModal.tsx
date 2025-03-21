@@ -10,7 +10,7 @@ interface AddUserModalProps {
     email: string;
     password: string;
     roles: string[];
-  }) => void;
+  }) => Promise<void>;
 }
 
 const AddUserModal: React.FC<AddUserModalProps> = ({
@@ -22,18 +22,45 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [roles, setRoles] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const handleSubmit = () => {
+  const resetForm = () => {
+    setName('');
+    setEmail('');
+    setPassword('');
+    setRoles('');
+    setError('');
+  };
+
+  const handleSubmit = async () => {
+    if (!name || !email || !password) {
+      setError('All fields are required.');
+      return;
+    }
+
     const roleList = roles.split(',').map((role) => role.trim());
-    onSave({ name, email, password, roles: roleList });
+    setLoading(true);
+    try {
+      await onSave({ name, email, password, roles: roleList });
+      resetForm();
+      onClose();
+    } catch (err) {
+      console.error(err);
+      setError('Failed to create user.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
-      <div className="bg-white p-4 rounded">
-        <h2 className="text-xl mb-4">Add New User</h2>
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50 z-50">
+      <div className="bg-white p-4 rounded w-full max-w-md shadow-lg">
+        <h2 className="text-xl mb-4 font-semibold">Add New User</h2>
+
+        {error && <p className="text-red-600 mb-2">{error}</p>}
 
         <label className="block mb-2">Name</label>
         <input
@@ -67,16 +94,20 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
           className="w-full p-2 border rounded mb-4"
         />
 
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-2">
           <button
             onClick={handleSubmit}
-            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+            disabled={loading}
+            className="px-4 py-2 text-sm border rounded bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
           >
-            Save
+            {loading ? 'Saving...' : 'Save'}
           </button>
           <button
-            onClick={onClose}
-            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+            onClick={() => {
+              resetForm();
+              onClose();
+            }}
+            className="px-4 py-2 text-sm border rounded bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
           >
             Cancel
           </button>
