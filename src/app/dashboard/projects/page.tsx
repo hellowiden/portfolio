@@ -5,6 +5,7 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useMemo, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
+import SearchInput from '@/app/components/SearchInput/SearchInput';
 
 interface Project {
   _id: string;
@@ -26,16 +27,9 @@ export default function ProjectsDashboard() {
     [session]
   );
 
-  useEffect(() => {
-    if (
-      status === 'unauthenticated' ||
-      (status === 'authenticated' && !isAdmin)
-    ) {
-      router.replace(status === 'unauthenticated' ? '/login' : '/');
-    }
-  }, [status, isAdmin, router]);
-
   const [projects, setProjects] = useState<Project[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [formData, setFormData] = useState<Partial<Project>>({
     name: '',
     link: '',
@@ -46,6 +40,15 @@ export default function ProjectsDashboard() {
     tags: [],
   });
   const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (
+      status === 'unauthenticated' ||
+      (status === 'authenticated' && !isAdmin)
+    ) {
+      router.replace(status === 'unauthenticated' ? '/login' : '/');
+    }
+  }, [status, isAdmin, router]);
 
   const fetchProjects = useCallback(async () => {
     try {
@@ -73,6 +76,10 @@ export default function ProjectsDashboard() {
     if (isAdmin) fetchProjects();
   }, [isAdmin, fetchProjects]);
 
+  useEffect(() => {
+    setFilteredProjects(projects);
+  }, [projects]);
+
   const handleChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -92,21 +99,16 @@ export default function ProjectsDashboard() {
     }
 
     try {
-      if (editingProjectId) {
-        const res = await fetch(`/api/projects/${editingProjectId}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-        if (!res.ok) throw new Error('Error updating project');
-      } else {
-        const res = await fetch('/api/projects', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
-        if (!res.ok) throw new Error('Error creating project');
-      }
+      const url = editingProjectId
+        ? `/api/projects/${editingProjectId}`
+        : '/api/projects';
+      const method = editingProjectId ? 'PUT' : 'POST';
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (!res.ok) throw new Error('Error saving project');
 
       setFormData({
         name: '',
@@ -144,8 +146,15 @@ export default function ProjectsDashboard() {
   if (!isAdmin) return <p>Access denied</p>;
 
   return (
-    <div className="grid gap-6">
+    <div className="grid gap-6 p-4">
       <h1 className="text-2xl font-bold">Manage Projects</h1>
+
+      <SearchInput
+        value={searchQuery}
+        onChange={setSearchQuery}
+        data={projects}
+        onFilter={setFilteredProjects}
+      />
 
       <form
         onSubmit={handleSubmit}
@@ -246,7 +255,7 @@ export default function ProjectsDashboard() {
           </tr>
         </thead>
         <tbody>
-          {projects.map((project) => (
+          {filteredProjects.map((project) => (
             <tr key={project._id} className="border-b">
               <td className="p-2 border border-light rounded">
                 {project.name}
