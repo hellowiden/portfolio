@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useEffect, type ReactNode } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { FiUser, FiLogIn, FiLogOut, FiGrid, FiMenu, FiX } from 'react-icons/fi';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
@@ -10,6 +10,7 @@ export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
   const router = useRouter();
+  const pathname = usePathname();
   const { data: session, status } = useSession();
 
   const isAuthenticated = status === 'authenticated';
@@ -64,12 +65,14 @@ export default function HamburgerMenu() {
                   icon={<FiGrid />}
                   label="Dashboard"
                   onClick={() => handleNavigation('/dashboard')}
+                  active={pathname === '/dashboard'}
                 />
               )}
               <MenuButton
                 icon={<FiUser />}
                 label="Profile"
                 onClick={() => handleNavigation('/profile')}
+                active={pathname === '/profile'}
               />
             </>
           )}
@@ -93,15 +96,21 @@ function MenuButton({
   icon,
   label,
   onClick,
+  active = false,
 }: {
   icon: ReactNode;
   label: string;
   onClick: () => void;
+  active?: boolean;
 }) {
   return (
     <button
       onClick={onClick}
-      className="grid grid-cols-[auto_1fr] items-center gap-2 p-2 rounded hover:bg-zinc-200 dark:hover:bg-zinc-700 text-left"
+      className={`grid grid-cols-[auto_1fr] items-center gap-2 p-2 rounded text-left ${
+        active
+          ? 'bg-zinc-300 dark:bg-zinc-600 font-semibold'
+          : 'hover:bg-zinc-200 dark:hover:bg-zinc-700'
+      }`}
     >
       {icon}
       <span>{label}</span>
