@@ -5,8 +5,10 @@
 import { adMessages } from '../../../data/adMessages';
 import useRotatingMessages from '@/hooks/useRotatingMessages';
 
+const INTERVAL = 15000;
+
 export default function AdBar() {
-  const { current } = useRotatingMessages(adMessages, 15000);
+  const { current } = useRotatingMessages(adMessages, INTERVAL);
 
   if (!current) return null;
 
@@ -21,7 +23,7 @@ export default function AdBar() {
       </div>
       <style jsx>{`
         .progress-bar {
-          animation: progressAnimation 60s linear infinite;
+          animation: progressAnimation ${INTERVAL / 1000}s linear infinite;
         }
         @keyframes progressAnimation {
           from {
