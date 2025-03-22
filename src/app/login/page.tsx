@@ -2,21 +2,18 @@
 
 'use client';
 
-import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AdBar from '@/app/components/AdBar/AdBar';
 
+import { useLoginForm } from '@/hooks/auth/useLoginForm';
+import { useFormStatus } from '@/hooks/auth/useFormStatus';
+
 export default function Login() {
   const router = useRouter();
-  const [formData, setFormData] = useState({ email: '', password: '' });
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const { formData, handleChange } = useLoginForm();
+  const { error, setError, loading, setLoading } = useFormStatus();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

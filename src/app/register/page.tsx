@@ -2,28 +2,19 @@
 
 'use client';
 
-import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AdBar from '@/app/components/AdBar/AdBar';
 
+import { useRegisterForm } from '@/hooks/auth/useRegisterForm';
+import { useAgreement } from '@/hooks/auth/useAgreement';
+import { useFormStatus } from '@/hooks/auth/useFormStatus';
+
 export default function Register() {
   const router = useRouter();
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
-  const [agreed, setAgreed] = useState(false);
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const inputClass =
-    'w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white';
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const { formData, handleChange } = useRegisterForm();
+  const { agreed, toggleAgreement } = useAgreement();
+  const { error, setError, loading, setLoading } = useFormStatus();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -55,6 +46,9 @@ export default function Register() {
       setLoading(false);
     }
   };
+
+  const inputClass =
+    'w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white';
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x dark:border-light">
@@ -103,7 +97,7 @@ export default function Register() {
               type="checkbox"
               id="agree"
               checked={agreed}
-              onChange={() => setAgreed(!agreed)}
+              onChange={toggleAgreement}
               className="accent-green-600 dark:accent-green-500"
             />
             <label
