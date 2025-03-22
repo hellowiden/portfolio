@@ -6,7 +6,7 @@ import { adMessages } from '../../../data/adMessages';
 import useRotatingMessages from '@/hooks/useRotatingMessages';
 
 export default function AdBar() {
-  const { current } = useRotatingMessages(adMessages, 60000);
+  const { current } = useRotatingMessages(adMessages, 15000);
 
   if (!current) return null;
 
