@@ -2,33 +2,20 @@
 
 'use client';
 
-import { useEffect, useState, useCallback, useRef } from 'react';
 import { adMessages } from '../../../data/adMessages';
+import useRotatingMessages from '@/hooks/useRotatingMessages';
 
 export default function AdBar() {
-  const [index, setIndex] = useState(0);
-  const messageIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const { current } = useRotatingMessages(adMessages, 60000);
 
-  const rotateMessage = useCallback(() => {
-    setIndex((prevIndex) => (prevIndex + 1) % adMessages.length);
-  }, []);
-
-  useEffect(() => {
-    messageIntervalRef.current = setInterval(rotateMessage, 60000);
-
-    return () => clearInterval(messageIntervalRef.current!);
-  }, [rotateMessage]);
-
-  if (adMessages.length === 0) return null;
+  if (!current) return null;
 
   return (
     <div className="grid place-items-center text-white p-6 text-center w-full gap-4">
       <h2 className="text-3xl font-bold" aria-live="polite">
-        &ldquo;{adMessages[index]?.heading || 'Default Heading'}&rdquo;
+        &ldquo;{current.heading || 'Default Heading'}&rdquo;
       </h2>
-      <p className="text-lg">
-        {adMessages[index]?.subtext || 'Default subtext message'}
-      </p>
+      <p className="text-lg">{current.subtext || 'Default subtext message'}</p>
       <div className="w-full max-w-md h-1 bg-zinc-700 rounded-full overflow-hidden relative">
         <div className="w-full h-full bg-white progress-bar" />
       </div>
