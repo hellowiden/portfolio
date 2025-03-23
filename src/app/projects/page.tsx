@@ -82,7 +82,17 @@ export default function ProjectsPage() {
                 >
                   {project.name}
                 </Link>
-                <div>{project.tags?.join(' • ')}</div>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags?.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="bg-zinc-800 text-white text-sm px-2 py-1 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
                 <div>
                   Created: {project.createdAt}
                   {project.completedAt &&

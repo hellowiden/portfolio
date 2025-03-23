@@ -66,7 +66,17 @@ export default function ExperiencesPage() {
               >
                 {experience.title} @ {experience.location}
               </Link>
-              <div>{experience.tags.join(' • ')}</div>
+              <div className="flex flex-wrap gap-2">
+                {experience.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="bg-zinc-800 text-white text-sm px-2 py-1 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
               <div>{experience.date}</div>
               {experience.description && (
                 <p>{extractFirstSentence(experience.description)}</p>
