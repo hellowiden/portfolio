@@ -12,9 +12,17 @@ export default function Home() {
     <div className="grid gap-6 min-h-screen container mx-auto p-6 border-x dark:border-light bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border-zinc-300 dark:border-zinc-700">
       <IntroductionSection />
       <ClientsCarousel />
-      <ProjectOpener />
-      <ExperienceOpener />
-      <ContactOpener />
+      <div className="grid grid-cols-2 grid-rows-2 gap-6">
+        <div className="row-start-1 col-start-1">
+          <ProjectOpener />
+        </div>
+        <div className="row-start-1 col-start-2">
+          <ExperienceOpener />
+        </div>
+        <div className="row-start-2 col-span-2">
+          <ContactOpener />
+        </div>
+      </div>
     </div>
   );
 }
