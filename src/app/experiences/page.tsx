@@ -38,7 +38,7 @@ export default function ExperiencesPage() {
   }, []);
 
   return (
-    <div className="grid gap-4 text-zinc-900 dark:text-zinc-100">
+    <div className="grid gap-4 text-base text-zinc-900 dark:text-zinc-100">
       {loading ? (
         <div className="flex justify-center items-center h-32">
           <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
@@ -56,7 +56,7 @@ export default function ExperiencesPage() {
               >
                 {experience.title} at {experience.location}
               </Link>
-              <div className="text-xs text-gray-600 dark:text-gray-400">
+              <div className="text-zinc-600 dark:text-zinc-400">
                 {experience.date} • {experience.tags.join(' • ')}
               </div>
             </div>
