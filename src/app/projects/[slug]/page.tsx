@@ -49,14 +49,14 @@ export default function ProjectDetail() {
 
   if (!project) {
     return (
-      <p className="text-zinc-900 dark:text-zinc-100 text-center">
+      <p className="text-base text-zinc-900 dark:text-zinc-100 text-center">
         Project not found.
       </p>
     );
   }
 
   return (
-    <div className="grid gap-6 p-6 text-zinc-900 dark:text-zinc-100">
+    <div className="grid gap-6 p-6 text-base text-zinc-900 dark:text-zinc-100">
       <div className="grid">
         <Image
           src={project.image || '/fallback.jpg'}
@@ -69,11 +69,11 @@ export default function ProjectDetail() {
       </div>
       <div className="grid gap-2">
         <h1 className="text-3xl font-bold">{project.name}</h1>
-        <div className="text-sm text-gray-500 dark:text-gray-400">
+        <div className="text-zinc-500 dark:text-zinc-400">
           Created: {project.createdAt}
           {project.completedAt && ` • Completed: ${project.completedAt}`}
         </div>
-        <div className="text-xs text-gray-600 dark:text-gray-400">
+        <div className="text-zinc-600 dark:text-zinc-400">
           {project.tags?.join(' • ')}
         </div>
       </div>

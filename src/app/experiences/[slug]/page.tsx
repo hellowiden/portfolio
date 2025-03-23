@@ -1,4 +1,5 @@
 // src/app/experiences/[slug]/page.tsx
+
 'use client';
 
 import { useParams } from 'next/navigation';
@@ -48,14 +49,14 @@ export default function ExperienceDetail() {
 
   if (!experience) {
     return (
-      <p className="text-zinc-900 dark:text-zinc-100 text-center">
+      <p className="text-base text-zinc-900 dark:text-zinc-100 text-center">
         Experience not found.
       </p>
     );
   }
 
   return (
-    <div className="grid gap-6 p-6 text-zinc-900 dark:text-zinc-100">
+    <div className="grid gap-6 p-6 text-base text-zinc-900 dark:text-zinc-100">
       <div className="grid">
         <Image
           src={experience.image || '/fallback.jpg'}
@@ -66,7 +67,7 @@ export default function ExperienceDetail() {
         />
       </div>
       <h1 className="text-3xl font-bold">{experience.title}</h1>
-      <p className="text-xs text-gray-600 dark:text-gray-400">
+      <p className="text-zinc-600 dark:text-zinc-400">
         {experience.date} • {experience.location}
       </p>
       <p className="text-zinc-700 dark:text-zinc-300">
