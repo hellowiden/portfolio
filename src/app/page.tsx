@@ -14,8 +14,8 @@ export default function Home() {
         <IntroductionSection />
         <ClientsCarousel />
 
-        <div className="grid gap-6">
-          <div className="grid gap-6 columns-2">
+        <div className="grid grid-rows-2 gap-6">
+          <div className="grid gap-6 grid-cols-2">
             <ProjectOpener />
             <ExperienceOpener />
           </div>
