@@ -9,12 +9,17 @@ import ContactOpener from '@/app/components/ContactOpener/ContactOpener';
 
 export default function Home() {
   return (
-    <div className="grid gap-6 min-h-screen container mx-auto p-6 border-x dark:border-light bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border-zinc-300 dark:border-zinc-700">
-      <IntroductionSection />
-      <ClientsCarousel />
-      <ProjectOpener />
-      <ExperienceOpener />
-      <ContactOpener />
-    </div>
+    <>
+      <div className="grid gap-6 min-h-screen container mx-auto p-6 border-x dark:border-light bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 border-zinc-300 dark:border-zinc-700">
+        <IntroductionSection />
+        <ClientsCarousel />
+
+        <div>
+          <ProjectOpener />
+          <ExperienceOpener />
+          <ContactOpener />
+        </div>
+      </div>
+    </>
   );
 }
