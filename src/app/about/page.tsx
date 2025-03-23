@@ -31,15 +31,13 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="grid gap-4"
           >
-            <h1 className="text-3xl font-medium text-zinc-900 dark:text-zinc-50">
+            <h1 className="text-4xl font-medium text-zinc-900 dark:text-zinc-50">
               Why Me?
             </h1>
-            <p>
-              <strong>
-                Because clarity is rare, and strategy is everything.
-              </strong>
+            <p className="text-xl text-zinc-900 dark:text-zinc-100 font-semibold">
+              Because clarity is rare, and strategy is everything.
             </p>
-            <p className="text-md text-zinc-700 dark:text-zinc-300 leading-relaxed">
+            <p className="text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">
               In a world where most chase noise, I focus on what lasts. I don’t
               build brands to go viral—I build them to endure. With over a
               decade of guiding 500+ global projects, I’ve learned one truth:
@@ -73,7 +71,7 @@ export default function About() {
             </p>
             <Link
               href="/contact"
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition border-green text-green-700 hover:bg-green-100 dark:border-green dark:text-green-200 dark:hover:bg-green-800"
+              className="text-lg font-medium grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded transition border-green text-green-700 hover:bg-green-100 dark:border-green dark:text-green-200 dark:hover:bg-green-800"
             >
               If you seek strategy, let’s talk.
             </Link>
