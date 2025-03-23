@@ -1,5 +1,3 @@
-// src/app/components/HoverCard/HoverCard.tsx
-
 'use client';
 
 import Image from 'next/image';
@@ -28,7 +26,7 @@ export default function HoverCard({
   buttonLabel,
   buttonRoute,
   buttonAriaLabel,
-  heightClass = 'h-64',
+  heightClass = 'h-auto',
 }: HoverCardProps) {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
@@ -50,10 +48,16 @@ export default function HoverCard({
 
       <div className="col-start-1 row-start-1 w-full h-full bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm pointer-events-none z-10" />
 
-      <div className="col-start-1 row-start-1 z-20 grid w-full h-full p-6 text-zinc-900 dark:text-white">
-        {isHovered ? (
-          <div className="grid grid-rows-[auto_1fr] gap-4 w-full h-full">
-            <div className="grid grid-cols-[1fr_auto] items-center">
+      <div className="col-start-1 row-start-1 z-20 grid w-full h-full">
+        {!isHovered ? (
+          <div className="grid place-items-center w-full h-full">
+            <h1 className="text-xl font-bold underline underline-offset-4 text-zinc-900 dark:text-zinc-100">
+              {title}
+            </h1>
+          </div>
+        ) : (
+          <div className="grid grid-rows-[auto_1fr] gap-4 p-6 text-zinc-900 dark:text-white w-full h-full">
+            <div className="grid grid-cols-[1fr_auto] items-center w-full">
               <h1 className="text-xl font-medium">{title}</h1>
               <button
                 onClick={() => router.push(buttonRoute)}
@@ -79,16 +83,6 @@ export default function HoverCard({
                 {description}
               </p>
             </div>
-          </div>
-        ) : (
-          <div className="grid grid-rows-[auto_1fr] gap-4 w-full h-full">
-            <div className="grid grid-cols-[1fr_auto] items-center">
-              <h1 className="text-xl font-bold underline underline-offset-4">
-                {title}
-              </h1>
-              <div className="w-[150px] h-[40px] sm:block hidden" />
-            </div>
-            <div />
           </div>
         )}
       </div>
