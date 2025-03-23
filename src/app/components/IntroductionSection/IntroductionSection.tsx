@@ -27,7 +27,7 @@ export default function IntroductionSection() {
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
+        className="absolute rounded top-0 left-0 w-full h-full object-cover"
       >
         <source src="/ads.mp4" type="video/mp4" />
         Your browser does not support the video tag.
