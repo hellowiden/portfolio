@@ -42,11 +42,11 @@ export default function HoverCard({
         alt={title}
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-cover w-full h-full col-start-1 row-start-1"
+        className="object-cover w-full h-full col-start-1 row-start-1 z-[-1]"
         priority
       />
 
-      <div className="absolute inset-0 col-start-1 row-start-1 bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm pointer-events-none" />
+      <div className="col-start-1 row-start-1 w-full h-full bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm pointer-events-none z-0" />
 
       <div className="col-start-1 row-start-1 z-10 grid w-full h-full">
         {!isHovered ? (
