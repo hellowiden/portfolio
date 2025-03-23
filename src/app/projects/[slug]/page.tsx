@@ -69,11 +69,6 @@ export default function ProjectDetail() {
       <div className="grid gap-2">
         <h1 className="text-2xl font-bold">{project.name}</h1>
 
-        <div className="text-sm text-zinc-500">
-          Created: {project.createdAt}
-          {project.completedAt && ` • Completed: ${project.completedAt}`}
-        </div>
-
         {project.tags && project.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {project.tags.map((tag, index) => (
@@ -86,6 +81,11 @@ export default function ProjectDetail() {
             ))}
           </div>
         )}
+
+        <div className="text-sm text-zinc-500">
+          Created: {project.createdAt}
+          {project.completedAt && ` • Completed: ${project.completedAt}`}
+        </div>
       </div>
 
       {project.description && (

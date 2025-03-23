@@ -71,10 +71,6 @@ export default function ExperienceDetail() {
       <div className="grid gap-2">
         <h1 className="text-2xl font-bold">{experience.title}</h1>
 
-        <div className="text-sm text-zinc-500">
-          {experience.date} • {experience.location}
-        </div>
-
         {experience.tags && experience.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {experience.tags.map((tag, index) => (
@@ -87,6 +83,10 @@ export default function ExperienceDetail() {
             ))}
           </div>
         )}
+
+        <div className="text-sm text-zinc-500">
+          {experience.date} • {experience.location}
+        </div>
       </div>
 
       <div>
