@@ -23,7 +23,7 @@ export default function ContactOpener() {
         alt="Get in Touch"
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-cover w-full h-full col-start-1 row-start-1"
+        className="text-3xl object-cover w-full h-full col-start-1 row-start-1"
         priority
       />
 

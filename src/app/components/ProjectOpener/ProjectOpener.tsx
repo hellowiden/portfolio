@@ -23,7 +23,7 @@ export default function ProjectOpener() {
         alt="My Projects"
         fill
         sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-cover w-full h-full col-start-1 row-start-1"
+        className="text-3xl object-cover w-full h-full col-start-1 row-start-1"
         priority
       />
 
