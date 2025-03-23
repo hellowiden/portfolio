@@ -18,7 +18,7 @@ export default function ClientsCarousel() {
               href={url}
               target="_blank"
               rel="noopener noreferrer"
-              className="font-medium relative group whitespace-nowrap bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 text-sm px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="relative group whitespace-nowrap bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 text-sm px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-green-500"
               aria-label={`Client: ${name}`}
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
