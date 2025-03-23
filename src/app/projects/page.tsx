@@ -56,7 +56,7 @@ export default function ProjectsPage() {
   };
 
   return (
-    <section className="grid gap-4">
+    <section className="grid gap-4 text-base text-zinc-900 dark:text-zinc-100">
       <p className="italic">
         <strong>Note:</strong> Due to strict NDAs, I cannot disclose specifics
         of past projects. However, I’ve learned my lesson and moving forward,
@@ -68,7 +68,7 @@ export default function ProjectsPage() {
           <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
         </div>
       ) : (
-        <div className="grid gap-4 text-zinc-900 dark:text-zinc-100">
+        <div className="grid gap-4">
           <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded">
             {sortedProjects.map((project) => (
               <div
@@ -81,10 +81,10 @@ export default function ProjectsPage() {
                 >
                   {project.name}
                 </Link>
-                <div className="text-xs text-gray-600 dark:text-gray-400">
+                <div className="text-zinc-600 dark:text-zinc-400">
                   {project.tags?.join(' • ')}
                 </div>
-                <div className="text-xs text-gray-500 dark:text-gray-500">
+                <div className="text-zinc-500 dark:text-zinc-500">
                   Created: {project.createdAt}
                   {project.completedAt &&
                     ` • Completed: ${project.completedAt}`}
@@ -100,7 +100,7 @@ export default function ProjectsPage() {
                   />
                 )}
                 {project.description && (
-                  <p className="text-sm text-gray-700 dark:text-gray-300 mt-2">
+                  <p className="text-zinc-700 dark:text-zinc-300 mt-2">
                     {truncateText(project.description)}
                   </p>
                 )}
@@ -109,7 +109,7 @@ export default function ProjectsPage() {
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-blue-400 hover:underline text-sm"
+                    className="text-blue-600 dark:text-blue-400 hover:underline"
                   >
                     View Project
                   </a>
