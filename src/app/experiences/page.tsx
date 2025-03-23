@@ -37,6 +37,11 @@ export default function ExperiencesPage() {
     fetchExperiences();
   }, []);
 
+  const extractFirstSentence = (text: string) => {
+    const match = text.match(/.*?[.?!](\s|$)/);
+    return match ? match[0].trim() : text;
+  };
+
   return (
     <section className="grid gap-4">
       <p>
@@ -63,7 +68,9 @@ export default function ExperiencesPage() {
               </Link>
               <div>{experience.tags.join(' • ')}</div>
               <div>{experience.date}</div>
-              {experience.description && <p>{experience.description}</p>}
+              {experience.description && (
+                <p>{extractFirstSentence(experience.description)}</p>
+              )}
             </div>
           ))}
         </div>
