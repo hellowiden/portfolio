@@ -57,11 +57,12 @@ export default function ProjectsPage() {
   };
 
   return (
-    <section className="grid gap-4">
-      <p>
-        <strong>Note:</strong> Due to strict NDAs, I cannot disclose specifics
-        of past projects. However, I’ve learned my lesson and moving forward,
-        all relevant opportunities will be displayed here.
+    <section className="grid gap-6">
+      <p className="text-base text-zinc-700 dark:text-zinc-300">
+        <strong className="font-semibold">Note:</strong> Due to strict NDAs, I
+        cannot disclose specifics of past projects. However, I’ve learned my
+        lesson and moving forward, all relevant opportunities will be displayed
+        here.
       </p>
 
       {loading ? (
@@ -69,19 +70,20 @@ export default function ProjectsPage() {
           <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
         </div>
       ) : (
-        <div className="grid gap-4">
-          <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded">
+        <div className="grid gap-6">
+          <div className="grid gap-6 bg-zinc-100 dark:bg-zinc-900 p-6 border border-zinc-300 dark:border-zinc-700 rounded">
             {sortedProjects.map((project) => (
               <div
                 key={project._id}
-                className="grid gap-2 border-b last:border-none border-zinc-300 dark:border-zinc-700"
+                className="grid gap-3 border-b last:border-none border-zinc-300 dark:border-zinc-700 pb-4"
               >
                 <Link
                   href={`/projects/${project._id}`}
-                  className="hover:underline"
+                  className="text-2xl font-semibold hover:underline text-zinc-900 dark:text-zinc-100"
                 >
                   {project.name}
                 </Link>
+
                 <div className="flex flex-wrap gap-2">
                   {project.tags?.map((tag, index) => (
                     <span
@@ -93,11 +95,12 @@ export default function ProjectsPage() {
                   ))}
                 </div>
 
-                <div>
+                <div className="text-sm text-zinc-600 dark:text-zinc-400">
                   Created: {project.createdAt}
                   {project.completedAt &&
                     ` • Completed: ${project.completedAt}`}
                 </div>
+
                 {project.image && (
                   <Image
                     src={project.image}
@@ -108,15 +111,19 @@ export default function ProjectsPage() {
                     layout="responsive"
                   />
                 )}
+
                 {project.description && (
-                  <p>{extractFirstSentence(project.description)}</p>
+                  <p className="text-base text-zinc-700 dark:text-zinc-300">
+                    {extractFirstSentence(project.description)}
+                  </p>
                 )}
+
                 {project.link && (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:underline"
+                    className="text-sm text-blue-600 dark:text-blue-400 hover:underline"
                   >
                     View Project
                   </a>

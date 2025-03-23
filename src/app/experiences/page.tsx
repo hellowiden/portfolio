@@ -43,10 +43,11 @@ export default function ExperiencesPage() {
   };
 
   return (
-    <section className="grid gap-4">
-      <p>
-        <strong>Note:</strong> This is a curated list of experiences spanning
-        work and education. For more context, feel free to reach out directly.
+    <section className="grid gap-6">
+      <p className="text-base text-zinc-700 dark:text-zinc-300">
+        <strong className="font-semibold">Note:</strong> This is a curated list
+        of experiences spanning work and education. For more context, feel free
+        to reach out directly.
       </p>
 
       {loading ? (
@@ -54,18 +55,19 @@ export default function ExperiencesPage() {
           <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
         </div>
       ) : (
-        <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded">
+        <div className="grid gap-6 bg-zinc-100 dark:bg-zinc-900 p-6 border border-zinc-300 dark:border-zinc-700 rounded">
           {experiences.map((experience) => (
             <div
               key={experience._id}
-              className="grid gap-2 border-b last:border-none border-zinc-300 dark:border-zinc-700"
+              className="grid gap-3 border-b last:border-none border-zinc-300 dark:border-zinc-700 pb-4"
             >
               <Link
                 href={`/experiences/${experience._id}`}
-                className="hover:underline"
+                className="text-2xl font-semibold hover:underline text-zinc-900 dark:text-zinc-100"
               >
                 {experience.title} @ {experience.location}
               </Link>
+
               <div className="flex flex-wrap gap-2">
                 {experience.tags.map((tag, index) => (
                   <span
@@ -77,9 +79,14 @@ export default function ExperiencesPage() {
                 ))}
               </div>
 
-              <div>{experience.date}</div>
+              <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                {experience.date}
+              </div>
+
               {experience.description && (
-                <p>{extractFirstSentence(experience.description)}</p>
+                <p className="text-base text-zinc-700 dark:text-zinc-300">
+                  {extractFirstSentence(experience.description)}
+                </p>
               )}
             </div>
           ))}
