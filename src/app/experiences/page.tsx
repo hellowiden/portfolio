@@ -1,4 +1,4 @@
-//src/app/experiences/page.tsx
+// src/app/experiences/page.tsx
 
 'use client';
 
@@ -38,31 +38,34 @@ export default function ExperiencesPage() {
   }, []);
 
   return (
-    <div className="grid gap-4">
+    <section className="grid gap-6">
+      <header className="text-2xl font-bold leading-tight">Experiences</header>
+
       {loading ? (
         <div className="grid place-items-center h-32">
           <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
         </div>
       ) : (
-        <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded">
+        <div className="grid gap-6 bg-zinc-100 dark:bg-zinc-900 p-6 border border-zinc-300 dark:border-zinc-700 rounded-xl">
           {experiences.map((experience) => (
             <div
               key={experience._id}
-              className="grid gap-2 border-b last:border-none border-zinc-300 dark:border-zinc-700"
+              className="grid gap-3 border-b pb-4 last:border-none border-zinc-300 dark:border-zinc-700"
             >
               <Link
                 href={`/experiences/${experience._id}`}
-                className="hover:underline"
+                className="text-xl font-semibold hover:underline"
               >
-                {experience.title} at {experience.location}
+                {experience.title} @ {experience.location}
               </Link>
-              <div>
+
+              <div className="text-sm text-zinc-500">
                 {experience.date} • {experience.tags.join(' • ')}
               </div>
             </div>
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 }

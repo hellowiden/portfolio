@@ -1,4 +1,4 @@
-//src/app/projects/layout.tsx
+// src/app/projects/layout.tsx
 
 'use client';
 
@@ -29,7 +29,7 @@ function NavButton({
   return (
     <button
       onClick={onClick}
-      className="grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded transition bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+      className="grid grid-cols-[auto_1fr] items-center px-3 py-2 sm:gap-2 border rounded-lg transition text-sm font-medium bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600 text-zinc-800 dark:text-zinc-100"
     >
       {isPrev && <MotionIcon isPrev />}
       <span className="hidden sm:inline">
@@ -96,9 +96,14 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="h-full bg-zinc-100 dark:bg-zinc-900 container mx-auto border-x dark:border-light backdrop-blur-md bg-zinc-100/80 dark:bg-zinc-900/80">
-      <header className="grid grid-cols-2 items-center p-4 gap-4 border-b border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800">
-        <Link href="/projects">Projects</Link>
+    <div className="h-full bg-zinc-100 dark:bg-zinc-900 container mx-auto border-x border-zinc-200 dark:border-zinc-700 backdrop-blur-md bg-zinc-100/80 dark:bg-zinc-900/80">
+      <header className="grid grid-cols-2 items-center px-6 py-4 gap-4 border-b border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800">
+        <Link
+          href="/projects"
+          className="text-xl font-semibold hover:underline text-zinc-800 dark:text-zinc-100"
+        >
+          Projects
+        </Link>
         {isProjectPage && (
           <div className="grid grid-flow-col auto-cols-max gap-4 justify-end">
             {currentProjectIndex > 0 && (
@@ -116,6 +121,7 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
           </div>
         )}
       </header>
+
       <main className="container mx-auto grid gap-6 p-6">{children}</main>
     </div>
   );

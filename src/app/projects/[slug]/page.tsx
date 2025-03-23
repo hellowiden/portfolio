@@ -1,4 +1,4 @@
-//src/app/projects/[slug]/page.tsx
+// src/app/projects/[slug]/page.tsx
 
 'use client';
 
@@ -48,44 +48,59 @@ export default function ProjectDetail() {
   }
 
   if (!project) {
-    return <p className="text-center">Project not found.</p>;
+    return (
+      <p className="text-center text-base text-zinc-600">Project not found.</p>
+    );
   }
 
   return (
-    <div className="grid gap-6 p-6">
-      <div className="grid">
+    <section className="grid gap-6 p-6">
+      <div>
         <Image
           src={project.image || '/fallback.jpg'}
           alt={project.name}
           width={800}
           height={400}
-          className="w-full h-80 object-cover border dark:border-light rounded"
+          className="w-full h-80 object-cover border dark:border-zinc-700 rounded-xl"
           priority
         />
       </div>
+
       <div className="grid gap-2">
-        <h1>{project.name}</h1>
-        <div>
+        <h1 className="text-2xl font-bold">{project.name}</h1>
+
+        <div className="text-sm text-zinc-500">
           Created: {project.createdAt}
           {project.completedAt && ` • Completed: ${project.completedAt}`}
         </div>
-        <div>{project.tags?.join(' • ')}</div>
+
+        {project.tags && project.tags.length > 0 && (
+          <div className="text-sm text-zinc-500">
+            {project.tags.join(' • ')}
+          </div>
+        )}
       </div>
-      <div className="grid">
-        <p>{project.description}</p>
-      </div>
+
+      {project.description && (
+        <div>
+          <p className="text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
+            {project.description}
+          </p>
+        </div>
+      )}
+
       {project.link && (
-        <div className="grid">
+        <div>
           <a
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="hover:underline"
+            className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
           >
             View more here
           </a>
         </div>
       )}
-    </div>
+    </section>
   );
 }
