@@ -52,7 +52,7 @@ export default function ExperiencesPage() {
 
       {loading ? (
         <div className="grid place-items-center h-32">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green" />
         </div>
       ) : (
         <div className="grid gap-6 bg-zinc-100 dark:bg-zinc-900 p-6 border border-zinc-300 dark:border-zinc-700 rounded">
@@ -72,7 +72,7 @@ export default function ExperiencesPage() {
                 {experience.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="bg-zinc-800 text-white text-sm px-2 py-1 rounded-full"
+                    className="bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 text-sm px-2 py-1 rounded-full"
                   >
                     {tag}
                   </span>
