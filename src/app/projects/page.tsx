@@ -51,8 +51,9 @@ export default function ProjectsPage() {
     );
   });
 
-  const truncateText = (text: string, maxLines: number = 2) => {
-    return text.split('\n').slice(0, maxLines).join(' ') + '...';
+  const extractFirstSentence = (text: string) => {
+    const match = text.match(/.*?[.?!](\s|$)/);
+    return match ? match[0].trim() : text;
   };
 
   return (
@@ -98,7 +99,7 @@ export default function ProjectsPage() {
                   />
                 )}
                 {project.description && (
-                  <p>{truncateText(project.description)}</p>
+                  <p>{extractFirstSentence(project.description)}</p>
                 )}
                 {project.link && (
                   <a
