@@ -26,7 +26,7 @@ export default function HoverCard({
   buttonLabel,
   buttonRoute,
   buttonAriaLabel,
-  heightClass = 'h-64',
+  heightClass = 'h-auto',
 }: HoverCardProps) {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
