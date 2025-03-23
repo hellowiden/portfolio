@@ -20,7 +20,7 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="relative w-full h-[500px] border border-zinc-300 dark:border-zinc-700 rounded container mx-auto overflow-hidden flex items-end"
+      className="relative w-full h-[500px] backdrop-blur-md bg-white/80 dark:bg-black/70 border border-zinc-300 dark:border-zinc-700 rounded container mx-auto overflow-hidden flex items-end"
     >
       {/* Stack children using grid */}
       <div className="w-full h-full grid">
