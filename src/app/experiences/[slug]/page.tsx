@@ -42,7 +42,7 @@ export default function ExperienceDetail() {
   if (loading) {
     return (
       <div className="grid place-items-center h-32">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green" />
       </div>
     );
   }
@@ -80,7 +80,7 @@ export default function ExperienceDetail() {
             {experience.tags.map((tag, index) => (
               <span
                 key={index}
-                className="bg-zinc-800 text-white text-sm px-2 py-1 rounded-full"
+                className="bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 text-sm px-2 py-1 rounded-full"
               >
                 {tag}
               </span>

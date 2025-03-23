@@ -29,7 +29,7 @@ function NavButton({
   return (
     <button
       onClick={onClick}
-      className="grid grid-cols-[auto_1fr] items-center px-3 py-2 sm:gap-2 border rounded-lg transition text-sm font-medium bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600 text-zinc-800 dark:text-zinc-100"
+      className="grid grid-cols-[auto_1fr] items-center px-3 py-2 sm:gap-2 border rounded-lg transition text-sm font-medium border-green text-green-700 hover:bg-green-100 dark:border-green dark:text-green-200 dark:hover:bg-green-800"
     >
       {isPrev && <MotionIcon isPrev />}
       <span className="hidden sm:inline">
@@ -100,7 +100,7 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
       <header className="grid grid-cols-2 items-center px-6 py-4 gap-4 border-b border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800">
         <Link
           href="/projects"
-          className="text-xl font-semibold hover:underline text-zinc-800 dark:text-zinc-100"
+          className="text-xl font-semibold hover:underline text-green-700 dark:text-green-300"
         >
           Projects
         </Link>

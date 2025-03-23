@@ -42,7 +42,7 @@ export default function ProjectDetail() {
   if (loading) {
     return (
       <div className="grid place-items-center h-32">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green" />
       </div>
     );
   }
@@ -79,7 +79,7 @@ export default function ProjectDetail() {
             {project.tags.map((tag, index) => (
               <span
                 key={index}
-                className="bg-zinc-800 text-white text-sm px-2 py-1 rounded-full"
+                className="bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 text-sm px-2 py-1 rounded-full"
               >
                 {tag}
               </span>
@@ -102,7 +102,7 @@ export default function ProjectDetail() {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+            className="text-sm font-medium text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition hover:underline"
           >
             View more here
           </a>
