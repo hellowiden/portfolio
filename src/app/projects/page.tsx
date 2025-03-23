@@ -1,4 +1,4 @@
-// src/app/projects/page.tsx
+//src/app/projects/page.tsx
 
 'use client';
 
@@ -56,15 +56,11 @@ export default function ProjectsPage() {
   };
 
   return (
-    <section className="grid gap-10">
-      <header className="text-2xl font-bold leading-tight">Projects</header>
-
-      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-400">
-        <strong className="font-semibold text-zinc-800 dark:text-zinc-200">
-          Note:
-        </strong>{' '}
-        Due to NDAs, previous project details are withheld. Future projects will
-        be transparently displayed here.
+    <section className="grid gap-4">
+      <p>
+        <strong>Note:</strong> Due to strict NDAs, I cannot disclose specifics
+        of past projects. However, I’ve learned my lesson and moving forward,
+        all relevant opportunities will be displayed here.
       </p>
 
       {loading ? (
@@ -72,56 +68,51 @@ export default function ProjectsPage() {
           <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
         </div>
       ) : (
-        <div className="grid gap-12">
-          {sortedProjects.map((project) => (
-            <div
-              key={project._id}
-              className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-6 border border-zinc-300 dark:border-zinc-700 rounded-xl shadow-md"
-            >
-              <Link
-                href={`/projects/${project._id}`}
-                className="text-2xl font-semibold hover:underline"
+        <div className="grid gap-4">
+          <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded">
+            {sortedProjects.map((project) => (
+              <div
+                key={project._id}
+                className="grid gap-2 border-b last:border-none border-zinc-300 dark:border-zinc-700"
               >
-                {project.name}
-              </Link>
-
-              <div className="text-sm text-zinc-500">
-                {project.tags?.join(' • ')}
-              </div>
-
-              <div className="text-sm text-zinc-500">
-                Created: {project.createdAt}
-                {project.completedAt && ` • Completed: ${project.completedAt}`}
-              </div>
-
-              {project.image && (
-                <Image
-                  src={project.image}
-                  alt={project.name}
-                  width={800}
-                  height={450}
-                  className="rounded-lg w-full"
-                />
-              )}
-
-              {project.description && (
-                <p className="text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
-                  {truncateText(project.description)}
-                </p>
-              )}
-
-              {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium text-blue-600 dark:text-blue-400 hover:underline"
+                <Link
+                  href={`/projects/${project._id}`}
+                  className="hover:underline"
                 >
-                  View Project
-                </a>
-              )}
-            </div>
-          ))}
+                  {project.name}
+                </Link>
+                <div>{project.tags?.join(' • ')}</div>
+                <div>
+                  Created: {project.createdAt}
+                  {project.completedAt &&
+                    ` • Completed: ${project.completedAt}`}
+                </div>
+                {project.image && (
+                  <Image
+                    src={project.image}
+                    alt={project.name}
+                    width={500}
+                    height={300}
+                    className="rounded w-full max-w-xs"
+                    layout="responsive"
+                  />
+                )}
+                {project.description && (
+                  <p>{truncateText(project.description)}</p>
+                )}
+                {project.link && (
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:underline"
+                  >
+                    View Project
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </section>
