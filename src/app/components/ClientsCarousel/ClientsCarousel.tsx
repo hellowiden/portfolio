@@ -28,7 +28,7 @@ export default function ClientsCarousel() {
           >
             {name}
             <motion.div
-              className="absolute bottom-0 left-0 h-[2px] bg-zinc-800 w-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+              className="absolute bottom-0 left-0 h-[2px]  w-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 text-sm px-2 py-1 rounded-full"
               aria-hidden="true"
             />
           </motion.a>
