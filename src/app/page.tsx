@@ -15,8 +15,10 @@ export default function Home() {
         <ClientsCarousel />
 
         <div>
-          <ProjectOpener />
-          <ExperienceOpener />
+          <div>
+            <ProjectOpener />
+            <ExperienceOpener />
+          </div>
           <ContactOpener />
         </div>
       </div>
