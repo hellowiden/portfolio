@@ -16,6 +16,7 @@ export default function ExperienceOpener() {
       buttonLabel="View Experiences"
       buttonRoute="/experiences"
       buttonAriaLabel="View Experiences"
+      heightClass="h-64"
     />
   );
 }

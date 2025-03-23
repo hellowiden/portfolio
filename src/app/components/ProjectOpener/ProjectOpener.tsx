@@ -16,6 +16,7 @@ export default function ProjectOpener() {
       buttonLabel="View Projects"
       buttonRoute="/projects"
       buttonAriaLabel="View Projects"
+      heightClass="h-64"
     />
   );
 }

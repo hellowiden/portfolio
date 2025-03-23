@@ -16,7 +16,7 @@ export default function ContactOpener() {
       buttonLabel="Contact Me"
       buttonRoute="/contact"
       buttonAriaLabel="Contact Me"
-      heightClass="h-80"
+      heightClass="h-64"
     />
   );
 }
