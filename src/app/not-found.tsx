@@ -6,10 +6,11 @@ export default function NotFound() {
     <div className="grid place-items-center container mx-auto border border-zinc-300 dark:border-zinc-700 rounded min-h-full p-6">
       <div className="grid gap-6 text-center">
         <h1 className="text-4xl font-bold text-zinc-900 dark:text-zinc-50">
-          404 – Page Not Found
+          404 – You’ve Hit a Dead End
         </h1>
         <p className="text-lg text-zinc-600 dark:text-zinc-400">
-          Sorry, the page you&apos;re looking for doesn&apos;t exist.
+          Either the page vanished into the void, or you’ve discovered a secret
+          level. Either way, it’s not here.
         </p>
         <Link
           href="/"
