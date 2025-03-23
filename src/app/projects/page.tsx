@@ -56,16 +56,16 @@ export default function ProjectsPage() {
   };
 
   return (
-    <section className="grid gap-4 text-base text-zinc-900 dark:text-zinc-100">
-      <p className="italic">
+    <section className="grid gap-4">
+      <p>
         <strong>Note:</strong> Due to strict NDAs, I cannot disclose specifics
         of past projects. However, I’ve learned my lesson and moving forward,
         all relevant opportunities will be displayed here.
       </p>
 
       {loading ? (
-        <div className="flex justify-center items-center h-32">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+        <div className="grid place-items-center h-32">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
         </div>
       ) : (
         <div className="grid gap-4">
@@ -73,18 +73,16 @@ export default function ProjectsPage() {
             {sortedProjects.map((project) => (
               <div
                 key={project._id}
-                className="border-b last:border-none border-zinc-300 dark:border-zinc-700 pb-2"
+                className="grid gap-2 border-b last:border-none border-zinc-300 dark:border-zinc-700"
               >
                 <Link
                   href={`/projects/${project._id}`}
-                  className="text-green-600 dark:text-green-400 hover:underline"
+                  className="hover:underline"
                 >
                   {project.name}
                 </Link>
-                <div className="text-zinc-600 dark:text-zinc-400">
-                  {project.tags?.join(' • ')}
-                </div>
-                <div className="text-zinc-500 dark:text-zinc-500">
+                <div>{project.tags?.join(' • ')}</div>
+                <div>
                   Created: {project.createdAt}
                   {project.completedAt &&
                     ` • Completed: ${project.completedAt}`}
@@ -95,21 +93,19 @@ export default function ProjectsPage() {
                     alt={project.name}
                     width={500}
                     height={300}
-                    className="mt-2 rounded w-full max-w-xs"
+                    className="rounded w-full max-w-xs"
                     layout="responsive"
                   />
                 )}
                 {project.description && (
-                  <p className="text-zinc-700 dark:text-zinc-300 mt-2">
-                    {truncateText(project.description)}
-                  </p>
+                  <p>{truncateText(project.description)}</p>
                 )}
                 {project.link && (
                   <a
                     href={project.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-blue-400 hover:underline"
+                    className="hover:underline"
                   >
                     View Project
                   </a>

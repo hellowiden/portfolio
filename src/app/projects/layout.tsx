@@ -29,7 +29,7 @@ function NavButton({
   return (
     <button
       onClick={onClick}
-      className="grid grid-cols-[auto_1fr] items-center p-2 text-base sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+      className="grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded transition bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
     >
       {isPrev && <MotionIcon isPrev />}
       <span className="hidden sm:inline">
@@ -47,11 +47,7 @@ function MotionIcon({ isPrev = false }: { isPrev?: boolean }) {
       animate={{ rotate: 0, opacity: 1 }}
       transition={{ duration: 0.2 }}
     >
-      {isPrev ? (
-        <FaArrowLeft className="text-base" />
-      ) : (
-        <FaArrowRight className="text-base" />
-      )}
+      {isPrev ? <FaArrowLeft /> : <FaArrowRight />}
     </motion.div>
   );
 }
@@ -100,13 +96,11 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="h-full text-base bg-zinc-100 dark:bg-zinc-900 text-zinc-800 dark:text-zinc-100 container mx-auto border-x dark:border-light backdrop-blur-md bg-zinc-100/80 dark:bg-zinc-900/80">
-      <header className="flex justify-between items-center p-4 border-b border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800 text-zinc-900 dark:text-white">
-        <Link href="/projects" className="text-2xl font-bold">
-          Projects
-        </Link>
+    <div className="h-full bg-zinc-100 dark:bg-zinc-900 container mx-auto border-x dark:border-light backdrop-blur-md bg-zinc-100/80 dark:bg-zinc-900/80">
+      <header className="grid grid-cols-2 items-center p-4 gap-4 border-b border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800">
+        <Link href="/projects">Projects</Link>
         {isProjectPage && (
-          <div className="flex space-x-4">
+          <div className="grid grid-flow-col auto-cols-max gap-4 justify-end">
             {currentProjectIndex > 0 && (
               <NavButton
                 direction="prev"
@@ -122,7 +116,7 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
           </div>
         )}
       </header>
-      <main className="container mx-auto p-6">{children}</main>
+      <main className="container mx-auto grid gap-6 p-6">{children}</main>
     </div>
   );
 }

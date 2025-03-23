@@ -41,22 +41,18 @@ export default function ProjectDetail() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-32">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+      <div className="grid place-items-center h-32">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
       </div>
     );
   }
 
   if (!project) {
-    return (
-      <p className="text-base text-zinc-900 dark:text-zinc-100 text-center">
-        Project not found.
-      </p>
-    );
+    return <p className="text-center">Project not found.</p>;
   }
 
   return (
-    <div className="grid gap-6 p-6 text-base text-zinc-900 dark:text-zinc-100">
+    <div className="grid gap-6 p-6">
       <div className="grid">
         <Image
           src={project.image || '/fallback.jpg'}
@@ -68,19 +64,15 @@ export default function ProjectDetail() {
         />
       </div>
       <div className="grid gap-2">
-        <h1 className="text-3xl font-bold">{project.name}</h1>
-        <div className="text-zinc-500 dark:text-zinc-400">
+        <h1>{project.name}</h1>
+        <div>
           Created: {project.createdAt}
           {project.completedAt && ` • Completed: ${project.completedAt}`}
         </div>
-        <div className="text-zinc-600 dark:text-zinc-400">
-          {project.tags?.join(' • ')}
-        </div>
+        <div>{project.tags?.join(' • ')}</div>
       </div>
       <div className="grid">
-        <p className="text-zinc-700 dark:text-zinc-300">
-          {project.description}
-        </p>
+        <p>{project.description}</p>
       </div>
       {project.link && (
         <div className="grid">
@@ -88,7 +80,7 @@ export default function ProjectDetail() {
             href={project.link}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-500 hover:underline"
+            className="hover:underline"
           >
             View more here
           </a>

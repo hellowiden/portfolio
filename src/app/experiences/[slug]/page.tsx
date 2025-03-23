@@ -41,22 +41,18 @@ export default function ExperienceDetail() {
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center h-32">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+      <div className="grid place-items-center h-32">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
       </div>
     );
   }
 
   if (!experience) {
-    return (
-      <p className="text-base text-zinc-900 dark:text-zinc-100 text-center">
-        Experience not found.
-      </p>
-    );
+    return <p className="text-center">Experience not found.</p>;
   }
 
   return (
-    <div className="grid gap-6 p-6 text-base text-zinc-900 dark:text-zinc-100">
+    <div className="grid gap-6 p-6">
       <div className="grid">
         <Image
           src={experience.image || '/fallback.jpg'}
@@ -66,13 +62,11 @@ export default function ExperienceDetail() {
           className="w-full h-80 object-cover border dark:border-light rounded"
         />
       </div>
-      <h1 className="text-3xl font-bold">{experience.title}</h1>
-      <p className="text-zinc-600 dark:text-zinc-400">
+      <h1>{experience.title}</h1>
+      <p>
         {experience.date} • {experience.location}
       </p>
-      <p className="text-zinc-700 dark:text-zinc-300">
-        {experience.description}
-      </p>
+      <p>{experience.description}</p>
     </div>
   );
 }

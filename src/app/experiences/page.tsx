@@ -38,25 +38,25 @@ export default function ExperiencesPage() {
   }, []);
 
   return (
-    <div className="grid gap-4 text-base text-zinc-900 dark:text-zinc-100">
+    <div className="grid gap-4">
       {loading ? (
-        <div className="flex justify-center items-center h-32">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500"></div>
+        <div className="grid place-items-center h-32">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500" />
         </div>
       ) : (
         <div className="grid gap-4 bg-zinc-100 dark:bg-zinc-900 p-4 border border-zinc-300 dark:border-zinc-700 rounded">
           {experiences.map((experience) => (
             <div
               key={experience._id}
-              className="border-b last:border-none border-zinc-300 dark:border-zinc-700 pb-2"
+              className="grid gap-2 border-b last:border-none border-zinc-300 dark:border-zinc-700"
             >
               <Link
                 href={`/experiences/${experience._id}`}
-                className="text-green-600 dark:text-green-400 hover:underline"
+                className="hover:underline"
               >
                 {experience.title} at {experience.location}
               </Link>
-              <div className="text-zinc-600 dark:text-zinc-400">
+              <div>
                 {experience.date} • {experience.tags.join(' • ')}
               </div>
             </div>
