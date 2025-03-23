@@ -76,8 +76,15 @@ export default function ExperienceDetail() {
         </div>
 
         {experience.tags && experience.tags.length > 0 && (
-          <div className="text-sm text-zinc-500">
-            {experience.tags.join(' • ')}
+          <div className="flex flex-wrap gap-2">
+            {experience.tags.map((tag, index) => (
+              <span
+                key={index}
+                className="bg-zinc-800 text-white text-sm px-2 py-1 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
         )}
       </div>
