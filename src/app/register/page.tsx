@@ -48,16 +48,16 @@ export default function Register() {
   };
 
   const inputClass =
-    'w-full p-2 border rounded border-primary-200 bg-primary-100 text-secondary-700 dark:border-secondary-700 dark:bg-primary-900 dark:text-primary-50';
+    'w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white';
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x border-primary-200 dark:border-secondary-700">
-      <div className="grid place-items-center bg-primary-100 dark:bg-primary-900">
+    <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x dark:border-light">
+      <div className="grid place-items-center bg-zinc-100 dark:bg-zinc-800">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-md p-6 bg-white dark:bg-secondary-900 rounded-lg grid gap-4 border border-primary-200 dark:border-secondary-700"
+          className="w-full max-w-md p-6 bg-white dark:bg-zinc-900 rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
         >
-          <h2 className="text-2xl font-bold text-center text-secondary-700 dark:text-primary-50">
+          <h2 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
             It all starts here!
           </h2>
 
@@ -98,16 +98,16 @@ export default function Register() {
               id="agree"
               checked={agreed}
               onChange={toggleAgreement}
-              className="accent-accentPrimary-500 dark:accent-accentPrimary-100"
+              className="accent-green-600 dark:accent-green-500"
             />
             <label
               htmlFor="agree"
-              className="text-sm text-secondary-700 dark:text-secondary-300"
+              className="text-sm text-zinc-800 dark:text-zinc-300"
             >
               I agree to the{' '}
               <Link
                 href="/legal"
-                className="text-secondary-300 hover:underline dark:text-accentPrimary-100 hover:text-secondary-700 dark:hover:text-accentPrimary-500"
+                className="text-zinc-600 hover:underline dark:text-green-400 hover:text-green-500 dark:hover:text-green-300"
               >
                 legal terms
               </Link>
@@ -117,16 +117,16 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="text-sm text-primary-50 bg-secondary-700 hover:bg-secondary-900 dark:bg-accentPrimary-500 dark:hover:bg-accentPrimary-100 p-2 rounded transition disabled:opacity-50"
+            className="text-sm text-zinc-100 bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 p-2 rounded transition disabled:opacity-50"
           >
             {loading ? 'Registering...' : 'Register'}
           </button>
 
-          <p className="text-center text-sm text-secondary-700 dark:text-secondary-300">
+          <p className="text-center text-sm text-zinc-800 dark:text-zinc-300">
             Already have an account?{' '}
             <Link
               href="/login"
-              className="text-sm text-accentPrimary-500 hover:text-accentPrimary-100 dark:text-accentPrimary-100 dark:hover:text-accentPrimary-500 transition hover:underline"
+              className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition hover:underline"
             >
               Login here
             </Link>
@@ -134,7 +134,7 @@ export default function Register() {
         </form>
       </div>
 
-      <div className="hidden md:grid place-items-center bg-gradient-to-br from-secondary-900 to-secondary-300 text-primary-50 p-8 dark:from-secondary-700 dark:to-secondary-300">
+      <div className="hidden md:grid place-items-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
         <AdBar />
       </div>
     </section>
