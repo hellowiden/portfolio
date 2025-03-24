@@ -33,7 +33,7 @@ const placeholders: { [key: string]: string } = {
 };
 
 const buttonClass =
-  'grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600';
+  'grid grid-cols-[auto_1fr] items-center p-2 border border-zinc-300 dark:text-white  dark:border-zinc-600 text-sm text-zinc-100 bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 rounded transition disabled:opacity-50';
 
 function getPlaceholder(reason: string) {
   return placeholders[reason] || 'Enter your message...';
