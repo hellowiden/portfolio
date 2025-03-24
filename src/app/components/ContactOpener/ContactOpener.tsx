@@ -10,7 +10,7 @@ export default function ContactOpener() {
     <HoverCard
       title="Get in Touch"
       subtitle="Let's Connect"
-      description="Reach out to discuss projects, collaborations, or any inquiries."
+      description="I’m always looking to collaborate on interesting projects with great people. Need a supportive hand? I have two!"
       imageSrc="/issues.jpg"
       icon={<FiMail className="text-lg" />}
       buttonLabel="Contact Me"
