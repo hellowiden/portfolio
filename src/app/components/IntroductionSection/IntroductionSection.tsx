@@ -20,11 +20,9 @@ export default function IntroductionSection() {
   return (
     <section
       id="home"
-      className="relative w-full h-[500px] backdrop-blur-md bg-white/80 dark:bg-black/70 border border-zinc-300 dark:border-zinc-700 rounded container mx-auto overflow-hidden flex items-end"
+      className="relative w-full h-[500px] backdrop-blur-md bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded container mx-auto overflow-hidden flex items-end text-zinc-900 dark:text-zinc-50"
     >
-      {/* Stack children using grid */}
       <div className="w-full h-full grid">
-        {/* Video layer */}
         <video
           autoPlay
           loop
@@ -36,8 +34,7 @@ export default function IntroductionSection() {
           Your browser does not support the video tag.
         </video>
 
-        {/* Content layer */}
-        <div className="z-10 row-start-1 col-start-1 self-end w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
+        <div className="z-10 row-start-1 col-start-1 self-end w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-zinc-50/85 dark:bg-zinc-800/85 backdrop-blur-md p-6">
           <div className="grid grid-cols-[auto_1fr] items-center gap-3">
             <Image
               src="/MW.png"
@@ -51,7 +48,7 @@ export default function IntroductionSection() {
           </div>
 
           <button
-            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-zinc-100 text-zinc-700 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:border-zinc-600"
             onClick={() => router.push('/about')}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
