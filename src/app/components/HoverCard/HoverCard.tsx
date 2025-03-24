@@ -46,7 +46,7 @@ export default function HoverCard({
         priority
       />
 
-      <div className="col-start-1 row-start-1 w-full h-full bg-zinc-50/75 dark:bg-zinc-800/75 backdrop-blur-sm pointer-events-none z-10" />
+      <div className="col-start-1 row-start-1 w-full h-full bg-zinc-50/90 dark:bg-zinc-800/90 backdrop-blur-md pointer-events-none z-10" />
 
       <div className="col-start-1 row-start-1 z-20 grid w-full h-full">
         {!isHovered ? (
