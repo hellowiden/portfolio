@@ -48,7 +48,7 @@ export default function Register() {
   };
 
   const inputClass =
-    'w-full p-2 border rounded border-zinc-300 bg-zinc-100 text-zinc-900 dark:border-zinc-700 dark:bg-zinc-800 dark:text-white';
+    'w-full p-2 border rounded border-zinc-300 bg-[#F1F1F1] text-[#686868] dark:border-zinc-700 dark:bg-[#191919] dark:text-[#7D7D7D]';
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x dark:border-light">
