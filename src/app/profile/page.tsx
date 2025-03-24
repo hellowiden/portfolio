@@ -183,7 +183,7 @@ const FormInput = ({
       disabled={disabled}
       readOnly={readOnly}
       aria-label={label}
-      className="p-2 border rounded bg-zinc-100 text-gray-900 border-zinc-300 dark:bg-zinc-800 dark:text-gray-100 dark:border-zinc-600"
+      className="p-2 border rounded bg-zinc-100 text-gray-900 border-zinc-300 dark:bg-zinc-800 dark:text-gray-100 dark:border-zinc-600 focus:outline-none focus:ring-0"
     />
   </div>
 );
@@ -205,7 +205,7 @@ const Button = ({
     type={type}
     onClick={onClick}
     disabled={disabled}
-    className={className}
+    className={`${className} focus:outline-none focus:ring-0`}
   >
     {children}
   </button>
