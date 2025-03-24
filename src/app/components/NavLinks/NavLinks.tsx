@@ -17,6 +17,9 @@ export default function NavLinks() {
   const isAdmin = isAuthenticated && session?.user?.roles?.includes('admin');
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
+  const buttonBaseClasses =
+    'grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-zinc-100 text-zinc-700 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:border-zinc-600';
+
   return (
     <nav className="flex justify-end items-center">
       {/* Large Screen Navigation */}
@@ -29,7 +32,7 @@ export default function NavLinks() {
                 onMouseEnter={() => setHoveredButton('dashboard')}
                 onMouseLeave={() => setHoveredButton(null)}
                 aria-label="Go to Dashboard"
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+                className={buttonBaseClasses}
               >
                 <motion.div
                   key={hoveredButton === 'dashboard' ? 'hover' : 'dashboard'}
@@ -49,7 +52,7 @@ export default function NavLinks() {
               onMouseEnter={() => setHoveredButton('profile')}
               onMouseLeave={() => setHoveredButton(null)}
               aria-label="Go to Profile"
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+              className={buttonBaseClasses}
             >
               <motion.div
                 key={hoveredButton === 'profile' ? 'hover' : 'profile'}
@@ -73,7 +76,7 @@ export default function NavLinks() {
             onMouseEnter={() => setHoveredButton('auth')}
             onMouseLeave={() => setHoveredButton(null)}
             aria-label={isAuthenticated ? 'Logout' : 'Login'}
-            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+            className={buttonBaseClasses}
           >
             <motion.div
               key={hoveredButton === 'auth' ? 'hover' : 'auth'}
