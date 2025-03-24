@@ -1,3 +1,5 @@
+//src/app/hooks/useRotatingMessages.ts
+
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
