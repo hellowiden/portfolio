@@ -40,7 +40,7 @@ export default function Login() {
   };
 
   const inputClass =
-    'w-full p-2 border rounded border-zinc-300 bg-[#F1F1F1] text-[#686868] dark:border-zinc-700 dark:bg-[#191919] dark:text-[#7D7D7D]';
+    'w-full p-2 border rounded border-zinc-300 bg-[#F1F1F1] text-[#686868] dark:border-zinc-700 dark:bg-[#191919] dark:text-[#7D7D7D] focus:outline-none focus:ring-0 focus:border-zinc-400 dark:focus:border-zinc-600';
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 w-full h-full border-x dark:border-light">
@@ -77,7 +77,7 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="text-sm bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 text-white p-2 rounded transition disabled:opacity-50"
+            className="text-sm bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 text-white p-2 rounded transition disabled:opacity-50 focus:outline-none focus:ring-0"
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>

@@ -48,7 +48,7 @@ export default function Register() {
   };
 
   const inputClass =
-    'w-full p-2 border rounded border-zinc-300 bg-[#F1F1F1] text-[#686868] dark:border-zinc-700 dark:bg-[#191919] dark:text-[#7D7D7D]';
+    'w-full p-2 border rounded border-zinc-300 bg-[#F1F1F1] text-[#686868] dark:border-zinc-700 dark:bg-[#191919] dark:text-[#7D7D7D] focus:outline-none focus:ring-0 focus:border-zinc-400 dark:focus:border-zinc-600';
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x dark:border-light">
@@ -98,7 +98,7 @@ export default function Register() {
               id="agree"
               checked={agreed}
               onChange={toggleAgreement}
-              className="accent-green-600 dark:accent-green-500"
+              className="accent-green-600 dark:accent-green-500 focus:outline-none focus:ring-0"
             />
             <label
               htmlFor="agree"
@@ -117,7 +117,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="text-sm text-zinc-100 bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 p-2 rounded transition disabled:opacity-50"
+            className="text-sm text-zinc-100 bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 p-2 rounded transition disabled:opacity-50 focus:outline-none focus:ring-0"
           >
             {loading ? 'Registering...' : 'Register'}
           </button>
