@@ -33,7 +33,7 @@ const placeholders: { [key: string]: string } = {
 };
 
 const buttonClass =
-  'grid grid-cols-[auto_1fr] items-center p-2 border border-zinc-300 dark:text-white  dark:border-zinc-600 text-sm text-zinc-100 bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 rounded transition disabled:opacity-50';
+  'grid grid-cols-[auto_1fr] items-center p-2 border border-zinc-300 dark:text-white dark:border-zinc-600 text-sm text-zinc-100 bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 rounded transition disabled:opacity-50 focus:outline-none focus:ring-0';
 
 function getPlaceholder(reason: string) {
   return placeholders[reason] || 'Enter your message...';
@@ -75,7 +75,7 @@ function CustomDropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="grid gap-2 p-0">
-        <ListboxButton className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition text-gray-900 bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600">
+        <ListboxButton className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition text-gray-900 bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600 focus:outline-none focus:ring-0">
           <span className="truncate">
             {selectedOption ? selectedOption.label : 'Select an Option'}
           </span>
@@ -131,7 +131,7 @@ function CustomInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full p-3 border border-light dark:border-dark rounded bg-white dark:bg-zinc-800 text-black dark:text-white focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 outline-none"
+        className="w-full p-3 border border-light dark:border-dark rounded bg-white dark:bg-zinc-800 text-black dark:text-white outline-none focus:outline-none focus:ring-0"
       />
     </div>
   );
