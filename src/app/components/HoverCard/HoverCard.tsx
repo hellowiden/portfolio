@@ -51,7 +51,7 @@ export default function HoverCard({
       <div className="col-start-1 row-start-1 z-20 grid w-full h-full">
         {!isHovered ? (
           <div className="grid place-items-center w-full h-full">
-            <h1 className="text-xl font-bold underline underline-offset-4 text-zinc-900 dark:text-zinc-100">
+            <h1 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 hover:underline hover:underline-offset-4 transition">
               {title}
             </h1>
           </div>
