@@ -36,13 +36,8 @@ export default function IntroductionSection() {
           Your browser does not support the video tag.
         </video>
 
-        {/* Content layer with slide-up animation */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
-          className="z-10 row-start-1 col-start-1 self-end w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white"
-        >
+        {/* Content layer */}
+        <div className="z-10 row-start-1 col-start-1 self-end w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-white/85 dark:bg-zinc-800/85 backdrop-blur-md p-6 text-zinc-900 dark:text-white">
           <div className="grid grid-cols-[auto_1fr] items-center gap-3">
             <Image
               src="/MW.png"
@@ -96,7 +91,7 @@ export default function IntroductionSection() {
               {current.subtext}
             </motion.p>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
