@@ -8,7 +8,7 @@ export default function ClientsCarousel() {
   return (
     <section
       id="clients"
-      className="w-full grid place-items-center py-4 text-center border border-[#E3E3E3] dark:border-[#292929] backdrop-blur-md bg-[#F1F1F1] dark:bg-[#121212] text-[#121212] dark:text-[#FFFFFF] rounded"
+      className="w-full grid place-items-center py-4 text-center border border-[#E3E3E3] dark:border-[#292929] backdrop-blur-md bg-[#FFFFFF] dark:bg-[#121212] text-[#121212] dark:text-[#FFFFFF] rounded"
     >
       <Marquee gradient={false} speed={50}>
         <div className="flex gap-4">
