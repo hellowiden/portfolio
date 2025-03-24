@@ -13,8 +13,8 @@ export default function Footer() {
             Portfolio Techstack
           </h4>
           <p className="text-sm text-zinc-700 dark:text-zinc-300">
-            Built with Next.js, TypeScript, Tailwind CSS, and more. Designed in
-            Figma & coded in VS Code. Hosted on Vercel.
+            Proudly built with Next.js TypeScript, Tailwind CSS and Framer ·
+            Made by Marcus Widén · Hosted on Vercel
           </p>
         </section>
         <nav className="md:text-right">
