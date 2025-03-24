@@ -117,7 +117,7 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="text-sm bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 p-2 rounded transition disabled:opacity-50"
+            className="text-sm text-zinc-100 bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 p-2 rounded transition disabled:opacity-50"
           >
             {loading ? 'Registering...' : 'Register'}
           </button>
