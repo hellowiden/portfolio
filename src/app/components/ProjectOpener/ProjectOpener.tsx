@@ -10,7 +10,7 @@ export default function ProjectOpener() {
     <HoverCard
       title="My Projects"
       subtitle="Case Studies"
-      description="Take a look at my most recent projects and let that become proof of what you can expect from me."
+      description="All future projects will be presented here, offering insight into ongoing work, upcoming ideas, and creative direction."
       imageSrc="/projectsopener.jpg"
       icon={<FiFolder className="text-lg" />}
       buttonLabel="View Projects"
