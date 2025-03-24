@@ -24,10 +24,6 @@ export default function ClientsCarousel() {
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
             >
               {name}
-              <div
-                className="absolute bottom-0 left-0 h-[2px] w-full scale-x-0 group-hover:scale-x-100 transition-transform duration-300 bg-zinc-400"
-                aria-hidden="true"
-              />
             </motion.a>
           ))}
         </div>
