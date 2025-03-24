@@ -105,10 +105,10 @@ function ContentRow({
         <motion.h2
           key={current.heading}
           className="text-3xl font-bold"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          initial={{ x: '-100%', opacity: 0 }}
+          animate={{ x: '0%', opacity: 1 }}
+          exit={{ x: '-100%', opacity: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
         >
           {current.heading}
         </motion.h2>
@@ -116,10 +116,10 @@ function ContentRow({
         <motion.p
           key={`subtext-${current.subtext}`}
           className="opacity-80 tracking-wide max-w-[900px]"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -10 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          initial={{ x: '-100%', opacity: 0 }}
+          animate={{ x: '0%', opacity: 1 }}
+          exit={{ x: '-100%', opacity: 0 }}
+          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
         >
           {current.subtext}
         </motion.p>
