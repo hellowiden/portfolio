@@ -29,7 +29,7 @@ function NavButton({
   return (
     <button
       onClick={onClick}
-      className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition hover:underline grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+      className="text-sm text-primary-900 hover:text-primary-900/80 dark:text-secondary-50 dark:hover:text-secondary-50/80 transition hover:underline grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded bg-primary-100 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-700"
     >
       {isPrev && <MotionIcon isPrev />}
       <span className="hidden sm:inline">
@@ -96,11 +96,11 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="h-full bg-zinc-100 dark:bg-zinc-900 container mx-auto border-x border-zinc-200 dark:border-zinc-700 backdrop-blur-md bg-zinc-100/80 dark:bg-zinc-900/80">
-      <header className="grid grid-cols-2 items-center px-6 py-4 gap-4 border-b border-zinc-300 dark:border-zinc-700 bg-zinc-200 dark:bg-zinc-800">
+    <div className="h-full bg-primary-100 dark:bg-secondary-800 container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-100/80 dark:bg-secondary-800/80">
+      <header className="grid grid-cols-2 items-center px-6 py-4 gap-4 border-b border-primary-200 dark:border-secondary-700 bg-primary-200 dark:bg-secondary-700">
         <Link
           href="/projects"
-          className="text-xl font-semibold hover:underline text-green-700 dark:text-green-300"
+          className="text-xl font-semibold hover:underline text-primary-900 dark:text-secondary-50"
         >
           Projects
         </Link>

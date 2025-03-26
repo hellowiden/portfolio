@@ -1,4 +1,4 @@
-//src/app/projects/page.tsx
+// src/app/projects/page.tsx
 
 'use client';
 
@@ -58,7 +58,7 @@ export default function ProjectsPage() {
 
   return (
     <section className="grid gap-6">
-      <p className="text-base text-zinc-700 dark:text-zinc-300">
+      <p className="text-base text-primary-900 dark:text-secondary-50">
         <strong className="font-semibold">Note:</strong> Due to strict NDAs, I
         cannot disclose specifics of past projects. However, I’ve learned my
         lesson and moving forward, all relevant opportunities will be displayed
@@ -67,59 +67,56 @@ export default function ProjectsPage() {
 
       {loading ? (
         <div className="grid place-items-center h-32">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green" />
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-primary-900 dark:border-secondary-700" />
         </div>
       ) : (
-        <div className="grid gap-6">
-          <div className="grid gap-6 bg-zinc-100 dark:bg-zinc-900 p-6 border border-zinc-300 dark:border-zinc-700 rounded">
-            {sortedProjects.map((project) => (
-              <div
-                key={project._id}
-                className="grid gap-3 border-b last:border-none border-zinc-300 dark:border-zinc-700 pb-4"
+        <div className="grid gap-6 bg-primary-100 dark:bg-secondary-800 p-6 border border-primary-200 dark:border-secondary-700 rounded">
+          {sortedProjects.map((project) => (
+            <div
+              key={project._id}
+              className="grid gap-3 border-b last:border-none border-primary-200 dark:border-secondary-700 pb-4"
+            >
+              <Link
+                href={`/projects/${project._id}`}
+                className="text-2xl font-semibold hover:underline text-primary-900 dark:text-secondary-50"
               >
-                <Link
-                  href={`/projects/${project._id}`}
-                  className="text-2xl font-semibold hover:underline text-zinc-900 dark:text-zinc-100"
-                >
-                  {project.name}
-                </Link>
+                {project.name}
+              </Link>
 
-                <div className="flex flex-wrap gap-2">
-                  {project.tags?.map((tag, index) => (
-                    <span
-                      key={index}
-                      className="bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 text-sm px-2 py-1 rounded-full"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                  Created: {project.createdAt}
-                  {project.completedAt &&
-                    ` • Completed: ${project.completedAt}`}
-                </div>
-
-                {project.image && (
-                  <Image
-                    src={project.image}
-                    alt={project.name}
-                    width={500}
-                    height={300}
-                    className="rounded w-full max-w-xs"
-                    layout="responsive"
-                  />
-                )}
-
-                {project.description && (
-                  <p className="text-base text-zinc-700 dark:text-zinc-300">
-                    {extractFirstSentence(project.description)}
-                  </p>
-                )}
+              <div className="flex flex-wrap gap-2">
+                {project.tags?.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="bg-primary-200 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-sm px-2 py-1 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
-            ))}
-          </div>
+
+              <div className="text-sm text-primary-900 dark:text-secondary-50">
+                Created: {project.createdAt}
+                {project.completedAt && ` • Completed: ${project.completedAt}`}
+              </div>
+
+              {project.image && (
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  width={500}
+                  height={300}
+                  className="rounded w-full max-w-xs"
+                  layout="responsive"
+                />
+              )}
+
+              {project.description && (
+                <p className="text-base text-primary-900 dark:text-secondary-50">
+                  {extractFirstSentence(project.description)}
+                </p>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </section>
