@@ -24,7 +24,7 @@ export default function LegalPage() {
             <li key={id}>
               <Link href={`#${id}`} scroll={true}>
                 <span
-                  className="text-primary-900 dark:text-secondary-50 hover:text-primary-900 dark:hover:text-secondary-100 transition cursor-pointer"
+                  className="text-primary-900 dark:text-secondary-50 hover:text-primary-200 dark:hover:text-secondary-700 transition cursor-pointer"
                   onClick={() => setActiveSection(id)}
                 >
                   {title}
