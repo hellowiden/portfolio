@@ -81,7 +81,7 @@ export default function Login() {
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
-          <p className="text-center text-sm text-primary-900 dark:text-secondary-200">
+          <p className="text-center text-sm text-primary-900 dark:text-secondary-50">
             Not an account?{' '}
             <Link
               href="/register"
