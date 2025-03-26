@@ -107,7 +107,7 @@ export default function Register() {
               I agree to the{' '}
               <Link
                 href="/legal"
-                className="text-primary-700 hover:underline dark:text-secondary-200 dark:hover:text-secondary-50"
+                className=" text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 hover:underline "
               >
                 legal terms
               </Link>
