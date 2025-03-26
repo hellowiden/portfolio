@@ -1,18 +1,27 @@
 // components/AnimeGrid.tsx
+
 'use client';
 import { useEffect, useState } from 'react';
 import anime from 'animejs';
 
+const primaryColors = ['#FFFFFF', '#F1F1F1', '#E3E3E3', '#121212'];
+const secondaryColors = ['#FFFFFF', '#292929', '#191919', '#121212'];
+
 const AnimeGrid = () => {
   const [gridSize, setGridSize] = useState({ columns: 0, rows: 0, total: 1 });
 
-  const randomColor = () =>
-    `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+  const isDarkMode = () =>
+    window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const randomColor = () => {
+    const palette = isDarkMode() ? secondaryColors : primaryColors;
+    return palette[Math.floor(Math.random() * palette.length)];
+  };
 
   const handleStagger = (index: number) => {
     anime({
       targets: '.grid-item',
-      backgroundColor: randomColor(),
+      backgroundColor: () => randomColor(),
       delay: anime.stagger(50, {
         grid: [gridSize.columns, gridSize.rows],
         from: index,
@@ -29,7 +38,6 @@ const AnimeGrid = () => {
   useEffect(() => {
     calculateGrid();
     window.addEventListener('resize', calculateGrid);
-
     return () => window.removeEventListener('resize', calculateGrid);
   }, []);
 
