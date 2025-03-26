@@ -85,7 +85,7 @@ export default function Login() {
             Not an account?{' '}
             <Link
               href="/register"
-              className="text-sm text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-100 transition hover:underline"
+              className="text-sm text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 transition hover:underline"
             >
               Sign up here
             </Link>
