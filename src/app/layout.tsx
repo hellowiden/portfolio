@@ -29,7 +29,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={spaceGrotesk.variable}>
-      <body className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50">
+      <body className="grid min-h-screen grid-rows-[auto_1fr_auto] bg-[#F1F1F1] dark:bg-[#121212] text-[#121212] dark:text-[#FFFFFF]">
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
