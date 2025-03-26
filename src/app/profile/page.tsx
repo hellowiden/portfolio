@@ -34,10 +34,12 @@ export default function Profile() {
   }, [session]);
 
   if (status === 'loading')
-    return <p className="text-gray-800 dark:text-gray-200">Loading...</p>;
+    return (
+      <p className="text-primary-900 dark:text-secondary-50">Loading...</p>
+    );
   if (status !== 'authenticated')
     return (
-      <p className="text-gray-800 dark:text-gray-200">
+      <p className="text-primary-900 dark:text-secondary-50">
         You need to log in to view this page.
       </p>
     );
@@ -88,7 +90,7 @@ export default function Profile() {
   };
 
   return (
-    <div className="grid gap-4 p-4 text-gray-900 dark:text-gray-100">
+    <div className="grid gap-4 p-4 text-primary-900 dark:text-secondary-50">
       <div className="flex items-center gap-4">
         <ProfileAvatar name={formData.name} />
         <span className="text-lg font-medium">{formData.name}</span>
@@ -127,7 +129,7 @@ export default function Profile() {
         <Button
           type="submit"
           disabled={loading}
-          className="grid items-center p-2 text-sm border rounded transition bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+          className="grid items-center p-2 text-sm border rounded transition bg-primary-100 hover:bg-primary-200 border-primary-200 dark:bg-secondary-800 dark:hover:bg-secondary-700 dark:border-secondary-700"
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </Button>
@@ -146,7 +148,7 @@ export default function Profile() {
 const ProfileAvatar = memo(({ name }: { name: string }) => (
   <div
     className="w-12 h-12 flex items-center justify-center rounded border font-bold text-lg 
-    bg-zinc-700 text-white border-gray-500 dark:bg-zinc-300 dark:text-gray-900 dark:border-gray-400"
+    bg-primary-900 text-primary-50 border-primary-200 dark:bg-secondary-50 dark:text-secondary-900 dark:border-secondary-200"
   >
     <span>{name ? name.charAt(0).toUpperCase() : '?'}</span>
   </div>
@@ -171,7 +173,7 @@ const FormInput = ({
   readOnly?: boolean;
 }) => (
   <div className="grid gap-2">
-    <label htmlFor={name} className="text-gray-900 dark:text-gray-100">
+    <label htmlFor={name} className="text-primary-900 dark:text-secondary-50">
       {label}
     </label>
     <input
@@ -183,7 +185,8 @@ const FormInput = ({
       disabled={disabled}
       readOnly={readOnly}
       aria-label={label}
-      className="p-2 border rounded bg-zinc-100 text-gray-900 border-zinc-300 dark:bg-zinc-800 dark:text-gray-100 dark:border-zinc-600 focus:outline-none focus:ring-0"
+      className="p-2 border rounded bg-primary-100 text-primary-900 border-primary-200 
+      dark:bg-secondary-800 dark:text-secondary-50 dark:border-secondary-700 focus:outline-none focus:ring-0"
     />
   </div>
 );
