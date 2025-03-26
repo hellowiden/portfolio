@@ -2,13 +2,13 @@
 
 'use client';
 
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FiFileText } from 'react-icons/fi';
 import { brandingMessages } from '../../../data/brandingMessages';
 import useRotatingMessages from '@/hooks/useRotatingMessages';
-import { useState } from 'react';
 
 export default function IntroductionSection() {
   const router = useRouter();
@@ -34,7 +34,7 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <section
       id="home"
-      className="relative w-full h-[500px] backdrop-blur-md bg-zinc-50 dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-700 rounded container mx-auto overflow-hidden flex items-end text-zinc-900 dark:text-zinc-50"
+      className="relative w-full h-[500px] backdrop-blur-md bg-[#FFFFFF] dark:bg-[#191919] border border-[#E3E3E3] dark:border-[#292929] rounded container mx-auto overflow-hidden flex items-end text-[#121212] dark:text-[#FFFFFF]"
     >
       <div className="w-full h-full grid">{children}</div>
     </section>
@@ -70,21 +70,21 @@ function ContentRow({
   router,
 }: ContentProps) {
   return (
-    <div className="z-10 row-start-1 col-start-1 self-end w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-zinc-50/85 dark:bg-zinc-800/85 backdrop-blur-md p-6">
+    <div className="z-10 row-start-1 col-start-1 self-end w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-[#FFFFFF]/85 dark:bg-[#191919]/85 backdrop-blur-md p-6">
       <div className="grid grid-cols-[auto_1fr] items-center gap-3">
         <Image
           src="/MW.png"
           alt="Marcus Widén"
           width={50}
           height={50}
-          className="rounded border border-zinc-300 dark:border-zinc-700"
+          className="rounded border border-[#E3E3E3] dark:border-[#292929]"
           priority
         />
         <h1 className="text-xl font-medium">Marcus Widén</h1>
       </div>
 
       <button
-        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-zinc-100 text-zinc-700 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:text-zinc-100 dark:hover:bg-zinc-800 dark:border-zinc-600"
+        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-[#F1F1F1] text-[#121212] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:bg-[#292929] dark:text-[#FFFFFF] dark:hover:bg-[#191919] dark:border-[#191919]"
         onClick={() => router.push('/about')}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
