@@ -12,7 +12,7 @@ export default function Header() {
   const isAuthenticated = status === 'authenticated';
 
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-zinc-300 dark:border-zinc-700 backdrop-blur-md bg-zinc-50/90 dark:bg-zinc-800/90 text-zinc-900 dark:text-zinc-50">
+    <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-[#E3E3E3] dark:border-[#292929] backdrop-blur-md bg-[#FFFFFF]/90 dark:bg-[#191919]/90 text-[#121212] dark:text-[#FFFFFF]">
       <div className="hover:opacity-80 transition">
         <button onClick={() => router.push('/')} className="focus:outline-none">
           {isAuthenticated ? `Welcome, ${session.user?.name}` : 'MW-Portfolio'}
