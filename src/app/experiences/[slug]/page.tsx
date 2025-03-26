@@ -42,14 +42,14 @@ export default function ExperienceDetail() {
   if (loading) {
     return (
       <div className="grid place-items-center h-32">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-green" />
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-primary-900 dark:border-secondary-700" />
       </div>
     );
   }
 
   if (!experience) {
     return (
-      <p className="text-center text-base text-zinc-600">
+      <p className="text-center text-base text-primary-900 dark:text-secondary-50">
         Experience not found.
       </p>
     );
@@ -63,20 +63,22 @@ export default function ExperienceDetail() {
           alt={experience.title}
           width={800}
           height={400}
-          className="w-full h-80 object-cover border dark:border-zinc-700 rounded-xl"
+          className="w-full h-80 object-cover border border-primary-200 dark:border-secondary-700 rounded-xl"
           priority
         />
       </div>
 
       <div className="grid gap-2">
-        <h1 className="text-2xl font-bold">{experience.title}</h1>
+        <h1 className="text-2xl font-bold text-primary-900 dark:text-secondary-50">
+          {experience.title}
+        </h1>
 
         {experience.tags && experience.tags.length > 0 && (
           <div className="flex flex-wrap gap-2">
             {experience.tags.map((tag, index) => (
               <span
                 key={index}
-                className="bg-green-100 text-green-700 dark:bg-green-800 dark:text-green-200 text-sm px-2 py-1 rounded-full"
+                className="bg-primary-200 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-sm px-2 py-1 rounded-full"
               >
                 {tag}
               </span>
@@ -84,13 +86,13 @@ export default function ExperienceDetail() {
           </div>
         )}
 
-        <div className="text-sm text-zinc-500">
+        <div className="text-sm text-primary-900 dark:text-secondary-50">
           {experience.date} • {experience.location}
         </div>
       </div>
 
       <div>
-        <p className="text-base leading-relaxed text-zinc-700 dark:text-zinc-300">
+        <p className="text-base leading-relaxed text-primary-900 dark:text-secondary-50">
           {experience.description}
         </p>
       </div>
