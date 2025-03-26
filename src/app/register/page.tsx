@@ -122,11 +122,11 @@ export default function Register() {
             {loading ? 'Registering...' : 'Register'}
           </button>
 
-          <p className="text-center text-sm text-primary-900 dark:text-secondary-200">
+          <p className="text-center text-sm text-primary-900 dark:text-secondary-50">
             Already have an account?{' '}
             <Link
               href="/login"
-              className="text-sm text-primary-700 hover:text-primary-900 dark:text-secondary-200 dark:hover:text-secondary-50 transition hover:underline"
+              className="text-sm text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 transition hover:underline"
             >
               Login here
             </Link>
