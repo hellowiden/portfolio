@@ -94,10 +94,12 @@ export default function Login() {
         </form>
       </section>
 
-      <section className="hidden md:grid place-items-center relative overflow-hidden p-8 bg-primary-100 dark:bg-secondary-900">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-primary-300/30 via-primary-500/10 to-transparent dark:from-secondary-500/20 dark:via-secondary-700/10 pointer-events-none backdrop-blur-3xl scale-110 rotate-3 translate-x-3 translate-y-2" />
-        <div className="relative z-10 w-full max-w-lg">
-          <AdBar />
+      <section className="hidden md:grid place-items-center relative p-8 bg-primary-100 dark:bg-secondary-900 overflow-hidden perspective-[1000px]">
+        <div className="relative w-[80%] h-[80%] transform rotate-y-[25deg] rotate-x-[10deg] bg-primary-200 dark:bg-secondary-800 shadow-2xl rounded-xl border border-primary-300 dark:border-secondary-600">
+          <div className="absolute inset-0 bg-gradient-to-br from-white/20 to-transparent dark:from-secondary-100/10 rounded-xl backdrop-blur-md pointer-events-none" />
+          <div className="relative z-10 w-full h-full grid place-items-center p-4">
+            <AdBar />
+          </div>
         </div>
       </section>
     </section>
