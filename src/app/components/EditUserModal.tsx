@@ -110,27 +110,25 @@ export default function EditUserModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-zinc-900 bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-zinc-900 p-6 rounded-lg max-w-lg w-full grid gap-4 border border-light dark:border-dark shadow-lg">
-        <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100">
-          Edit User
-        </h2>
+    <div className="fixed inset-0 bg-[#121212]/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div className="bg-[#FFFFFF] dark:bg-[#121212] text-[#121212] dark:text-[#FFFFFF] p-6 rounded-lg max-w-lg w-full grid gap-4 border border-[#E3E3E3] dark:border-[#292929] shadow-lg">
+        <h2 className="text-xl font-bold">Edit User</h2>
 
         {formData.error && (
-          <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded">
+          <p className="text-[#121212] dark:text-[#FFFFFF] bg-[#F1F1F1] dark:bg-[#191919] p-2 rounded">
             {formData.error}
           </p>
         )}
 
         <form onSubmit={handleSubmit} className="grid gap-4">
           <div className="grid gap-2">
-            <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
+            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
               Name
             </label>
             <input
               type="text"
               name="name"
-              className="w-full p-2 border rounded border-light dark:border-dark bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400"
+              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
               value={formData.name}
               onChange={handleChange}
               required
@@ -138,13 +136,13 @@ export default function EditUserModal({
           </div>
 
           <div className="grid gap-2">
-            <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
+            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
               Email
             </label>
             <input
               type="email"
               name="email"
-              className="w-full p-2 border rounded border-light dark:border-dark bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400"
+              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
               value={formData.email}
               onChange={handleChange}
               required
@@ -152,13 +150,13 @@ export default function EditUserModal({
           </div>
 
           <div className="grid gap-2">
-            <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
+            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
               Password
             </label>
             <input
               type="password"
               name="password"
-              className="w-full p-2 border rounded border-light dark:border-dark bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400"
+              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
               value={formData.password}
               onChange={handleChange}
               required
@@ -166,13 +164,13 @@ export default function EditUserModal({
           </div>
 
           <div className="grid gap-2">
-            <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
+            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
               Roles (comma-separated)
             </label>
             <input
               type="text"
               name="roles"
-              className="w-full p-2 border rounded border-light dark:border-dark bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white focus:ring-2 focus:ring-green-500 dark:focus:ring-green-400"
+              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
               value={formData.roles.join(', ')}
               onChange={handleChange}
               required
@@ -180,26 +178,26 @@ export default function EditUserModal({
           </div>
 
           <div className="grid gap-2">
-            <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
+            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
               Created At
             </label>
             <input
               type="text"
               name="createdAt"
-              className="w-full p-2 border rounded border-light dark:border-dark bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white"
+              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
               value={formData.createdAt}
               disabled
             />
           </div>
 
           <div className="grid gap-2">
-            <label className="text-sm font-semibold text-zinc-800 dark:text-zinc-300">
+            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
               Updated At
             </label>
             <input
               type="text"
               name="updatedAt"
-              className="w-full p-2 border rounded border-light dark:border-dark bg-zinc-100 text-zinc-900 dark:bg-zinc-800 dark:text-white"
+              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
               value={formData.updatedAt}
               disabled
             />
@@ -208,7 +206,7 @@ export default function EditUserModal({
           <div className="flex justify-end gap-2">
             <button
               type="button"
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-[#121212] bg-[#F1F1F1] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:text-[#FFFFFF] dark:bg-[#292929] dark:hover:bg-[#191919] dark:border-[#191919]"
               onClick={onClose}
               disabled={formData.loading}
             >
@@ -217,7 +215,7 @@ export default function EditUserModal({
 
             <button
               type="submit"
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-[#121212] bg-[#F1F1F1] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:text-[#FFFFFF] dark:bg-[#292929] dark:hover:bg-[#191919] dark:border-[#191919]"
               disabled={formData.loading}
             >
               {formData.loading ? 'Saving...' : 'Save'}
