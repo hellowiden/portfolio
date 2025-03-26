@@ -13,7 +13,10 @@ import useRotatingMessages from '@/hooks/useRotatingMessages';
 export default function IntroductionSection() {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
-  const { current } = useRotatingMessages(brandingMessages, 15000);
+  const { current } = useRotatingMessages(brandingMessages, {
+    getInterval: () => 15000,
+    paused: false,
+  });
 
   if (!current) return null;
 
