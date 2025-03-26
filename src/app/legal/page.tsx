@@ -16,13 +16,15 @@ export default function LegalPage() {
   return (
     <div className="grid gap-6">
       <nav aria-label="Table of Contents" className="grid gap-2">
-        <h2 className="text-xl font-semibold dark:text-white">Contents</h2>
-        <ul className="grid text-zinc-700 dark:text-zinc-300 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto gap-2">
+        <h2 className="text-xl font-semibold text-primary-900 dark:text-secondary-50">
+          Contents
+        </h2>
+        <ul className="grid text-primary-900 dark:text-secondary-200 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto gap-2">
           {sectionList.map(({ id, title }) => (
             <li key={id}>
               <Link href={`#${id}`} scroll={true}>
                 <span
-                  className="text-zinc-600 dark:text-zinc-400 hover:text-zinc-800 dark:hover:text-zinc-200  transition cursor-pointer"
+                  className="text-primary-700 dark:text-secondary-300 hover:text-primary-900 dark:hover:text-secondary-100 transition cursor-pointer"
                   onClick={() => setActiveSection(id)}
                 >
                   {title}
@@ -33,23 +35,25 @@ export default function LegalPage() {
         </ul>
       </nav>
 
-      <hr />
+      <hr className="border-primary-200 dark:border-secondary-700" />
 
       <main className="grid gap-4">
         {sectionList.map(({ id, title, content }) => (
           <section
             key={id}
             id={id}
-            className={`grid gap-2 p-4 text-sm border dark:border-light rounded-xl transition text-black dark:text-white ${
+            className={`grid gap-2 p-4 text-sm border rounded-xl transition text-primary-900 dark:text-secondary-50 border-primary-200 dark:border-secondary-700 ${
               activeSection === id
-                ? 'bg-zinc-300 dark:bg-zinc-700'
-                : 'hover:bg-zinc-200 dark:hover:bg-zinc-800'
+                ? 'bg-primary-200 dark:bg-secondary-700'
+                : 'hover:bg-primary-100 dark:hover:bg-secondary-800'
             }`}
           >
-            <h2 className="text-2xl font-semibold text-zinc-800 dark:text-white">
+            <h2 className="text-2xl font-semibold text-primary-900 dark:text-secondary-50">
               {title}
             </h2>
-            <p className="text-zinc-700 dark:text-zinc-300">{content}</p>
+            <p className="text-primary-700 dark:text-secondary-200">
+              {content}
+            </p>
           </section>
         ))}
       </main>

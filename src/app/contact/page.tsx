@@ -33,7 +33,8 @@ const placeholders: { [key: string]: string } = {
 };
 
 const buttonClass =
-  'grid grid-cols-[auto_1fr] items-center p-2 border border-zinc-300 dark:text-white dark:border-zinc-600 text-sm text-zinc-100 bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 rounded transition disabled:opacity-50 focus:outline-none focus:ring-0';
+  'grid grid-cols-[auto_1fr] items-center p-2 border rounded text-sm transition disabled:opacity-50 focus:outline-none focus:ring-0 ' +
+  'bg-primary-100 text-primary-900 border-primary-200 dark:bg-secondary-700 dark:text-secondary-50 dark:border-secondary-700 hover:bg-primary-200 dark:hover:bg-secondary-800';
 
 function getPlaceholder(reason: string) {
   return placeholders[reason] || 'Enter your message...';
@@ -53,7 +54,7 @@ function Step({
       exit={{ opacity: 0, y: -20 }}
       className="grid gap-4 p-0"
     >
-      <h1 className="text-2xl text-center font-bold text-zinc-900 dark:text-white p-0">
+      <h1 className="text-2xl text-center font-bold text-primary-900 dark:text-secondary-50 p-0">
         {title}
       </h1>
       <div className="grid gap-4 p-0">{children}</div>
@@ -75,14 +76,14 @@ function CustomDropdown({
   return (
     <Listbox value={value} onChange={onChange}>
       <div className="grid gap-2 p-0">
-        <ListboxButton className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition text-gray-900 bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-gray-100 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600 focus:outline-none focus:ring-0">
+        <ListboxButton className="grid grid-cols-[auto_1fr] items-center p-2 text-sm border rounded transition focus:outline-none focus:ring-0 bg-primary-100 text-primary-900 border-primary-200 dark:bg-secondary-700 dark:text-secondary-50 dark:border-secondary-700">
           <span className="truncate">
             {selectedOption ? selectedOption.label : 'Select an Option'}
           </span>
-          <ChevronDown className="w-5 h-5 text-gray-500 dark:text-gray-400 justify-self-end" />
+          <ChevronDown className="w-5 h-5 text-primary-900 dark:text-secondary-50 justify-self-end" />
         </ListboxButton>
 
-        <ListboxOptions className="w-full bg-white dark:bg-zinc-800 text-gray-900 dark:text-gray-100 border border-zinc-300 dark:border-zinc-600 rounded shadow-md grid gap-1 p-1">
+        <ListboxOptions className="w-full grid gap-1 p-1 bg-primary-50 text-primary-900 border border-primary-200 dark:bg-secondary-800 dark:text-secondary-50 dark:border-secondary-700 rounded shadow-md">
           {options.map((option, index) => (
             <div key={option.value} className="grid p-0">
               <ListboxOption
@@ -90,20 +91,22 @@ function CustomDropdown({
                 className={({ active }) =>
                   `p-2 cursor-pointer grid rounded transition ${
                     active
-                      ? 'bg-zinc-200 text-gray-900 dark:bg-zinc-700 dark:text-gray-100'
-                      : 'text-gray-900 dark:text-gray-100'
+                      ? 'bg-primary-200 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50'
+                      : 'text-primary-900 dark:text-secondary-50'
                   }`
                 }
               >
                 {({ selected }) => (
                   <div className="grid grid-cols-[1fr_auto] items-center p-2 rounded">
                     <span>{option.label}</span>
-                    {selected && <Check className="w-4 h-4 text-green-500" />}
+                    {selected && (
+                      <Check className="w-4 h-4 text-primary-900 dark:text-secondary-50" />
+                    )}
                   </div>
                 )}
               </ListboxOption>
               {index < options.length - 1 && (
-                <hr className="border-zinc-300 dark:border-zinc-600" />
+                <hr className="border-primary-200 dark:border-secondary-700" />
               )}
             </div>
           ))}
@@ -131,7 +134,7 @@ function CustomInput({
         value={value}
         onChange={onChange}
         placeholder={placeholder}
-        className="w-full p-3 border border-light dark:border-dark rounded bg-white dark:bg-zinc-800 text-black dark:text-white outline-none focus:outline-none focus:ring-0"
+        className="w-full p-3 border rounded bg-primary-50 text-primary-900 border-primary-200 dark:bg-secondary-800 dark:text-secondary-50 dark:border-secondary-700 outline-none focus:outline-none focus:ring-0"
       />
     </div>
   );
@@ -176,7 +179,7 @@ export default function Contact() {
   };
 
   return (
-    <div className="grid gap-4 bg-white dark:bg-zinc-900 p-6 border dark:border-light rounded">
+    <div className="grid gap-4 p-6 border rounded bg-primary-50 text-primary-900 border-primary-200 dark:bg-secondary-900 dark:text-secondary-50 dark:border-secondary-700">
       {step === 1 && (
         <Step title="Let's Start - What Brings You Here?">
           <CustomDropdown
@@ -238,7 +241,9 @@ export default function Contact() {
       )}
 
       {status && (
-        <p className="text-sm text-zinc-900 dark:text-zinc-100 p-0">{status}</p>
+        <p className="text-sm p-0 text-primary-900 dark:text-secondary-50">
+          {status}
+        </p>
       )}
 
       {step > 1 && (
