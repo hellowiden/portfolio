@@ -1,3 +1,5 @@
+//src/app/components/SearchInput/SearchInput.tsx
+
 'use client';
 
 import { usePathname } from 'next/navigation';
@@ -99,7 +101,7 @@ export default function SearchInput<T extends SearchData>({
         onChange(query);
         filterData(query);
       }}
-      className="border border-light dark:border-dark p-2 rounded w-1/3 bg-white dark:bg-zinc-800 dark:text-white"
+      className="border border-[#E3E3E3] dark:border-[#191919] p-2 rounded w-1/3 bg-[#FFFFFF] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
     />
   );
 }
