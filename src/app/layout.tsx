@@ -33,7 +33,7 @@ export default function RootLayout({
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            <div className="backdrop-blur-md">{children}</div>
+            <div>{children}</div>
             <Footer />
           </AuthProvider>
         </ThemeContextProvider>
