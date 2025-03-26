@@ -34,7 +34,7 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <section
       id="home"
-      className="relative w-full h-[500px] backdrop-blur-md bg-[#FFFFFF] dark:bg-[#191919] border border-[#E3E3E3] dark:border-[#292929] rounded container mx-auto overflow-hidden flex items-end text-[#121212] dark:text-[#FFFFFF]"
+      className="relative w-full h-[500px] backdrop-blur-md bg-primary-50 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded container mx-auto overflow-hidden flex items-end text-primary-900 dark:text-secondary-50"
     >
       <div className="w-full h-full grid">{children}</div>
     </section>
@@ -70,21 +70,21 @@ function ContentRow({
   router,
 }: ContentProps) {
   return (
-    <div className="z-10 row-start-1 col-start-1 self-end w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-[#FFFFFF]/85 dark:bg-[#191919]/85 backdrop-blur-md p-6">
+    <div className="z-10 row-start-1 col-start-1 self-end w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-primary-50/85 dark:bg-secondary-800/85 backdrop-blur-md p-6">
       <div className="grid grid-cols-[auto_1fr] items-center gap-3">
         <Image
           src="/MW.png"
           alt="Marcus Widén"
           width={50}
           height={50}
-          className="rounded border border-[#E3E3E3] dark:border-[#292929]"
+          className="rounded border border-primary-200 dark:border-secondary-700"
           priority
         />
         <h1 className="text-xl font-medium">Marcus Widén</h1>
       </div>
 
       <button
-        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-[#F1F1F1] text-[#121212] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:bg-[#292929] dark:text-[#FFFFFF] dark:hover:bg-[#191919] dark:border-[#191919]"
+        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-primary-100 text-primary-900 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:text-secondary-50 dark:hover:bg-secondary-800 dark:border-secondary-800"
         onClick={() => router.push('/about')}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}

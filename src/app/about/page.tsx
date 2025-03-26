@@ -9,7 +9,7 @@ export default function About() {
   return (
     <div id="about" className="w-full p-6">
       <div className="grid grid-cols-1 gap-6 p-6 place-items-center">
-        <div className="w-full min-h-[500px] border border-[#E3E3E3] dark:border-[#191919] rounded-xl relative overflow-hidden">
+        <div className="w-full min-h-[500px] border border-primary-200 dark:border-secondary-800 rounded-xl relative overflow-hidden">
           <Image
             src="/adventure.jpg"
             alt="Descriptive Alt Text"
@@ -32,15 +32,15 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="grid gap-4"
           >
-            <h1 className="text-4xl font-medium text-[#121212] dark:text-[#FFFFFF]">
+            <h1 className="text-4xl font-medium text-primary-900 dark:text-secondary-50">
               Why Me?
             </h1>
 
-            <p className="text-xl text-[#121212] dark:text-[#FFFFFF] font-semibold">
+            <p className="text-xl font-semibold text-primary-900 dark:text-secondary-50">
               Because clarity is rare, and strategy is everything.
             </p>
 
-            <p className="text-base text-[#292929] dark:text-[#E3E3E3] leading-relaxed">
+            <p className="text-base leading-relaxed text-secondary-700 dark:text-primary-200">
               In a world where most chase noise, I focus on what lasts. I don’t
               build brands to go viral—I build them to endure. With over a
               decade of guiding 500+ global projects, I’ve learned one truth:
@@ -75,7 +75,7 @@ export default function About() {
 
             <Link
               href="/contact"
-              className="text-sm text-[#121212] dark:text-[#FFFFFF] hover:underline grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded bg-[#F1F1F1] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:bg-[#292929] dark:hover:bg-[#191919] dark:border-[#191919]"
+              className="text-sm text-primary-900 dark:text-secondary-50 hover:underline grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded bg-primary-100 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-800"
             >
               If you seek strategy, let’s talk.
             </Link>

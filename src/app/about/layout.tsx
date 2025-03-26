@@ -6,7 +6,7 @@ import { ReactNode } from 'react';
 
 export default function AboutLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="h-full flex flex-col items-center container mx-auto border-x border-[#E3E3E3] dark:border-[#191919] backdrop-blur-md bg-[#F1F1F1]/80 dark:bg-[#121212]/80">
+    <div className="h-full flex flex-col items-center container mx-auto border-x border-primary-200 dark:border-secondary-800 backdrop-blur-md bg-primary-100/80 dark:bg-secondary-900/80">
       <main className="container mx-auto flex-grow">{children}</main>
     </div>
   );

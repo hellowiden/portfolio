@@ -13,13 +13,13 @@ export default function AdBar() {
   if (!current) return null;
 
   return (
-    <div className="grid place-items-center text-[#FFFFFF] p-6 text-center w-full gap-4">
+    <div className="grid place-items-center text-secondary-50 p-6 text-center w-full gap-4">
       <h2 className="text-3xl font-bold" aria-live="polite">
         &ldquo;{current.heading || 'Default Heading'}&rdquo;
       </h2>
       <p className="text-lg">{current.subtext || 'Default subtext message'}</p>
-      <div className="w-full max-w-md h-1 bg-[#292929] rounded-full overflow-hidden relative">
-        <div className="w-full h-full bg-[#FFFFFF] progress-bar" />
+      <div className="w-full max-w-md h-1 bg-secondary-700 rounded-full overflow-hidden relative">
+        <div className="w-full h-full bg-secondary-50 progress-bar" />
       </div>
       <style jsx>{`
         .progress-bar {

@@ -110,112 +110,66 @@ export default function EditUserModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-[#121212]/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-      <div className="bg-[#FFFFFF] dark:bg-[#121212] text-[#121212] dark:text-[#FFFFFF] p-6 rounded-lg max-w-lg w-full grid gap-4 border border-[#E3E3E3] dark:border-[#292929] shadow-lg">
+    <div className="fixed inset-0 bg-primary-900/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
+      <div className="bg-primary-50 dark:bg-primary-900 text-primary-900 dark:text-secondary-50 p-6 rounded-lg max-w-lg w-full grid gap-4 border border-primary-200 dark:border-secondary-700 shadow-lg">
         <h2 className="text-xl font-bold">Edit User</h2>
 
         {formData.error && (
-          <p className="text-[#121212] dark:text-[#FFFFFF] bg-[#F1F1F1] dark:bg-[#191919] p-2 rounded">
+          <p className="text-primary-900 dark:text-secondary-50 bg-primary-100 dark:bg-secondary-800 p-2 rounded">
             {formData.error}
           </p>
         )}
 
         <form onSubmit={handleSubmit} className="grid gap-4">
-          <div className="grid gap-2">
-            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="grid gap-2">
-            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="grid gap-2">
-            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
-              Password
-            </label>
-            <input
-              type="password"
-              name="password"
-              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="grid gap-2">
-            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
-              Roles (comma-separated)
-            </label>
-            <input
-              type="text"
-              name="roles"
-              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
-              value={formData.roles.join(', ')}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className="grid gap-2">
-            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
-              Created At
-            </label>
-            <input
-              type="text"
-              name="createdAt"
-              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
-              value={formData.createdAt}
-              disabled
-            />
-          </div>
-
-          <div className="grid gap-2">
-            <label className="text-sm font-semibold text-[#121212] dark:text-[#FFFFFF]">
-              Updated At
-            </label>
-            <input
-              type="text"
-              name="updatedAt"
-              className="w-full p-2 border rounded border-[#E3E3E3] dark:border-[#191919] bg-[#F1F1F1] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
-              value={formData.updatedAt}
-              disabled
-            />
-          </div>
+          {['name', 'email', 'password', 'roles', 'createdAt', 'updatedAt'].map(
+            (field) => (
+              <div key={field} className="grid gap-2">
+                <label className="text-sm font-semibold text-primary-900 dark:text-secondary-50">
+                  {field === 'roles'
+                    ? 'Roles (comma-separated)'
+                    : field === 'createdAt'
+                    ? 'Created At'
+                    : field === 'updatedAt'
+                    ? 'Updated At'
+                    : field.charAt(0).toUpperCase() + field.slice(1)}
+                </label>
+                <input
+                  type={
+                    field === 'email'
+                      ? 'email'
+                      : field === 'password'
+                      ? 'password'
+                      : 'text'
+                  }
+                  name={field}
+                  className="w-full p-2 border rounded border-primary-200 dark:border-secondary-800 bg-primary-100 dark:bg-secondary-700 text-primary-900 dark:text-secondary-50"
+                  value={
+                    field === 'roles'
+                      ? formData.roles.join(', ')
+                      : (formData[field as keyof typeof formData] as string)
+                  }
+                  onChange={handleChange}
+                  disabled={field === 'createdAt' || field === 'updatedAt'}
+                  required={['name', 'email', 'password', 'roles'].includes(
+                    field
+                  )}
+                />
+              </div>
+            )
+          )}
 
           <div className="flex justify-end gap-2">
             <button
               type="button"
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-[#121212] bg-[#F1F1F1] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:text-[#FFFFFF] dark:bg-[#292929] dark:hover:bg-[#191919] dark:border-[#191919]"
+              className="px-4 py-2 text-sm border rounded transition bg-primary-100 hover:bg-primary-200 border-primary-200 text-primary-900 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-800 dark:text-secondary-50"
               onClick={onClose}
               disabled={formData.loading}
             >
               Cancel
             </button>
-
             <button
               type="submit"
-              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-[#121212] bg-[#F1F1F1] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:text-[#FFFFFF] dark:bg-[#292929] dark:hover:bg-[#191919] dark:border-[#191919]"
+              className="px-4 py-2 text-sm border rounded transition bg-primary-100 hover:bg-primary-200 border-primary-200 text-primary-900 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-800 dark:text-secondary-50"
               disabled={formData.loading}
             >
               {formData.loading ? 'Saving...' : 'Save'}

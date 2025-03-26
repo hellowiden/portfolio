@@ -53,13 +53,13 @@ export default function HamburgerMenu() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
-        className="p-2 rounded border bg-[#F1F1F1] text-[#121212] dark:bg-[#292929] dark:text-[#FFFFFF] border-[#E3E3E3] dark:border-[#191919]"
+        className="p-2 rounded border bg-primary-100 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 border-primary-200 dark:border-secondary-800"
       >
         {isOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 p-3 bg-[#FFFFFF] dark:bg-[#191919] border border-[#E3E3E3] dark:border-[#191919] rounded shadow grid gap-2 z-50 text-[#121212] dark:text-[#FFFFFF]">
+        <div className="absolute right-0 mt-2 w-48 p-3 bg-primary-50 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-800 rounded shadow grid gap-2 z-50 text-primary-900 dark:text-secondary-50">
           {isAuthenticated && (
             <>
               {isAdmin && (
@@ -110,8 +110,8 @@ function MenuButton({
       onClick={onClick}
       className={`grid grid-cols-[auto_1fr] items-center gap-2 p-2 rounded text-left transition ${
         active
-          ? 'bg-[#E3E3E3] dark:bg-[#292929] font-semibold'
-          : 'hover:bg-[#F1F1F1] dark:hover:bg-[#292929]'
+          ? 'bg-primary-200 dark:bg-secondary-700 font-semibold'
+          : 'hover:bg-primary-100 dark:hover:bg-secondary-700'
       }`}
     >
       {icon}

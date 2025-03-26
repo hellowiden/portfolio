@@ -18,7 +18,7 @@ export default function NavLinks() {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
   const buttonBaseClasses =
-    'grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-[#F1F1F1] text-[#121212] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:bg-[#292929] dark:text-[#FFFFFF] dark:hover:bg-[#191919] dark:border-[#191919]';
+    'grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-primary-100 text-primary-900 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:text-secondary-50 dark:hover:bg-secondary-800 dark:border-secondary-800';
 
   return (
     <nav className="flex justify-end items-center">

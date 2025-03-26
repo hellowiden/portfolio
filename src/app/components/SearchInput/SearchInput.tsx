@@ -101,7 +101,7 @@ export default function SearchInput<T extends SearchData>({
         onChange(query);
         filterData(query);
       }}
-      className="border border-[#E3E3E3] dark:border-[#191919] p-2 rounded w-1/3 bg-[#FFFFFF] dark:bg-[#292929] text-[#121212] dark:text-[#FFFFFF]"
+      className="border border-primary-200 dark:border-secondary-800 p-2 rounded w-1/3 bg-primary-50 dark:bg-secondary-700 text-primary-900 dark:text-secondary-50"
     />
   );
 }

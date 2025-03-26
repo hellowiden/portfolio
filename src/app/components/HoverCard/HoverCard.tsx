@@ -35,7 +35,7 @@ export default function HoverCard({
 
   return (
     <section
-      className={`relative overflow-hidden rounded border border-[#E3E3E3] dark:border-[#292929] bg-cover bg-center ${heightClass} grid`}
+      className={`relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 bg-cover bg-center ${heightClass} grid`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -48,23 +48,23 @@ export default function HoverCard({
         priority
       />
 
-      <div className="col-start-1 row-start-1 w-full h-full bg-[#FFFFFF]/90 dark:bg-[#191919]/90 backdrop-blur-md pointer-events-none z-10" />
+      <div className="col-start-1 row-start-1 w-full h-full bg-primary-50/90 dark:bg-secondary-800/90 backdrop-blur-md pointer-events-none z-10" />
 
       <div className="col-start-1 row-start-1 z-20 grid w-full h-full">
         {!isHovered ? (
           <div className="grid place-items-center w-full h-full">
-            <h1 className="text-xl font-bold text-[#121212] dark:text-[#FFFFFF] hover:underline hover:underline-offset-4 transition">
+            <h1 className="text-xl font-bold text-primary-900 dark:text-secondary-50 hover:underline hover:underline-offset-4 transition">
               {title}
             </h1>
           </div>
         ) : (
-          <div className="grid grid-rows-[auto_1fr] gap-4 p-6 text-[#121212] dark:text-[#FFFFFF] w-full h-full">
+          <div className="grid grid-rows-[auto_1fr] gap-4 p-6 text-primary-900 dark:text-secondary-50 w-full h-full">
             <div className="grid grid-cols-[1fr_auto] items-center w-full">
               <h1 className="text-xl font-medium">{title}</h1>
               <button
                 onClick={() => router.push(buttonRoute)}
                 aria-label={buttonAriaLabel}
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-[#121212] bg-[#F1F1F1] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:text-[#FFFFFF] dark:bg-[#292929] dark:hover:bg-[#191919] dark:border-[#191919]"
+                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-primary-900 bg-primary-100 hover:bg-primary-200 border-primary-200 dark:text-secondary-50 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-800"
               >
                 <motion.div
                   key={buttonLabel}
@@ -81,7 +81,7 @@ export default function HoverCard({
 
             <div className="grid gap-2">
               <h2 className="text-2xl font-bold">{subtitle}</h2>
-              <p className="opacity-80 tracking-wide max-w-[900px] text-[#121212] dark:text-[#E3E3E3]">
+              <p className="opacity-80 tracking-wide max-w-[900px] text-primary-900 dark:text-primary-200">
                 {description}
               </p>
             </div>
