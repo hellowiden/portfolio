@@ -19,7 +19,7 @@ export default function LegalPage() {
         <h2 className="text-xl font-semibold text-primary-900 dark:text-secondary-50">
           Contents
         </h2>
-        <ul className="grid text-primary-900 dark:text-secondary-200 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto gap-2">
+        <ul className="grid text-primary-900 dark:text-secondary-50 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto gap-2">
           {sectionList.map(({ id, title }) => (
             <li key={id}>
               <Link href={`#${id}`} scroll={true}>
