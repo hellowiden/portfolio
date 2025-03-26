@@ -48,16 +48,16 @@ export default function Register() {
   };
 
   const inputClass =
-    'w-full p-2 border rounded border-zinc-300 bg-[#F1F1F1] text-[#686868] dark:border-zinc-700 dark:bg-[#191919] dark:text-[#7D7D7D] focus:outline-none focus:ring-0 focus:border-zinc-400 dark:focus:border-zinc-600';
+    'w-full p-2 border rounded border-primary-200 bg-primary-100 text-primary-900 dark:border-secondary-700 dark:bg-secondary-900 dark:text-secondary-200 focus:outline-none focus:ring-0 focus:border-primary-300 dark:focus:border-secondary-500';
 
   return (
-    <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x dark:border-light">
-      <div className="grid place-items-center bg-zinc-100 dark:bg-zinc-800">
+    <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x border-primary-200 dark:border-secondary-700">
+      <div className="grid place-items-center bg-primary-100 dark:bg-secondary-800">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-md p-6 bg-white dark:bg-zinc-900 rounded-lg grid gap-4 border border-zinc-300 dark:border-zinc-700"
+          className="w-full max-w-md p-6 bg-primary-50 dark:bg-secondary-900 rounded-lg grid gap-4 border border-primary-200 dark:border-secondary-700"
         >
-          <h2 className="text-2xl font-bold text-center text-zinc-900 dark:text-zinc-100">
+          <h2 className="text-2xl font-bold text-center text-primary-900 dark:text-secondary-50">
             It all starts here!
           </h2>
 
@@ -98,16 +98,16 @@ export default function Register() {
               id="agree"
               checked={agreed}
               onChange={toggleAgreement}
-              className="accent-green-600 dark:accent-green-500 focus:outline-none focus:ring-0"
+              className="accent-primary-900 dark:accent-secondary-200 focus:outline-none focus:ring-0"
             />
             <label
               htmlFor="agree"
-              className="text-sm text-zinc-800 dark:text-zinc-300"
+              className="text-sm text-primary-900 dark:text-secondary-200"
             >
               I agree to the{' '}
               <Link
                 href="/legal"
-                className="text-zinc-600 hover:underline dark:text-green-400 hover:text-green-500 dark:hover:text-green-300"
+                className="text-primary-700 hover:underline dark:text-secondary-200 dark:hover:text-secondary-50"
               >
                 legal terms
               </Link>
@@ -117,16 +117,16 @@ export default function Register() {
           <button
             type="submit"
             disabled={loading}
-            className="text-sm text-zinc-100 bg-zinc-700 hover:bg-zinc-800 dark:bg-green-600 dark:hover:bg-green-500 p-2 rounded transition disabled:opacity-50 focus:outline-none focus:ring-0"
+            className="text-sm text-primary-50 bg-primary-900 hover:bg-primary-700 dark:bg-secondary-700 dark:hover:bg-secondary-600 p-2 rounded transition disabled:opacity-50 focus:outline-none focus:ring-0"
           >
             {loading ? 'Registering...' : 'Register'}
           </button>
 
-          <p className="text-center text-sm text-zinc-800 dark:text-zinc-300">
+          <p className="text-center text-sm text-primary-900 dark:text-secondary-200">
             Already have an account?{' '}
             <Link
               href="/login"
-              className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition hover:underline"
+              className="text-sm text-primary-700 hover:text-primary-900 dark:text-secondary-200 dark:hover:text-secondary-50 transition hover:underline"
             >
               Login here
             </Link>
@@ -134,7 +134,7 @@ export default function Register() {
         </form>
       </div>
 
-      <div className="hidden md:grid place-items-center bg-gradient-to-br from-zinc-900 to-zinc-500 text-white p-8 dark:from-zinc-800 dark:to-zinc-600">
+      <div className="hidden md:grid place-items-center bg-gradient-to-br from-primary-900 to-primary-200 text-primary-50 p-8 dark:from-secondary-800 dark:to-secondary-600">
         <AdBar />
       </div>
     </section>
