@@ -10,7 +10,7 @@ import ContactOpener from '@/app/components/ContactOpener/ContactOpener';
 export default function Home() {
   return (
     <>
-      <div className="grid grid-rows-[min-content_min-content_min-content] gap-6 h-full container mx-auto p-6 border-x border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 text-zinc-900 dark:text-zinc-50">
+      <div className="grid grid-rows-[min-content_min-content_min-content] gap-6 h-full container mx-auto p-6 border-x border-[#E3E3E3] dark:border-[#292929] bg-[#FFFFFF] dark:bg-[#121212] text-[#121212] dark:text-[#FFFFFF]">
         <IntroductionSection />
         <ClientsCarousel />
 
