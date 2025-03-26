@@ -102,7 +102,7 @@ export default function Register() {
             />
             <label
               htmlFor="agree"
-              className="text-sm text-primary-900 dark:text-secondary-200"
+              className="text-sm text-primary-900 dark:text-secondary-50"
             >
               I agree to the{' '}
               <Link
