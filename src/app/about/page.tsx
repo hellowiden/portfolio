@@ -7,7 +7,7 @@ import Image from 'next/image';
 
 export default function About() {
   return (
-    <div id="about" className="w-full p-6">
+    <div id="about" className="w-full p-6 bg-[#FFFFFF] dark:bg-[#121212]">
       <div className="grid grid-cols-1 gap-6 p-6 place-items-center">
         <div className="w-full min-h-[500px] border border-primary-200 dark:border-secondary-800 rounded-xl relative overflow-hidden">
           <Image
