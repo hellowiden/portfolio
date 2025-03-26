@@ -1,3 +1,5 @@
+//src/app/components/HamburgerMenu/HamburgerMenu.tsx
+
 'use client';
 
 import { useState, useRef, useEffect, type ReactNode } from 'react';
@@ -51,13 +53,13 @@ export default function HamburgerMenu() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
-        className="p-2 rounded border bg-zinc-100 dark:bg-zinc-700 dark:text-white"
+        className="p-2 rounded border bg-[#F1F1F1] text-[#121212] dark:bg-[#292929] dark:text-[#FFFFFF] border-[#E3E3E3] dark:border-[#191919]"
       >
         {isOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-48 p-3 bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-zinc-600 rounded shadow grid gap-2 z-50">
+        <div className="absolute right-0 mt-2 w-48 p-3 bg-[#FFFFFF] dark:bg-[#191919] border border-[#E3E3E3] dark:border-[#191919] rounded shadow grid gap-2 z-50 text-[#121212] dark:text-[#FFFFFF]">
           {isAuthenticated && (
             <>
               {isAdmin && (
@@ -106,10 +108,10 @@ function MenuButton({
   return (
     <button
       onClick={onClick}
-      className={`grid grid-cols-[auto_1fr] items-center gap-2 p-2 rounded text-left ${
+      className={`grid grid-cols-[auto_1fr] items-center gap-2 p-2 rounded text-left transition ${
         active
-          ? 'bg-zinc-300 dark:bg-zinc-600 font-semibold'
-          : 'hover:bg-zinc-200 dark:hover:bg-zinc-700'
+          ? 'bg-[#E3E3E3] dark:bg-[#292929] font-semibold'
+          : 'hover:bg-[#F1F1F1] dark:hover:bg-[#292929]'
       }`}
     >
       {icon}
