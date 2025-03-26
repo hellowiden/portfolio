@@ -1,4 +1,5 @@
 //src/app/about/page.tsx
+
 'use client';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -8,7 +9,7 @@ export default function About() {
   return (
     <div id="about" className="w-full p-6">
       <div className="grid grid-cols-1 gap-6 p-6 place-items-center">
-        <div className="w-full min-h-[500px] border dark:border-light rounded-xl relative overflow-hidden">
+        <div className="w-full min-h-[500px] border border-[#E3E3E3] dark:border-[#191919] rounded-xl relative overflow-hidden">
           <Image
             src="/adventure.jpg"
             alt="Descriptive Alt Text"
@@ -31,15 +32,15 @@ export default function About() {
             transition={{ duration: 0.5 }}
             className="grid gap-4"
           >
-            <h1 className="text-4xl font-medium text-zinc-900 dark:text-zinc-50">
+            <h1 className="text-4xl font-medium text-[#121212] dark:text-[#FFFFFF]">
               Why Me?
             </h1>
 
-            <p className="text-xl text-zinc-900 dark:text-zinc-100 font-semibold">
+            <p className="text-xl text-[#121212] dark:text-[#FFFFFF] font-semibold">
               Because clarity is rare, and strategy is everything.
             </p>
 
-            <p className="text-base text-zinc-700 dark:text-zinc-300 leading-relaxed">
+            <p className="text-base text-[#292929] dark:text-[#E3E3E3] leading-relaxed">
               In a world where most chase noise, I focus on what lasts. I don’t
               build brands to go viral—I build them to endure. With over a
               decade of guiding 500+ global projects, I’ve learned one truth:
@@ -74,7 +75,7 @@ export default function About() {
 
             <Link
               href="/contact"
-              className="text-sm text-green-600 hover:text-green-500 dark:text-green-400 dark:hover:text-green-300 transition hover:underline grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+              className="text-sm text-[#121212] dark:text-[#FFFFFF] hover:underline grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded bg-[#F1F1F1] hover:bg-[#E3E3E3] border-[#E3E3E3] dark:bg-[#292929] dark:hover:bg-[#191919] dark:border-[#191919]"
             >
               If you seek strategy, let’s talk.
             </Link>
