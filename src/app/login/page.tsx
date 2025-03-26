@@ -1,11 +1,13 @@
 //src/app/login/page.tsx
 
+// src/app/login/page.tsx
 'use client';
 
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import AdBar from '@/app/components/AdBar/AdBar';
+import AnimeGrid from '../components/AnimeGrid.tsx/AnimeGrid';
 
 import { useLoginForm } from '@/hooks/auth/useLoginForm';
 import { useFormStatus } from '@/hooks/auth/useFormStatus';
@@ -94,8 +96,11 @@ export default function Login() {
         </form>
       </section>
 
-      <section className="hidden md:grid place-items-center bg-gradient-to-br from-primary-900 to-primary-200 text-primary-50 p-8 dark:from-secondary-800 dark:to-secondary-600">
-        <AdBar />
+      <section className="hidden md:grid place-items-center relative">
+        <AnimeGrid />
+        <div className="absolute inset-0 grid place-items-center p-8">
+          <AdBar />
+        </div>
       </section>
     </section>
   );
