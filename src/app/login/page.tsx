@@ -77,10 +77,11 @@ export default function Login() {
           <button
             type="submit"
             disabled={loading}
-            className="text-sm bg-primary-900 hover:bg-primary-200 dark:bg-secondary-700 dark:hover:bg-secondary-600 text-primary-50 dark:text-secondary-50 p-2 rounded transition disabled:opacity-50 focus:outline-none focus:ring-0"
+            className="text-sm bg-primary-900 hover:bg-primary-200 text-primary-50 p-2 rounded transition disabled:opacity-50 focus:outline-none focus:ring-0 dark:bg-secondary-700 dark:hover:bg-secondary-600 dark:text-secondary-50"
           >
             {loading ? 'Logging in...' : 'Login'}
           </button>
+
           <p className="text-center text-sm text-primary-900 dark:text-secondary-50">
             Not an account?{' '}
             <Link
