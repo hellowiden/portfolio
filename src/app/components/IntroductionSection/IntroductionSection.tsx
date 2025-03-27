@@ -47,16 +47,18 @@ function Shell({ children }: { children: React.ReactNode }) {
 
 function VideoRow() {
   return (
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="w-full h-80 sm:p-1 rounded overflow-hidden object-cover row-start-1 col-start-1"
-    >
-      <source src="/ads.mp4" type="video/mp4" />
-      Your browser does not support the video tag.
-    </video>
+    <div className="w-full h-80 sm:p-1 rounded overflow-hidden row-start-1 col-start-1">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-full object-cover"
+      >
+        <source src="/ads.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
   );
 }
 
