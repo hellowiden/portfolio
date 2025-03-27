@@ -47,7 +47,7 @@ function Shell({ children }: { children: React.ReactNode }) {
 
 function VideoRow() {
   return (
-    <div className="w-full h-80 sm:p-1 rounded-xl overflow-hidden row-start-1 col-start-1">
+    <div className="w-full h-80 p-1 rounded-xl overflow-hidden row-start-1 col-start-1">
       <video
         autoPlay
         loop
