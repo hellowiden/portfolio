@@ -19,7 +19,7 @@ export default function NavLinks() {
 
   const buttonBaseClasses = `
   grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition
-  text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-800 dark:text-secondary-50
+  text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50
 `.trim();
 
   return (
