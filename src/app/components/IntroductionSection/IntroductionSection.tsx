@@ -87,14 +87,11 @@ function ContentRow({
       </div>
 
       <button
-        className={
-          'grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition \
-           bg-primary-100 text-primary-900 hover:bg-primary-200 border-primary-200 \
-           dark:bg-secondary-700 dark:text-secondary-50 dark:hover:bg-secondary-800 dark:border-secondary-800'
-        }
         onClick={() => router.push('/about')}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
+        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition
+    text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50"
       >
         <motion.div
           key={isHovered ? 'hover' : 'about'}
