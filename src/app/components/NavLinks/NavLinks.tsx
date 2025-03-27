@@ -17,10 +17,10 @@ export default function NavLinks() {
   const isAdmin = isAuthenticated && session?.user?.roles?.includes('admin');
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
-  const buttonBaseClasses =
-    'grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition \
-   text-primary-900 hover:bg-primary-100 \
-  dark:bg-secondary-800 dark:text-secondary-50';
+  const buttonBaseClasses = `
+  grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition
+  text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-800 dark:text-secondary-50
+`.trim();
 
   return (
     <nav className="flex justify-end items-center">
