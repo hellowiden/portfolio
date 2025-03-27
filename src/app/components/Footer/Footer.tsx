@@ -6,7 +6,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full border-t border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-50/70 dark:bg-secondary-800/70 text-primary-900 dark:text-secondary-50 transition">
+    <footer className="w-full border-t border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-50 dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 transition">
       <div className="w-full px-6 sm:px-8 py-10 grid gap-6 md:grid-cols-[1fr_auto]">
         <section>
           <h4 className="text-xl font-semibold text-primary-900 dark:text-secondary-50 mb-4">
