@@ -12,20 +12,25 @@ export default function ClientsCarousel() {
     >
       <Marquee gradient={false} speed={50}>
         <div className="flex gap-4">
-          {clientsData.map(({ name, url }) => (
-            <motion.a
-              key={name}
-              href={url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative group whitespace-nowrap bg-primary-100 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-sm px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-200"
-              aria-label={`Client: ${name}`}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-            >
-              {name}
-            </motion.a>
-          ))}
+          {clientsData.map(({ name, url }, index) => {
+            const isLast = index === clientsData.length - 1;
+            return (
+              <motion.a
+                key={name}
+                href={url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`relative group whitespace-nowrap bg-primary-100 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-sm px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-200 ${
+                  isLast ? 'mr-8' : ''
+                }`}
+                aria-label={`Client: ${name}`}
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+              >
+                {name}
+              </motion.a>
+            );
+          })}
         </div>
       </Marquee>
     </section>
