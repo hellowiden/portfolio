@@ -81,7 +81,7 @@ export default function HoverCard({
 
             <div className="grid gap-2">
               <h2 className="text-2xl font-bold">{subtitle}</h2>
-              <p className="opacity-80 tracking-wide max-w-[900px] text-primary-900 dark:text-primary-200">
+              <p className="opacity-90 tracking-wide max-w-[900px] text-primary-900 dark:text-secondary-50">
                 {description}
               </p>
             </div>
