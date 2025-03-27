@@ -115,8 +115,11 @@ export default function ExperiencesDashboard() {
     }
   };
 
+  const inputClass =
+    'border border-primary-200 bg-primary-50 text-primary-900 rounded p-1 w-full dark:border-secondary-700 dark:bg-secondary-900 dark:text-secondary-50';
+
   return (
-    <div className="grid gap-6 p-4">
+    <div className="grid gap-6 p-4 text-primary-900 dark:text-secondary-50">
       <h1 className="text-2xl font-bold">Manage Experiences</h1>
 
       <SearchInput
@@ -126,11 +129,14 @@ export default function ExperiencesDashboard() {
         onFilter={setFilteredExperiences}
       />
 
-      <form onSubmit={handleSubmit} className="grid gap-2 border p-4 rounded">
+      <form
+        onSubmit={handleSubmit}
+        className="grid gap-2 border border-primary-200 dark:border-secondary-700 p-4 rounded bg-primary-100 dark:bg-secondary-800"
+      >
         <label>
           Title:
           <input
-            className="border p-1 w-full"
+            className={inputClass}
             type="text"
             name="title"
             value={formData.title || ''}
@@ -140,7 +146,7 @@ export default function ExperiencesDashboard() {
         <label>
           Location:
           <input
-            className="border p-1 w-full"
+            className={inputClass}
             type="text"
             name="location"
             value={formData.location || ''}
@@ -150,7 +156,7 @@ export default function ExperiencesDashboard() {
         <label>
           Date:
           <input
-            className="border p-1 w-full"
+            className={inputClass}
             type="text"
             name="date"
             value={formData.date || ''}
@@ -160,7 +166,7 @@ export default function ExperiencesDashboard() {
         <label>
           Description:
           <textarea
-            className="border p-1 w-full"
+            className={inputClass}
             name="description"
             rows={3}
             value={formData.description || ''}
@@ -170,7 +176,7 @@ export default function ExperiencesDashboard() {
         <label>
           Image URL:
           <input
-            className="border p-1 w-full"
+            className={inputClass}
             type="text"
             name="image"
             value={formData.image || ''}
@@ -180,7 +186,7 @@ export default function ExperiencesDashboard() {
         <label>
           Tags (comma separated):
           <input
-            className="border p-1 w-full"
+            className={inputClass}
             type="text"
             name="tags"
             value={Array.isArray(formData.tags) ? formData.tags.join(', ') : ''}
@@ -195,7 +201,7 @@ export default function ExperiencesDashboard() {
         <label>
           Type:
           <select
-            className="border p-1 w-full"
+            className={inputClass}
             name="type"
             value={formData.type}
             onChange={handleChange}
@@ -207,32 +213,49 @@ export default function ExperiencesDashboard() {
 
         <button
           type="submit"
-          className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+          className="grid items-center p-2 text-sm border rounded transition bg-primary-50 text-primary-900 hover:bg-primary-200 dark:bg-secondary-800 dark:text-secondary-50 dark:hover:bg-secondary-700 dark:border-secondary-600 sm:gap-2"
         >
           {editingExpId ? 'Update Experience' : 'Create Experience'}
         </button>
       </form>
 
-      <table className="w-full border">
-        <thead className="bg-gray-100">
+      <table className="w-full border border-primary-200 dark:border-secondary-700">
+        <thead className="bg-primary-200 dark:bg-secondary-700 text-primary-900 dark:text-secondary-50">
           <tr>
-            <th className="p-2 border">Title</th>
-            <th className="p-2 border">Location</th>
-            <th className="p-2 border">Date</th>
-            <th className="p-2 border">Actions</th>
+            <th className="p-2 border border-primary-200 dark:border-secondary-700">
+              Title
+            </th>
+            <th className="p-2 border border-primary-200 dark:border-secondary-700">
+              Location
+            </th>
+            <th className="p-2 border border-primary-200 dark:border-secondary-700">
+              Date
+            </th>
+            <th className="p-2 border border-primary-200 dark:border-secondary-700">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
           {filteredExperiences.map((exp) => (
-            <tr key={exp._id} className="border-b">
-              <td className="p-2 border">{exp.title}</td>
-              <td className="p-2 border">{exp.location}</td>
-              <td className="p-2 border">{exp.date}</td>
-              <td className="p-2 border">
+            <tr
+              key={exp._id}
+              className="border-b border-primary-200 dark:border-secondary-700"
+            >
+              <td className="p-2 border border-primary-200 dark:border-secondary-700">
+                {exp.title}
+              </td>
+              <td className="p-2 border border-primary-200 dark:border-secondary-700">
+                {exp.location}
+              </td>
+              <td className="p-2 border border-primary-200 dark:border-secondary-700">
+                {exp.date}
+              </td>
+              <td className="p-2 border border-primary-200 dark:border-secondary-700">
                 <div className="grid grid-cols-2 gap-2">
                   <button
                     onClick={() => handleEdit(exp)}
-                    className="grid items-center p-2 text-sm border rounded transition bg-white dark:bg-black text-black dark:text-white hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600 dark:border-zinc-600 sm:gap-2"
+                    className="grid items-center p-2 text-sm border rounded transition bg-primary-50 text-primary-900 hover:bg-primary-200 dark:bg-secondary-800 dark:text-secondary-50 dark:hover:bg-secondary-700 dark:border-secondary-600 sm:gap-2"
                   >
                     Edit
                   </button>

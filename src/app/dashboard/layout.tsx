@@ -32,9 +32,9 @@ export default function Layout({ children }: LayoutProps) {
   if (!isAdmin) return null;
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] h-full bg-zinc-100 dark:bg-zinc-900 text-zinc-900 dark:text-white gap-4">
+    <div className="grid grid-cols-1 md:grid-cols-[auto_1fr] h-full bg-primary-100 text-primary-900 dark:bg-secondary-900 dark:text-secondary-50 gap-4">
       {/* SIDEBAR NAVIGATION */}
-      <aside className="grid grid-rows-[auto_auto_1fr] gap-4 w-64 bg-zinc-200 dark:bg-zinc-800 border-r dark:border-zinc-700 p-4">
+      <aside className="grid grid-rows-[auto_auto_1fr] gap-4 w-64 bg-primary-200 border-r border-primary-200 dark:bg-secondary-800 dark:border-secondary-700 p-4">
         <h2 className="text-xl font-bold">Admin Dashboard</h2>
         <nav className="grid gap-2">
           <NavItem href="/dashboard" label="Dashboard" />
@@ -54,7 +54,7 @@ export default function Layout({ children }: LayoutProps) {
 const NavItem = ({ href, label }: { href: string; label: string }) => (
   <Link
     href={href}
-    className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition text-black bg-zinc-100 hover:bg-zinc-200 border-zinc-300 dark:text-white dark:bg-zinc-700 dark:hover:bg-zinc-800 dark:border-zinc-600"
+    className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-primary-100 text-primary-900 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:text-secondary-50 dark:hover:bg-secondary-800 dark:border-secondary-600"
   >
     {label}
   </Link>

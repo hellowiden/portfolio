@@ -28,7 +28,7 @@ const getPriorityColor = (reason: string, budget?: string) => {
       '6000_8000': 'bg-green-500',
       '8000_plus': 'bg-blue-500',
     };
-    return budgetEnum[budget] || 'bg-gray-500';
+    return budgetEnum[budget] || 'bg-primary-300 dark:bg-secondary-600';
   }
   return 'bg-green-500';
 };
@@ -87,10 +87,8 @@ export default function Messages() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="grid gap-6 p-6">
-      <h1 className="text-3xl font-bold text-zinc-900 dark:text-zinc-100">
-        Messages
-      </h1>
+    <div className="grid gap-6 p-6 text-primary-900 dark:text-secondary-50">
+      <h1 className="text-3xl font-bold">Messages</h1>
 
       <SearchInput
         value={searchQuery}
@@ -107,14 +105,14 @@ export default function Messages() {
         }, {})
       ).map(([category, msgs]) => (
         <div key={category} className="gap-6 grid">
-          <h2 className="text-xl font-semibold text-zinc-800 dark:text-zinc-200">
+          <h2 className="text-xl font-semibold text-primary-800 dark:text-secondary-200">
             {category}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {msgs.map((msg) => (
               <div
                 key={msg._id}
-                className="border dark:border-zinc-600 p-5 rounded transition-all bg-zinc-200 dark:bg-zinc-900 grid gap-4"
+                className="border border-primary-200 dark:border-secondary-700 p-5 rounded transition-all bg-primary-100 dark:bg-secondary-900 grid gap-4"
               >
                 <hr
                   className={`h-3 rounded ${getPriorityColor(
@@ -133,7 +131,7 @@ export default function Messages() {
                     href={msg.message}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-600 dark:text-blue-400 underline"
+                    className="text-primary-700 dark:text-secondary-200 underline"
                   >
                     View Attachment
                   </a>
@@ -143,7 +141,7 @@ export default function Messages() {
                     <strong>Budget:</strong> {msg.budget}
                   </p>
                 )}
-                <p className="text text-zinc-500 dark:text-zinc-400">
+                <p className="text-sm text-primary-200 dark:text-secondary-300">
                   {new Date(msg.createdAt).toLocaleString()}
                 </p>
                 <button

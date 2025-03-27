@@ -123,8 +123,11 @@ export default function ProjectsDashboard() {
     }
   };
 
+  const inputClass =
+    'border border-primary-200 rounded p-1 w-full bg-primary-50 text-primary-900 dark:bg-secondary-900 dark:text-secondary-50 dark:border-secondary-700';
+
   return (
-    <div className="grid gap-6 p-4">
+    <div className="grid gap-6 p-4 text-primary-900 dark:text-secondary-50">
       <h1 className="text-2xl font-bold">Manage Projects</h1>
 
       <SearchInput
@@ -136,12 +139,12 @@ export default function ProjectsDashboard() {
 
       <form
         onSubmit={handleSubmit}
-        className="grid bg-zinc-200 dark:bg-zinc-800 gap-2 border border-light rounded-md p-4"
+        className="grid gap-2 p-4 rounded-md border border-primary-200 bg-primary-100 dark:border-secondary-700 dark:bg-secondary-800"
       >
         <label>
           Name:
           <input
-            className="border border-light rounded p-1 w-full"
+            className={inputClass}
             type="text"
             name="name"
             value={formData.name || ''}
@@ -151,7 +154,7 @@ export default function ProjectsDashboard() {
         <label>
           Link:
           <input
-            className="border border-light rounded p-1 w-full"
+            className={inputClass}
             type="text"
             name="link"
             value={formData.link || ''}
@@ -161,7 +164,7 @@ export default function ProjectsDashboard() {
         <label>
           Created At:
           <input
-            className="border border-light rounded p-1 w-full"
+            className={inputClass}
             type="text"
             name="createdAt"
             value={formData.createdAt || ''}
@@ -171,7 +174,7 @@ export default function ProjectsDashboard() {
         <label>
           Completed At (optional):
           <input
-            className="border border-light rounded p-1 w-full"
+            className={inputClass}
             type="text"
             name="completedAt"
             value={formData.completedAt || ''}
@@ -181,7 +184,7 @@ export default function ProjectsDashboard() {
         <label>
           Description:
           <textarea
-            className="border border-light rounded p-1 w-full"
+            className={inputClass}
             name="description"
             rows={3}
             value={formData.description || ''}
@@ -191,7 +194,7 @@ export default function ProjectsDashboard() {
         <label>
           Image URL:
           <input
-            className="border border-light rounded p-1 w-full"
+            className={inputClass}
             type="text"
             name="image"
             value={formData.image || ''}
@@ -201,7 +204,7 @@ export default function ProjectsDashboard() {
         <label>
           Tags (comma separated):
           <input
-            className="border border-light rounded p-1 w-full"
+            className={inputClass}
             type="text"
             name="tags"
             value={Array.isArray(formData.tags) ? formData.tags.join(', ') : ''}
@@ -216,38 +219,48 @@ export default function ProjectsDashboard() {
 
         <button
           type="submit"
-          className="p-2 border rounded bg-white dark:bg-black hover:bg-zinc-800 hover:text-white dark:hover:bg-zinc-600"
+          className="p-2 border rounded bg-primary-50 text-primary-900 hover:bg-primary-200 dark:bg-secondary-800 dark:text-secondary-50 dark:hover:bg-secondary-700 dark:border-secondary-700"
         >
           {editingProjectId ? 'Update Project' : 'Create Project'}
         </button>
       </form>
 
-      <table className="w-full rounded border-light">
-        <thead className="bg-gray-100">
+      <table className="w-full rounded border border-primary-200 dark:border-secondary-700">
+        <thead className="bg-primary-200 dark:bg-secondary-700 text-primary-900 dark:text-secondary-50">
           <tr>
-            <th className="p-2 border border-light rounded">Name</th>
-            <th className="p-2 border border-light rounded">Link</th>
-            <th className="p-2 border border-light rounded">Created At</th>
-            <th className="p-2 border border-light rounded">Completed At</th>
-            <th className="p-2 border border-light rounded">Actions</th>
+            <th className="p-2 border border-primary-200 dark:border-secondary-700">
+              Name
+            </th>
+            <th className="p-2 border border-primary-200 dark:border-secondary-700">
+              Link
+            </th>
+            <th className="p-2 border border-primary-200 dark:border-secondary-700">
+              Created At
+            </th>
+            <th className="p-2 border border-primary-200 dark:border-secondary-700">
+              Completed At
+            </th>
+            <th className="p-2 border border-primary-200 dark:border-secondary-700">
+              Actions
+            </th>
           </tr>
         </thead>
         <tbody>
           {filteredProjects.map((project) => (
             <tr key={project._id} className="border-b">
-              <td className="p-2 border border-light rounded">
+              <td className="p-2 border border-primary-200 dark:border-secondary-700">
                 {project.name}
               </td>
-              <td className="p-2 border border-light rounded">
+              <td className="p-2 border border-primary-200 dark:border-secondary-700">
                 {project.link}
               </td>
-              <td className="p-2 border border-light rounded">
+              <td className="p-2 border border-primary-200 dark:border-secondary-700">
                 {project.createdAt}
               </td>
-              <td className="p-2 border border-light rounded">
+              <td className="p-2 border border-primary-200 dark:border-secondary-700">
                 {project.completedAt || 'Ongoing'}
               </td>
-              <td className="p-2 border border-light rounded flex gap-2">
+              <td className="p-2 border border-primary-200 dark:border-secondary-700 flex gap-2">
                 <button onClick={() => handleEdit(project)}>Edit</button>
                 <button
                   onClick={() => handleDelete(project._id)}
