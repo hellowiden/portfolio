@@ -48,7 +48,7 @@ export default function Register() {
   };
 
   const inputClass =
-    'w-full p-2 border rounded border-primary-200 bg-primary-100 text-primary-900 dark:border-secondary-700 dark:bg-secondary-900 dark:text-secondary-200 focus:outline-none focus:ring-0 focus:border-primary-300 dark:focus:border-secondary-500';
+    'w-full p-2 border rounded border-primary-200 bg-primary-100 text-primary-900 dark:border-secondary-700 dark:bg-secondary-900 dark:text-secondary-50 focus:outline-none focus:ring-0 focus:border-primary-300 dark:focus:border-secondary-500';
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 h-full border-x border-primary-200 dark:border-secondary-700">
