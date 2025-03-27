@@ -107,7 +107,7 @@ export default function Register() {
               I agree to the{' '}
               <Link
                 href="/legal"
-                className=" text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 hover:underline "
+                className="text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 hover:underline"
               >
                 legal terms
               </Link>
@@ -134,7 +134,7 @@ export default function Register() {
         </form>
       </div>
 
-      <div className="hidden md:grid place-items-center bg-gradient-to-br from-primary-900 to-primary-200 text-primary-50 p-8 dark:from-secondary-800 dark:to-secondary-600">
+      <div className="hidden md:grid place-items-center bg-gradient-to-br from-primary-900 to-primary-200 text-primary-50 p-8 dark:from-secondary-800 dark:to-secondary-600 dark:text-secondary-50">
         <AdBar />
       </div>
     </section>
