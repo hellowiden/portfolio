@@ -37,9 +37,10 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <section
       id="home"
-      className="relative w-full h-[500px] backdrop-blur-md bg-primary-50 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded container mx-auto overflow-hidden flex items-end text-primary-900 dark:text-secondary-50"
+      className="relative w-full h-[500px] container mx-auto overflow-hidden rounded border backdrop-blur-md
+      bg-primary-50 dark:bg-secondary-800 border-primary-200 dark:border-secondary-700 text-primary-900 dark:text-secondary-50"
     >
-      <div className="w-full h-full grid">{children}</div>
+      <div className="w-full h-full grid grid-rows-[auto_1fr]">{children}</div>
     </section>
   );
 }
@@ -51,7 +52,7 @@ function VideoRow() {
       loop
       muted
       playsInline
-      className="w-full h-80 object-cover rounded z-0 row-start-1 col-start-1"
+      className="w-full h-80 object-cover row-start-1 col-start-1"
     >
       <source src="/ads.mp4" type="video/mp4" />
       Your browser does not support the video tag.
@@ -73,8 +74,12 @@ function ContentRow({
   router,
 }: ContentProps) {
   return (
-    <div className="z-10 row-start-1 col-start-1 self-end w-full grid grid-cols-[1fr_auto] grid-rows-[auto_auto] gap-4 bg-primary-50/85 dark:bg-secondary-800/85 backdrop-blur-md p-6">
-      <div className="grid grid-cols-[auto_1fr] items-center gap-3">
+    <div
+      className="z-10 row-start-2 col-start-1 grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-6 
+      p-6 backdrop-blur-md bg-primary-50/85 dark:bg-secondary-800/85"
+    >
+      {/* Avatar + Name */}
+      <div className="grid grid-cols-[auto_1fr] items-center gap-3 col-span-2">
         <Image
           src="/MW.png"
           alt="Marcus Widén"
@@ -86,12 +91,13 @@ function ContentRow({
         <h1 className="text-xl font-medium">Marcus Widén</h1>
       </div>
 
+      {/* About Me Button */}
       <button
         onClick={() => router.push('/about')}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition
-    text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50"
+        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm gap-2 rounded transition 
+        text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50"
       >
         <motion.div
           key={isHovered ? 'hover' : 'about'}
@@ -102,10 +108,11 @@ function ContentRow({
         >
           <FiFileText className="text-lg" />
         </motion.div>
-        <span className="ml-2">About me</span>
+        <span>About me</span>
       </button>
 
-      <div className="grid grid-rows-[auto_auto] gap-2 col-span-2 md:col-span-1">
+      {/* Headline + Subtext */}
+      <div className="grid grid-rows-[auto_auto] gap-2 col-span-3">
         <motion.h2
           key={current.heading}
           className="text-3xl font-bold"
