@@ -52,7 +52,7 @@ function VideoRow() {
       loop
       muted
       playsInline
-      className="w-full h-80 object-cover row-start-1 col-start-1"
+      className="w-full h-80 rounded object-cover row-start-1 col-start-1"
     >
       <source src="/ads.mp4" type="video/mp4" />
       Your browser does not support the video tag.
