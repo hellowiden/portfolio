@@ -37,7 +37,7 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <section
       id="home"
-      className="relative w-full h-auto container mx-auto overflow-hidden rounded border backdrop-blur-md
+      className="relative p-2 w-full h-auto container mx-auto overflow-hidden rounded border backdrop-blur-md
       bg-primary-50 dark:bg-secondary-800 border-primary-200 dark:border-secondary-700 text-primary-900 dark:text-secondary-50"
     >
       <div className="w-full h-full grid grid-rows-[auto_1fr]">{children}</div>
