@@ -9,8 +9,8 @@ import { FiMoon, FiSun } from 'react-icons/fi';
 
 const buttonBaseClasses =
   'grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition \
-  text-primary-900 bg-primary-100 hover:bg-primary-200  \
-  dark:text-secondary-50 dark:bg-secondary-800 dark:hover:bg-secondary-700 ';
+  bg-primary-50 text-primary-900 hover:bg-primary-100 \
+  dark:bg-secondary-800 dark:hover:bg-secondary-700 dark:text-secondary-50';
 
 export default function ThemeSwitch() {
   const { theme, toggleTheme } = useTheme();
