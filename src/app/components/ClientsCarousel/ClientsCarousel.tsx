@@ -21,7 +21,7 @@ export default function ClientsCarousel() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`relative group whitespace-nowrap bg-primary-100 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-sm px-2 py-1 rounded-full focus:outline-none focus:ring-2 focus:ring-primary-200 ${
-                  isLast ? 'mr-8' : ''
+                  isLast ? 'mr-4' : ''
                 }`}
                 aria-label={`Client: ${name}`}
                 whileHover={{ scale: 1.05 }}
