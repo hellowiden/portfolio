@@ -4,6 +4,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import SearchInput from '@/app/components/SearchInput/SearchInput';
+import Button from '@/app/components/Button/Button';
 
 interface Message {
   _id: string;
@@ -144,12 +145,13 @@ export default function Messages() {
                 <p className="text-sm text-primary-200 dark:text-secondary-300">
                   {new Date(msg.createdAt).toLocaleString()}
                 </p>
-                <button
+                <Button
                   onClick={() => handleDeleteMessage(msg._id)}
-                  className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
+                  variant="danger"
+                  size="sm"
                 >
                   Delete Message
-                </button>
+                </Button>
               </div>
             ))}
           </div>

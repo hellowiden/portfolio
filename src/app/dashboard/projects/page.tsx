@@ -4,6 +4,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import SearchInput from '@/app/components/SearchInput/SearchInput';
+import Button from '@/app/components/Button/Button';
 
 interface Project {
   _id: string;
@@ -217,12 +218,9 @@ export default function ProjectsDashboard() {
           />
         </label>
 
-        <button
-          type="submit"
-          className="p-2 border rounded bg-primary-50 text-primary-900 hover:bg-primary-200 dark:bg-secondary-800 dark:text-secondary-50 dark:hover:bg-secondary-700 dark:border-secondary-700"
-        >
+        <Button type="submit" variant="primary" size="md">
           {editingProjectId ? 'Update Project' : 'Create Project'}
-        </button>
+        </Button>
       </form>
 
       <table className="w-full rounded border border-primary-200 dark:border-secondary-700">
@@ -261,13 +259,20 @@ export default function ProjectsDashboard() {
                 {project.completedAt || 'Ongoing'}
               </td>
               <td className="p-2 border border-primary-200 dark:border-secondary-700 flex gap-2">
-                <button onClick={() => handleEdit(project)}>Edit</button>
-                <button
+                <Button
+                  onClick={() => handleEdit(project)}
+                  variant="ghost"
+                  size="sm"
+                >
+                  Edit
+                </Button>
+                <Button
                   onClick={() => handleDelete(project._id)}
-                  className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
+                  variant="danger"
+                  size="sm"
                 >
                   Remove
-                </button>
+                </Button>
               </td>
             </tr>
           ))}

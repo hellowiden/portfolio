@@ -4,6 +4,7 @@
 
 import { useEffect, useState, useCallback } from 'react';
 import SearchInput from '@/app/components/SearchInput/SearchInput';
+import Button from '@/app/components/Button/Button';
 
 interface Experience {
   _id: string;
@@ -105,7 +106,6 @@ export default function ExperiencesDashboard() {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this experience?')) return;
-
     try {
       const res = await fetch(`/api/experiences/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Error deleting experience');
@@ -211,12 +211,9 @@ export default function ExperiencesDashboard() {
           </select>
         </label>
 
-        <button
-          type="submit"
-          className="grid items-center p-2 text-sm border rounded transition bg-primary-50 text-primary-900 hover:bg-primary-200 dark:bg-secondary-800 dark:text-secondary-50 dark:hover:bg-secondary-700 dark:border-secondary-600 sm:gap-2"
-        >
+        <Button type="submit" variant="primary" size="md">
           {editingExpId ? 'Update Experience' : 'Create Experience'}
-        </button>
+        </Button>
       </form>
 
       <table className="w-full border border-primary-200 dark:border-secondary-700">
@@ -253,18 +250,20 @@ export default function ExperiencesDashboard() {
               </td>
               <td className="p-2 border border-primary-200 dark:border-secondary-700">
                 <div className="grid grid-cols-2 gap-2">
-                  <button
+                  <Button
                     onClick={() => handleEdit(exp)}
-                    className="grid items-center p-2 text-sm border rounded transition bg-primary-50 text-primary-900 hover:bg-primary-200 dark:bg-secondary-800 dark:text-secondary-50 dark:hover:bg-secondary-700 dark:border-secondary-600 sm:gap-2"
+                    variant="ghost"
+                    size="sm"
                   >
                     Edit
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => handleDelete(exp._id)}
-                    className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
+                    variant="danger"
+                    size="sm"
                   >
                     Remove
-                  </button>
+                  </Button>
                 </div>
               </td>
             </tr>
