@@ -3,6 +3,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FiFileText } from 'react-icons/fi';
@@ -10,7 +11,8 @@ import { brandingMessages } from '../../../data/brandingMessages';
 import useRotatingMessages from '@/hooks/useRotatingMessages';
 
 export default function IntroductionSection() {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const router = useRouter();
+  const [isHovered, setIsHovered] = useState(false);
   const { current } = useRotatingMessages(brandingMessages, {
     getInterval: () => 15000,
     paused: false,
@@ -23,8 +25,9 @@ export default function IntroductionSection() {
       <VideoRow />
       <ContentRow
         current={current}
-        isExpanded={isExpanded}
-        setIsExpanded={setIsExpanded}
+        isHovered={isHovered}
+        setIsHovered={setIsHovered}
+        router={router}
       />
     </Shell>
   );
@@ -34,7 +37,8 @@ function Shell({ children }: { children: React.ReactNode }) {
   return (
     <section
       id="home"
-      className="relative w-full h-auto container mx-auto overflow-hidden rounded border backdrop-blur-md bg-primary-50 dark:bg-secondary-800 border-primary-200 dark:border-secondary-700 text-primary-900 dark:text-secondary-50"
+      className="relative w-full h-auto container mx-auto overflow-hidden rounded border backdrop-blur-md
+      bg-primary-50 dark:bg-secondary-800 border-primary-200 dark:border-secondary-700 text-primary-900 dark:text-secondary-50"
     >
       <div className="w-full h-full grid grid-rows-[auto_1fr]">{children}</div>
     </section>
@@ -60,13 +64,22 @@ function VideoRow() {
 
 type ContentProps = {
   current: { heading: string; subtext: string };
-  isExpanded: boolean;
-  setIsExpanded: (expanded: boolean) => void;
+  isHovered: boolean;
+  setIsHovered: (hover: boolean) => void;
+  router: ReturnType<typeof useRouter>;
 };
 
-function ContentRow({ current, isExpanded, setIsExpanded }: ContentProps) {
+function ContentRow({
+  current,
+  isHovered,
+  setIsHovered,
+  router,
+}: ContentProps) {
   return (
-    <div className="z-10 row-start-2 col-start-1 grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-6 p-6 backdrop-blur-md bg-primary-50/85 dark:bg-secondary-800/85">
+    <div
+      className="z-10 row-start-2 col-start-1 grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-6 
+      p-6 backdrop-blur-md bg-primary-50/85 dark:bg-secondary-800/85"
+    >
       {/* Avatar + Name */}
       <div className="grid grid-cols-[auto_1fr] items-center gap-3 col-span-2">
         <Image
@@ -80,14 +93,16 @@ function ContentRow({ current, isExpanded, setIsExpanded }: ContentProps) {
         <h1 className="text-xl font-medium">Marcus Widén</h1>
       </div>
 
-      {/* About Me Toggle */}
+      {/* About Me Button */}
       <button
-        onClick={() => setIsExpanded(!isExpanded)}
-        aria-label="Toggle About Me"
-        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm gap-2 rounded transition text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50"
+        onClick={() => router.push('/about')}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm gap-2 rounded transition 
+        text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50"
       >
         <motion.div
-          key={isExpanded ? 'expanded' : 'collapsed'}
+          key={isHovered ? 'hover' : 'about'}
           initial={{ rotate: -90, opacity: 0 }}
           animate={{ rotate: 0, opacity: 1 }}
           exit={{ rotate: 90, opacity: 0 }}
@@ -95,7 +110,7 @@ function ContentRow({ current, isExpanded, setIsExpanded }: ContentProps) {
         >
           <FiFileText className="text-lg" />
         </motion.div>
-        <span>{isExpanded ? 'Hide' : 'About me'}</span>
+        <span>About me</span>
       </button>
 
       {/* Headline + Subtext */}
@@ -121,18 +136,6 @@ function ContentRow({ current, isExpanded, setIsExpanded }: ContentProps) {
         >
           {current.subtext}
         </motion.p>
-
-        {isExpanded && (
-          <motion.div
-            className="mt-4 text-sm opacity-90"
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4 }}
-          >
-            Learn more about Marcus and his work by visiting the About page.
-          </motion.div>
-        )}
       </div>
     </div>
   );
