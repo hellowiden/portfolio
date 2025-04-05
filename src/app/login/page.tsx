@@ -9,6 +9,7 @@ import AdBar from '@/app/components/AdBar/AdBar';
 
 import { useLoginForm } from '@/hooks/auth/useLoginForm';
 import { useFormStatus } from '@/hooks/auth/useFormStatus';
+import Button from '@/app/components/Button/Button';
 
 export default function Login() {
   const router = useRouter();
@@ -74,13 +75,15 @@ export default function Login() {
             className={inputClass}
             required
           />
-          <button
+
+          <Button
             type="submit"
             disabled={loading}
-            className="text-sm bg-primary-200 hover:bg-primary-100 text-primary-900 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:text-secondary-50 p-2 rounded transition-colors disabled:opacity-50 focus:outline-none focus:ring-0 "
+            variant="secondary"
+            size="sm"
           >
             {loading ? 'Logging in...' : 'Login'}
-          </button>
+          </Button>
 
           <p className="text-center text-sm text-primary-900 dark:text-secondary-50">
             Not an account?{' '}
