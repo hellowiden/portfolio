@@ -4,7 +4,7 @@
 
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface HoverCardProps {
@@ -28,49 +28,67 @@ export default function HoverCard({
   buttonLabel,
   buttonRoute,
   buttonAriaLabel,
-  heightClass = 'h-[400px]',
+  heightClass = 'h-auto',
 }: HoverCardProps) {
   const router = useRouter();
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <motion.div
-      whileHover={{ scale: 1.015 }}
-      transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-      className={`relative overflow-hidden rounded-xl border border-primary-200 dark:border-secondary-700 ${heightClass} bg-gray-900 group`}
+    <section
+      className={`relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 bg-cover bg-center ${heightClass} grid`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
       <Image
         src={imageSrc}
         alt={title}
         fill
-        className="object-cover w-full h-full absolute inset-0 z-0"
         sizes="(max-width: 768px) 100vw, 50vw"
+        className="object-cover w-full h-full col-start-1 row-start-1 z-0"
         priority
       />
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/80 z-10" />
+      <div className="col-start-1 row-start-1 w-full h-full bg-primary-50/90 dark:bg-secondary-800/90 backdrop-blur-md pointer-events-none z-10" />
 
-      <div className="relative z-20 flex flex-col justify-between h-full p-6 text-white">
-        <div className="space-y-1">
-          <h1 className="text-xl font-semibold">{title}</h1>
-          <h2 className="text-sm text-white/70">{subtitle}</h2>
-        </div>
+      <div className="col-start-1 row-start-1 z-20 grid w-full h-full">
+        {!isHovered ? (
+          <div className="grid place-items-center w-full h-full">
+            <h1 className="text-xl font-bold text-primary-900 dark:text-secondary-50 hover:underline hover:underline-offset-4 transition">
+              {title}
+            </h1>
+          </div>
+        ) : (
+          <div className="grid grid-rows-[auto_1fr] gap-4 p-6 text-primary-900 dark:text-secondary-50 w-full h-full">
+            <div className="grid grid-cols-[1fr_auto] items-center w-full">
+              <h1 className="text-xl font-medium">{title}</h1>
+              <button
+                onClick={() => router.push(buttonRoute)}
+                aria-label={buttonAriaLabel}
+                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition
+  text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50"
+              >
+                <motion.div
+                  key={buttonLabel}
+                  initial={{ rotate: -90, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 1 }}
+                  exit={{ rotate: 90, opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  {icon}
+                </motion.div>
+                <span className="hidden sm:inline">{buttonLabel}</span>
+              </button>
+            </div>
 
-        <p className="mt-4 text-sm text-white/90 line-clamp-3">{description}</p>
-
-        <button
-          onClick={() => router.push(buttonRoute)}
-          aria-label={buttonAriaLabel}
-          className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-white group-hover:text-primary-300 transition"
-        >
-          <motion.div
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 0.6 }}
-          >
-            {icon}
-          </motion.div>
-          {buttonLabel}
-        </button>
+            <div className="grid gap-2">
+              <h2 className="text-2xl font-bold">{subtitle}</h2>
+              <p className="opacity-90 tracking-wide max-w-[900px] text-primary-900 dark:text-secondary-50">
+                {description}
+              </p>
+            </div>
+          </div>
+        )}
       </div>
-    </motion.div>
+    </section>
   );
 }
