@@ -3,7 +3,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Button from '../components/Button/Button';
+import Button from '@/app/components/Button/Button';
 
 export default function Dashboard() {
   const [stats, setStats] = useState({

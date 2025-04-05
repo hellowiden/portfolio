@@ -6,7 +6,7 @@ import { ReactNode, useEffect, useMemo } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import Button from '../components/Button/Button'; // Adjust path if needed
+import Button from '@/app/components/Button/Button';
 
 interface LayoutProps {
   children: ReactNode;
