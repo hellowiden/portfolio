@@ -36,7 +36,7 @@ export default function Button({
       ? 'text-sm px-3 py-1.5'
       : size === 'lg'
       ? 'text-base px-6 py-3'
-      : 'text-sm px-4 py-2'; // default to md
+      : 'text-sm px-4 py-2';
 
   return (
     <button

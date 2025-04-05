@@ -3,6 +3,7 @@
 'use client';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Button from '../components/Button/Button';
 import Image from 'next/image';
 
 export default function About() {
@@ -73,11 +74,10 @@ export default function About() {
               playing it to win.
             </p>
 
-            <Link
-              href="/contact"
-              className="text-sm text-primary-900 dark:text-secondary-50 hover:underline grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded bg-primary-100 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-800"
-            >
-              If you seek strategy, let’s talk.
+            <Link href="/contact">
+              <Button variant="secondary" size="sm" className="w-fit">
+                If you seek strategy, let’s talk.
+              </Button>
             </Link>
           </motion.div>
         </motion.section>
