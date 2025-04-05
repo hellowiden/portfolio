@@ -1,6 +1,9 @@
-//src/app/components/Footer/Footer.tsx
+// src/app/components/Footer/Footer.tsx
+
+'use client';
 
 import Link from 'next/link';
+import Button from '../Button/Button'; // Import centralized button
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,18 +20,19 @@ export default function Footer() {
             Made by Marcus Widén · Hosted on Vercel
           </p>
         </section>
+
         <nav className="md:text-right">
           <h4 className="text-xl font-semibold text-primary-900 dark:text-secondary-50 mb-4">
             Docs
           </h4>
-          <Link
-            href="/legal"
-            className="text-sm font-medium text-primary-900/60 dark:text-secondary-50 hover:text-primary-900 dark:hover:text-primary-200 transition"
-          >
-            Legal
+          <Link href="/legal">
+            <Button variant="ghost" size="sm" className="p-0 h-auto">
+              Legal
+            </Button>
           </Link>
         </nav>
       </div>
+
       <div className="grid gap-4 border-t border-primary-100 dark:border-secondary-700 p-4 text-sm text-primary-900 dark:text-primary-200 sm:px-8 md:grid-cols-[1fr_auto]">
         <p>
           &copy; {currentYear} Marcus Widén — Personal Portfolio. All rights
