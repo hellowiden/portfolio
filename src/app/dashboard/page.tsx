@@ -3,6 +3,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Button from '../components/Button/Button';
 
 export default function Dashboard() {
   const [stats, setStats] = useState({
@@ -12,42 +13,42 @@ export default function Dashboard() {
     experiences: 0,
   });
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const [usersRes, messagesRes, projectsRes, experiencesRes] =
-          await Promise.all([
-            fetch('/api/users'),
-            fetch('/api/messages'),
-            fetch('/api/projects'),
-            fetch('/api/experiences'),
-          ]);
+  const fetchStats = async () => {
+    try {
+      const [usersRes, messagesRes, projectsRes, experiencesRes] =
+        await Promise.all([
+          fetch('/api/users'),
+          fetch('/api/messages'),
+          fetch('/api/projects'),
+          fetch('/api/experiences'),
+        ]);
 
-        if (
-          !usersRes.ok ||
-          !messagesRes.ok ||
-          !projectsRes.ok ||
-          !experiencesRes.ok
-        ) {
-          throw new Error('Failed to fetch dashboard statistics');
-        }
-
-        const usersData = await usersRes.json();
-        const messagesData = await messagesRes.json();
-        const projectsData = await projectsRes.json();
-        const experiencesData = await experiencesRes.json();
-
-        setStats({
-          users: usersData.users.length || 0,
-          messages: messagesData.messages.length || 0,
-          projects: projectsData.projects.length || 0,
-          experiences: experiencesData.experiences.length || 0,
-        });
-      } catch (error) {
-        console.error(error);
+      if (
+        !usersRes.ok ||
+        !messagesRes.ok ||
+        !projectsRes.ok ||
+        !experiencesRes.ok
+      ) {
+        throw new Error('Failed to fetch dashboard statistics');
       }
-    };
 
+      const usersData = await usersRes.json();
+      const messagesData = await messagesRes.json();
+      const projectsData = await projectsRes.json();
+      const experiencesData = await experiencesRes.json();
+
+      setStats({
+        users: usersData.users.length || 0,
+        messages: messagesData.messages.length || 0,
+        projects: projectsData.projects.length || 0,
+        experiences: experiencesData.experiences.length || 0,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
     fetchStats();
   }, []);
 
@@ -57,6 +58,10 @@ export default function Dashboard() {
       <p className="text-lg">
         Welcome to the admin dashboard. Manage your data using the navigation.
       </p>
+
+      <Button variant="primary" size="md" onClick={fetchStats}>
+        Refresh Stats
+      </Button>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard title="Total Users" value={stats.users} />

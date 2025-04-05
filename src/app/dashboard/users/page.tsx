@@ -6,6 +6,7 @@ import { useState, useEffect, useCallback } from 'react';
 import EditUserModal from '@/app/components/EditUserModal';
 import AddUserModal from '@/app/components/AddUserModal';
 import SearchInput from '@/app/components/SearchInput/SearchInput';
+import Button from '@/app/components/Button/Button';
 
 interface User {
   _id: string;
@@ -99,12 +100,13 @@ export default function UsersPage() {
           data={users}
           onFilter={setFilteredUsers}
         />
-        <button
+        <Button
           onClick={() => setAddUserModalState(true)}
-          className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 border rounded transition bg-primary-100 text-primary-900 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:text-secondary-50 dark:hover:bg-secondary-800 dark:border-secondary-600"
+          variant="secondary"
+          size="sm"
         >
           Add User
-        </button>
+        </Button>
       </div>
 
       <div className="overflow-x-auto border border-primary-200 dark:border-secondary-700 rounded">
@@ -163,18 +165,21 @@ export default function UsersPage() {
                   {new Date(user.updatedAt).toLocaleString()}
                 </td>
                 <td className="grid gap-2 border border-primary-200 dark:border-secondary-700 p-3 text-center">
-                  <button
+                  <Button
                     onClick={() => handleEdit(user)}
-                    className="text-sm text-primary-900 hover:text-primary-700 dark:text-secondary-50 dark:hover:text-secondary-200 transition hover:underline"
+                    variant="ghost"
+                    size="sm"
+                    className="text-primary-900 hover:text-primary-700 dark:text-secondary-50 dark:hover:text-secondary-200"
                   >
                     Edit
-                  </button>
-                  <button
+                  </Button>
+                  <Button
                     onClick={() => handleDelete(user._id)}
-                    className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
+                    variant="danger"
+                    size="sm"
                   >
                     Delete
-                  </button>
+                  </Button>
                 </td>
               </tr>
             ))}
