@@ -17,9 +17,41 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: 'MW Portfolio',
+  title: 'Marcus Widen | Strategic Brand & Web Consultant',
   description:
-    'Showcasing projects, skills, and experience in web development.',
+    'Marcus Widen helps brands grow with clarity, precision, and timeless strategy. 500+ global projects. $7.5B in revenue impact. Expert in full-stack development, UX/UI, and brand positioning that lasts.',
+  keywords: [
+    'Brand Strategy Consultant',
+    'Strategic Web Design',
+    'UX/UI Expert',
+    'Full Stack Developer',
+    'Digital Transformation',
+    'Revenue Growth Strategy',
+    'Next.js Developer',
+    'High-Performance Branding',
+    'Human-Centered Design',
+    'MW Portfolio',
+    'Marcus Widen',
+    'Business-Centric Web Development',
+    'Customer Retention Strategy',
+    'Clarity in Branding',
+    'Market Positioning Expert',
+  ],
+  authors: [
+    { name: 'Marcus Widen', url: 'https://www.linkedin.com/in/marcuswiden/' },
+    { name: 'hellowiden', url: 'https://github.com/hellowiden' },
+  ],
+  creator: 'Marcus Widen',
+  metadataBase: new URL('https://hellowiden.vercel.app'),
+  openGraph: {
+    title: 'Marcus Widen | Strategic Brand & Web Consultant',
+    description:
+      'Trusted by global leaders to deliver clarity, strategy, and results. $7.5B revenue impact through precise brand, UX, and full-stack development solutions.',
+    url: 'https://hellowiden.vercel.app',
+    siteName: 'MW Portfolio',
+    type: 'website',
+    locale: 'en_US',
+  },
 };
 
 export default function RootLayout({
