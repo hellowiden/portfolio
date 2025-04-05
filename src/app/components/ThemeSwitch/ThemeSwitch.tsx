@@ -6,11 +6,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/context/theme-context';
 import { FiMoon, FiSun } from 'react-icons/fi';
-
-const buttonBaseClasses =
-  'grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition \
-   text-primary-900 hover:bg-primary-100 \
-   hover:dark:bg-secondary-700 dark:text-secondary-50';
+import Button from '../Button/Button';
 
 export default function ThemeSwitch() {
   const { theme, toggleTheme } = useTheme();
@@ -18,12 +14,14 @@ export default function ThemeSwitch() {
   const isLight = theme === 'light';
 
   return (
-    <button
+    <Button
       onClick={toggleTheme}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       aria-label="Toggle theme"
-      className={buttonBaseClasses}
+      variant="ghost"
+      size="sm"
+      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2"
     >
       <motion.div
         key={isHovered ? 'hover' : theme}
@@ -41,6 +39,6 @@ export default function ThemeSwitch() {
       <span className="hidden sm:inline">
         {isLight ? 'Light Mode' : 'Dark Mode'}
       </span>
-    </button>
+    </Button>
   );
 }

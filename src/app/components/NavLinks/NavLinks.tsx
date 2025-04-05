@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import { FiUser, FiLogIn, FiLogOut, FiGrid } from 'react-icons/fi';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
+import Button from '../Button/Button';
 
 export default function NavLinks() {
   const router = useRouter();
@@ -17,11 +18,6 @@ export default function NavLinks() {
   const isAdmin = isAuthenticated && session?.user?.roles?.includes('admin');
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
-  const buttonBaseClasses = `
-  grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition
-  text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50
-`.trim();
-
   return (
     <nav className="flex justify-end items-center">
       {/* Large Screen Navigation */}
@@ -29,12 +25,14 @@ export default function NavLinks() {
         {isAuthenticated && (
           <>
             {isAdmin && (
-              <button
+              <Button
                 onClick={() => router.push('/dashboard')}
                 onMouseEnter={() => setHoveredButton('dashboard')}
                 onMouseLeave={() => setHoveredButton(null)}
                 aria-label="Go to Dashboard"
-                className={buttonBaseClasses}
+                variant="ghost"
+                size="sm"
+                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2"
               >
                 <motion.div
                   key={hoveredButton === 'dashboard' ? 'hover' : 'dashboard'}
@@ -46,15 +44,17 @@ export default function NavLinks() {
                   <FiGrid className="text-lg" />
                 </motion.div>
                 <span className="hidden sm:inline">Dashboard</span>
-              </button>
+              </Button>
             )}
 
-            <button
+            <Button
               onClick={() => router.push('/profile')}
               onMouseEnter={() => setHoveredButton('profile')}
               onMouseLeave={() => setHoveredButton(null)}
               aria-label="Go to Profile"
-              className={buttonBaseClasses}
+              variant="ghost"
+              size="sm"
+              className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2"
             >
               <motion.div
                 key={hoveredButton === 'profile' ? 'hover' : 'profile'}
@@ -66,19 +66,21 @@ export default function NavLinks() {
                 <FiUser className="text-lg" />
               </motion.div>
               <span className="hidden sm:inline">Profile</span>
-            </button>
+            </Button>
           </>
         )}
 
         {status !== 'loading' && (
-          <button
+          <Button
             onClick={() =>
               isAuthenticated ? signOut({ callbackUrl: '/' }) : signIn()
             }
             onMouseEnter={() => setHoveredButton('auth')}
             onMouseLeave={() => setHoveredButton(null)}
             aria-label={isAuthenticated ? 'Logout' : 'Login'}
-            className={buttonBaseClasses}
+            variant="ghost"
+            size="sm"
+            className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2"
           >
             <motion.div
               key={hoveredButton === 'auth' ? 'hover' : 'auth'}
@@ -96,7 +98,7 @@ export default function NavLinks() {
             <span className="hidden sm:inline">
               {isAuthenticated ? 'Logout' : 'Login'}
             </span>
-          </button>
+          </Button>
         )}
 
         <ThemeSwitch />
