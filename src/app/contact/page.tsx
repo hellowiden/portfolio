@@ -11,6 +11,7 @@ import {
   ListboxOption,
 } from '@headlessui/react';
 import { Check, ChevronDown } from 'lucide-react';
+import Button from '../components/Button/Button';
 
 const budgetOptions = [
   { value: 'under_3000', label: 'Under $3,000' },
@@ -31,10 +32,6 @@ const placeholders: { [key: string]: string } = {
   issues: 'Describe the issue in detail so I can assist you better.',
   general: 'What’s on your mind? Feel free to share your thoughts.',
 };
-
-const buttonClass =
-  'grid grid-cols-[auto_1fr] items-center p-2 border rounded text-sm transition disabled:opacity-50 focus:outline-none focus:ring-0 ' +
-  'bg-primary-100 text-primary-900 border-primary-200 dark:bg-secondary-700 dark:text-secondary-50 dark:border-secondary-700 hover:bg-primary-200 dark:hover:bg-secondary-800';
 
 function getPlaceholder(reason: string) {
   return placeholders[reason] || 'Enter your message...';
@@ -187,13 +184,14 @@ export default function Contact() {
             options={contactReasons}
             onChange={(value) => handleChange('reason', value)}
           />
-          <button
+          <Button
             onClick={() => setStep(2)}
             disabled={!formData.reason}
-            className={buttonClass}
+            variant="secondary"
+            size="sm"
           >
             Next
-          </button>
+          </Button>
         </Step>
       )}
 
@@ -204,13 +202,14 @@ export default function Contact() {
             options={budgetOptions}
             onChange={(value) => handleChange('budget', value)}
           />
-          <button
+          <Button
             onClick={() => setStep(3)}
             disabled={!formData.budget}
-            className={buttonClass}
+            variant="secondary"
+            size="sm"
           >
             Next
-          </button>
+          </Button>
         </Step>
       )}
 
@@ -222,21 +221,22 @@ export default function Contact() {
             onChange={(e) => handleChange('message', e.target.value)}
             placeholder={getPlaceholder(formData.reason)}
           />
-          <button
+          <Button
             onClick={() => setStep(4)}
             disabled={!formData.message}
-            className={buttonClass}
+            variant="secondary"
+            size="sm"
           >
             Next
-          </button>
+          </Button>
         </Step>
       )}
 
       {step === 4 && (
         <Step title="Ready to Submit?">
-          <button onClick={handleSubmit} className={buttonClass}>
+          <Button onClick={handleSubmit} variant="secondary" size="sm">
             Send
-          </button>
+          </Button>
         </Step>
       )}
 
@@ -247,9 +247,9 @@ export default function Contact() {
       )}
 
       {step > 1 && (
-        <button onClick={() => setStep(step - 1)} className={buttonClass}>
+        <Button onClick={() => setStep(step - 1)} variant="ghost" size="sm">
           Back
-        </button>
+        </Button>
       )}
     </div>
   );
