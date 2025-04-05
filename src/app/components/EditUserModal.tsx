@@ -3,6 +3,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Button from './Button/Button';
 
 interface User {
   _id: string;
@@ -159,21 +160,23 @@ export default function EditUserModal({
           )}
 
           <div className="flex justify-end gap-2">
-            <button
+            <Button
               type="button"
-              className="px-4 py-2 text-sm border rounded transition bg-primary-100 hover:bg-primary-200 border-primary-200 text-primary-900 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-800 dark:text-secondary-50"
               onClick={onClose}
               disabled={formData.loading}
+              variant="ghost"
+              size="sm"
             >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
               type="submit"
-              className="px-4 py-2 text-sm border rounded transition bg-primary-100 hover:bg-primary-200 border-primary-200 text-primary-900 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-800 dark:text-secondary-50"
               disabled={formData.loading}
+              variant="secondary"
+              size="sm"
             >
               {formData.loading ? 'Saving...' : 'Save'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>

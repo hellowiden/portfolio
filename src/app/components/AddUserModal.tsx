@@ -3,6 +3,7 @@
 'use client';
 
 import { useState } from 'react';
+import Button from './Button/Button';
 
 interface AddUserModalProps {
   isOpen: boolean;
@@ -97,22 +98,24 @@ const AddUserModal: React.FC<AddUserModalProps> = ({
         />
 
         <div className="flex justify-end gap-2">
-          <button
+          <Button
             onClick={handleSubmit}
             disabled={loading}
-            className="px-4 py-2 text-sm border rounded bg-primary-100 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-800 text-primary-900 dark:text-secondary-50"
+            variant="secondary"
+            size="sm"
           >
             {loading ? 'Saving...' : 'Save'}
-          </button>
-          <button
+          </Button>
+          <Button
             onClick={() => {
               resetForm();
               onClose();
             }}
-            className="px-4 py-2 text-sm border rounded bg-primary-100 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-800 text-primary-900 dark:text-secondary-50"
+            variant="ghost"
+            size="sm"
           >
             Cancel
-          </button>
+          </Button>
         </div>
       </div>
     </div>
