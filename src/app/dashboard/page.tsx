@@ -15,36 +15,39 @@ export default function Dashboard() {
 
   const fetchStats = async () => {
     try {
+      const endpoints = [
+        '/api/users',
+        '/api/messages',
+        '/api/projects',
+        '/api/experiences',
+      ];
       const [usersRes, messagesRes, projectsRes, experiencesRes] =
-        await Promise.all([
-          fetch('/api/users'),
-          fetch('/api/messages'),
-          fetch('/api/projects'),
-          fetch('/api/experiences'),
-        ]);
+        await Promise.all(endpoints.map((url) => fetch(url)));
 
       if (
-        !usersRes.ok ||
-        !messagesRes.ok ||
-        !projectsRes.ok ||
-        !experiencesRes.ok
+        ![usersRes, messagesRes, projectsRes, experiencesRes].every(
+          (res) => res.ok
+        )
       ) {
-        throw new Error('Failed to fetch dashboard statistics');
+        throw new Error('Failed to fetch one or more dashboard stats');
       }
 
-      const usersData = await usersRes.json();
-      const messagesData = await messagesRes.json();
-      const projectsData = await projectsRes.json();
-      const experiencesData = await experiencesRes.json();
+      const [usersData, messagesData, projectsData, experiencesData] =
+        await Promise.all([
+          usersRes.json(),
+          messagesRes.json(),
+          projectsRes.json(),
+          experiencesRes.json(),
+        ]);
 
       setStats({
-        users: usersData.users.length || 0,
-        messages: messagesData.messages.length || 0,
-        projects: projectsData.projects.length || 0,
-        experiences: experiencesData.experiences.length || 0,
+        users: usersData?.users?.length ?? 0,
+        messages: messagesData?.messages?.length ?? 0,
+        projects: projectsData?.projects?.length ?? 0,
+        experiences: experiencesData?.experiences?.length ?? 0,
       });
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error('Dashboard stats fetch error:', err);
     }
   };
 
