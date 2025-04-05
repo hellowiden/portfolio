@@ -31,13 +31,11 @@ export default function HoverCard({
   heightClass = 'h-auto',
 }: HoverCardProps) {
   const router = useRouter();
-  const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <section
       className={`relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 bg-cover bg-center ${heightClass} grid`}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       <Image
         src={imageSrc}
@@ -50,22 +48,26 @@ export default function HoverCard({
 
       <div className="col-start-1 row-start-1 w-full h-full bg-primary-50/90 dark:bg-secondary-800/90 backdrop-blur-md pointer-events-none z-10" />
 
-      <div className="col-start-1 row-start-1 z-20 grid w-full h-full">
-        {!isHovered ? (
-          <div className="grid place-items-center w-full h-full">
-            <h1 className="text-xl font-bold text-primary-900 dark:text-secondary-50 hover:underline hover:underline-offset-4 transition">
-              {title}
-            </h1>
-          </div>
-        ) : (
-          <div className="grid grid-rows-[auto_1fr] gap-4 p-6 text-primary-900 dark:text-secondary-50 w-full h-full">
-            <div className="grid grid-cols-[1fr_auto] items-center w-full">
-              <h1 className="text-xl font-medium">{title}</h1>
+      <div className="col-start-1 row-start-1 z-20 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50">
+        <div className="flex items-center justify-between">
+          <h1 className="text-xl font-bold">{title}</h1>
+          <button
+            onClick={() => setIsExpanded((prev) => !prev)}
+            aria-label="Toggle Details"
+            className="p-2 text-sm rounded transition text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50"
+          >
+            {isExpanded ? 'Hide' : 'Show'}
+          </button>
+        </div>
+
+        {isExpanded && (
+          <div className="mt-4 grid gap-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-2xl font-bold">{subtitle}</h2>
               <button
                 onClick={() => router.push(buttonRoute)}
                 aria-label={buttonAriaLabel}
-                className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2 rounded transition
-  text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50"
+                className="flex items-center p-2 text-sm sm:gap-2 rounded transition text-primary-900 hover:bg-primary-100 hover:dark:bg-secondary-700 dark:text-secondary-50"
               >
                 <motion.div
                   key={buttonLabel}
@@ -79,13 +81,9 @@ export default function HoverCard({
                 <span className="hidden sm:inline">{buttonLabel}</span>
               </button>
             </div>
-
-            <div className="grid gap-2">
-              <h2 className="text-2xl font-bold">{subtitle}</h2>
-              <p className="opacity-90 tracking-wide max-w-[900px] text-primary-900 dark:text-secondary-50">
-                {description}
-              </p>
-            </div>
+            <p className="opacity-90 tracking-wide max-w-[900px]">
+              {description}
+            </p>
           </div>
         )}
       </div>
