@@ -5,6 +5,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import Button from '@/app/components/Button/Button';
 
 interface Project {
   _id: string;
@@ -67,7 +68,14 @@ export default function ProjectsPage() {
 
       {loading ? (
         <div className="grid place-items-center h-32">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-primary-900 dark:border-secondary-700" />
+          <Button
+            disabled
+            variant="ghost"
+            size="sm"
+            className="h-12 w-12 p-0 animate-spin rounded-full border-4 border-t-transparent border-primary-900 dark:border-secondary-700"
+          >
+            &nbsp;
+          </Button>
         </div>
       ) : (
         <div className="grid gap-6 bg-primary-100 dark:bg-secondary-800 p-6 border border-primary-200 dark:border-secondary-700 rounded">

@@ -7,6 +7,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import Button from '@/app/components/Button/Button';
 
 interface Project {
   _id: string;
@@ -27,16 +28,18 @@ function NavButton({
   const isPrev = direction === 'prev';
 
   return (
-    <button
+    <Button
       onClick={onClick}
-      className="text-sm text-primary-900 hover:text-primary-900/80 dark:text-secondary-50 dark:hover:text-secondary-50/80 transition hover:underline grid grid-cols-[auto_1fr] items-center p-2 sm:gap-2 border rounded bg-primary-100 hover:bg-primary-200 border-primary-200 dark:bg-secondary-700 dark:hover:bg-secondary-800 dark:border-secondary-700"
+      variant="ghost"
+      size="sm"
+      className="grid grid-cols-[auto_1fr] items-center text-sm sm:gap-2"
     >
       {isPrev && <MotionIcon isPrev />}
       <span className="hidden sm:inline">
         {isPrev ? 'Previous Project' : 'Next Project'}
       </span>
       {!isPrev && <MotionIcon />}
-    </button>
+    </Button>
   );
 }
 
