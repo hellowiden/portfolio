@@ -4,6 +4,7 @@
 
 import { useState, useEffect, ChangeEvent, FormEvent, memo } from 'react';
 import { useSession, signOut } from 'next-auth/react';
+import Button from '@/app/components/Button/Button';
 
 export default function Profile() {
   const { data: session, status } = useSession();
@@ -129,15 +130,20 @@ export default function Profile() {
         <Button
           type="submit"
           disabled={loading}
-          className="grid items-center p-2 text-sm border rounded transition bg-primary-100 hover:bg-primary-200 border-primary-200 dark:bg-secondary-800 dark:hover:bg-secondary-700 dark:border-secondary-700"
+          variant="secondary"
+          size="sm"
+          className="w-fit"
         >
           {loading ? 'Updating...' : 'Update Profile'}
         </Button>
       </form>
+
       <Button
         onClick={handleDeleteAccount}
         disabled={loading}
-        className="grid items-center p-2 text-sm border rounded transition bg-red-500 hover:bg-red-600 border-red-700 text-white dark:bg-red-600 dark:hover:bg-red-700 dark:border-red-800"
+        variant="danger"
+        size="sm"
+        className="w-fit"
       >
         {loading ? 'Processing...' : 'Remove Account'}
       </Button>
@@ -189,27 +195,4 @@ const FormInput = ({
       dark:bg-secondary-800 dark:text-secondary-50 dark:border-secondary-700 focus:outline-none focus:ring-0"
     />
   </div>
-);
-
-const Button = ({
-  onClick,
-  children,
-  disabled,
-  type = 'button',
-  className,
-}: {
-  onClick?: () => void;
-  children: React.ReactNode;
-  disabled: boolean;
-  type?: 'button' | 'submit';
-  className?: string;
-}) => (
-  <button
-    type={type}
-    onClick={onClick}
-    disabled={disabled}
-    className={`${className} focus:outline-none focus:ring-0`}
-  >
-    {children}
-  </button>
 );
