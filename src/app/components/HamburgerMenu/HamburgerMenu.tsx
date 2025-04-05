@@ -7,6 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { FiUser, FiLogIn, FiLogOut, FiGrid, FiMenu, FiX } from 'react-icons/fi';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
+import Button from '../Button/Button'; // Import centralized button
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,13 +51,15 @@ export default function HamburgerMenu() {
 
   return (
     <div className="relative" ref={menuRef}>
-      <button
+      <Button
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle menu"
-        className="p-2 rounded border bg-primary-100 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 border-primary-200 dark:border-secondary-800"
+        variant="secondary"
+        size="sm"
+        className="p-2"
       >
         {isOpen ? <FiX className="text-xl" /> : <FiMenu className="text-xl" />}
-      </button>
+      </Button>
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 p-3 bg-primary-50 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-800 rounded shadow grid gap-2 z-50 text-primary-900 dark:text-secondary-50">
@@ -106,9 +109,11 @@ function MenuButton({
   active?: boolean;
 }) {
   return (
-    <button
+    <Button
       onClick={onClick}
-      className={`grid grid-cols-[auto_1fr] items-center gap-2 p-2 rounded text-left transition ${
+      variant="ghost"
+      size="sm"
+      className={`grid grid-cols-[auto_1fr] items-center gap-2 text-left ${
         active
           ? 'bg-primary-200 dark:bg-secondary-700 font-semibold'
           : 'hover:bg-primary-100 dark:hover:bg-secondary-700'
@@ -116,6 +121,6 @@ function MenuButton({
     >
       {icon}
       <span>{label}</span>
-    </button>
+    </Button>
   );
 }
