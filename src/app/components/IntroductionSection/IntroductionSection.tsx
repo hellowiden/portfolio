@@ -81,17 +81,36 @@ function ContentRow({
       className="z-10 row-start-2 col-start-1 grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-6 
       p-6 backdrop-blur-md bg-primary-50/85 dark:bg-secondary-800/85"
     >
-      {/* Avatar + Name */}
-      <div className="grid grid-cols-[auto_1fr] items-center gap-3 col-span-2">
+      {/* Profile Block (Grid-based) */}
+      <div className="grid grid-cols-[auto_1fr] gap-3 items-center col-span-2">
         <Image
           src="/MW.png"
-          alt="Marcus Widén"
-          width={50}
-          height={50}
-          className="rounded border border-primary-200 dark:border-secondary-700"
+          alt="Web Dev Simplified"
+          width={48}
+          height={48}
+          className="rounded-full border border-primary-200 dark:border-secondary-700"
           priority
         />
-        <h1 className="text-xl font-medium">Marcus Widén</h1>
+        <div className="grid grid-rows-[auto_auto]">
+          <div className="flex items-center space-x-1">
+            <span className="font-medium">Web Dev Simplified</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              className="w-4 h-4 text-blue-500"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.401 20.658 3.7 12.89a1 1 0 0 1 .1-1.294l2.267-2.266a1 1 0 0 1 1.517.137l2.917 4.128 6.717-9.99a1 1 0 0 1 1.605-.1l2.296 2.297a1 1 0 0 1 .087 1.265l-9.767 13.59a1 1 0 0 1-1.068.412z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </div>
+          <span className="text-sm text-muted-foreground">
+            @WebDevSimplified ・ 2M Subscribers
+          </span>
+        </div>
       </div>
 
       {/* About Me Button */}
