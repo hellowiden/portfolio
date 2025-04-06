@@ -5,14 +5,6 @@ import HoverCard from '../HoverCard/HoverCard';
 
 const cardData = [
   {
-    title: 'Get in Touch',
-    description:
-      'Experianced any issues with my portfolio, want to collaborate / offer me a job or just wanna chat? Lets get started here!',
-    icon: <FiMail className="text-2xl" />,
-    buttonLabel: 'Contact Me',
-    buttonRoute: '/contact',
-  },
-  {
     title: 'My Projects',
     description:
       'All future projects will be presented here, highlighting ongoing work and creative direction.',
@@ -27,6 +19,14 @@ const cardData = [
     icon: <FiBriefcase className="text-2xl" />,
     buttonLabel: 'View Experiences',
     buttonRoute: '/experiences',
+  },
+  {
+    title: 'Get in Touch',
+    description:
+      'Experianced any issues with my portfolio, want to collaborate / offer me a job or just wanna chat? Lets get started here!',
+    icon: <FiMail className="text-2xl" />,
+    buttonLabel: 'Contact Me',
+    buttonRoute: '/contact',
   },
 ];
 
