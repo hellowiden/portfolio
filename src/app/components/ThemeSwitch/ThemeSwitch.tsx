@@ -21,7 +21,7 @@ export default function ThemeSwitch() {
       aria-label="Toggle theme"
       variant="ghost"
       size="sm"
-      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2"
+      className="grid grid-cols-[1.25rem_auto] items-center p-2 text-sm gap-2"
     >
       <motion.div
         key={isHovered ? 'hover' : theme}
@@ -29,6 +29,7 @@ export default function ThemeSwitch() {
         animate={{ rotate: 0, opacity: 1 }}
         exit={{ rotate: 90, opacity: 0 }}
         transition={{ duration: 0.3 }}
+        className="w-5 h-5 place-self-center"
       >
         {isHovered ? (
           <FiMoon className="text-lg" />
