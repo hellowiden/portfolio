@@ -87,8 +87,8 @@ export default function ExperiencesPage() {
                 ))}
               </div>
 
-              <div className="text-sm text-primary-900 dark:text-secondary-50">
-                {experience.date}
+              <div className="grid gap-1 text-sm text-primary-900 dark:text-secondary-50">
+                <span>{experience.date}</span>
               </div>
 
               {experience.description && (

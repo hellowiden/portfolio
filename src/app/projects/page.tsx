@@ -102,9 +102,11 @@ export default function ProjectsPage() {
                 ))}
               </div>
 
-              <div className="text-sm text-primary-900 dark:text-secondary-50">
-                Created: {project.createdAt}
-                {project.completedAt && ` • Completed: ${project.completedAt}`}
+              <div className="grid gap-1 text-sm text-primary-900 dark:text-secondary-50">
+                <span>Created: {project.createdAt}</span>
+                {project.completedAt && (
+                  <span>Completed: {project.completedAt}</span>
+                )}
               </div>
 
               {project.image && (
