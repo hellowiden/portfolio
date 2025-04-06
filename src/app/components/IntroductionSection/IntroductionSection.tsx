@@ -108,7 +108,7 @@ function ContentRow({
             </svg>
           </div>
           <span className="text-sm text-muted-foreground">
-            @hellowiden ・ Brand strategist & full-stack developer
+            Brand strategist ・ Full-stack developer
           </span>
         </div>
       </div>
