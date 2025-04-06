@@ -3,9 +3,7 @@
 
 import IntroductionSection from '@/app/components/IntroductionSection/IntroductionSection';
 import ClientsCarousel from '@/app/components/ClientsCarousel/ClientsCarousel';
-import ProjectOpener from '@/app/components/ProjectOpener/ProjectOpener';
-import ExperienceOpener from '@/app/components/ExperienceOpener/ExperienceOpener';
-import ContactOpener from '@/app/components/ContactOpener/ContactOpener';
+import Openers from '@/app/components/Openers/Openers';
 
 export default function Home() {
   return (
@@ -23,11 +21,7 @@ export default function Home() {
           aria-labelledby="projects-experience"
           className="grid sm:grid-rows-2 gap-6"
         >
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
-            <ProjectOpener />
-            <ExperienceOpener />
-          </div>
-          <ContactOpener />
+          <Openers />
         </section>
       </div>
     </main>
