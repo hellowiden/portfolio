@@ -63,11 +63,11 @@ export default function ExperiencesPage() {
           </Button>
         </div>
       ) : (
-        <div className="grid gap-6 bg-primary-100 dark:bg-secondary-800 p-6 border border-primary-200 dark:border-secondary-700 rounded">
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {experiences.map((experience) => (
             <div
               key={experience._id}
-              className="grid gap-2 border-b last:border-none border-primary-200 dark:border-secondary-700 pb-4"
+              className="bg-primary-100 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded-lg p-6 shadow-sm flex flex-col gap-3"
             >
               <div className="flex justify-between items-center">
                 <h2 className="text-lg font-semibold text-primary-900 dark:text-secondary-50">
@@ -81,7 +81,7 @@ export default function ExperiencesPage() {
                 </Link>
               </div>
 
-              <div className="flex gap-2">
+              <div className="flex gap-2 flex-wrap">
                 {experience.tags.map((tag, index) => (
                   <span
                     key={index}
