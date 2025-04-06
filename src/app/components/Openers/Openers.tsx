@@ -37,8 +37,8 @@ export default function Openers() {
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
       <HoverCard {...cardData[0]} />
       <HoverCard {...cardData[1]} />
-      <div className="sm:col-span-2 sm:h-[250px]">
-        <HoverCard {...cardData[2]} containerClasses="h-full" />
+      <div className="sm:col-span-2">
+        <HoverCard {...cardData[2]} />
       </div>
     </div>
   );
