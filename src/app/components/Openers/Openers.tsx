@@ -34,7 +34,7 @@ const cardData = [
 
 export default function Openers() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-[1fr_2fr] gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-[auto,auto,1fr] gap-6">
       <HoverCard {...cardData[0]} />
       <HoverCard {...cardData[1]} />
       <div className="sm:col-span-2">
