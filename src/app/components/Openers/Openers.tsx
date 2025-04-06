@@ -25,8 +25,7 @@ const cardData = [
   {
     title: 'Get in Touch',
     subtitle: "Let's Connect",
-    description:
-      'I’m always looking to collaborate on meaningful projects. Need a supportive hand? I have two!',
+    description: 'Open to collaboration and new opportunities.',
     icon: <FiMail className="text-lg" />,
     buttonLabel: 'Contact Me',
     buttonRoute: '/contact',
@@ -36,15 +35,14 @@ const cardData = [
 export default function Openers() {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 auto-rows-max">
-      <div className="col-span-1">
-        <HoverCard {...cardData[0]} />
-      </div>
-      <div className="col-span-1">
-        <HoverCard {...cardData[1]} />
-      </div>
-      <div className="col-span-1 sm:col-span-2">
-        <HoverCard {...cardData[2]} />
-      </div>
+      {cardData.map((card, index) => (
+        <div
+          key={index}
+          className={index === 2 ? 'col-span-1 sm:col-span-2' : 'col-span-1'}
+        >
+          <HoverCard {...card} />
+        </div>
+      ))}
     </div>
   );
 }
