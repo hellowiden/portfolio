@@ -36,9 +36,7 @@ export default function ThemeSwitch() {
           <FiSun className="text-lg" />
         )}
       </motion.div>
-      <span className="hidden sm:inline">
-        {isLight ? 'Light Mode' : 'Dark Mode'}
-      </span>
+      <span className="inline">{isLight ? 'Light Mode' : 'Dark Mode'}</span>
     </Button>
   );
 }
