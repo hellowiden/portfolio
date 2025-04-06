@@ -85,7 +85,7 @@ function ContentRow({
       <div className="grid grid-cols-[auto_1fr] gap-3 items-center col-span-2">
         <Image
           src="/MW.png"
-          alt="Web Dev Simplified"
+          alt="Profile Image"
           width={48}
           height={48}
           className="rounded-full border border-primary-200 dark:border-secondary-700"
@@ -93,7 +93,7 @@ function ContentRow({
         />
         <div className="grid grid-rows-[auto_auto]">
           <div className="flex items-center space-x-1">
-            <span className="font-medium">Web Dev Simplified</span>
+            <span className="font-medium">Marcus Widén</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -108,7 +108,7 @@ function ContentRow({
             </svg>
           </div>
           <span className="text-sm text-muted-foreground">
-            @WebDevSimplified ・ 2M Subscribers
+            @hellowiden ・ Brand strategist & full-stack developer
           </span>
         </div>
       </div>
