@@ -5,11 +5,19 @@ import HoverCard from '../HoverCard/HoverCard';
 
 const cardData = [
   {
+    title: 'Get in Touch',
+    subtitle: "Let's Connect",
+    description: 'Open to collaboration and new opportunities.',
+    icon: <FiMail className="text-2xl" />,
+    buttonLabel: 'Contact Me',
+    buttonRoute: '/contact',
+  },
+  {
     title: 'My Projects',
     subtitle: 'Case Studies',
     description:
       'All future projects will be presented here, highlighting ongoing work and creative direction.',
-    icon: <FiFolder className="text-lg" />,
+    icon: <FiFolder className="text-2xl" />,
     buttonLabel: 'View Projects',
     buttonRoute: '/projects',
   },
@@ -18,28 +26,18 @@ const cardData = [
     subtitle: 'Professional Journey',
     description:
       'Explore my journey and how each role shaped the skills and insights I bring today.',
-    icon: <FiBriefcase className="text-lg" />,
+    icon: <FiBriefcase className="text-2xl" />,
     buttonLabel: 'View Experiences',
     buttonRoute: '/experiences',
-  },
-  {
-    title: 'Get in Touch',
-    subtitle: "Let's Connect",
-    description: 'Open to collaboration and new opportunities.',
-    icon: <FiMail className="text-lg" />,
-    buttonLabel: 'Contact Me',
-    buttonRoute: '/contact',
   },
 ];
 
 export default function Openers() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      <HoverCard {...cardData[0]} />
-      <HoverCard {...cardData[1]} />
-      <div className="sm:col-span-2">
-        <HoverCard {...cardData[2]} />
-      </div>
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      {cardData.map((card, index) => (
+        <HoverCard key={index} {...card} />
+      ))}
     </div>
   );
 }
