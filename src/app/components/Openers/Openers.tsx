@@ -44,11 +44,11 @@ export default function Openers() {
     <>
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
         {cardData.slice(0, 2).map((card, i) => (
-          <HoverCard key={i} {...card} heightClass="h-64" />
+          <HoverCard key={i} {...card} />
         ))}
       </div>
       <div>
-        <HoverCard {...cardData[2]} heightClass="h-64" />
+        <HoverCard {...cardData[2]} />
       </div>
     </>
   );

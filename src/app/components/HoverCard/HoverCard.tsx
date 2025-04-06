@@ -14,7 +14,6 @@ interface HoverCardProps {
   buttonLabel: string;
   buttonRoute: string;
   buttonAriaLabel: string;
-  heightClass?: string;
 }
 
 export default function HoverCard({
@@ -25,15 +24,12 @@ export default function HoverCard({
   buttonLabel,
   buttonRoute,
   buttonAriaLabel,
-  heightClass = 'h-auto',
 }: HoverCardProps) {
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <section
-      className={`relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 ${heightClass} grid bg-primary-50 dark:bg-secondary-800`}
-    >
+    <section className="relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 grid bg-primary-50 dark:bg-secondary-800">
       <div
         className={`col-start-1 row-start-1 z-10 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50 ${
           isExpanded ? 'items-start gap-4' : 'items-center'
