@@ -11,7 +11,7 @@ export default function Header() {
   const { data: session, status } = useSession();
 
   return (
-    <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-primary-200 dark:border-secondary-700 bg-primary-50 dark:bg-secondary-800 text-primary-900 dark:text-secondary-50">
+    <header className="sticky top-0 z-50 grid grid-cols-[auto_1fr] items-center py-2 px-8 border-b border-primary-200 dark:border-secondary-700 text-lg bg-primary-50 dark:bg-secondary-800 text-primary-900 dark:text-secondary-50">
       <div className="hover:opacity-80 transition">
         <Link href="/">
           <Button
