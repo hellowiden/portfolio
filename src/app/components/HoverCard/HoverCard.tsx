@@ -49,15 +49,15 @@ export default function HoverCard({
 
       <div className="col-start-1 row-start-1 w-full h-full bg-primary-50/90 dark:bg-secondary-800/90 backdrop-blur-md pointer-events-none z-10" />
 
-      <div className="col-start-1 row-start-1 z-20 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50">
-        <div className="flex items-center justify-between">
+      <div className="col-start-1 row-start-1 z-20 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50 grid-rows-[auto_1fr]">
+        <div className="grid grid-cols-[1fr_auto] items-center">
           <h1 className="text-xl font-bold">{title}</h1>
           <Button
             onClick={() => setIsExpanded((prev) => !prev)}
             aria-label="Toggle Details"
             variant="ghost"
             size="sm"
-            className="p-2 text-sm"
+            className="p-2 text-sm justify-self-end"
           >
             {isExpanded ? 'Hide' : 'Show'}
           </Button>
@@ -71,27 +71,26 @@ export default function HoverCard({
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 30, opacity: 0 }}
               transition={{
-                type: 'spring',
-                stiffness: 300,
-                damping: 25,
+                duration: 0.4,
+                ease: 'linear',
               }}
               className="mt-4 grid gap-4"
             >
-              <div className="flex items-center justify-between">
+              <div className="grid grid-cols-[1fr_auto] items-center">
                 <h2 className="text-2xl font-bold">{subtitle}</h2>
                 <Button
                   onClick={() => router.push(buttonRoute)}
                   aria-label={buttonAriaLabel}
                   variant="ghost"
                   size="sm"
-                  className="flex items-center p-2 text-sm sm:gap-2"
+                  className="p-2 text-sm justify-self-end grid grid-cols-[auto_auto] items-center sm:gap-2"
                 >
                   <motion.div
                     key={buttonLabel}
                     initial={{ rotate: -90, opacity: 0 }}
                     animate={{ rotate: 0, opacity: 1 }}
                     exit={{ rotate: 90, opacity: 0 }}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.3, ease: 'linear' }}
                   >
                     {icon}
                   </motion.div>
