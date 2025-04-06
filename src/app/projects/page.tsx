@@ -3,7 +3,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Button from '@/app/components/Button/Button';
 
 interface Project {
@@ -20,6 +20,7 @@ interface Project {
 export default function ProjectsPage() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   useEffect(() => {
     async function fetchProjects() {
@@ -79,39 +80,52 @@ export default function ProjectsPage() {
       ) : (
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {sortedProjects.map((project) => (
-            <div
+            <section
               key={project._id}
-              className="bg-primary-100 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded-lg p-6 shadow-sm flex flex-col gap-3"
+              onClick={() => router.push(`/projects/${project._id}`)}
+              role="button"
+              tabIndex={0}
+              className="grid gap-3 p-6 w-full h-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-pointer hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow"
             >
-              <div className="flex justify-between items-center">
-                <h2 className="text-lg font-semibold text-primary-900 dark:text-secondary-50">
+              <div className="grid grid-cols-[1fr_auto] items-start gap-2">
+                <h2 className="text-lg font-bold tracking-tight">
                   {project.name}
                 </h2>
-                <Link
-                  href={`/projects/${project._id}`}
-                  className="text-sm font-medium text-primary-500 hover:underline"
-                >
-                  View
-                </Link>
+
+                <div className="md:hidden">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      router.push(`/projects/${project._id}`);
+                    }}
+                    className="p-2 text-sm"
+                  >
+                    View
+                  </Button>
+                </div>
               </div>
 
-              <div className="flex gap-2 flex-wrap">
-                {project.tags?.map((tag, index) => (
-                  <span
-                    key={index}
-                    className="bg-primary-200 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-xs px-2 py-0.5 rounded"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              {project.tags && (
+                <div className="flex gap-2 flex-wrap">
+                  {project.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="bg-primary-200 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-xs px-2 py-0.5 rounded"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
 
               {project.description && (
-                <p className="text-sm text-primary-500">
+                <p className="text-sm opacity-80 tracking-wide leading-snug max-w-prose">
                   {extractFirstSentence(project.description)}
                 </p>
               )}
-            </div>
+            </section>
           ))}
         </div>
       )}
