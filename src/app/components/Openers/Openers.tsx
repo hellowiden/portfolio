@@ -42,12 +42,12 @@ const cardData = [
 export default function Openers() {
   return (
     <>
-      <div className="grid gap-6 grid-cols-[auto_auto]">
+      <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
         {cardData.slice(0, 2).map((card, i) => (
           <HoverCard key={i} {...card} />
         ))}
       </div>
-      <div className="grid mt-6" style={{ gridTemplateColumns: '1fr' }}>
+      <div>
         <HoverCard {...cardData[2]} />
       </div>
     </>
