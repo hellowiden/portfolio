@@ -49,7 +49,7 @@ export default function Openers() {
           <HoverCard key={index} {...card} heightClass="h-64" />
         ))}
       </div>
-      <div className="mt-6">
+      <div>
         <HoverCard {...openerData.row2} heightClass="h-64" />
       </div>
     </>
