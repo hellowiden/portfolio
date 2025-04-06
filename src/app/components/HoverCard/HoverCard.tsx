@@ -49,8 +49,12 @@ export default function HoverCard({
 
       <div className="col-start-1 row-start-1 w-full h-full bg-primary-50/90 dark:bg-secondary-800/90 backdrop-blur-md pointer-events-none z-10" />
 
-      <div className="col-start-1 row-start-1 z-20 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50 grid-rows-[auto_1fr]">
-        <div className="grid grid-cols-[1fr_auto] items-center">
+      <div
+        className={`col-start-1 row-start-1 z-20 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50 ${
+          isExpanded ? 'items-start' : 'items-center'
+        }`}
+      >
+        <div className="grid grid-cols-[1fr_auto] items-center w-full">
           <h1 className="text-xl font-bold">{title}</h1>
           <Button
             onClick={() => setIsExpanded((prev) => !prev)}
@@ -74,7 +78,7 @@ export default function HoverCard({
                 duration: 0.4,
                 ease: 'linear',
               }}
-              className="mt-4 grid gap-4"
+              className="mt-4 grid gap-4 w-full"
             >
               <div className="grid grid-cols-[1fr_auto] items-center">
                 <h2 className="text-2xl font-bold">{subtitle}</h2>
