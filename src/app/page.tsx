@@ -9,17 +9,27 @@ import ContactOpener from '@/app/components/ContactOpener/ContactOpener';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[min-content_min-content_min-content] gap-6 h-full container mx-auto p-6 border-x border-primary-200 bg-primary-50 text-primary-900 dark:border-secondary-700 dark:bg-secondary-900 dark:text-secondary-50">
-      <IntroductionSection />
-      <ClientsCarousel />
+    <main className="container mx-auto h-full p-6 gap-6 border-x border-primary-200 bg-primary-50 text-primary-900 dark:border-secondary-700 dark:bg-secondary-900 dark:text-secondary-50">
+      <div className="grid gap-6">
+        <section aria-labelledby="intro">
+          <IntroductionSection />
+        </section>
 
-      <div className="grid sm:grid-rows-2 gap-6">
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
-          <ProjectOpener />
-          <ExperienceOpener />
-        </div>
-        <ContactOpener />
+        <section aria-labelledby="clients">
+          <ClientsCarousel />
+        </section>
+
+        <section
+          aria-labelledby="projects-experience"
+          className="grid sm:grid-rows-2 gap-6"
+        >
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
+            <ProjectOpener />
+            <ExperienceOpener />
+          </div>
+          <ContactOpener />
+        </section>
       </div>
-    </div>
+    </main>
   );
 }
