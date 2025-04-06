@@ -39,7 +39,7 @@ function Shell({ children }: { children: React.ReactNode }) {
     <section
       id="home"
       className="relative w-full h-auto container mx-auto overflow-hidden rounded border backdrop-blur-md
-      bg-primary-50 dark:bg-secondary-800 border-primary-200 dark:border-secondary-700 text-primary-900 dark:text-secondary-50"
+      bg-primary-50 dark:bg-secondary-800 border-primary-200 dark:border-secondary-700 text-primary-900 dark:text-secondary-50 hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2"
     >
       <div className="w-full h-full grid grid-rows-[auto_1fr]">{children}</div>
     </section>
