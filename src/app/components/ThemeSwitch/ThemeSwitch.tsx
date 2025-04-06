@@ -21,7 +21,7 @@ export default function ThemeSwitch() {
       aria-label="Toggle theme"
       variant="ghost"
       size="sm"
-      className="grid grid-cols-[min-content_auto] items-center p-2 text-sm gap-2"
+      className="grid grid-cols-[auto_1fr] items-center p-2 text-sm sm:gap-2"
     >
       <motion.div
         key={isHovered ? 'hover' : theme}
