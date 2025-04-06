@@ -23,7 +23,7 @@ export default function ProjectsPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    async function fetchProjects() {
       try {
         const res = await fetch('/api/projects');
         if (!res.ok) throw new Error('Failed to fetch projects');
@@ -34,29 +34,36 @@ export default function ProjectsPage() {
       } finally {
         setLoading(false);
       }
-    };
-
+    }
     fetchProjects();
   }, []);
 
-  const sortedProjects = projects.sort((a, b) => {
-    const getTime = (dateStr?: string) =>
-      dateStr ? new Date(dateStr.split('-').reverse().join('-')).getTime() : 0;
+  const sortedProjects = [...projects].sort((a, b) => {
+    const dateA = a.completedAt
+      ? new Date(a.completedAt.split('-').reverse().join('-')).getTime()
+      : 0;
+    const dateB = b.completedAt
+      ? new Date(b.completedAt.split('-').reverse().join('-')).getTime()
+      : 0;
     return (
-      getTime(b.completedAt) - getTime(a.completedAt) ||
-      getTime(b.createdAt) - getTime(a.createdAt)
+      dateB - dateA ||
+      new Date(b.createdAt.split('-').reverse().join('-')).getTime() -
+        new Date(a.createdAt.split('-').reverse().join('-')).getTime()
     );
   });
 
-  const firstSentence = (text: string) =>
-    text.match(/.*?[.?!](\s|$)/)?.[0]?.trim() || text;
+  const extractFirstSentence = (text: string) => {
+    const match = text.match(/.*?[.?!](\s|$)/);
+    return match ? match[0].trim() : text;
+  };
 
   return (
-    <section className="grid gap-8 p-6 bg-primary-100 dark:bg-secondary-800 rounded border border-primary-200 dark:border-secondary-700">
+    <section className="grid gap-6">
       <p className="text-base text-primary-900 dark:text-secondary-50">
-        <strong className="font-semibold">Note:</strong> Due to strict NDAs,
-        specifics of past projects can&apos;t be disclosed. Future projects will
-        be displayed here.
+        <strong className="font-semibold">Note:</strong> Due to strict NDAs, I
+        cannot disclose specifics of past projects. However, I’ve learned my
+        lesson and moving forward, all relevant opportunities will be displayed
+        here.
       </p>
 
       {loading ? (
@@ -65,38 +72,34 @@ export default function ProjectsPage() {
             disabled
             variant="ghost"
             size="sm"
-            className="animate-spin h-12 w-12 rounded-full border-4 border-t-transparent border-primary-900 dark:border-secondary-700 p-0"
+            className="h-12 w-12 p-0 animate-spin rounded-full border-4 border-t-transparent border-primary-900 dark:border-secondary-700"
           >
             &nbsp;
           </Button>
         </div>
       ) : (
-        <div className="grid gap-6">
+        <div className="grid gap-6 bg-primary-100 dark:bg-secondary-800 p-6 border border-primary-200 dark:border-secondary-700 rounded">
           {sortedProjects.map((project) => (
             <div
               key={project._id}
-              className="grid gap-4 border-b border-primary-200 dark:border-secondary-700 pb-4 last:border-none"
+              className="grid gap-3 border-b last:border-none border-primary-200 dark:border-secondary-700 pb-4"
             >
-              <div className="grid gap-2">
-                <Link
-                  href={`/projects/${project._id}`}
-                  className="text-2xl font-semibold hover:underline text-primary-900 dark:text-secondary-50"
-                >
-                  {project.name}
-                </Link>
+              <Link
+                href={`/projects/${project._id}`}
+                className="text-2xl font-semibold hover:underline text-primary-900 dark:text-secondary-50"
+              >
+                {project.name}
+              </Link>
 
-                {project.tags && (
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag, idx) => (
-                      <span
-                        key={idx}
-                        className="bg-primary-200 dark:bg-secondary-700 text-primary-900 dark:text-secondary-50 text-sm px-2 py-1 rounded-full"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
+              <div className="flex flex-wrap gap-2">
+                {project.tags?.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="bg-primary-200 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-sm px-2 py-1 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
 
               <div className="grid gap-1 text-sm text-primary-900 dark:text-secondary-50">
@@ -107,21 +110,19 @@ export default function ProjectsPage() {
               </div>
 
               {project.image && (
-                <div className="grid">
-                  <Image
-                    src={project.image}
-                    alt={project.name}
-                    width={500}
-                    height={300}
-                    layout="responsive"
-                    className="rounded w-full max-w-xs"
-                  />
-                </div>
+                <Image
+                  src={project.image}
+                  alt={project.name}
+                  width={500}
+                  height={300}
+                  className="rounded w-full max-w-xs"
+                  layout="responsive"
+                />
               )}
 
               {project.description && (
                 <p className="text-base text-primary-900 dark:text-secondary-50">
-                  {firstSentence(project.description)}
+                  {extractFirstSentence(project.description)}
                 </p>
               )}
             </div>
