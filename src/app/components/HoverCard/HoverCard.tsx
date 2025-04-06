@@ -63,14 +63,18 @@ export default function HoverCard({
           </Button>
         </div>
 
-        <AnimatePresence>
+        <AnimatePresence initial={false}>
           {isExpanded && (
             <motion.div
               key="details"
-              initial={{ y: 40, opacity: 0 }}
+              initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              exit={{ y: 40, opacity: 0 }}
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              exit={{ y: 30, opacity: 0 }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 25,
+              }}
               className="mt-4 grid gap-4"
             >
               <div className="flex items-center justify-between">
