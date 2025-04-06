@@ -67,32 +67,33 @@ export default function ExperiencesPage() {
           {experiences.map((experience) => (
             <div
               key={experience._id}
-              className="grid gap-3 border-b last:border-none border-primary-200 dark:border-secondary-700 pb-4"
+              className="grid gap-2 border-b last:border-none border-primary-200 dark:border-secondary-700 pb-4"
             >
-              <Link
-                href={`/experiences/${experience._id}`}
-                className="text-2xl font-semibold hover:underline text-primary-900 dark:text-secondary-50"
-              >
-                {experience.title} @ {experience.location}
-              </Link>
+              <div className="flex justify-between items-center">
+                <h2 className="text-lg font-semibold text-primary-900 dark:text-secondary-50">
+                  {experience.title} @ {experience.location}
+                </h2>
+                <Link
+                  href={`/experiences/${experience._id}`}
+                  className="text-sm font-medium text-primary-500 hover:underline"
+                >
+                  View
+                </Link>
+              </div>
 
-              <div className="flex flex-wrap gap-2">
+              <div className="flex gap-2">
                 {experience.tags.map((tag, index) => (
                   <span
                     key={index}
-                    className="bg-primary-200 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-sm px-2 py-1 rounded-full"
+                    className="bg-primary-200 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50 text-xs px-2 py-0.5 rounded"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
 
-              <div className="grid gap-1 text-sm text-primary-900 dark:text-secondary-50">
-                <span>{experience.date}</span>
-              </div>
-
               {experience.description && (
-                <p className="text-base text-primary-900 dark:text-secondary-50">
+                <p className="text-sm text-primary-500">
                   {extractFirstSentence(experience.description)}
                 </p>
               )}
