@@ -17,7 +17,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="sm"
-            className="p-0 h-auto focus:outline-none"
+            className="p-0 h-auto focus:outline-none font-bold"
           >
             {status === 'authenticated'
               ? `Welcome, ${session.user?.name}`
