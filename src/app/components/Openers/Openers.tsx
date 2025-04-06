@@ -1,4 +1,4 @@
-//src/app/components/Operners/Operners.tsx
+// src/app/components/Openers/Openers.tsx
 
 import { FiMail, FiBriefcase, FiFolder } from 'react-icons/fi';
 import HoverCard from '../HoverCard/HoverCard';
@@ -35,10 +35,16 @@ const cardData = [
 
 export default function Openers() {
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      {cardData.map((card, i) => (
-        <HoverCard key={i} {...card} />
-      ))}
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 auto-rows-max">
+      <div className="col-span-1">
+        <HoverCard {...cardData[0]} />
+      </div>
+      <div className="col-span-1">
+        <HoverCard {...cardData[1]} />
+      </div>
+      <div className="col-span-1 sm:col-span-2">
+        <HoverCard {...cardData[2]} />
+      </div>
     </div>
   );
 }
