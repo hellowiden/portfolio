@@ -1,4 +1,4 @@
-//src/app/components/HoverCard/HoverCard.tsx
+// src/app/components/HoverCard/HoverCard.tsx
 
 'use client';
 
@@ -52,7 +52,7 @@ export default function HoverCard({
       <motion.div
         layout
         className={`col-start-1 row-start-1 z-20 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50 ${
-          isExpanded ? 'items-start' : 'items-center'
+          isExpanded ? 'items-start gap-4' : 'items-center'
         }`}
         transition={{ duration: 0.4, ease: 'linear' }}
       >
@@ -80,7 +80,7 @@ export default function HoverCard({
                 duration: 0.4,
                 ease: 'linear',
               }}
-              className="mt-4 grid gap-4 w-full"
+              className="grid gap-4 w-full"
             >
               <div className="grid grid-cols-[1fr_auto] items-center">
                 <h2 className="text-2xl font-bold">{subtitle}</h2>
