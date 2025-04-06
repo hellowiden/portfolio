@@ -29,14 +29,17 @@ export default function HoverCard({
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 639px)');
-    const handleChange = (e: MediaQueryListEvent) =>
-      setIsSmallScreen(e.matches);
 
-    setIsSmallScreen(mediaQuery.matches);
-    setIsExpanded(!mediaQuery.matches);
+    const updateState = (e: MediaQueryList | MediaQueryListEvent) => {
+      const isSmall = e.matches;
+      setIsSmallScreen(isSmall);
+      setIsExpanded(!isSmall);
+    };
 
-    mediaQuery.addEventListener('change', handleChange);
-    return () => mediaQuery.removeEventListener('change', handleChange);
+    updateState(mediaQuery); // Set initial state
+
+    mediaQuery.addEventListener('change', updateState);
+    return () => mediaQuery.removeEventListener('change', updateState);
   }, []);
 
   const toggleExpand = () => setIsExpanded((prev) => !prev);
