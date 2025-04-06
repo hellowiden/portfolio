@@ -30,14 +30,15 @@ export default function ThemeSwitch() {
         exit={{ rotate: 90, opacity: 0 }}
         transition={{ duration: 0.3 }}
       >
-        {isHovered ? (
-          <FiMoon className="text-lg" />
-        ) : (
+        {isLight ? (
           <FiSun className="text-lg" />
+        ) : (
+          <FiMoon className="text-lg" />
         )}
       </motion.div>
-
-      <span className="inline">{isLight ? 'Light Mode' : 'Dark Mode'}</span>
+      <span className="hidden sm:inline">
+        {isLight ? 'Light Mode' : 'Dark Mode'}
+      </span>
     </Button>
   );
 }
