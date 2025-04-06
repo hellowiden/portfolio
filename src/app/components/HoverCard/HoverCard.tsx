@@ -27,7 +27,7 @@ export default function HoverCard({
       onClick={() => router.push(buttonRoute)}
       role="button"
       tabIndex={0}
-      className="grid gap-3 p-6 w-full h-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-pointer hover:shadow-md transition-shadow"
+      className="grid gap-3 p-6 w-full h-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-pointer hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-secondary-500 hover:ring-offset-2 transition-shadow"
     >
       <div className="grid grid-cols-[1fr_auto] items-start gap-2">
         <h2 className="text-lg font-bold tracking-tight">{title}</h2>
