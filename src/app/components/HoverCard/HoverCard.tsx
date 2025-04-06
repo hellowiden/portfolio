@@ -13,7 +13,6 @@ interface HoverCardProps {
   icon: React.ReactNode;
   buttonLabel: string;
   buttonRoute: string;
-  buttonAriaLabel: string;
 }
 
 export default function HoverCard({
@@ -23,7 +22,6 @@ export default function HoverCard({
   icon,
   buttonLabel,
   buttonRoute,
-  buttonAriaLabel,
 }: HoverCardProps) {
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -54,7 +52,7 @@ export default function HoverCard({
               <h2 className="text-2xl font-bold">{subtitle}</h2>
               <Button
                 onClick={() => router.push(buttonRoute)}
-                aria-label={buttonAriaLabel}
+                aria-label={`Navigate to ${buttonLabel}`}
                 variant="ghost"
                 size="sm"
                 className="p-2 text-sm grid grid-flow-col auto-cols-max items-center gap-2"
