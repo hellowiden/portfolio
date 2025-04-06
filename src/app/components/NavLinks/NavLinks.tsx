@@ -19,9 +19,9 @@ export default function NavLinks() {
   const [hoveredButton, setHoveredButton] = useState<string | null>(null);
 
   return (
-    <nav className="flex justify-end items-center">
+    <nav className="grid justify-end items-center">
       {/* Large Screen Navigation */}
-      <div className="hidden md:flex gap-4">
+      <div className="hidden md:grid md:grid-flow-col md:gap-4">
         {isAuthenticated && (
           <>
             {isAdmin && (
