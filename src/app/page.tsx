@@ -17,7 +17,10 @@ export default function Home() {
           <ClientsCarousel />
         </section>
 
-        <section aria-labelledby="projects-experience" className="grid gap-6">
+        <section
+          aria-labelledby="projects-experience"
+          className="grid bg-slate-500 gap-6"
+        >
           <Openers />
         </section>
       </div>
