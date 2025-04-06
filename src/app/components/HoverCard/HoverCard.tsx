@@ -53,7 +53,7 @@ export default function HoverCard({
           isExpanded ? 'items-start gap-4' : 'items-center'
         }`}
       >
-        <div className="flex items-center justify-between w-full">
+        <div className="grid grid-cols-[1fr_auto] items-center w-full">
           <h1 className="text-xl font-bold">{title}</h1>
           <Button
             onClick={() => setIsExpanded((prev) => !prev)}
@@ -68,14 +68,14 @@ export default function HoverCard({
 
         {isExpanded && (
           <div className="grid gap-4 w-full">
-            <div className="flex items-center justify-between">
+            <div className="grid grid-cols-[1fr_auto] items-center w-full">
               <h2 className="text-2xl font-bold">{subtitle}</h2>
               <Button
                 onClick={() => router.push(buttonRoute)}
                 aria-label={buttonAriaLabel}
                 variant="ghost"
                 size="sm"
-                className="p-2 text-sm flex items-center gap-2"
+                className="p-2 text-sm grid grid-flow-col auto-cols-max items-center gap-2"
               >
                 <div>{icon}</div>
                 <span className="hidden sm:inline">{buttonLabel}</span>
