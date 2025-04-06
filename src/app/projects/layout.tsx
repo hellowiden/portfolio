@@ -99,7 +99,7 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="h-full bg-primary-100 dark:bg-secondary-800 container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-100/80 dark:bg-secondary-800/80">
+    <div className="h-full bg-primary-50 dark:bg-secondary-800 container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-100/80 dark:bg-secondary-800/80">
       <header className="grid grid-cols-2 items-center px-6 py-4 gap-4 border-b border-primary-200 dark:border-secondary-700 bg-primary-200 dark:bg-secondary-700">
         <Link
           href="/projects"
