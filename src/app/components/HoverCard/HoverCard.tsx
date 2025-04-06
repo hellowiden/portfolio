@@ -17,7 +17,6 @@ interface HoverCardProps {
 }
 
 export default function HoverCard({
-  title,
   subtitle,
   description,
   icon,
@@ -48,9 +47,8 @@ export default function HoverCard({
 
   return (
     <section className="relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 bg-primary-50 dark:bg-secondary-800 p-6 text-primary-900 dark:text-secondary-50 grid gap-6">
-      <div className="grid grid-cols-[1fr_auto] items-center gap-3 w-full">
-        <h1 className="text-xl font-bold sm:hidden">{title}</h1>
-        {isSmallScreen && (
+      {isSmallScreen && (
+        <div className="flex justify-end w-full">
           <button
             onClick={toggleExpand}
             aria-label="Toggle Details"
@@ -62,8 +60,8 @@ export default function HoverCard({
               }`}
             />
           </button>
-        )}
-      </div>
+        </div>
+      )}
 
       {isExpanded && (
         <div className="grid gap-4 w-full">
