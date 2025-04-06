@@ -34,15 +34,16 @@ const cardData = [
 
 export default function Openers() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 auto-rows-max">
-      {cardData.map((card, index) => (
-        <div
-          key={index}
-          className={index === 2 ? 'col-span-1 sm:col-span-2' : 'col-span-1'}
-        >
-          <HoverCard {...card} />
-        </div>
-      ))}
+    <div className="grid grid-cols-1 sm:grid-cols-2 sm:grid-rows-[auto,auto,1fr] gap-6">
+      <div>
+        <HoverCard {...cardData[0]} />
+      </div>
+      <div>
+        <HoverCard {...cardData[1]} />
+      </div>
+      <div className="sm:col-span-2">
+        <HoverCard {...cardData[2]} />
+      </div>
     </div>
   );
 }
