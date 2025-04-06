@@ -25,21 +25,21 @@ export default function HoverCard({
 }: HoverCardProps) {
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
-  // Auto-expand on medium and larger screens
   useEffect(() => {
-    const mediaQuery = window.matchMedia('(min-width: 640px)'); // sm breakpoint
-    setIsExpanded(mediaQuery.matches);
+    const mediaQuery = window.matchMedia('(max-width: 639px)');
+    const handleChange = (e: MediaQueryListEvent) =>
+      setIsSmallScreen(e.matches);
 
-    const handler = (e: MediaQueryListEvent) => {
-      setIsExpanded(e.matches);
-    };
+    setIsSmallScreen(mediaQuery.matches);
+    setIsExpanded(!mediaQuery.matches);
 
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
   }, []);
 
-  const showToggle = typeof window !== 'undefined' && window.innerWidth < 640;
+  const toggleExpand = () => setIsExpanded((prev) => !prev);
 
   return (
     <section className="relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 grid bg-primary-50 dark:bg-secondary-800">
@@ -48,11 +48,11 @@ export default function HoverCard({
           isExpanded ? 'items-start' : 'items-center'
         }`}
       >
-        <div className="grid grid-cols-[1fr_auto] items-center gap-3 w-full">
-          <h1 className="text-xl font-bold">{title}</h1>
-          {showToggle && (
+        {isSmallScreen && (
+          <div className="grid grid-cols-[1fr_auto] items-center gap-3 w-full">
+            <h1 className="text-xl font-bold">{title}</h1>
             <Button
-              onClick={() => setIsExpanded((prev) => !prev)}
+              onClick={toggleExpand}
               aria-label="Toggle Details"
               variant="ghost"
               size="sm"
@@ -60,8 +60,8 @@ export default function HoverCard({
             >
               {isExpanded ? 'Hide' : 'Show'}
             </Button>
-          )}
-        </div>
+          </div>
+        )}
 
         {isExpanded && (
           <div className="grid gap-4 w-full">
