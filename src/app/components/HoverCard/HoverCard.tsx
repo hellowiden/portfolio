@@ -3,7 +3,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '../Button/Button';
 
 interface HoverCardProps {
@@ -26,7 +26,20 @@ export default function HoverCard({
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const gridRowClasses = 'grid grid-cols-[1fr_auto] items-center gap-3 w-full';
+  // Auto-expand on medium and larger screens
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 640px)'); // sm breakpoint
+    setIsExpanded(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => {
+      setIsExpanded(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
+  const showToggle = typeof window !== 'undefined' && window.innerWidth < 640;
 
   return (
     <section className="relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 grid bg-primary-50 dark:bg-secondary-800">
@@ -35,22 +48,24 @@ export default function HoverCard({
           isExpanded ? 'items-start' : 'items-center'
         }`}
       >
-        <div className={gridRowClasses}>
+        <div className="grid grid-cols-[1fr_auto] items-center gap-3 w-full">
           <h1 className="text-xl font-bold">{title}</h1>
-          <Button
-            onClick={() => setIsExpanded((prev) => !prev)}
-            aria-label="Toggle Details"
-            variant="ghost"
-            size="sm"
-            className="p-2 text-sm"
-          >
-            {isExpanded ? 'Hide' : 'Show'}
-          </Button>
+          {showToggle && (
+            <Button
+              onClick={() => setIsExpanded((prev) => !prev)}
+              aria-label="Toggle Details"
+              variant="ghost"
+              size="sm"
+              className="p-2 text-sm"
+            >
+              {isExpanded ? 'Hide' : 'Show'}
+            </Button>
+          )}
         </div>
 
         {isExpanded && (
           <div className="grid gap-4 w-full">
-            <div className={gridRowClasses}>
+            <div className="grid grid-cols-[1fr_auto] items-center gap-3 w-full">
               <h2 className="text-2xl font-bold">{subtitle}</h2>
               <Button
                 onClick={() => router.push(buttonRoute)}
@@ -59,7 +74,7 @@ export default function HoverCard({
                 size="sm"
                 className="p-2 text-sm grid grid-flow-col auto-cols-max items-center gap-2"
               >
-                <div>{icon}</div>
+                {icon}
                 <span className="hidden sm:inline">{buttonLabel}</span>
               </Button>
             </div>
