@@ -26,14 +26,16 @@ export default function HoverCard({
   const router = useRouter();
   const [isExpanded, setIsExpanded] = useState(false);
 
+  const gridRowClasses = 'grid grid-cols-[1fr_auto] items-center gap-3 w-full';
+
   return (
     <section className="relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 grid bg-primary-50 dark:bg-secondary-800">
       <div
-        className={`col-start-1 row-start-1 z-10 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50 gap-6 ${
+        className={`grid w-full h-full p-6 text-primary-900 dark:text-secondary-50 gap-6 z-10 ${
           isExpanded ? 'items-start' : 'items-center'
         }`}
       >
-        <div className="grid grid-cols-[1fr_auto] items-center w-full gap-3">
+        <div className={gridRowClasses}>
           <h1 className="text-xl font-bold">{title}</h1>
           <Button
             onClick={() => setIsExpanded((prev) => !prev)}
@@ -48,7 +50,7 @@ export default function HoverCard({
 
         {isExpanded && (
           <div className="grid gap-4 w-full">
-            <div className="grid grid-cols-[1fr_auto] items-center w-full gap-3">
+            <div className={gridRowClasses}>
               <h2 className="text-2xl font-bold">{subtitle}</h2>
               <Button
                 onClick={() => router.push(buttonRoute)}
