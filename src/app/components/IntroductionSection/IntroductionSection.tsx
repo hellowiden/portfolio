@@ -136,7 +136,7 @@ function ContentRow({
       </Button>
 
       {/* Headline + Subtext */}
-      <div className="grid grid-rows-[auto_auto] gap-2 col-span-3">
+      <div className="grid grid-rows-[auto_auto] gap-1 col-span-3">
         <motion.h2
           key={current.heading}
           className="text-3xl font-bold"
