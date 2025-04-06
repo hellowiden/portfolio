@@ -2,7 +2,6 @@
 
 'use client';
 
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import Button from '../Button/Button';
@@ -11,7 +10,6 @@ interface HoverCardProps {
   title: string;
   subtitle: string;
   description: string;
-  imageSrc: string;
   icon: React.ReactNode;
   buttonLabel: string;
   buttonRoute: string;
@@ -23,7 +21,6 @@ export default function HoverCard({
   title,
   subtitle,
   description,
-  imageSrc,
   icon,
   buttonLabel,
   buttonRoute,
@@ -35,21 +32,10 @@ export default function HoverCard({
 
   return (
     <section
-      className={`relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 bg-cover bg-center ${heightClass} grid`}
+      className={`relative overflow-hidden rounded border border-primary-200 dark:border-secondary-700 ${heightClass} grid bg-primary-50 dark:bg-secondary-800`}
     >
-      <Image
-        src={imageSrc}
-        alt={title}
-        fill
-        sizes="(max-width: 768px) 100vw, 50vw"
-        className="object-cover w-full h-full col-start-1 row-start-1 z-0"
-        priority
-      />
-
-      <div className="col-start-1 row-start-1 w-full h-full bg-primary-50/90 dark:bg-secondary-800/90 backdrop-blur-md z-10" />
-
       <div
-        className={`col-start-1 row-start-1 z-20 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50 ${
+        className={`col-start-1 row-start-1 z-10 grid w-full h-full p-6 text-primary-900 dark:text-secondary-50 ${
           isExpanded ? 'items-start gap-4' : 'items-center'
         }`}
       >
