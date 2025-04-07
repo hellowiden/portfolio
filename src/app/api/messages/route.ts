@@ -69,14 +69,18 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 }
 
-/** GET `/api/messages` → Fetch messages */
+/** GET `/api/messages` → Admins see all, users see only their own */
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     await connectToDatabase();
     const token = await authenticateUser(req);
     if (!token) return errorResponse('Unauthorized', 401);
 
-    const isAdmin = token.roles?.includes('admin');
+    // ✅ Ensure token.roles is valid
+    const roles = Array.isArray(token.roles) ? token.roles : [];
+    const isAdmin = roles.includes('admin');
+
+    // ✅ Admin sees all messages, others only their own
     const query = isAdmin ? {} : { userId: token.id };
 
     const messages = await Message.find(query).sort({ createdAt: -1 });
