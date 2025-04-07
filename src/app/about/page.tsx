@@ -1,6 +1,7 @@
 //src/app/about/page.tsx
 
 'use client';
+
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import Button from '../components/Button/Button';
@@ -8,7 +9,7 @@ import Image from 'next/image';
 
 export default function About() {
   return (
-    <div id="about" className="w-full p-6 bg-[#FFFFFF] dark:bg-[#121212]">
+    <div id="about" className="w-full p-6 bg-white dark:bg-[#121212]">
       <div className="grid grid-cols-1 gap-6 p-6 place-items-center">
         <div className="w-full min-h-[500px] border border-primary-200 dark:border-secondary-800 rounded-xl relative overflow-hidden">
           <Image
@@ -74,11 +75,13 @@ export default function About() {
               playing it to win.
             </p>
 
-            <Link href="/contact">
-              <Button variant="secondary" size="sm" className="w-fit">
-                If you seek strategy, let’s talk.
-              </Button>
-            </Link>
+            <div>
+              <Link href="/contact">
+                <Button variant="secondary" size="sm" className="w-fit">
+                  If you seek strategy, let’s talk.
+                </Button>
+              </Link>
+            </div>
           </motion.div>
         </motion.section>
       </div>
