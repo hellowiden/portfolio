@@ -20,12 +20,6 @@ interface EditMessageModalProps {
   }) => void;
 }
 
-const REASONS = [
-  { value: 'job_offer', label: 'Job Offer' },
-  { value: 'issues', label: 'Issues' },
-  { value: 'general', label: 'General' },
-];
-
 const BUDGETS = [
   { value: 'under_3000', label: 'Under $3,000' },
   { value: '3000_4500', label: '$3,000 - $4,500' },
@@ -96,33 +90,28 @@ export default function EditMessageModal({
         )}
 
         <form onSubmit={handleSubmit} className="grid gap-4">
-          <select
+          <input
             name="reason"
             value={form.reason}
-            onChange={handleChange}
-            className="p-2 border rounded bg-primary-50 dark:bg-secondary-800 dark:border-secondary-700"
-          >
-            <option value="">Select reason</option>
-            {REASONS.map((r) => (
-              <option key={r.value} value={r.value}>
-                {r.label}
-              </option>
-            ))}
-          </select>
+            disabled
+            className="p-2 border rounded bg-gray-100 dark:bg-secondary-800 dark:border-secondary-700 text-gray-500 cursor-not-allowed"
+          />
 
-          <select
-            name="budget"
-            value={form.budget}
-            onChange={handleChange}
-            className="p-2 border rounded bg-primary-50 dark:bg-secondary-800 dark:border-secondary-700"
-          >
-            <option value="">Select budget</option>
-            {BUDGETS.map((b) => (
-              <option key={b.value} value={b.value}>
-                {b.label}
-              </option>
-            ))}
-          </select>
+          {form.reason === 'job_offer' && (
+            <select
+              name="budget"
+              value={form.budget}
+              onChange={handleChange}
+              className="p-2 border rounded bg-primary-50 dark:bg-secondary-800 dark:border-secondary-700"
+            >
+              <option value="">Select budget</option>
+              {BUDGETS.map((b) => (
+                <option key={b.value} value={b.value}>
+                  {b.label}
+                </option>
+              ))}
+            </select>
+          )}
 
           <textarea
             name="message"
