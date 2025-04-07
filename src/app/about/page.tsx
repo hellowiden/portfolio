@@ -2,9 +2,22 @@
 
 'use client';
 
-import { Lightbulb } from 'lucide-react';
 import Image from 'next/image';
+import { Lightbulb } from 'lucide-react';
 import Button from '../components/Button/Button';
+
+function AboutAvatar() {
+  return (
+    <Image
+      src="/MW.png"
+      alt="Profile Image"
+      width={40}
+      height={40}
+      className="rounded-full border border-primary-200 dark:border-secondary-700"
+      priority
+    />
+  );
+}
 
 export default function AboutPage() {
   return (
@@ -41,7 +54,6 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* New Content */}
       <div className="grid gap-4">
         <h1 className="font-medium text-primary-900 dark:text-secondary-50">
           Why Me?
@@ -84,18 +96,5 @@ export default function AboutPage() {
         </p>
       </div>
     </section>
-  );
-}
-
-function AboutAvatar() {
-  return (
-    <Image
-      src="/MW.png"
-      alt="Profile Image"
-      width={40}
-      height={40}
-      className="rounded-full border border-primary-200 dark:border-secondary-700"
-      priority
-    />
   );
 }
