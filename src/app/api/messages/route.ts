@@ -69,14 +69,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
   }
 }
 
-/** GET `/api/messages` → Fetch all messages */
+/** GET `/api/messages` → Fetch messages for the authenticated user */
 export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     await connectToDatabase();
     const token = await authenticateUser(req);
     if (!token) return errorResponse('Unauthorized', 401);
 
-    const messages = await Message.find().sort({ createdAt: -1 });
+    const messages = await Message.find({ userId: token.id }).sort({
+      createdAt: -1,
+    });
     return NextResponse.json({ messages }, { status: 200 });
   } catch (error) {
     console.error('Error fetching messages:', error);

@@ -2,16 +2,36 @@
 
 'use client';
 
-import { useState, memo } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { Pencil, Trash2 } from 'lucide-react';
 import EditOwnProfileModal from '@/app/components/EditOwnProfileModal';
 import Button from '@/app/components/Button/Button';
 
+type UserMessage = {
+  _id: string;
+  reason?: string;
+  budget?: string;
+  message: string;
+};
+
 export default function Profile() {
   const { data: session, status } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [messages, setMessages] = useState<UserMessage[]>([]);
+
+  useEffect(() => {
+    const fetchMessages = async () => {
+      const res = await fetch('/api/messages');
+      if (res.ok) {
+        const data = await res.json();
+        setMessages(data.messages);
+      }
+    };
+
+    if (status === 'authenticated') fetchMessages();
+  }, [status]);
 
   if (status === 'loading') {
     return (
@@ -85,6 +105,32 @@ export default function Profile() {
         }}
         onSave={() => window.location.reload()}
       />
+
+      {messages.length > 0 && (
+        <div className="grid gap-4 mt-6">
+          <h3 className="text-md font-semibold">Your Submitted Messages</h3>
+          <ul className="grid gap-3">
+            {messages.map((msg) => (
+              <li
+                key={msg._id}
+                className="border border-primary-200 dark:border-secondary-700 rounded p-3 bg-primary-100 dark:bg-secondary-700 text-sm"
+              >
+                <p>
+                  <strong>Reason:</strong> {msg.reason ?? 'N/A'}
+                </p>
+                {msg.budget && (
+                  <p>
+                    <strong>Budget:</strong> {msg.budget}
+                  </p>
+                )}
+                <p>
+                  <strong>Message:</strong> {msg.message}
+                </p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }

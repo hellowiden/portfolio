@@ -10,13 +10,22 @@ interface EditOwnProfileModalProps {
   onSave: () => void;
 }
 
+interface FormData {
+  name: string;
+  email: string;
+  newPassword: string;
+  currentPassword: string;
+  error: string;
+  loading: boolean;
+}
+
 export default function EditOwnProfileModal({
   isOpen,
   onClose,
   user,
   onSave,
 }: EditOwnProfileModalProps) {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     name: user.name,
     email: user.email,
     newPassword: '',
@@ -26,7 +35,8 @@ export default function EditOwnProfileModal({
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -62,13 +72,15 @@ export default function EditOwnProfileModal({
 
   return (
     <div className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-secondary-900 rounded-lg p-6 w-full max-w-md shadow-lg border">
+      <div className="bg-white dark:bg-secondary-900 rounded-lg p-6 w-full max-w-md shadow-lg border border-primary-200 dark:border-secondary-700">
         <h2 className="text-lg font-bold mb-4">Edit Profile</h2>
+
         {formData.error && (
           <p className="text-red-600 dark:text-red-400 mb-2">
             {formData.error}
           </p>
         )}
+
         <form onSubmit={handleSubmit} className="grid gap-4">
           <input
             name="name"
@@ -76,6 +88,7 @@ export default function EditOwnProfileModal({
             onChange={handleChange}
             placeholder="Name"
             required
+            className="p-2 border rounded bg-primary-50 dark:bg-secondary-800 dark:border-secondary-700"
           />
           <input
             name="email"
@@ -84,6 +97,7 @@ export default function EditOwnProfileModal({
             placeholder="Email"
             type="email"
             required
+            className="p-2 border rounded bg-primary-50 dark:bg-secondary-800 dark:border-secondary-700"
           />
           <input
             name="newPassword"
@@ -91,6 +105,7 @@ export default function EditOwnProfileModal({
             onChange={handleChange}
             placeholder="New Password"
             type="password"
+            className="p-2 border rounded bg-primary-50 dark:bg-secondary-800 dark:border-secondary-700"
           />
           <input
             name="currentPassword"
@@ -99,6 +114,7 @@ export default function EditOwnProfileModal({
             placeholder="Current Password"
             type="password"
             required
+            className="p-2 border rounded bg-primary-50 dark:bg-secondary-800 dark:border-secondary-700"
           />
 
           <div className="flex justify-end gap-2">
