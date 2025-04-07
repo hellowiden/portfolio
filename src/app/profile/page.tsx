@@ -5,8 +5,8 @@
 import { useState, useEffect, memo } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { Pencil, Trash2 } from 'lucide-react';
-import EditOwnProfileModal from '@/app/components/EditOwnProfileModal';
-import EditMessageModal from '@/app/components/EditMessageModal';
+import EditOwnProfileModal from '../components/modals/EditOwnProfileModal';
+import EditMessageModal from '../components/modals/EditMessageModal';
 import Button from '@/app/components/Button/Button';
 
 type UserMessage = {
