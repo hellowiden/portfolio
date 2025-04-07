@@ -65,7 +65,7 @@ export default function RootLayout({
         <ThemeContextProvider>
           <AuthProvider>
             <Header />
-            <div>{children}</div>
+            {children}
             <Footer />
           </AuthProvider>
         </ThemeContextProvider>
