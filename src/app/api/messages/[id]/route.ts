@@ -41,14 +41,21 @@ export async function DELETE(
 ): Promise<NextResponse> {
   try {
     const token = await authenticateUser(req);
-    if (!token || !token.roles?.includes('admin'))
-      return errorResponse('Unauthorized', 401);
+    if (!token) return errorResponse('Unauthorized', 401);
 
     const { id } = await getParams(context);
     if (!id) return errorResponse('Message ID is required', 400);
 
-    const deletedMessage = await Message.findByIdAndDelete(id);
-    if (!deletedMessage) return errorResponse('Message not found', 404);
+    const message = await Message.findById(id);
+    if (!message) return errorResponse('Message not found', 404);
+
+    const isOwner = message.userId.toString() === token.id;
+    const isAdmin = token.roles?.includes('admin');
+
+    if (!isOwner && !isAdmin)
+      return errorResponse('Forbidden: You do not have permission', 403);
+
+    await Message.findByIdAndDelete(id);
 
     return NextResponse.json(
       { message: 'Message deleted successfully' },

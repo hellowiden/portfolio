@@ -6,6 +6,7 @@ import { useState, useEffect, memo } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { Pencil, Trash2, MessageCircle } from 'lucide-react';
 import EditOwnProfileModal from '@/app/components/EditOwnProfileModal';
+import EditMessageModal from '@/app/components/EditMessageModal';
 import Button from '@/app/components/Button/Button';
 
 type UserMessage = {
@@ -18,6 +19,10 @@ type UserMessage = {
 export default function Profile() {
   const { data: session, status } = useSession();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editMessageModalOpen, setEditMessageModalOpen] = useState(false);
+  const [editingMessage, setEditingMessage] = useState<UserMessage | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<UserMessage[]>([]);
 
@@ -61,6 +66,27 @@ export default function Profile() {
     });
     setLoading(false);
     if (res.ok) signOut();
+  };
+
+  const handleDeleteMessage = async (id: string) => {
+    if (!confirm('Are you sure you want to delete this message?')) return;
+    const res = await fetch(`/api/messages/${id}`, { method: 'DELETE' });
+    if (res.ok) {
+      setMessages((prev) => prev.filter((msg) => msg._id !== id));
+    }
+  };
+
+  const handleEditMessage = (msg: UserMessage) => {
+    setEditingMessage(msg);
+    setEditMessageModalOpen(true);
+  };
+
+  const handleSaveMessage = (updated: UserMessage) => {
+    setMessages((prev) =>
+      prev.map((msg) => (msg._id === updated._id ? updated : msg))
+    );
+    setEditMessageModalOpen(false);
+    setEditingMessage(null);
   };
 
   return (
@@ -141,10 +167,46 @@ export default function Profile() {
                     <strong>Budget:</strong> {msg.budget}
                   </p>
                 )}
+
+                <div className="flex justify-end gap-2 mt-2">
+                  <Button
+                    size="sm"
+                    variant="ghost"
+                    onClick={() => handleEditMessage(msg)}
+                  >
+                    <Pencil size={14} />
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="danger"
+                    onClick={() => handleDeleteMessage(msg._id)}
+                  >
+                    <Trash2 size={14} />
+                  </Button>
+                </div>
               </li>
             ))}
           </ul>
         </section>
+      )}
+
+      {editingMessage && (
+        <EditMessageModal
+          isOpen={editMessageModalOpen}
+          message={editingMessage}
+          onClose={() => setEditMessageModalOpen(false)}
+          onSave={async (updated) => {
+            const res = await fetch(`/api/messages/${updated._id}`, {
+              method: 'PUT',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(updated),
+            });
+            if (res.ok) {
+              const data = await res.json();
+              handleSaveMessage(data.message);
+            }
+          }}
+        />
       )}
     </>
   );
