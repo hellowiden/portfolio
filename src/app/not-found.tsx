@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function NotFound() {
   return (
-    <div className="grid place-items-center container mx-auto bg-primary-100 dark:bg-secondary-800 border-x border-primary-200 dark:border-secondary-700 min-h-full p-6">
+    <div className="grid place-items-center container mx-auto border-x border-primary-200 dark:border-secondary-700 min-h-full p-6 bg-primary-50 text-primary-900 dark:bg-secondary-900 dark:text-secondary-50">
       <div className="grid gap-6 text-center">
         <h1 className="text-4xl font-bold text-primary-900 dark:text-secondary-50">
           404 – Woopsie daisies! You’ve hit a dead end.
