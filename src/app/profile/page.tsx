@@ -4,7 +4,7 @@
 
 import { useState, useEffect, memo } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { Pencil, Trash2 } from 'lucide-react';
+import { Pencil, Trash2, MessageCircle } from 'lucide-react';
 import EditOwnProfileModal from '@/app/components/EditOwnProfileModal';
 import Button from '@/app/components/Button/Button';
 
@@ -64,79 +64,89 @@ export default function Profile() {
   };
 
   return (
-    <section className="grid gap-6 p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow">
-      <div className="grid gap-4 grid-cols-[auto_1fr_auto] items-start">
-        <ProfileAvatar name={session.user.name} />
-        <div className="grid gap-1">
-          <h2 className="text-lg font-bold tracking-tight">
-            {session.user.name}
-          </h2>
-          <p className="text-sm opacity-80">{session.user.email}</p>
+    <>
+      <section className="grid gap-6 p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow">
+        <div className="grid gap-4 grid-cols-[auto_1fr_auto] items-start">
+          <ProfileAvatar name={session.user.name} />
+          <div className="grid gap-1">
+            <h2 className="text-lg font-bold tracking-tight">
+              {session.user.name}
+            </h2>
+            <p className="text-sm opacity-80">{session.user.email}</p>
+          </div>
+          <div className="grid gap-2 text-sm">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-1"
+            >
+              <Pencil size={14} /> Edit profile
+            </Button>
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={handleDeleteAccount}
+              disabled={loading}
+              className="inline-flex items-center gap-1"
+            >
+              <Trash2 size={14} />{' '}
+              {loading ? 'Processing...' : 'Delete account'}
+            </Button>
+          </div>
         </div>
-        <div className="grid gap-2 text-sm">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center gap-1"
-          >
-            <Pencil size={14} /> Edit profile
-          </Button>
-          <Button
-            variant="danger"
-            size="sm"
-            onClick={handleDeleteAccount}
-            disabled={loading}
-            className="inline-flex items-center gap-1"
-          >
-            <Trash2 size={14} /> {loading ? 'Processing...' : 'Delete account'}
-          </Button>
-        </div>
-      </div>
 
-      <p className="text-sm opacity-80 tracking-wide leading-snug max-w-prose">
-        Welcome to your profile. Here you can view all the information stored in
-        our database. You may edit your details or permanently delete your
-        account, which will result in complete removal from our system.
-      </p>
+        <p className="text-sm opacity-80 tracking-wide leading-snug max-w-prose">
+          Welcome to your profile. Here you can view all the information stored
+          in our database. You may edit your details or permanently delete your
+          account, which will result in complete removal from our system.
+        </p>
 
-      <EditOwnProfileModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        user={{
-          id: session.user.id,
-          name: session.user.name,
-          email: session.user.email,
-        }}
-        onSave={() => window.location.reload()}
-      />
+        <EditOwnProfileModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          user={{
+            id: session.user.id,
+            name: session.user.name,
+            email: session.user.email,
+          }}
+          onSave={() => window.location.reload()}
+        />
+      </section>
 
       {!isAdmin && messages.length > 0 && (
-        <div className="grid gap-4 mt-6">
+        <section className="grid gap-4 mt-6">
           <h3 className="text-md font-semibold">Your Submitted Messages</h3>
-          <ul className="grid gap-3">
+          <ul className="grid gap-4">
             {messages.map((msg) => (
               <li
                 key={msg._id}
-                className="border border-primary-200 dark:border-secondary-700 rounded p-3 bg-primary-100 dark:bg-secondary-700 text-sm"
+                className="grid gap-3 p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-default hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow"
               >
-                <p>
-                  <strong>Reason:</strong> {msg.reason ?? 'N/A'}
+                <div className="grid grid-cols-[1fr_auto] items-start gap-2">
+                  <h4 className="text-lg font-bold tracking-tight">
+                    {msg.reason || 'Message'}
+                  </h4>
+                  <span className="hidden md:inline text-2xl">
+                    <MessageCircle />
+                  </span>
+                </div>
+
+                <p className="text-sm opacity-80 tracking-wide leading-snug max-w-prose">
+                  {msg.message}
                 </p>
+
                 {msg.budget && (
-                  <p>
+                  <p className="text-sm text-primary-700 dark:text-secondary-300">
                     <strong>Budget:</strong> {msg.budget}
                   </p>
                 )}
-                <p>
-                  <strong>Message:</strong> {msg.message}
-                </p>
               </li>
             ))}
           </ul>
-        </div>
+        </section>
       )}
-    </section>
+    </>
   );
 }
 
