@@ -38,41 +38,42 @@ export default function Profile() {
   };
 
   return (
-    <div className="grid gap-4 text-primary-900 dark:text-secondary-50">
-      <div className="grid grid-cols-[auto_1fr] gap-4 items-center min-w-0">
-        <ProfileAvatar name={session.user.name} />
-        <span className="text-lg font-medium truncate">
-          {session.user.name}
-        </span>
+    <section className="w-full max-w-md mx-auto p-6 bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md shadow-sm hover:shadow-md transition-shadow">
+      <div className="grid gap-4">
+        <div className="flex items-center gap-4">
+          <ProfileAvatar name={session.user.name} />
+          <div>
+            <h2 className="text-xl font-bold">{session.user.name}</h2>
+            <p className="text-sm text-primary-600 dark:text-secondary-300">
+              {session.user.email}
+            </p>
+          </div>
+        </div>
+
+        <div className="grid gap-2">
+          <div className="text-sm">
+            <strong>Roles:</strong> {session.user.roles.join(', ')}
+          </div>
+        </div>
+
+        <div className="flex gap-2 mt-2">
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            variant="secondary"
+            size="sm"
+          >
+            Edit Profile
+          </Button>
+          <Button
+            onClick={handleDeleteAccount}
+            disabled={loading}
+            variant="danger"
+            size="sm"
+          >
+            {loading ? 'Processing...' : 'Remove Account'}
+          </Button>
+        </div>
       </div>
-
-      <div className="grid gap-1">
-        <p>
-          <strong>Email:</strong> {session.user.email}
-        </p>
-        <p>
-          <strong>Roles:</strong> {session.user.roles.join(', ')}
-        </p>
-      </div>
-
-      <Button
-        onClick={() => setIsModalOpen(true)}
-        variant="secondary"
-        size="sm"
-        className="w-fit"
-      >
-        Edit Profile
-      </Button>
-
-      <Button
-        onClick={handleDeleteAccount}
-        disabled={loading}
-        variant="danger"
-        size="sm"
-        className="w-fit"
-      >
-        {loading ? 'Processing...' : 'Remove Account'}
-      </Button>
 
       <EditOwnProfileModal
         isOpen={isModalOpen}
@@ -84,7 +85,7 @@ export default function Profile() {
         }}
         onSave={() => window.location.reload()}
       />
-    </div>
+    </section>
   );
 }
 
