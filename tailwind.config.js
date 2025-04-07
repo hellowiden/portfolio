@@ -22,7 +22,7 @@ const tailwindConfig = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-space-grotesk)', 'sans-serif'],
+        sans: ['var(--font-open-sans)', 'sans-serif'],
       },
     },
   },
