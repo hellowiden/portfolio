@@ -43,7 +43,7 @@ export default function AboutPage() {
 
       {/* New Content */}
       <div className="grid gap-4">
-        <h1 className="text-4xl font-medium text-primary-900 dark:text-secondary-50">
+        <h1 className="font-medium text-primary-900 dark:text-secondary-50">
           Why Me?
         </h1>
 
