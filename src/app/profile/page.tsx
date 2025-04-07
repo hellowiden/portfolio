@@ -6,6 +6,7 @@ import { useState, memo } from 'react';
 import { useSession, signOut } from 'next-auth/react';
 import { Pencil, Trash2 } from 'lucide-react';
 import EditOwnProfileModal from '@/app/components/EditOwnProfileModal';
+import Button from '@/app/components/Button/Button';
 
 export default function Profile() {
   const { data: session, status } = useSession();
@@ -47,20 +48,24 @@ export default function Profile() {
           </h2>
           <p className="text-sm opacity-80">{session.user.email}</p>
         </div>
-        <div className="grid gap-2 text-sm text-primary-900 dark:text-secondary-50">
-          <button
+        <div className="grid gap-2 text-sm">
+          <Button
+            variant="ghost"
+            size="sm"
             onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center gap-1 hover:underline"
+            className="inline-flex items-center gap-1"
           >
             <Pencil size={14} /> Edit profile
-          </button>
-          <button
+          </Button>
+          <Button
+            variant="danger"
+            size="sm"
             onClick={handleDeleteAccount}
             disabled={loading}
-            className="inline-flex items-center gap-1 hover:underline"
+            className="inline-flex items-center gap-1"
           >
             <Trash2 size={14} /> {loading ? 'Processing...' : 'Delete account'}
-          </button>
+          </Button>
         </div>
       </div>
 
