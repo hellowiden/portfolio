@@ -5,12 +5,47 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Button from '@/app/components/Button/Button';
 
 interface IExperience {
   _id: string;
+}
+
+function NavButton({
+  direction,
+  onClick,
+}: {
+  direction: 'prev' | 'next';
+  onClick: () => void;
+}) {
+  const isPrev = direction === 'prev';
+  return (
+    <Button
+      onClick={onClick}
+      variant="ghost"
+      size="sm"
+      className="grid grid-cols-[auto_1fr] items-center text-sm sm:gap-2"
+    >
+      {isPrev && <MotionIcon isPrev />}
+      <span className="hidden sm:inline">
+        {isPrev ? 'Previous Experience' : 'Next Experience'}
+      </span>
+      {!isPrev && <MotionIcon />}
+    </Button>
+  );
+}
+
+function MotionIcon({ isPrev = false }: { isPrev?: boolean }) {
+  return (
+    <motion.div
+      initial={{ rotate: isPrev ? -90 : 90, opacity: 0 }}
+      animate={{ rotate: 0, opacity: 1 }}
+      transition={{ duration: 0.2 }}
+    >
+      {isPrev ? <FaArrowLeft /> : <FaArrowRight />}
+    </motion.div>
+  );
 }
 
 export default function ExperiencesLayout({
@@ -51,16 +86,11 @@ export default function ExperiencesLayout({
   };
 
   return (
-    <div className="h-full bg-primary-50 dark:bg-secondary-800 container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-100/80 dark:bg-secondary-800/80">
-      <header className="grid grid-cols-2 items-center px-6 py-4 gap-4 border-b border-primary-200 dark:border-secondary-700 bg-primary-200 dark:bg-secondary-700">
-        <Link
-          href="/experiences"
-          className="text-xl font-semibold hover:underline text-primary-900 dark:text-secondary-50"
-        >
-          Experiences
-        </Link>
+    <div className="h-full container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-50 dark:bg-secondary-900 text-primary-900 dark:text-secondary-50 flex flex-col">
+      <header className="flex justify-between items-center p-4 border-b border-primary-200 dark:border-secondary-700 bg-primary-200 dark:bg-secondary-800">
+        <h1 className="text-2xl font-bold">Experiences</h1>
         {isExperiencePage && (
-          <div className="grid grid-flow-col auto-cols-max gap-4 justify-end">
+          <div className="grid grid-flow-col auto-cols-max gap-4">
             {currentExperienceIndex > 0 && (
               <NavButton
                 direction="prev"
@@ -76,45 +106,7 @@ export default function ExperiencesLayout({
           </div>
         )}
       </header>
-
-      <main className="container mx-auto grid gap-6 p-6">{children}</main>
+      <main className="flex-grow p-6">{children}</main>
     </div>
-  );
-}
-
-function NavButton({
-  direction,
-  onClick,
-}: {
-  direction: 'prev' | 'next';
-  onClick: () => void;
-}) {
-  const isPrev = direction === 'prev';
-
-  return (
-    <Button
-      onClick={onClick}
-      variant="ghost"
-      size="sm"
-      className="grid grid-cols-[auto_1fr] items-center text-sm sm:gap-2"
-    >
-      {isPrev && <MotionIcon isPrev />}
-      <span className="hidden sm:inline">
-        {isPrev ? 'Previous Experience' : 'Next Experience'}
-      </span>
-      {!isPrev && <MotionIcon />}
-    </Button>
-  );
-}
-
-function MotionIcon({ isPrev = false }: { isPrev?: boolean }) {
-  return (
-    <motion.div
-      initial={{ rotate: isPrev ? -90 : 90, opacity: 0 }}
-      animate={{ rotate: 0, opacity: 1 }}
-      transition={{ duration: 0.2 }}
-    >
-      {isPrev ? <FaArrowLeft /> : <FaArrowRight />}
-    </motion.div>
   );
 }

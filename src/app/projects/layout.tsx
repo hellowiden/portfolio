@@ -5,7 +5,6 @@
 import { ReactNode, useState, useEffect } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Button from '@/app/components/Button/Button';
 
@@ -26,7 +25,6 @@ function NavButton({
   onClick: () => void;
 }) {
   const isPrev = direction === 'prev';
-
   return (
     <Button
       onClick={onClick}
@@ -99,16 +97,11 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="h-full bg-primary-50 dark:bg-secondary-800 container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-100/80 dark:bg-secondary-800/80">
-      <header className="grid grid-cols-2 items-center px-6 py-4 gap-4 border-b border-primary-200 dark:border-secondary-700 bg-primary-200 dark:bg-secondary-700">
-        <Link
-          href="/projects"
-          className="text-xl font-semibold hover:underline text-primary-900 dark:text-secondary-50"
-        >
-          Projects
-        </Link>
+    <div className="h-full container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-50 dark:bg-secondary-900 text-primary-900 dark:text-secondary-50 flex flex-col">
+      <header className="flex justify-between items-center p-4 border-b border-primary-200 dark:border-secondary-700 bg-primary-200 dark:bg-secondary-800">
+        <h1 className="text-2xl font-bold">Projects</h1>
         {isProjectPage && (
-          <div className="grid grid-flow-col auto-cols-max gap-4 justify-end">
+          <div className="grid grid-flow-col auto-cols-max gap-4">
             {currentProjectIndex > 0 && (
               <NavButton
                 direction="prev"
@@ -124,8 +117,7 @@ export default function ProjectsLayout({ children }: { children: ReactNode }) {
           </div>
         )}
       </header>
-
-      <main className="container mx-auto grid gap-6 p-6">{children}</main>
+      <main className="flex-grow p-6">{children}</main>
     </div>
   );
 }
