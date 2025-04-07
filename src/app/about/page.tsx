@@ -4,18 +4,14 @@
 
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import Image from 'next/image';
 import Button from '../components/Button/Button';
+import Image from 'next/image';
 
 export default function About() {
   return (
-    <section
-      id="about"
-      className="relative w-full h-auto container mx-auto overflow-hidden rounded border backdrop-blur-md
-      bg-primary-50 dark:bg-secondary-800 border-primary-200 dark:border-secondary-700 text-primary-900 dark:text-secondary-50 hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2"
-    >
-      <div className="w-full h-full grid grid-rows-[auto_1fr]">
-        <div className="w-full h-80 rounded-tl rounded-tr overflow-hidden row-start-1 col-start-1">
+    <div id="about" className="w-full p-6 bg-white dark:bg-[#121212]">
+      <div className="grid grid-cols-1 gap-6 p-6 place-items-center">
+        <div className="w-full min-h-[500px] border border-primary-200 dark:border-secondary-800 rounded-xl relative overflow-hidden">
           <Image
             src="/adventure.jpg"
             alt="Descriptive Alt Text"
@@ -30,15 +26,15 @@ export default function About() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1 }}
-          className="z-10 row-start-2 col-start-1 p-6 backdrop-blur-md bg-primary-50/85 dark:bg-secondary-800/85"
+          className="grid gap-6 text-left w-full"
         >
           <motion.div
-            initial={{ scale: 0.95 }}
+            initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
-            className="grid gap-6 text-left"
+            className="grid gap-4"
           >
-            <h1 className="text-4xl font-bold text-primary-900 dark:text-secondary-50">
+            <h1 className="text-4xl font-medium text-primary-900 dark:text-secondary-50">
               Why Me?
             </h1>
 
@@ -89,6 +85,6 @@ export default function About() {
           </motion.div>
         </motion.section>
       </div>
-    </section>
+    </div>
   );
 }
