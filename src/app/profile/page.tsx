@@ -4,7 +4,7 @@
 
 import { useState, memo } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import Button from '@/app/components/Button/Button';
+import { Pencil, Trash2 } from 'lucide-react';
 import EditOwnProfileModal from '@/app/components/EditOwnProfileModal';
 
 export default function Profile() {
@@ -38,36 +38,39 @@ export default function Profile() {
   };
 
   return (
-    <section className="w-full max-w-md mx-auto p-6 bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow ">
-      <div className="grid gap-4">
-        <div className="flex items-center gap-4">
-          <ProfileAvatar name={session.user.name} />
-          <div>
-            <h2 className="text-xl font-bold">{session.user.name}</h2>
-            <p className="text-sm text-primary-600 dark:text-secondary-300">
-              {session.user.email}
-            </p>
-          </div>
+    <section className="w-full max-w-md mx-auto p-6 bg-primary-50 dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-xl grid gap-6">
+      <div className="grid gap-4 grid-cols-[auto_1fr_auto] items-start">
+        <ProfileAvatar name={session.user.name} />
+        <div className="grid gap-1">
+          <h2 className="text-sm font-bold text-primary-900 dark:text-secondary-50">
+            {session.user.name}
+          </h2>
+          <p className="text-xs text-primary-200 dark:text-secondary-300">
+            {session.user.email}
+          </p>
         </div>
-
-        <div className="flex gap-2 mt-2">
-          <Button
+        <div className="grid gap-2 text-xs text-primary-900 dark:text-secondary-50">
+          <button
             onClick={() => setIsModalOpen(true)}
-            variant="secondary"
-            size="sm"
+            className="grid grid-cols-[auto_auto] items-center gap-1 hover:underline"
           >
-            Edit Profile
-          </Button>
-          <Button
+            <Pencil size={14} /> Edit profile
+          </button>
+          <button
             onClick={handleDeleteAccount}
             disabled={loading}
-            variant="danger"
-            size="sm"
+            className="grid grid-cols-[auto_auto] items-center gap-1 hover:underline"
           >
-            {loading ? 'Processing...' : 'Remove Account'}
-          </Button>
+            <Trash2 size={14} /> {loading ? 'Processing...' : 'Edit profile'}
+          </button>
         </div>
       </div>
+
+      <p className="text-xs text-primary-200 dark:text-secondary-300">
+        Welcome to your profile. Here you can view all the information stored in
+        our database. You may edit your details or permanently delete your
+        account, which will result in complete removal from our system.
+      </p>
 
       <EditOwnProfileModal
         isOpen={isModalOpen}
@@ -84,11 +87,8 @@ export default function Profile() {
 }
 
 const ProfileAvatar = memo(({ name }: { name: string }) => (
-  <div
-    className="w-12 h-12 flex items-center justify-center rounded border font-bold text-lg 
-    bg-primary-900 text-primary-50 border-primary-200 dark:bg-secondary-50 dark:text-secondary-900 dark:border-secondary-200"
-  >
-    <span>{name ? name.charAt(0).toUpperCase() : '?'}</span>
+  <div className="w-10 h-10 grid place-items-center rounded bg-primary-900 text-primary-50 dark:bg-secondary-50 dark:text-secondary-900 font-bold text-sm">
+    {name ? name.charAt(0).toUpperCase() : '?'}
   </div>
 ));
 ProfileAvatar.displayName = 'ProfileAvatar';
