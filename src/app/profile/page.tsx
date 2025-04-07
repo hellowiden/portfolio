@@ -38,7 +38,7 @@ export default function Profile() {
   };
 
   return (
-    <section className="w-full max-w-md mx-auto p-6 bg-primary-50 dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-xl grid gap-6">
+    <section className="w-full p-6 bg-primary-50 dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-xl grid gap-6">
       <div className="grid gap-4 grid-cols-[auto_1fr_auto] items-start">
         <ProfileAvatar name={session.user.name} />
         <div className="grid gap-1">
