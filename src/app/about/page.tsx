@@ -1,90 +1,56 @@
-//src/app/about/page.tsx
+// src/app/about/page.tsx
 
 'use client';
 
-import Link from 'next/link';
-import { motion } from 'framer-motion';
-import Button from '../components/Button/Button';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import Button from '../components/Button/Button';
 
-export default function About() {
+export default function AboutPage() {
+  const router = useRouter();
+
   return (
-    <div id="about" className="w-full p-6 bg-white dark:bg-[#121212]">
-      <div className="grid grid-cols-1 gap-6 p-6 place-items-center">
-        <div className="w-full min-h-[500px] border border-primary-200 dark:border-secondary-800 rounded-xl relative overflow-hidden">
-          <Image
-            src="/adventure.jpg"
-            alt="Descriptive Alt Text"
-            fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            style={{ objectFit: 'cover' }}
-            priority
-          />
-        </div>
-
-        <motion.section
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="grid gap-6 text-left w-full"
-        >
-          <motion.div
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="grid gap-4"
-          >
-            <h1 className="text-4xl font-medium text-primary-900 dark:text-secondary-50">
-              Why Me?
-            </h1>
-
-            <p className="text-xl font-semibold text-primary-900 dark:text-secondary-50">
-              Because clarity is rare, and strategy is everything.
-            </p>
-
-            <p className="text-base leading-relaxed text-secondary-700 dark:text-primary-200">
-              In a world where most chase noise, I focus on what lasts. I don’t
-              build brands to go viral—I build them to endure. With over a
-              decade of guiding 500+ global projects, I’ve learned one truth:
-              the strongest brands don’t fight for attention. They earn trust,
-              command influence, and move with precision.
-              <br />
-              <br />
-              My approach isn’t about hype—it’s about understanding. Through
-              deep strategic insight and a relentless focus on human behavior,
-              my work has driven $7.5 billion in revenue growth, increased
-              customer retention by 25%, and consistently delivered a 20% sales
-              boost. But numbers only tell part of the story. Real success isn’t
-              measured in short-term wins—it’s in the relationships brands build
-              and the loyalty they sustain.
-              <br />
-              <br />
-              I don’t sell illusions. I translate complexity into clarity,
-              uncertainty into confidence. While others react to trends, I focus
-              on timeless positioning, intuitive UX/UI, and brand strategies
-              that carve out market leadership. My process is simple: I listen,
-              I analyze, and I execute with precision. No fluff, no ego—just
-              results.
-              <br />
-              <br />
-              Business isn’t about chasing what’s next. It’s about shaping
-              what’s inevitable. I draw from history, philosophy, and human
-              behavior to craft strategies that outlast trends, outthink
-              competitors, and outmaneuver uncertainty. Partnering with me isn’t
-              just about branding—it’s about seeing the game for what it is and
-              playing it to win.
-            </p>
-
-            <div>
-              <Link href="/contact">
-                <Button variant="secondary" size="sm" className="w-fit">
-                  If you seek strategy, let’s talk.
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </motion.section>
+    <section
+      className="container mx-auto p-6 grid gap-6 bg-white dark:bg-secondary-800 
+      text-primary-900 dark:text-secondary-50 border border-primary-200 
+      dark:border-secondary-700 rounded-md shadow-sm"
+    >
+      <div className="w-full h-72 relative rounded overflow-hidden border border-primary-100 dark:border-secondary-600">
+        <Image
+          src="/adventure.jpg"
+          alt="Strategic journey imagery"
+          fill
+          className="object-cover"
+          priority
+        />
       </div>
-    </div>
+
+      <div className="grid gap-4">
+        <h1 className="text-2xl font-bold tracking-tight">Why Me?</h1>
+
+        <p className="text-sm opacity-80 leading-relaxed max-w-prose">
+          Because clarity is rare, and strategy is everything. I don’t build
+          brands to go viral—I build them to endure. With 500+ global projects
+          and $7.5B in revenue growth delivered, I focus on what matters: trust,
+          influence, and precision.
+          <br />
+          <br />
+          My method is direct: listen, analyze, execute. No fluff. No ego. Just
+          results. I shape what’s inevitable—pulling from history, philosophy,
+          and human behavior to drive market leadership.
+        </p>
+
+        <div>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => router.push('/contact')}
+            className="w-fit"
+          >
+            If you seek strategy, let’s talk.
+          </Button>
+        </div>
+      </div>
+    </section>
   );
 }
