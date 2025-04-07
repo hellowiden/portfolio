@@ -89,8 +89,13 @@ export default function AboutPage() {
 
 function AboutAvatar() {
   return (
-    <div className="w-10 h-10 grid place-items-center rounded-full bg-primary-900 text-white dark:bg-secondary-50 dark:text-secondary-900 font-bold text-sm shadow">
-      M
-    </div>
+    <Image
+      src="/MW.png"
+      alt="Profile Image"
+      width={40}
+      height={40}
+      className="rounded-full border border-primary-200 dark:border-secondary-700"
+      priority
+    />
   );
 }
