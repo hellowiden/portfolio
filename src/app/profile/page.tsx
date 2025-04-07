@@ -38,7 +38,7 @@ export default function Profile() {
   };
 
   return (
-    <section className="w-full max-w-md mx-auto p-6 bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md shadow-sm hover:shadow-md transition-shadow">
+    <section className="w-full max-w-md mx-auto p-6 bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow ">
       <div className="grid gap-4">
         <div className="flex items-center gap-4">
           <ProfileAvatar name={session.user.name} />
@@ -47,12 +47,6 @@ export default function Profile() {
             <p className="text-sm text-primary-600 dark:text-secondary-300">
               {session.user.email}
             </p>
-          </div>
-        </div>
-
-        <div className="grid gap-2">
-          <div className="text-sm">
-            <strong>Roles:</strong> {session.user.roles.join(', ')}
           </div>
         </div>
 
