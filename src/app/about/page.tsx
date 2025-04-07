@@ -8,7 +8,7 @@ import Button from '../components/Button/Button';
 
 export default function AboutPage() {
   return (
-    <section className="grid gap-6 p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow">
+    <section className="grid container mx-auto gap-6 p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow">
       <div className="w-full h-72 relative rounded overflow-hidden border border-primary-100 dark:border-secondary-600">
         <Image
           src="/adventure.jpg"
