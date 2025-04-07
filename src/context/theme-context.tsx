@@ -1,4 +1,4 @@
-//src/context/theme-context.tsx
+// src/context/theme-context.tsx
 
 'use client';
 
@@ -36,21 +36,13 @@ export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
 
   const [theme, setTheme] = useState<Theme>(getStoredTheme);
 
-  const applyTheme = (newTheme: Theme) => {
-    document.documentElement.classList.toggle('dark', newTheme === 'dark');
-    localStorage.setItem('theme', newTheme);
-  };
-
   useEffect(() => {
-    applyTheme(theme);
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light';
-      applyTheme(newTheme);
-      return newTheme;
-    });
+    setTheme((prevTheme) => (prevTheme === 'light' ? 'dark' : 'light'));
   };
 
   return (
