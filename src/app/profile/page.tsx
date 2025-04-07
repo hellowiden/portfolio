@@ -100,7 +100,7 @@ export default function Profile() {
             </h2>
             <p className="text-sm opacity-80">{session.user.email}</p>
           </div>
-          <div className="grid gap-2 text-sm">
+          <div className="grid grid-flow-col auto-cols-max gap-2 text-sm">
             <Button
               variant="ghost"
               size="sm"
