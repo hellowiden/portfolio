@@ -91,10 +91,10 @@ export default function Profile() {
   };
 
   return (
-    <div className="grid gap-4 p-4 text-primary-900 dark:text-secondary-50">
-      <div className="flex items-center gap-4">
+    <div className="grid gap-4 text-primary-900 dark:text-secondary-50">
+      <div className="grid grid-cols-[auto_1fr] gap-4 items-center min-w-0">
         <ProfileAvatar name={formData.name} />
-        <span className="text-lg font-medium">{formData.name}</span>
+        <span className="text-lg font-medium truncate">{formData.name}</span>
       </div>
 
       <form onSubmit={handleUpdate} className="grid gap-4">
@@ -113,7 +113,7 @@ export default function Profile() {
           onChange={handleChange}
         />
         <FormInput
-          label="Role"
+          label="Roles"
           type="text"
           name="role"
           value={formData.roles.join(', ')}
@@ -179,7 +179,7 @@ const FormInput = ({
   readOnly?: boolean;
 }) => (
   <div className="grid gap-2">
-    <label htmlFor={name} className="text-primary-900 dark:text-secondary-50">
+    <label htmlFor={name} className="text-primary-900 dark:text-secondary-100">
       {label}
     </label>
     <input
@@ -191,8 +191,9 @@ const FormInput = ({
       disabled={disabled}
       readOnly={readOnly}
       aria-label={label}
-      className="p-2 border rounded bg-primary-100 text-primary-900 border-primary-200 
-      dark:bg-secondary-800 dark:text-secondary-50 dark:border-secondary-700 focus:outline-none focus:ring-0"
+      className="p-2 border rounded bg-primary-100 text-primary-900 border-primary-200
+        dark:bg-secondary-800 dark:text-secondary-50 dark:border-secondary-700
+        focus:border-primary-900 dark:focus:border-secondary-50"
     />
   </div>
 );
