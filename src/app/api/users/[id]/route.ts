@@ -44,7 +44,18 @@ export async function PUT(
     const { id } = await getParams(context);
     if (!id) return errorResponse('User ID is required', 400);
 
-    const { name, email, password, roles } = await req.json();
+    const { name, email, password, roles, currentPassword } = await req.json();
+
+    const user = await User.findById(id);
+    if (!user) return errorResponse('User not found', 404);
+
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      user.password
+    );
+    if (!isPasswordValid)
+      return errorResponse('Incorrect current password', 401);
+
     const updateFields: Partial<{
       name: string;
       email: string;
@@ -60,7 +71,6 @@ export async function PUT(
     const updatedUser = await User.findByIdAndUpdate(id, updateFields, {
       new: true,
     }).select('-password');
-    if (!updatedUser) return errorResponse('User not found', 404);
 
     return NextResponse.json(
       { message: 'User updated', user: updatedUser },
