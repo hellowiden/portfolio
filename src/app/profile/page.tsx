@@ -4,7 +4,7 @@
 
 import { useState, useEffect, memo } from 'react';
 import { useSession, signOut } from 'next-auth/react';
-import { Pencil, Trash2, MessageCircle } from 'lucide-react';
+import { Pencil, Trash2 } from 'lucide-react';
 import EditOwnProfileModal from '@/app/components/EditOwnProfileModal';
 import EditMessageModal from '@/app/components/EditMessageModal';
 import Button from '@/app/components/Button/Button';
@@ -153,9 +153,22 @@ export default function Profile() {
                   <h4 className="text-lg font-bold tracking-tight">
                     {msg.reason || 'Message'}
                   </h4>
-                  <span className="hidden md:inline text-2xl">
-                    <MessageCircle />
-                  </span>
+                  <div className="flex justify-end gap-2 mt-2">
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      onClick={() => handleEditMessage(msg)}
+                    >
+                      <Pencil size={14} />
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="danger"
+                      onClick={() => handleDeleteMessage(msg._id)}
+                    >
+                      <Trash2 size={14} />
+                    </Button>
+                  </div>
                 </div>
 
                 <p className="text-sm opacity-80 tracking-wide leading-snug max-w-prose">
@@ -167,23 +180,6 @@ export default function Profile() {
                     <strong>Budget:</strong> {msg.budget}
                   </p>
                 )}
-
-                <div className="flex justify-end gap-2 mt-2">
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={() => handleEditMessage(msg)}
-                  >
-                    <Pencil size={14} />
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="danger"
-                    onClick={() => handleDeleteMessage(msg._id)}
-                  >
-                    <Trash2 size={14} />
-                  </Button>
-                </div>
               </li>
             ))}
           </ul>
