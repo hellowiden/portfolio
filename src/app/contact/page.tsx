@@ -137,6 +137,9 @@ function CustomInput({
   );
 }
 
+const steps = ['reason', 'budget', 'message', 'submit'] as const;
+type Step = (typeof steps)[number];
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     message: '',
@@ -144,14 +147,31 @@ export default function Contact() {
     reason: '',
   });
   const [status, setStatus] = useState('');
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState<Step>('reason');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (name: string, value: string) => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const nextStep = () => {
+    const i = steps.indexOf(step);
+    if (i < steps.length - 1) setStep(steps[i + 1]);
+  };
+
+  const prevStep = () => {
+    const i = steps.indexOf(step);
+    if (i > 0) setStep(steps[i - 1]);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (formData.message.trim().length < 10) {
+      setStatus('Message must be at least 10 characters.');
+      return;
+    }
+
+    setLoading(true);
     setStatus('Sending...');
 
     try {
@@ -161,23 +181,24 @@ export default function Contact() {
         body: JSON.stringify(formData),
       });
 
-      const responseData = await res.json();
-      if (!res.ok)
-        throw new Error(responseData.error || 'Failed to send message');
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Failed to send message');
 
       setStatus('Message sent successfully!');
       setFormData({ message: '', budget: '', reason: '' });
-      setStep(1);
+      setStep('reason');
     } catch (error) {
       setStatus(
         error instanceof Error ? error.message : 'An unknown error occurred.'
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="grid gap-4 p-6 border rounded bg-primary-50 text-primary-900 border-primary-200 dark:bg-secondary-900 dark:text-secondary-50 dark:border-secondary-700">
-      {step === 1 && (
+      {step === 'reason' && (
         <Step title="Let's Start - What Brings You Here?">
           <CustomDropdown
             value={formData.reason}
@@ -185,7 +206,7 @@ export default function Contact() {
             onChange={(value) => handleChange('reason', value)}
           />
           <Button
-            onClick={() => setStep(2)}
+            onClick={nextStep}
             disabled={!formData.reason}
             variant="secondary"
             size="sm"
@@ -195,7 +216,7 @@ export default function Contact() {
         </Step>
       )}
 
-      {step === 2 && formData.reason === 'job_offer' && (
+      {step === 'budget' && formData.reason === 'job_offer' && (
         <Step title="Great! Let's Talk Budget">
           <CustomDropdown
             value={formData.budget}
@@ -203,7 +224,7 @@ export default function Contact() {
             onChange={(value) => handleChange('budget', value)}
           />
           <Button
-            onClick={() => setStep(3)}
+            onClick={nextStep}
             disabled={!formData.budget}
             variant="secondary"
             size="sm"
@@ -213,7 +234,8 @@ export default function Contact() {
         </Step>
       )}
 
-      {((step === 2 && formData.reason !== 'job_offer') || step === 3) && (
+      {((step === 'budget' && formData.reason !== 'job_offer') ||
+        step === 'message') && (
         <Step title="Tell Me More">
           <CustomInput
             name="message"
@@ -222,7 +244,7 @@ export default function Contact() {
             placeholder={getPlaceholder(formData.reason)}
           />
           <Button
-            onClick={() => setStep(4)}
+            onClick={nextStep}
             disabled={!formData.message}
             variant="secondary"
             size="sm"
@@ -232,10 +254,15 @@ export default function Contact() {
         </Step>
       )}
 
-      {step === 4 && (
+      {step === 'submit' && (
         <Step title="Ready to Submit?">
-          <Button onClick={handleSubmit} variant="secondary" size="sm">
-            Send
+          <Button
+            onClick={handleSubmit}
+            variant="secondary"
+            size="sm"
+            disabled={loading}
+          >
+            {loading ? 'Sending...' : 'Send'}
           </Button>
         </Step>
       )}
@@ -246,8 +273,8 @@ export default function Contact() {
         </p>
       )}
 
-      {step > 1 && (
-        <Button onClick={() => setStep(step - 1)} variant="ghost" size="sm">
+      {step !== 'reason' && (
+        <Button onClick={prevStep} variant="ghost" size="sm">
           Back
         </Button>
       )}
