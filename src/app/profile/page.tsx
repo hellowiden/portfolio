@@ -21,6 +21,9 @@ export default function Profile() {
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<UserMessage[]>([]);
 
+  const isAdmin =
+    Array.isArray(session?.user?.roles) && session.user.roles.includes('admin');
+
   useEffect(() => {
     const fetchMessages = async () => {
       const res = await fetch('/api/messages');
@@ -30,8 +33,10 @@ export default function Profile() {
       }
     };
 
-    if (status === 'authenticated') fetchMessages();
-  }, [status]);
+    if (status === 'authenticated' && !isAdmin) {
+      fetchMessages();
+    }
+  }, [status, isAdmin]);
 
   if (status === 'loading') {
     return (
@@ -106,7 +111,7 @@ export default function Profile() {
         onSave={() => window.location.reload()}
       />
 
-      {messages.length > 0 && (
+      {!isAdmin && messages.length > 0 && (
         <div className="grid gap-4 mt-6">
           <h3 className="text-md font-semibold">Your Submitted Messages</h3>
           <ul className="grid gap-3">
