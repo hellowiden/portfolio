@@ -94,7 +94,7 @@ export default function Register() {
               required
             />
 
-            <div className="flex items-center space-x-2">
+            <div className="grid grid-cols-[auto,1fr] items-center gap-2">
               <input
                 type="checkbox"
                 id="agree"
