@@ -4,7 +4,7 @@
 
 import Image from 'next/image';
 import { Lightbulb } from 'lucide-react';
-import Button from '../components/Button/Button';
+import Button from '@/app/components/Button/Button';
 
 function AboutAvatar() {
   return (

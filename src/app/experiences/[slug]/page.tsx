@@ -5,7 +5,7 @@
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import Button from '@/app/components/Button/Button'; // ✅ Import centralized button
+import Button from '@/app/components/Button/Button';
 
 interface IExperience {
   _id: string;

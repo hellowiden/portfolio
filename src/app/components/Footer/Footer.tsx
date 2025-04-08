@@ -3,7 +3,7 @@
 'use client';
 
 import Link from 'next/link';
-import Button from '../Button/Button'; // Import centralized button
+import Button from '@/app/components/Button/Button';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

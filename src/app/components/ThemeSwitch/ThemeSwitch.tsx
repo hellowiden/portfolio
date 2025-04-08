@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme } from '@/context/theme-context';
 import { FiMoon, FiSun } from 'react-icons/fi';
-import Button from '../Button/Button';
+import Button from '@/app/components/Button/Button';
 
 export default function ThemeSwitch() {
   const { theme, toggleTheme } = useTheme();

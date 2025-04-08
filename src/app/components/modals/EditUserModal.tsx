@@ -3,7 +3,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import Button from './Button/Button';
+import Button from '@/app/components/Button/Button';
 
 interface User {
   _id: string;

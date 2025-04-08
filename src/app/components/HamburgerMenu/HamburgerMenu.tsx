@@ -7,7 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { FiUser, FiLogIn, FiLogOut, FiGrid, FiMenu, FiX } from 'react-icons/fi';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
-import Button from '../Button/Button';
+import Button from '@/app/components/Button/Button';
 
 export default function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);

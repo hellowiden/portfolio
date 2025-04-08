@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import Button from './Button/Button';
+import Button from '@/app/components/Button/Button';
 
 interface EditOwnProfileModalProps {
   isOpen: boolean;

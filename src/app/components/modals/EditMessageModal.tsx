@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Button from './Button/Button';
+import Button from '@/app/components/Button/Button';
 
 interface EditMessageModalProps {
   isOpen: boolean;

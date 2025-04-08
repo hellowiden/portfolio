@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { FiUser, FiLogIn, FiLogOut, FiGrid } from 'react-icons/fi';
 import ThemeSwitch from '../ThemeSwitch/ThemeSwitch';
 import HamburgerMenu from '../HamburgerMenu/HamburgerMenu';
-import Button from '../Button/Button';
+import Button from '@/app/components/Button/Button';
 
 export default function NavLinks() {
   const router = useRouter();

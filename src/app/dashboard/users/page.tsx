@@ -3,8 +3,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import EditUserModal from '@/app/components/EditUserModal';
-import AddUserModal from '@/app/components/AddUserModal';
+import EditUserModal from '@/app/components/modals/EditUserModal';
+import AddUserModal from '@/app/components/modals/AddUserModal';
 import SearchInput from '@/app/components/SearchInput/SearchInput';
 import Button from '@/app/components/Button/Button';
 

@@ -5,7 +5,7 @@
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import NavLinks from '../NavLinks/NavLinks';
-import Button from '../Button/Button';
+import Button from '@/app/components/Button/Button';
 
 export default function Header() {
   const { data: session, status } = useSession();

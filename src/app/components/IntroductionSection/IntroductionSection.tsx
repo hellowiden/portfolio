@@ -9,7 +9,7 @@ import Image from 'next/image';
 import { FiFileText } from 'react-icons/fi';
 import { brandingMessages } from '../../../data/brandingMessages';
 import useRotatingMessages from '@/hooks/useRotatingMessages';
-import Button from '../Button/Button';
+import Button from '@/app/components/Button/Button';
 
 export default function IntroductionSection() {
   const router = useRouter();

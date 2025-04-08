@@ -3,7 +3,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import Button from '../Button/Button';
+import Button from '@/app/components/Button/Button';
 
 interface HoverCardProps {
   title: string;
