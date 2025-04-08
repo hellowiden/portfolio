@@ -56,7 +56,7 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="w-full grid gap-6 text-primary-900 dark:text-secondary-50">
+    <div className="w-full grid gap-6 bg-primary-50 text-primary-900 dark:bg-secondary-900 dark:text-secondary-50">
       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
       <p className="text-lg">
         Welcome to the admin dashboard. Manage your data using the navigation.
