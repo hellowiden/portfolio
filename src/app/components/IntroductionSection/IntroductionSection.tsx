@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { FiFileText } from 'react-icons/fi';
-import { brandingMessages } from '../../../data/brandingMessages';
+import { brandingMessages } from '@/data/brandingMessages';
 import useRotatingMessages from '@/hooks/useRotatingMessages';
 import Button from '@/app/components/Button/Button';
 

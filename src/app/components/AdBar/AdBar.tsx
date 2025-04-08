@@ -4,7 +4,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { adMessages } from '../../../data/adMessages';
+import { adMessages } from '@/data/adMessages';
 import useRotatingMessages from '@/hooks/useRotatingMessages';
 
 type AdMessage = {
