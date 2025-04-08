@@ -2,15 +2,35 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Link from 'next/link';
 import { legal } from '../../data/legal';
 
 const sections = legal;
 
 export default function LegalPage() {
-  const [activeSection, setActiveSection] = useState('');
   const sectionList = useMemo(() => sections, []);
+  const [activeSection, setActiveSection] = useState('');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.find((entry) => entry.isIntersecting);
+        if (visible) setActiveSection(visible.target.id);
+      },
+      {
+        rootMargin: '-50% 0px -50% 0px',
+        threshold: 0.1,
+      }
+    );
+
+    sectionList.forEach(({ id }) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, [sectionList]);
 
   return (
     <div className="grid gap-6">
@@ -23,8 +43,11 @@ export default function LegalPage() {
             <li key={id} className="m-0">
               <Link href={`#${id}`} scroll={true}>
                 <span
-                  className="text-primary-900 dark:text-secondary-50 hover:text-primary-200 dark:hover:text-secondary-700 transition cursor-pointer"
-                  onClick={() => setActiveSection(id)}
+                  className={`transition cursor-pointer ${
+                    activeSection === id
+                      ? 'font-semibold underline text-primary-600 dark:text-secondary-300'
+                      : 'hover:text-primary-200 dark:hover:text-secondary-700'
+                  }`}
                 >
                   {title}
                 </span>
