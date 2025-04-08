@@ -138,7 +138,7 @@ export default function Register() {
         </form>
       </div>
 
-      <div className="hidden md:grid place-items-center bg-gradient-to-br from-primary-900 to-primary-200 text-primary-50 p-8 dark:from-secondary-800 dark:to-secondary-600 dark:text-secondary-50">
+      <div className="hidden md:grid place-items-center bg-gradient-to-br from-primary-100 to-primary-200 text-primary-900 p-8 dark:from-secondary-800 dark:to-secondary-600">
         <AdBar />
       </div>
     </section>
