@@ -10,18 +10,17 @@ const sections = legal;
 
 export default function LegalPage() {
   const [activeSection, setActiveSection] = useState('');
-
   const sectionList = useMemo(() => sections, []);
 
   return (
     <div className="grid gap-6">
       <nav aria-label="Table of Contents" className="grid gap-2">
-        <h2 className="text-xl font-semibold text-primary-900 dark:text-secondary-50">
+        <h2 className="text-xl font-semibold text-primary-900 dark:text-secondary-50 m-0">
           Contents
         </h2>
-        <ul className="grid text-primary-900 dark:text-secondary-50 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto gap-2">
+        <ul className="grid gap-2 text-primary-900 dark:text-secondary-50 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto">
           {sectionList.map(({ id, title }) => (
-            <li key={id}>
+            <li key={id} className="m-0">
               <Link href={`#${id}`} scroll={true}>
                 <span
                   className="text-primary-900 dark:text-secondary-50 hover:text-primary-200 dark:hover:text-secondary-700 transition cursor-pointer"
@@ -48,10 +47,10 @@ export default function LegalPage() {
                 : 'hover:bg-primary-100 dark:hover:bg-secondary-800'
             }`}
           >
-            <h2 className="text-2xl font-semibold text-primary-900 dark:text-secondary-50">
+            <h2 className="text-2xl font-semibold text-primary-900 dark:text-secondary-50 m-0">
               {title}
             </h2>
-            <p className="text-primary-700 dark:text-secondary-200">
+            <p className="text-primary-700 dark:text-secondary-200 m-0">
               {content}
             </p>
           </section>
