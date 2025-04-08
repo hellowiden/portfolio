@@ -5,42 +5,49 @@
 import { useState, useEffect } from 'react';
 import Button from '@/app/components/Button/Button';
 
+type StatType = {
+  users: number;
+  messages: number;
+  projects: number;
+  experiences: number;
+};
+
 export default function Dashboard() {
-  const [stats, setStats] = useState({
+  const [stats, setStats] = useState<StatType>({
     users: 0,
     messages: 0,
     projects: 0,
     experiences: 0,
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchStats = async () => {
-    try {
-      const endpoints = [
-        '/api/users',
-        '/api/messages',
-        '/api/projects',
-        '/api/experiences',
-      ];
+    setLoading(true);
+    setError(null);
 
+    try {
+      const endpoints = ['users', 'messages', 'projects', 'experiences'];
       const responses = await Promise.all(
-        endpoints.map((url: string) => fetch(url))
+        endpoints.map((endpoint) => fetch(`/api/${endpoint}`))
       );
 
       if (responses.some((res) => !res.ok))
-        throw new Error('Failed to fetch stats');
+        throw new Error('One or more API calls failed');
 
-      const [users, messages, projects, experiences] = await Promise.all(
-        responses.map((res) => res.json())
-      );
+      const data = await Promise.all(responses.map((res) => res.json()));
 
       setStats({
-        users: users?.users?.length || 0,
-        messages: messages?.messages?.length || 0,
-        projects: projects?.projects?.length || 0,
-        experiences: experiences?.experiences?.length || 0,
+        users: data[0]?.users?.length || 0,
+        messages: data[1]?.messages?.length || 0,
+        projects: data[2]?.projects?.length || 0,
+        experiences: data[3]?.experiences?.length || 0,
       });
     } catch (err) {
       console.error('Dashboard fetch error:', err);
+      setError('Failed to fetch stats. Try again later.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,9 +60,16 @@ export default function Dashboard() {
       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
       <p className="text-lg">Welcome to the admin dashboard.</p>
 
-      <Button variant="primary" size="md" onClick={fetchStats}>
-        Refresh Stats
+      <Button
+        variant="primary"
+        size="md"
+        onClick={fetchStats}
+        disabled={loading}
+      >
+        {loading ? 'Refreshing...' : 'Refresh Stats'}
       </Button>
+
+      {error && <p className="text-red-600 dark:text-red-400">{error}</p>}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {Object.entries(stats).map(([key, value]) => (
