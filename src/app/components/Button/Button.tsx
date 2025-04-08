@@ -39,8 +39,8 @@ export default function Button({
 
   return (
     <button
-      className={`${base} ${variantMap[variant]} ${sizeMap[size]} ${
-        className || ''
+      className={`${variantMap[variant]} ${sizeMap[size]} ${base} ${
+        className ?? ''
       }`}
       {...props}
     >
