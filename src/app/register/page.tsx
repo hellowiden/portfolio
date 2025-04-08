@@ -56,83 +56,85 @@ export default function Register() {
       <div className="grid place-items-center bg-primary-100 dark:bg-secondary-800">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-md p-6 bg-primary-50 dark:bg-secondary-900 rounded-lg grid gap-4 border border-primary-200 dark:border-secondary-700"
+          className="grid w-full max-w-md bg-primary-50 dark:bg-secondary-900 rounded-lg border border-primary-200 dark:border-secondary-700"
         >
-          <h2 className="text-2xl font-bold text-center text-primary-900 dark:text-secondary-50">
-            It all starts here!
-          </h2>
+          <div className="grid gap-4 p-6">
+            <h2 className="text-2xl font-bold text-center text-primary-900 dark:text-secondary-50 m-0">
+              It all starts here!
+            </h2>
 
-          {error && (
-            <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm">
-              {error}
-            </p>
-          )}
+            {error && (
+              <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm m-0">
+                {error}
+              </p>
+            )}
 
-          <input
-            type="text"
-            name="name"
-            placeholder="Full Name"
-            onChange={handleChange}
-            className={inputClass}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-            className={inputClass}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-            className={inputClass}
-            required
-          />
-
-          <div className="flex items-center space-x-2">
             <input
-              type="checkbox"
-              id="agree"
-              checked={agreed}
-              onChange={toggleAgreement}
-              className="accent-primary-900 dark:accent-secondary-200 focus:outline-none focus:ring-0"
+              type="text"
+              name="name"
+              placeholder="Full Name"
+              onChange={handleChange}
+              className={inputClass}
+              required
             />
-            <label
-              htmlFor="agree"
-              className="text-sm text-primary-900 dark:text-secondary-50"
-            >
-              I agree to the{' '}
-              <Link
-                href="/legal"
-                className="text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 hover:underline"
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              className={inputClass}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              className={inputClass}
+              required
+            />
+
+            <div className="flex items-center space-x-2">
+              <input
+                type="checkbox"
+                id="agree"
+                checked={agreed}
+                onChange={toggleAgreement}
+                className="accent-primary-900 dark:accent-secondary-200 focus:outline-none focus:ring-0"
+              />
+              <label
+                htmlFor="agree"
+                className="text-sm text-primary-900 dark:text-secondary-50"
               >
-                legal terms
-              </Link>
-            </label>
-          </div>
+                I agree to the{' '}
+                <Link
+                  href="/legal"
+                  className="text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 hover:underline"
+                >
+                  legal terms
+                </Link>
+              </label>
+            </div>
 
-          <Button
-            type="submit"
-            disabled={loading}
-            variant="secondary"
-            size="sm"
-          >
-            {loading ? 'Registering...' : 'Register'}
-          </Button>
-
-          <p className="text-center text-sm text-primary-900 dark:text-secondary-50">
-            Already have an account?{' '}
-            <Link
-              href="/login"
-              className="text-sm text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 transition hover:underline"
+            <Button
+              type="submit"
+              disabled={loading}
+              variant="secondary"
+              size="sm"
             >
-              Login here
-            </Link>
-          </p>
+              {loading ? 'Registering...' : 'Register'}
+            </Button>
+
+            <p className="text-sm text-center text-primary-900 dark:text-secondary-50 m-0">
+              Already have an account?{' '}
+              <Link
+                href="/login"
+                className="text-sm text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 transition hover:underline"
+              >
+                Login here
+              </Link>
+            </p>
+          </div>
         </form>
       </div>
 
