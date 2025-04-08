@@ -21,33 +21,26 @@ export default function Dashboard() {
         '/api/projects',
         '/api/experiences',
       ];
-      const [usersRes, messagesRes, projectsRes, experiencesRes] =
-        await Promise.all(endpoints.map((url) => fetch(url)));
 
-      if (
-        ![usersRes, messagesRes, projectsRes, experiencesRes].every(
-          (res) => res.ok
-        )
-      ) {
-        throw new Error('Failed to fetch one or more dashboard stats');
-      }
+      const responses = await Promise.all(
+        endpoints.map((url: string) => fetch(url))
+      );
 
-      const [usersData, messagesData, projectsData, experiencesData] =
-        await Promise.all([
-          usersRes.json(),
-          messagesRes.json(),
-          projectsRes.json(),
-          experiencesRes.json(),
-        ]);
+      if (responses.some((res) => !res.ok))
+        throw new Error('Failed to fetch stats');
+
+      const [users, messages, projects, experiences] = await Promise.all(
+        responses.map((res) => res.json())
+      );
 
       setStats({
-        users: usersData?.users?.length ?? 0,
-        messages: messagesData?.messages?.length ?? 0,
-        projects: projectsData?.projects?.length ?? 0,
-        experiences: experiencesData?.experiences?.length ?? 0,
+        users: users?.users?.length || 0,
+        messages: messages?.messages?.length || 0,
+        projects: projects?.projects?.length || 0,
+        experiences: experiences?.experiences?.length || 0,
       });
     } catch (err) {
-      console.error('Dashboard stats fetch error:', err);
+      console.error('Dashboard fetch error:', err);
     }
   };
 
@@ -58,19 +51,20 @@ export default function Dashboard() {
   return (
     <div className="w-full grid gap-6 bg-primary-50 text-primary-900 dark:bg-secondary-900 dark:text-secondary-50">
       <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-      <p className="text-lg">
-        Welcome to the admin dashboard. Manage your data using the navigation.
-      </p>
+      <p className="text-lg">Welcome to the admin dashboard.</p>
 
       <Button variant="primary" size="md" onClick={fetchStats}>
         Refresh Stats
       </Button>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <StatCard title="Total Users" value={stats.users} />
-        <StatCard title="Total Messages" value={stats.messages} />
-        <StatCard title="Total Projects" value={stats.projects} />
-        <StatCard title="Total Experiences" value={stats.experiences} />
+        {Object.entries(stats).map(([key, value]) => (
+          <StatCard
+            key={key}
+            title={`Total ${capitalize(key)}`}
+            value={value}
+          />
+        ))}
       </div>
     </div>
   );
@@ -82,3 +76,5 @@ const StatCard = ({ title, value }: { title: string; value: number }) => (
     <p className="text-4xl font-bold">{value}</p>
   </div>
 );
+
+const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
