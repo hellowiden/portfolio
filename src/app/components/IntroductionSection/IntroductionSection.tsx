@@ -93,7 +93,7 @@ function ContentRow({
         />
         <div className="grid grid-rows-[auto_auto]">
           <div className="flex items-center space-x-1">
-            <span className="font-medium">Marcus Widén</span>
+            <span className="font-bold">Marcus Widén</span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
