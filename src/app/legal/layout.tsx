@@ -10,7 +10,7 @@ interface LayoutProps {
 
 export default function LegalLayout({ children }: LayoutProps) {
   return (
-    <div className="w-full h-full grid grid-rows-[auto,1fr] border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-100/80 dark:bg-secondary-900/80">
+    <div className="container mx-auto h-full p-6 gap-6 border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-100/80 dark:bg-secondary-900/80">
       <header className="w-full bg-primary-100 text-primary-900 p-4 dark:bg-secondary-800 dark:text-secondary-50">
         <div className="grid grid-cols-[1fr] items-center gap-0">
           <h1 className="text-2xl font-bold m-0">Legal Information</h1>
