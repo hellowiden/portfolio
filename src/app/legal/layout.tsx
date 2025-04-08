@@ -2,11 +2,13 @@
 
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState, createContext } from 'react';
 import { motion } from 'framer-motion';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Button from '@/app/components/Button/Button';
 import { legal } from '../../data/legal';
+
+export const LegalIndexContext = createContext(0);
 
 function NavButton({
   direction,
@@ -77,26 +79,28 @@ export default function LegalLayout({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="h-full container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-50 dark:bg-secondary-900 text-primary-900 dark:text-secondary-50 flex flex-col">
-      <header className="flex justify-between items-center p-4 border-b border-primary-200 dark:border-secondary-700 bg-primary-200 dark:bg-secondary-800">
-        <h1 className="text-2xl font-bold">Legal Information</h1>
-        <div className="grid grid-flow-col auto-cols-max gap-4">
-          {activeIndex > 0 && (
-            <NavButton
-              direction="prev"
-              onClick={() => scrollTo(activeIndex - 1)}
-            />
-          )}
-          {activeIndex < sectionIds.length - 1 && (
-            <NavButton
-              direction="next"
-              onClick={() => scrollTo(activeIndex + 1)}
-            />
-          )}
-        </div>
-      </header>
+    <LegalIndexContext.Provider value={activeIndex}>
+      <div className="h-full container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-50 dark:bg-secondary-900 text-primary-900 dark:text-secondary-50 flex flex-col">
+        <header className="flex justify-between items-center p-4 border-b border-primary-200 dark:border-secondary-700 bg-primary-200 dark:bg-secondary-800">
+          <h1 className="text-2xl font-bold">Legal Information</h1>
+          <div className="grid grid-flow-col auto-cols-max gap-4">
+            {activeIndex > 0 && (
+              <NavButton
+                direction="prev"
+                onClick={() => scrollTo(activeIndex - 1)}
+              />
+            )}
+            {activeIndex < sectionIds.length - 1 && (
+              <NavButton
+                direction="next"
+                onClick={() => scrollTo(activeIndex + 1)}
+              />
+            )}
+          </div>
+        </header>
 
-      <main className="flex-grow p-6">{children}</main>
-    </div>
+        <main className="flex-grow p-6">{children}</main>
+      </div>
+    </LegalIndexContext.Provider>
   );
 }
