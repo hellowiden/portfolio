@@ -19,9 +19,6 @@ interface Experience {
 
 export default function ExperiencesDashboard() {
   const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [filteredExperiences, setFilteredExperiences] = useState<Experience[]>(
-    []
-  );
   const [searchQuery, setSearchQuery] = useState('');
   const [formData, setFormData] = useState<Partial<Experience>>({
     title: '',
@@ -40,8 +37,8 @@ export default function ExperiencesDashboard() {
       if (!res.ok) throw new Error('Error fetching experiences');
       const data = await res.json();
       setExperiences(data.experiences);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   }, []);
 
@@ -49,9 +46,18 @@ export default function ExperiencesDashboard() {
     fetchExperiences();
   }, [fetchExperiences]);
 
-  useEffect(() => {
-    setFilteredExperiences(experiences);
-  }, [experiences]);
+  const resetForm = () => {
+    setFormData({
+      title: '',
+      location: '',
+      date: '',
+      description: '',
+      image: '',
+      tags: [],
+      type: 'work',
+    });
+    setEditingExpId(null);
+  };
 
   const handleChange = (
     e: React.ChangeEvent<
@@ -59,7 +65,11 @@ export default function ExperiencesDashboard() {
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]:
+        name === 'tags' ? value.split(',').map((tag) => tag.trim()) : value,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -70,53 +80,52 @@ export default function ExperiencesDashboard() {
     }
 
     try {
-      const method = editingExpId ? 'PUT' : 'POST';
-      const url = editingExpId
-        ? `/api/experiences/${editingExpId}`
-        : '/api/experiences';
-
-      const res = await fetch(url, {
-        method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      const res = await fetch(
+        editingExpId ? `/api/experiences/${editingExpId}` : '/api/experiences',
+        {
+          method: editingExpId ? 'PUT' : 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (!res.ok) throw new Error('Error saving experience');
 
-      setFormData({
-        title: '',
-        location: '',
-        date: '',
-        description: '',
-        image: '',
-        tags: [],
-        type: 'work',
-      });
-      setEditingExpId(null);
+      resetForm();
       await fetchExperiences();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   };
 
-  const handleEdit = (experience: Experience) => {
-    setEditingExpId(experience._id);
-    setFormData(experience);
+  const handleEdit = (exp: Experience) => {
+    setEditingExpId(exp._id);
+    setFormData(exp);
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this experience?')) return;
+    if (!confirm('Delete this experience?')) return;
     try {
       const res = await fetch(`/api/experiences/${id}`, { method: 'DELETE' });
       if (!res.ok) throw new Error('Error deleting experience');
       await fetchExperiences();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
+  };
+
+  const getValue = (key: keyof Experience): string => {
+    const val = formData[key];
+    if (Array.isArray(val)) return val.join(', ');
+    return val ?? '';
   };
 
   const inputClass =
     'border border-primary-200 bg-primary-50 text-primary-900 rounded p-1 w-full dark:border-secondary-700 dark:bg-secondary-900 dark:text-secondary-50';
+
+  const filtered = experiences.filter((exp) =>
+    exp.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="grid gap-6 p-4 text-primary-900 dark:text-secondary-50">
@@ -126,43 +135,34 @@ export default function ExperiencesDashboard() {
         value={searchQuery}
         onChange={setSearchQuery}
         data={experiences}
-        onFilter={setFilteredExperiences}
+        onFilter={() => {}}
       />
 
       <form
         onSubmit={handleSubmit}
         className="grid gap-2 border border-primary-200 dark:border-secondary-700 p-4 rounded bg-primary-100 dark:bg-secondary-800"
       >
-        <label>
-          Title:
-          <input
-            className={inputClass}
-            type="text"
-            name="title"
-            value={formData.title || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Location:
-          <input
-            className={inputClass}
-            type="text"
-            name="location"
-            value={formData.location || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Date:
-          <input
-            className={inputClass}
-            type="text"
-            name="date"
-            value={formData.date || ''}
-            onChange={handleChange}
-          />
-        </label>
+        {(
+          [
+            { label: 'Title', name: 'title' },
+            { label: 'Location', name: 'location' },
+            { label: 'Date', name: 'date' },
+            { label: 'Image URL', name: 'image' },
+            { label: 'Tags (comma separated)', name: 'tags' },
+          ] as const
+        ).map(({ label, name }) => (
+          <label key={name}>
+            {label}:
+            <input
+              className={inputClass}
+              type="text"
+              name={name}
+              value={getValue(name)}
+              onChange={handleChange}
+            />
+          </label>
+        ))}
+
         <label>
           Description:
           <textarea
@@ -173,31 +173,7 @@ export default function ExperiencesDashboard() {
             onChange={handleChange}
           />
         </label>
-        <label>
-          Image URL:
-          <input
-            className={inputClass}
-            type="text"
-            name="image"
-            value={formData.image || ''}
-            onChange={handleChange}
-          />
-        </label>
-        <label>
-          Tags (comma separated):
-          <input
-            className={inputClass}
-            type="text"
-            name="tags"
-            value={Array.isArray(formData.tags) ? formData.tags.join(', ') : ''}
-            onChange={(e) =>
-              setFormData((prev) => ({
-                ...prev,
-                tags: e.target.value.split(',').map((tag) => tag.trim()),
-              }))
-            }
-          />
-        </label>
+
         <label>
           Type:
           <select
@@ -219,22 +195,18 @@ export default function ExperiencesDashboard() {
       <table className="w-full border border-primary-200 dark:border-secondary-700">
         <thead className="bg-primary-200 dark:bg-secondary-700 text-primary-900 dark:text-secondary-50">
           <tr>
-            <th className="p-2 border border-primary-200 dark:border-secondary-700">
-              Title
-            </th>
-            <th className="p-2 border border-primary-200 dark:border-secondary-700">
-              Location
-            </th>
-            <th className="p-2 border border-primary-200 dark:border-secondary-700">
-              Date
-            </th>
-            <th className="p-2 border border-primary-200 dark:border-secondary-700">
-              Actions
-            </th>
+            {['Title', 'Location', 'Date', 'Actions'].map((col) => (
+              <th
+                key={col}
+                className="p-2 border border-primary-200 dark:border-secondary-700"
+              >
+                {col}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {filteredExperiences.map((exp) => (
+          {filtered.map((exp) => (
             <tr
               key={exp._id}
               className="border-b border-primary-200 dark:border-secondary-700"
