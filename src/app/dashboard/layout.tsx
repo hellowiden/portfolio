@@ -38,7 +38,11 @@ export default function Layout({ children }: { children: ReactNode }) {
           {navItems.map((label) => (
             <NavItem
               key={label}
-              href={`/dashboard/${label.toLowerCase()}`}
+              href={
+                label.toLowerCase() === 'dashboard'
+                  ? '/dashboard'
+                  : `/dashboard/${label.toLowerCase()}`
+              }
               label={label}
             />
           ))}
