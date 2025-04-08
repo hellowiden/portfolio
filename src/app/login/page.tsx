@@ -45,55 +45,58 @@ export default function Login() {
 
   return (
     <section className="grid grid-cols-1 md:grid-cols-2 w-full h-full border-x border-primary-200 dark:border-secondary-700">
-      <section className="grid place-items-center p-6 bg-primary-100 dark:bg-secondary-800">
+      <section className="grid place-items-center bg-primary-100 dark:bg-secondary-800">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-md p-6 bg-primary-50 dark:bg-secondary-900 rounded grid gap-4 border border-primary-200 dark:border-secondary-700"
+          className="grid w-full max-w-md bg-primary-50 dark:bg-secondary-900 rounded border border-primary-200 dark:border-secondary-700"
         >
-          <h2 className="text-2xl font-bold text-center text-primary-900 dark:text-secondary-50">
-            Let&apos;s get started!
-          </h2>
+          <div className="grid gap-4 p-6">
+            <h2 className="text-2xl font-bold text-center text-primary-900 dark:text-secondary-50 m-0">
+              Let&apos;s get started!
+            </h2>
 
-          {error && (
-            <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm">
-              {error}
-            </p>
-          )}
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={handleChange}
-            className={inputClass}
-            required
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={handleChange}
-            className={inputClass}
-            required
-          />
+            {error && (
+              <p className="text-red-600 dark:text-red-400 bg-red-100 dark:bg-red-900 p-2 rounded text-sm m-0">
+                {error}
+              </p>
+            )}
 
-          <Button
-            type="submit"
-            disabled={loading}
-            variant="secondary"
-            size="sm"
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </Button>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={handleChange}
+              className={inputClass}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              onChange={handleChange}
+              className={inputClass}
+              required
+            />
 
-          <p className="text-center text-sm text-primary-900 dark:text-secondary-50">
-            Not an account?{' '}
-            <Link
-              href="/register"
-              className="text-sm text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 transition hover:underline"
+            <Button
+              type="submit"
+              disabled={loading}
+              variant="secondary"
+              size="sm"
             >
-              Sign up here
-            </Link>
-          </p>
+              {loading ? 'Logging in...' : 'Login'}
+            </Button>
+
+            <p className="text-center text-sm text-primary-900 dark:text-secondary-50 m-0">
+              Not an account?{' '}
+              <Link
+                href="/register"
+                className="text-sm text-primary-700 hover:text-primary-900 dark:text-secondary-50 dark:hover:text-secondary-200 transition hover:underline"
+              >
+                Sign up here
+              </Link>
+            </p>
+          </div>
         </form>
       </section>
 
