@@ -2,16 +2,11 @@
 
 'use client';
 
-import { useMemo } from 'react';
 import Link from 'next/link';
 import { legal } from '../../data/legal';
 import { motion } from 'framer-motion';
 
-const sections = legal;
-
 export default function LegalPage() {
-  const sectionList = useMemo(() => sections, []);
-
   return (
     <div className="grid gap-6">
       <nav aria-label="Table of Contents" className="grid gap-2">
@@ -19,7 +14,7 @@ export default function LegalPage() {
           Contents
         </h2>
         <ul className="grid gap-2 text-primary-900 dark:text-secondary-50 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-auto">
-          {sectionList.map(({ id, title }) => (
+          {legal.map(({ id, title }) => (
             <li key={id} className="m-0">
               <Link href={`#${id}`} scroll={true}>
                 <span className="hover:text-primary-200 dark:hover:text-secondary-700 transition cursor-pointer">
@@ -34,7 +29,7 @@ export default function LegalPage() {
       <hr className="border-primary-200 dark:border-secondary-700" />
 
       <main className="grid gap-6">
-        {sectionList.map(({ id, title, content }) => (
+        {legal.map(({ id, title, content }) => (
           <motion.section
             key={id}
             id={id}

@@ -16,6 +16,7 @@ function NavButton({
   onClick: () => void;
 }) {
   const isPrev = direction === 'prev';
+
   return (
     <Button
       onClick={onClick}
@@ -23,24 +24,28 @@ function NavButton({
       size="sm"
       className="grid grid-cols-[auto_1fr] items-center text-sm sm:gap-2"
     >
-      {isPrev && <MotionIcon isPrev />}
+      {isPrev && (
+        <motion.div
+          initial={{ rotate: -90, opacity: 0 }}
+          animate={{ rotate: 0, opacity: 1 }}
+          transition={{ duration: 0.2 }}
+        >
+          <FaArrowLeft />
+        </motion.div>
+      )}
       <span className="hidden sm:inline">
         {isPrev ? 'Previous Section' : 'Next Section'}
       </span>
-      {!isPrev && <MotionIcon />}
+      {!isPrev && (
+        <motion.div
+          initial={{ rotate: 90, opacity: 0 }}
+          animate={{ rotate: 0, opacity: 1 }}
+          transition={{ duration: 0.2 }}
+        >
+          <FaArrowRight />
+        </motion.div>
+      )}
     </Button>
-  );
-}
-
-function MotionIcon({ isPrev = false }: { isPrev?: boolean }) {
-  return (
-    <motion.div
-      initial={{ rotate: isPrev ? -90 : 90, opacity: 0 }}
-      animate={{ rotate: 0, opacity: 1 }}
-      transition={{ duration: 0.2 }}
-    >
-      {isPrev ? <FaArrowLeft /> : <FaArrowRight />}
-    </motion.div>
   );
 }
 
