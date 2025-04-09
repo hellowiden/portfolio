@@ -99,8 +99,11 @@ const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async redirect({ baseUrl }) {
-      return baseUrl;
+    async redirect({ url, baseUrl }) {
+      if (url.includes('/login')) {
+        return `${baseUrl}/`;
+      }
+      return url.startsWith(baseUrl) ? url : baseUrl;
     },
   },
   events: {
