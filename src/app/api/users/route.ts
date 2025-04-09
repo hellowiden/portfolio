@@ -1,10 +1,11 @@
-// src/app/api/users/route.ts
+// src/app/api/users/route.tsx
 
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 
+// Centralized error response function
 function errorResponse(message: string, status: number): NextResponse {
   return NextResponse.json({ error: message }, { status });
 }
@@ -27,19 +28,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     await connectToDatabase();
     const { name, email, password, roles } = await req.json();
 
-    if (!name || !email || !password || !roles) {
+    if (!name || !email || !password) {
       return errorResponse('Missing required fields', 400);
-    }
-
-    if (
-      !Array.isArray(roles) ||
-      roles.length === 0 ||
-      !roles.every((role) => typeof role === 'string')
-    ) {
-      return errorResponse(
-        'Invalid roles format. Must be a non-empty array of strings.',
-        400
-      );
     }
 
     const existingUser = await User.findOne({ email });
@@ -55,15 +45,8 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
       roles,
     });
 
-    const userResponse = {
-      _id: newUser._id,
-      name: newUser.name,
-      email: newUser.email,
-      roles: newUser.roles,
-    };
-
     return NextResponse.json(
-      { message: 'User created', user: userResponse },
+      { message: 'User created', user: newUser },
       { status: 201 }
     );
   } catch (error) {
