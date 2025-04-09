@@ -14,6 +14,7 @@ interface User {
   email: string;
   password: string;
   roles: string[];
+  isOnline: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -131,6 +132,10 @@ export default function UsersPage() {
               <th className="border border-primary-200 dark:border-secondary-700 p-3">
                 Updated At
               </th>
+              <th className="border border-primary-200 dark:border-secondary-700 p-3">
+                Status
+              </th>
+
               <th className="border border-primary-200 dark:border-secondary-700 p-3 text-center">
                 Actions
               </th>
@@ -164,6 +169,16 @@ export default function UsersPage() {
                 <td className="border border-primary-200 dark:border-secondary-700 p-3">
                   {new Date(user.updatedAt).toLocaleString()}
                 </td>
+                <td className="border border-primary-200 dark:border-secondary-700 p-3">
+                  <span
+                    className={
+                      user.isOnline ? 'text-green-600' : 'text-gray-500'
+                    }
+                  >
+                    {user.isOnline ? 'Online' : 'Offline'}
+                  </span>
+                </td>
+
                 <td className="grid gap-2 border border-primary-200 dark:border-secondary-700 p-3 text-center">
                   <Button
                     onClick={() => handleEdit(user)}

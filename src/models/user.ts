@@ -6,6 +6,7 @@ export interface IUser extends mongoose.Document {
   email: string;
   password: string;
   roles: string[];
+  isOnline: boolean;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -32,6 +33,10 @@ const UserSchema = new mongoose.Schema(
       type: [String],
       enum: ['user', 'admin'],
       default: ['user'],
+    },
+    isOnline: {
+      type: Boolean,
+      default: false,
     },
   },
   {

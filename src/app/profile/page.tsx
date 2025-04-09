@@ -101,7 +101,18 @@ export default function Profile() {
               {session.user.name}
             </h2>
             <p className="text-sm opacity-80">{session.user.email}</p>
+            <p className="text-sm">
+              Status:{' '}
+              <span
+                className={
+                  session.user.isOnline ? 'text-green-600' : 'text-gray-500'
+                }
+              >
+                {session.user.isOnline ? 'Online' : 'Offline'}
+              </span>
+            </p>
           </div>
+
           <div className="grid grid-flow-col auto-cols-max gap-2 text-sm">
             <Button
               variant="ghost"

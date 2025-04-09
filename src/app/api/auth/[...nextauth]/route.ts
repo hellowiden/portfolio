@@ -11,6 +11,7 @@ interface AuthUser {
   name: string;
   email: string;
   roles: string[];
+  isOnline: boolean;
 }
 
 declare module 'next-auth' {
@@ -19,6 +20,7 @@ declare module 'next-auth' {
     name: string;
     email: string;
     roles: string[];
+    isOnline: boolean;
   }
 
   interface Session {
@@ -52,11 +54,15 @@ async function authenticateUser(
   );
   if (!isValidPassword) throw new Error('Invalid password');
 
+  // Set user online
+  await User.findByIdAndUpdate(user._id, { isOnline: true });
+
   return {
     id: user._id.toString(),
     name: user.name,
     email: user.email,
     roles: user.roles || [],
+    isOnline: true,
   };
 }
 
@@ -91,12 +97,27 @@ const authOptions: NextAuthOptions = {
     },
     async session({ session, token }) {
       if (token?.id) {
-        session.user = { ...session.user, id: token.id, roles: token.roles };
+        await connectToDatabase();
+        const user = await User.findById(token.id).select('roles isOnline');
+        session.user = {
+          ...session.user,
+          id: token.id,
+          roles: token.roles,
+          isOnline: user?.isOnline ?? false,
+        };
       }
       return session;
     },
     async redirect({ url, baseUrl }) {
       return url.startsWith(baseUrl) ? url : '/';
+    },
+  },
+  events: {
+    async signOut({ token }) {
+      if (token?.id) {
+        await connectToDatabase();
+        await User.findByIdAndUpdate(token.id, { isOnline: false });
+      }
     },
   },
 };
