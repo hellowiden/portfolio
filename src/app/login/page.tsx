@@ -1,4 +1,4 @@
-//src/app/login/page.tsx
+// src/app/login/page.tsx
 
 'use client';
 
@@ -24,13 +24,14 @@ export default function Login() {
     try {
       const result = await signIn('credentials', {
         redirect: false,
+        callbackUrl: '/',
         ...formData,
       });
 
       if (!result || result.error) {
         setError(result?.error || 'Invalid credentials');
       } else {
-        router.replace('/');
+        router.replace(result.url || '/');
         router.refresh();
       }
     } catch {
