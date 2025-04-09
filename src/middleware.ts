@@ -6,11 +6,12 @@ import { getToken } from 'next-auth/jwt';
 export const config = {
   matcher: [
     '/',
-    '/about',
-    '/legal',
     '/dashboard/:path*',
+    '/about',
     '/profile',
     '/experiences/:path*',
+    '/login',
+    '/register',
   ],
 };
 
@@ -18,21 +19,12 @@ export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const { pathname } = req.nextUrl;
 
-  const publicPaths = ['/', '/about', '/legal'];
-
-  // Allow public routes
-  if (publicPaths.includes(pathname)) return NextResponse.next();
-
-  // Redirect if not logged in
-  if (!token) {
+  if (token && (pathname === '/login' || pathname === '/register')) {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
-  const roles = token.roles || [];
-
-  // Deny guests access to protected pages
-  if (roles.includes('guest') && !publicPaths.includes(pathname)) {
-    return NextResponse.redirect(new URL('/', req.url));
+  if (!token && !['/login', '/register'].includes(pathname)) {
+    return NextResponse.redirect(new URL('/login', req.url));
   }
 
   return NextResponse.next();

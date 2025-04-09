@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema(
     },
     roles: {
       type: [String],
-      enum: ['guest', 'user', 'admin'],
+      enum: ['user', 'admin'],
       default: ['user'],
     },
     isOnline: {
