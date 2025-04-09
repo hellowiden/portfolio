@@ -11,10 +11,9 @@ export const config = {
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const path = pathname.toLowerCase().replace(/\/$/, '');
 
-  const isPublic = PUBLIC_ROUTES.includes(path);
-  const isAuthPage = ['/login', '/register'].includes(path);
+  const isPublic = PUBLIC_ROUTES.includes(pathname);
+  const isAuthPage = pathname === '/login' || pathname === '/register';
 
   const token = isPublic
     ? null
