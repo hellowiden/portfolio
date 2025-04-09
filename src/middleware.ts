@@ -14,18 +14,16 @@ export async function middleware(req: NextRequest) {
   const path = pathname.toLowerCase().replace(/\/$/, '');
 
   const isPublic = PUBLIC_ROUTES.includes(path);
+  const isAuthPage = ['/login', '/register'].includes(path);
 
-  // Only fetch token if needed
   const token = isPublic
     ? null
     : await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  // Redirect authenticated users away from auth pages
-  if (token && ['/login', '/register'].includes(path)) {
+  if (token && isAuthPage) {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
-  // Redirect unauthenticated users away from protected routes
   if (!token && !isPublic) {
     return NextResponse.redirect(new URL('/login', req.url));
   }
