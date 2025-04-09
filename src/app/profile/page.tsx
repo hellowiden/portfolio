@@ -25,9 +25,7 @@ export default function Profile() {
   );
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState<UserMessage[]>([]);
-
-  const isAdmin =
-    Array.isArray(session?.user?.roles) && session.user.roles.includes('admin');
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const fetchMessages = async () => {
@@ -38,10 +36,14 @@ export default function Profile() {
       }
     };
 
-    if (status === 'authenticated' && !isAdmin) {
-      fetchMessages();
+    if (status === 'authenticated' && session?.user?.roles) {
+      const admin =
+        Array.isArray(session.user.roles) &&
+        session.user.roles.includes('admin');
+      setIsAdmin(admin);
+      if (!admin) fetchMessages();
     }
-  }, [status, isAdmin]);
+  }, [status, session]);
 
   if (status === 'loading') {
     return (
