@@ -8,6 +8,7 @@ export const config = {
     '/',
     '/dashboard/:path*',
     '/about',
+    '/profile',
     '/experiences/:path*',
     '/login',
     '/register',
