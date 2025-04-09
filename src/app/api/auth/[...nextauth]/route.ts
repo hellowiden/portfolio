@@ -1,18 +1,10 @@
-//src/app/api/auth/[...nextauth]/route.ts
+// src/app/api/auth/[...nextauth]/route.ts
 
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth, { NextAuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
-import User from '@/models/user';
+import UserModel from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
-
-interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-  roles: string[];
-  isOnline: boolean;
-}
 
 declare module 'next-auth' {
   interface User {
@@ -35,16 +27,16 @@ declare module 'next-auth/jwt' {
   }
 }
 
-// Centralized function to authenticate user credentials
+// Authenticate user credentials
 async function authenticateUser(
   credentials: Record<string, string> | undefined
-): Promise<AuthUser | null> {
+): Promise<User> {
   if (!credentials?.email || !credentials?.password) {
     throw new Error('Missing credentials');
   }
 
   await connectToDatabase();
-  const user = await User.findOne({ email: credentials.email });
+  const user = await UserModel.findOne({ email: credentials.email });
 
   if (!user) throw new Error('User not found');
 
@@ -54,14 +46,13 @@ async function authenticateUser(
   );
   if (!isValidPassword) throw new Error('Invalid password');
 
-  // Set user online
-  await User.findByIdAndUpdate(user._id, { isOnline: true });
+  await UserModel.findByIdAndUpdate(user._id, { isOnline: true });
 
   return {
     id: user._id.toString(),
     name: user.name,
     email: user.email,
-    roles: user.roles || [],
+    roles: user.roles,
     isOnline: true,
   };
 }
@@ -91,14 +82,14 @@ const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.roles = user.roles || [];
+        token.roles = user.roles;
       }
       return token;
     },
     async session({ session, token }) {
       if (token?.id) {
         await connectToDatabase();
-        const user = await User.findById(token.id).select('roles isOnline');
+        const user = await UserModel.findById(token.id).select('isOnline');
         session.user = {
           ...session.user,
           id: token.id,
@@ -108,15 +99,15 @@ const authOptions: NextAuthOptions = {
       }
       return session;
     },
-    async redirect({ url, baseUrl }) {
-      return url.startsWith(baseUrl) ? url : '/';
+    async redirect({ baseUrl }) {
+      return baseUrl;
     },
   },
   events: {
     async signOut({ token }) {
       if (token?.id) {
         await connectToDatabase();
-        await User.findByIdAndUpdate(token.id, { isOnline: false });
+        await UserModel.findByIdAndUpdate(token.id, { isOnline: false });
       }
     },
   },
