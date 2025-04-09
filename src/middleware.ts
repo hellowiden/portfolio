@@ -3,7 +3,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
-const PUBLIC_ROUTES = ['/login', '/register', '/about'];
+const PUBLIC_ROUTES = ['/login', '/register', '/about', '/legal'];
 
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
@@ -20,12 +20,12 @@ export async function middleware(req: NextRequest) {
     ? null
     : await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
 
-  // If user is authenticated and tries to access login or register
+  // Redirect authenticated users away from auth pages
   if (token && ['/login', '/register'].includes(path)) {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
-  // If user is not authenticated and tries to access a protected route
+  // Redirect unauthenticated users away from protected routes
   if (!token && !isPublic) {
     return NextResponse.redirect(new URL('/login', req.url));
   }
