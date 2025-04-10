@@ -12,11 +12,15 @@ interface Project {
   name: string;
   createdAt: string;
   completedAt?: string;
-  image?: string;
   link?: string;
   tags?: string[];
   description?: string;
 }
+
+// Hardcoded image map (project ID → image path)
+const imageMap: Record<string, string> = {
+  '67d49ca8be1627682aa4b532': '/portfolioimg.png',
+};
 
 export default function ProjectDetail() {
   const { slug } = useParams();
@@ -63,11 +67,13 @@ export default function ProjectDetail() {
     );
   }
 
+  const imagePath = imageMap[project._id] ?? '/fallback.jpg';
+
   return (
     <section className="grid gap-6 p-6">
       <div>
         <Image
-          src={project.image || '/fallback.jpg'}
+          src={imagePath}
           alt={project.name}
           width={800}
           height={400}
