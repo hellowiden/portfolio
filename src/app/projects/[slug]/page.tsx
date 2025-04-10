@@ -20,6 +20,8 @@ interface Project {
 // Hardcoded image map (project ID → image path)
 const imageMap: Record<string, string> = {
   '67d49ca8be1627682aa4b532': '/portfolioimg.png',
+  '67daa41c0306952978f10bce': '/reseplaneraren.png',
+  '67ed8bc04c6b797a4acca83d': '/bidevelopment.png',
 };
 
 export default function ProjectDetail() {
