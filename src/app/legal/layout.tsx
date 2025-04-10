@@ -2,11 +2,12 @@
 
 'use client';
 
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Button from '@/app/components/Button/Button';
 import { legal } from '../../data/legal';
+import { LegalProvider, useLegalContext } from '@/context/LegalContext';
 
 function NavButton({
   direction,
@@ -49,31 +50,12 @@ function NavButton({
   );
 }
 
-export default function LegalLayout({ children }: { children: ReactNode }) {
-  const [activeIndex, setActiveIndex] = useState(0);
+function LegalLayoutContent({ children }: { children: ReactNode }) {
+  const { activeIndex, setActiveIndex } = useLegalContext();
   const sectionIds = legal.map((s) => s.id);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.find((entry) => entry.isIntersecting);
-        if (visible) {
-          const index = sectionIds.indexOf(visible.target.id);
-          if (index !== -1) setActiveIndex(index);
-        }
-      },
-      { rootMargin: '-50% 0px -50% 0px', threshold: 0.1 }
-    );
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-
-    return () => observer.disconnect();
-  }, [sectionIds]);
-
   const scrollTo = (index: number) => {
+    setActiveIndex(index);
     const id = sectionIds[index];
     const el = document.getElementById(id);
     if (el) {
@@ -103,5 +85,13 @@ export default function LegalLayout({ children }: { children: ReactNode }) {
 
       <main className="flex-grow p-6">{children}</main>
     </div>
+  );
+}
+
+export default function LegalLayout({ children }: { children: ReactNode }) {
+  return (
+    <LegalProvider>
+      <LegalLayoutContent>{children}</LegalLayoutContent>
+    </LegalProvider>
   );
 }
