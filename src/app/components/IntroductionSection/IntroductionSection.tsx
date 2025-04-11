@@ -78,11 +78,11 @@ function ContentRow({
 }: ContentProps) {
   return (
     <div
-      className="z-10 row-start-2 col-start-1 grid grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-6 
-      p-6 backdrop-blur-md bg-primary-50/85 dark:bg-secondary-800/85"
+      className="z-10 row-start-2 col-start-1 grid grid-cols-1 sm:grid-cols-[auto_1fr_auto] grid-rows-[auto_auto] gap-6 
+      px-4 py-6 sm:p-6 backdrop-blur-md bg-primary-50/85 dark:bg-secondary-800/85"
     >
-      {/* Profile Block (Grid-based) */}
-      <div className="grid grid-cols-[auto_1fr] gap-3 items-center col-span-2">
+      {/* Profile Block */}
+      <div className="grid grid-cols-[auto_1fr] gap-3 items-center col-span-1 sm:col-span-2">
         <Image
           src="/MW.png"
           alt="Profile Image"
@@ -121,7 +121,7 @@ function ContentRow({
         aria-label="About me"
         variant="ghost"
         size="sm"
-        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm gap-2"
+        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm gap-2 justify-self-start sm:justify-self-end"
       >
         <motion.div
           key={isHovered ? 'hover' : 'about'}
@@ -136,10 +136,10 @@ function ContentRow({
       </Button>
 
       {/* Headline + Subtext */}
-      <div className="grid grid-rows-[auto_auto] gap-1 col-span-3">
+      <div className="grid grid-rows-[auto_auto] gap-1 col-span-1 sm:col-span-3">
         <motion.h2
           key={current.heading}
-          className="text-3xl font-bold"
+          className="text-2xl sm:text-3xl font-bold"
           initial={{ x: '-100%', opacity: 0 }}
           animate={{ x: '0%', opacity: 1 }}
           exit={{ x: '100%', opacity: 0 }}
@@ -150,7 +150,7 @@ function ContentRow({
 
         <motion.p
           key={`subtext-${current.subtext}`}
-          className="opacity-80 tracking-wide max-w-[900px]"
+          className="opacity-80 tracking-wide max-w-prose"
           initial={{ x: '-100%', opacity: 0 }}
           animate={{ x: '0%', opacity: 1 }}
           exit={{ x: '100%', opacity: 0 }}
