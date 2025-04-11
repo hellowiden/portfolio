@@ -1,5 +1,7 @@
 //src/app/dashboard/messages/page.tsx
 
+// src/app/dashboard/messages/page.tsx
+
 'use client';
 
 import { useEffect, useState, useCallback } from 'react';
@@ -50,13 +52,10 @@ function MessageCard({
     onDelete(msg._id);
   };
 
+  const textBlockClass = 'text-sm opacity-80 tracking-wide leading-snug';
+
   return (
-    <section
-      role="button"
-      tabIndex={0}
-      onClick={() => {}}
-      className="grid gap-3 p-6 w-full h-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-pointer hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow"
-    >
+    <section className="grid gap-3 p-6 w-full h-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-pointer hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow">
       <div
         className={`h-2 w-full rounded ${getPriorityColor(
           msg.reason,
@@ -76,11 +75,11 @@ function MessageCard({
         </Button>
       </div>
 
-      <p className="text-sm opacity-80 tracking-wide leading-snug">
+      <p className={textBlockClass}>
         <strong>From:</strong> {msg.userName} ({msg.userEmail})
       </p>
 
-      <p className="text-sm opacity-80 tracking-wide leading-snug">
+      <p className={textBlockClass}>
         <strong>Message:</strong> {msg.message}
       </p>
 
@@ -96,7 +95,7 @@ function MessageCard({
       )}
 
       {msg.budget && (
-        <p className="text-sm opacity-80 tracking-wide leading-snug">
+        <p className={textBlockClass}>
           <strong>Budget:</strong> {msg.budget}
         </p>
       )}
@@ -129,6 +128,7 @@ export default function Messages() {
       );
 
       setAllMessages(sorted);
+      setFilteredMessages(sorted);
     } catch (error) {
       if (error instanceof Error && error.name !== 'AbortError') {
         console.error('Error fetching messages:', error);
@@ -144,10 +144,6 @@ export default function Messages() {
     return () => abortController.abort();
   }, [fetchMessages]);
 
-  useEffect(() => {
-    setFilteredMessages(allMessages);
-  }, [allMessages]);
-
   const handleDeleteMessage = async (messageId: string) => {
     if (!confirm('Are you sure you want to delete this message?')) return;
     try {
@@ -156,6 +152,9 @@ export default function Messages() {
       });
       if (!res.ok) throw new Error('Failed to delete message');
       setAllMessages((prev) => prev.filter((msg) => msg._id !== messageId));
+      setFilteredMessages((prev) =>
+        prev.filter((msg) => msg._id !== messageId)
+      );
     } catch (error) {
       console.error('Error deleting message:', error);
     }
