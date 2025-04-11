@@ -93,9 +93,10 @@ export default function Profile() {
 
   return (
     <>
-      <section className="grid gap-6 p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow">
-        <div className="grid gap-4 grid-cols-[auto_1fr_auto] items-start">
+      <section className="grid gap-6 p-4 sm:p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow">
+        <div className="grid gap-4 grid-cols-1 sm:grid-cols-[auto_1fr_auto] items-start">
           <ProfileAvatar name={session.user.name} />
+
           <div className="grid gap-1">
             <h2 className="text-lg font-bold tracking-tight">
               {session.user.name}
@@ -113,7 +114,7 @@ export default function Profile() {
             </p>
           </div>
 
-          <div className="grid grid-flow-col auto-cols-max gap-2 text-sm">
+          <div className="flex flex-col sm:flex-row gap-2 text-sm sm:justify-end">
             <Button
               variant="ghost"
               size="sm"
@@ -129,7 +130,7 @@ export default function Profile() {
               disabled={loading}
               className="inline-flex items-center gap-1"
             >
-              <Trash2 size={14} />{' '}
+              <Trash2 size={14} />
               {loading ? 'Processing...' : 'Delete account'}
             </Button>
           </div>
@@ -160,13 +161,13 @@ export default function Profile() {
             {messages.map((msg) => (
               <li
                 key={msg._id}
-                className="grid gap-3 p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-default hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow"
+                className="grid gap-3 p-4 sm:p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-default hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow"
               >
-                <div className="grid grid-cols-[1fr_auto] items-start gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] items-start gap-2">
                   <h4 className="text-lg font-bold tracking-tight">
                     {msg.reason || 'Message'}
                   </h4>
-                  <div className="flex justify-end gap-2 mt-2">
+                  <div className="flex justify-start sm:justify-end gap-2 mt-2">
                     <Button
                       size="sm"
                       variant="ghost"
