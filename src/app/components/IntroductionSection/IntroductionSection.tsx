@@ -121,7 +121,7 @@ function ContentRow({
         aria-label="About me"
         variant="ghost"
         size="sm"
-        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm gap-2 justify-self-start sm:justify-self-end"
+        className="grid grid-cols-[auto_1fr] items-center p-2 text-sm gap-2 justify-self-start sm:justify-self-end focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded"
       >
         <motion.div
           key={isHovered ? 'hover' : 'about'}
