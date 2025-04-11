@@ -1,4 +1,4 @@
-//src/app/dashboard/users/page.tsx
+// src/app/dashboard/users/page.tsx
 
 'use client';
 
@@ -21,21 +21,18 @@ interface User {
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([]);
-  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [modalState, setModalState] = useState<{
-    isOpen: boolean;
-    user: User | null;
-  }>({ isOpen: false, user: null });
-
-  const [addUserModalState, setAddUserModalState] = useState(false);
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
+  const [editModalUser, setEditModalUser] = useState<User | null>(null);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
 
   const fetchUsers = useCallback(async () => {
     try {
-      const response = await fetch('/api/users');
-      if (!response.ok) throw new Error('Failed to fetch users');
-      const { users } = await response.json();
+      const res = await fetch('/api/users');
+      if (!res.ok) throw new Error('Failed to fetch users');
+      const { users } = await res.json();
       setUsers(users);
+      setFilteredUsers(users);
     } catch (error) {
       console.error(error);
     }
@@ -45,21 +42,14 @@ export default function UsersPage() {
     fetchUsers();
   }, [fetchUsers]);
 
-  useEffect(() => {
-    setFilteredUsers(users);
-  }, [users]);
-
-  const handleEdit = (user: User) => setModalState({ isOpen: true, user });
-  const handleCloseModal = () => setModalState({ isOpen: false, user: null });
-
   const handleDelete = async (userId: string) => {
     if (!confirm('Are you sure you want to delete this user?')) return;
     try {
-      const response = await fetch(`/api/users/${userId}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) throw new Error('Failed to delete user');
-      setUsers((prevUsers) => prevUsers.filter((user) => user._id !== userId));
+      const res = await fetch(`/api/users/${userId}`, { method: 'DELETE' });
+      if (!res.ok) throw new Error('Failed to delete user');
+      const updated = users.filter((user) => user._id !== userId);
+      setUsers(updated);
+      setFilteredUsers(updated);
     } catch (error) {
       console.error(error);
     }
@@ -72,37 +62,37 @@ export default function UsersPage() {
     roles: string[];
   }) => {
     try {
-      const response = await fetch('/api/users', {
+      const res = await fetch('/api/users', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(newUser),
       });
-
-      if (!response.ok) {
-        const data = await response.json();
+      if (!res.ok) {
+        const data = await res.json();
         throw new Error(data.error || 'Failed to add user');
       }
-
       await fetchUsers();
-      setAddUserModalState(false);
+      setIsAddModalOpen(false);
     } catch (error) {
       console.error('Error creating user:', error);
     }
   };
 
+  const handleFilter = (filtered: User[]) => setFilteredUsers(filtered);
+
   return (
     <div className="space-y-6 p-4 text-primary-900 dark:text-secondary-50">
       <h1 className="text-2xl font-bold">Manage Users</h1>
 
-      <div className="flex justify-between">
+      <div className="flex justify-between items-center">
         <SearchInput
           value={searchQuery}
           onChange={setSearchQuery}
           data={users}
-          onFilter={setFilteredUsers}
+          onFilter={handleFilter}
         />
         <Button
-          onClick={() => setAddUserModalState(true)}
+          onClick={() => setIsAddModalOpen(true)}
           variant="secondary"
           size="sm"
         >
@@ -114,31 +104,22 @@ export default function UsersPage() {
         <table className="w-full border-collapse">
           <thead className="bg-primary-200 text-primary-900 dark:bg-secondary-700 dark:text-secondary-50">
             <tr className="text-left">
-              <th className="border border-primary-200 dark:border-secondary-700 p-3">
-                Name
-              </th>
-              <th className="border border-primary-200 dark:border-secondary-700 p-3">
-                Email
-              </th>
-              <th className="border border-primary-200 dark:border-secondary-700 p-3">
-                Roles
-              </th>
-              <th className="border border-primary-200 dark:border-secondary-700 p-3">
-                Password
-              </th>
-              <th className="border border-primary-200 dark:border-secondary-700 p-3">
-                Created At
-              </th>
-              <th className="border border-primary-200 dark:border-secondary-700 p-3">
-                Updated At
-              </th>
-              <th className="border border-primary-200 dark:border-secondary-700 p-3">
-                Status
-              </th>
-
-              <th className="border border-primary-200 dark:border-secondary-700 p-3 text-center">
-                Actions
-              </th>
+              {[
+                'Name',
+                'Email',
+                'Roles',
+                'Created At',
+                'Updated At',
+                'Status',
+                'Actions',
+              ].map((header) => (
+                <th
+                  key={header}
+                  className="border border-primary-200 dark:border-secondary-700 p-3"
+                >
+                  {header}
+                </th>
+              ))}
             </tr>
           </thead>
           <tbody className="dark:bg-secondary-800">
@@ -161,9 +142,6 @@ export default function UsersPage() {
                   {user.roles.join(', ')}
                 </td>
                 <td className="border border-primary-200 dark:border-secondary-700 p-3">
-                  ********
-                </td>
-                <td className="border border-primary-200 dark:border-secondary-700 p-3">
                   {new Date(user.createdAt).toLocaleString()}
                 </td>
                 <td className="border border-primary-200 dark:border-secondary-700 p-3">
@@ -178,10 +156,9 @@ export default function UsersPage() {
                     {user.isOnline ? 'Online' : 'Offline'}
                   </span>
                 </td>
-
                 <td className="grid gap-2 border border-primary-200 dark:border-secondary-700 p-3 text-center">
                   <Button
-                    onClick={() => handleEdit(user)}
+                    onClick={() => setEditModalUser(user)}
                     variant="ghost"
                     size="sm"
                     className="text-primary-900 hover:text-primary-700 dark:text-secondary-50 dark:hover:text-secondary-200"
@@ -202,19 +179,19 @@ export default function UsersPage() {
         </table>
       </div>
 
-      {modalState.isOpen && modalState.user && (
+      {editModalUser && (
         <EditUserModal
-          user={modalState.user}
-          isOpen={modalState.isOpen}
-          onClose={handleCloseModal}
+          user={editModalUser}
+          isOpen={!!editModalUser}
+          onClose={() => setEditModalUser(null)}
           onSave={fetchUsers}
         />
       )}
 
-      {addUserModalState && (
+      {isAddModalOpen && (
         <AddUserModal
-          isOpen={addUserModalState}
-          onClose={() => setAddUserModalState(false)}
+          isOpen={isAddModalOpen}
+          onClose={() => setIsAddModalOpen(false)}
           onSave={handleAddUser}
         />
       )}
