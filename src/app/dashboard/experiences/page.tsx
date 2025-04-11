@@ -17,18 +17,24 @@ interface Experience {
   type: 'work' | 'education';
 }
 
+const emptyExperience: Partial<Experience> = {
+  title: '',
+  location: '',
+  date: '',
+  description: '',
+  image: '',
+  tags: [],
+  type: 'work',
+};
+
 export default function ExperiencesDashboard() {
   const [experiences, setExperiences] = useState<Experience[]>([]);
+  const [filteredExperiences, setFilteredExperiences] = useState<Experience[]>(
+    []
+  );
   const [searchQuery, setSearchQuery] = useState('');
-  const [formData, setFormData] = useState<Partial<Experience>>({
-    title: '',
-    location: '',
-    date: '',
-    description: '',
-    image: '',
-    tags: [],
-    type: 'work',
-  });
+  const [formData, setFormData] =
+    useState<Partial<Experience>>(emptyExperience);
   const [editingExpId, setEditingExpId] = useState<string | null>(null);
 
   const fetchExperiences = useCallback(async () => {
@@ -37,6 +43,7 @@ export default function ExperiencesDashboard() {
       if (!res.ok) throw new Error('Error fetching experiences');
       const data = await res.json();
       setExperiences(data.experiences);
+      setFilteredExperiences(data.experiences);
     } catch (err) {
       console.error(err);
     }
@@ -47,15 +54,7 @@ export default function ExperiencesDashboard() {
   }, [fetchExperiences]);
 
   const resetForm = () => {
-    setFormData({
-      title: '',
-      location: '',
-      date: '',
-      description: '',
-      image: '',
-      tags: [],
-      type: 'work',
-    });
+    setFormData(emptyExperience);
     setEditingExpId(null);
   };
 
@@ -88,9 +87,7 @@ export default function ExperiencesDashboard() {
           body: JSON.stringify(formData),
         }
       );
-
       if (!res.ok) throw new Error('Error saving experience');
-
       resetForm();
       await fetchExperiences();
     } catch (err) {
@@ -114,18 +111,10 @@ export default function ExperiencesDashboard() {
     }
   };
 
-  const getValue = (key: keyof Experience): string => {
-    const val = formData[key];
-    if (Array.isArray(val)) return val.join(', ');
-    return val ?? '';
-  };
-
   const inputClass =
     'border border-primary-200 bg-primary-50 text-primary-900 rounded p-1 w-full dark:border-secondary-700 dark:bg-secondary-900 dark:text-secondary-50';
 
-  const filtered = experiences.filter((exp) =>
-    exp.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const cellClass = 'p-2 border border-primary-200 dark:border-secondary-700';
 
   return (
     <div className="grid gap-6 p-4 text-primary-900 dark:text-secondary-50">
@@ -135,7 +124,7 @@ export default function ExperiencesDashboard() {
         value={searchQuery}
         onChange={setSearchQuery}
         data={experiences}
-        onFilter={() => {}}
+        onFilter={setFilteredExperiences}
       />
 
       <form
@@ -157,7 +146,11 @@ export default function ExperiencesDashboard() {
               className={inputClass}
               type="text"
               name={name}
-              value={getValue(name)}
+              value={
+                Array.isArray(formData[name])
+                  ? (formData[name] as string[]).join(', ')
+                  : formData[name] ?? ''
+              }
               onChange={handleChange}
             />
           </label>
@@ -196,31 +189,22 @@ export default function ExperiencesDashboard() {
         <thead className="bg-primary-200 dark:bg-secondary-700 text-primary-900 dark:text-secondary-50">
           <tr>
             {['Title', 'Location', 'Date', 'Actions'].map((col) => (
-              <th
-                key={col}
-                className="p-2 border border-primary-200 dark:border-secondary-700"
-              >
+              <th key={col} className={cellClass}>
                 {col}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {filtered.map((exp) => (
+          {filteredExperiences.map((exp) => (
             <tr
               key={exp._id}
               className="border-b border-primary-200 dark:border-secondary-700"
             >
-              <td className="p-2 border border-primary-200 dark:border-secondary-700">
-                {exp.title}
-              </td>
-              <td className="p-2 border border-primary-200 dark:border-secondary-700">
-                {exp.location}
-              </td>
-              <td className="p-2 border border-primary-200 dark:border-secondary-700">
-                {exp.date}
-              </td>
-              <td className="p-2 border border-primary-200 dark:border-secondary-700">
+              <td className={cellClass}>{exp.title}</td>
+              <td className={cellClass}>{exp.location}</td>
+              <td className={cellClass}>{exp.date}</td>
+              <td className={cellClass}>
                 <div className="grid grid-cols-2 gap-2">
                   <Button
                     onClick={() => handleEdit(exp)}
