@@ -16,8 +16,8 @@ export default function Footer() {
             Portfolio Techstack
           </h4>
           <p className="text-sm text-primary-900 dark:text-primary-200">
-            Proudly built with Next.js TypeScript, Tailwind CSS and Framer ·
-            Made by Marcus Widén · Hosted on Vercel
+            Built by Marcus Widén in under 3 weeks using Next.js, TypeScript,
+            Tailwind CSS, and Framer Motion · Deployed on Vercel
           </p>
         </section>
 
