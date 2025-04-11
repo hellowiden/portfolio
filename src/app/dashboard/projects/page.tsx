@@ -17,18 +17,21 @@ interface Project {
   tags?: string[];
 }
 
+const emptyProject: Partial<Project> = {
+  name: '',
+  link: '',
+  createdAt: '',
+  completedAt: '',
+  description: '',
+  image: '',
+  tags: [],
+};
+
 export default function ProjectsDashboard() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [filteredProjects, setFilteredProjects] = useState<Project[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [formData, setFormData] = useState<Partial<Project>>({
-    name: '',
-    link: '',
-    createdAt: '',
-    completedAt: '',
-    description: '',
-    image: '',
-    tags: [],
-  });
+  const [formData, setFormData] = useState<Partial<Project>>(emptyProject);
   const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
 
   const fetchProjects = useCallback(async () => {
@@ -41,6 +44,7 @@ export default function ProjectsDashboard() {
           new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
       );
       setProjects(sorted);
+      setFilteredProjects(sorted);
     } catch (err) {
       console.error(err);
     }
@@ -51,15 +55,7 @@ export default function ProjectsDashboard() {
   }, [fetchProjects]);
 
   const resetForm = () => {
-    setFormData({
-      name: '',
-      link: '',
-      createdAt: '',
-      completedAt: '',
-      description: '',
-      image: '',
-      tags: [],
-    });
+    setFormData(emptyProject);
     setEditingProjectId(null);
   };
 
@@ -119,18 +115,11 @@ export default function ProjectsDashboard() {
     }
   };
 
-  const getValue = (key: keyof Project): string => {
-    const val = formData[key];
-    if (Array.isArray(val)) return val.join(', ');
-    return val ?? '';
-  };
-
   const inputClass =
     'border border-primary-200 rounded p-1 w-full bg-primary-50 text-primary-900 dark:bg-secondary-900 dark:text-secondary-50 dark:border-secondary-700';
 
-  const filtered = projects.filter((p) =>
-    p.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const tableCellClass =
+    'p-2 border border-primary-200 dark:border-secondary-700';
 
   return (
     <div className="grid gap-6 p-4 text-primary-900 dark:text-secondary-50">
@@ -140,7 +129,7 @@ export default function ProjectsDashboard() {
         value={searchQuery}
         onChange={setSearchQuery}
         data={projects}
-        onFilter={() => {}}
+        onFilter={setFilteredProjects}
       />
 
       <form
@@ -163,7 +152,11 @@ export default function ProjectsDashboard() {
               className={inputClass}
               type="text"
               name={name}
-              value={getValue(name)}
+              value={
+                Array.isArray(formData[name])
+                  ? (formData[name] as string[]).join(', ')
+                  : formData[name] ?? ''
+              }
               onChange={handleChange}
             />
           </label>
@@ -190,10 +183,7 @@ export default function ProjectsDashboard() {
           <tr>
             {['Name', 'Link', 'Created At', 'Completed At', 'Actions'].map(
               (col) => (
-                <th
-                  key={col}
-                  className="p-2 border border-primary-200 dark:border-secondary-700"
-                >
+                <th key={col} className={tableCellClass}>
                   {col}
                 </th>
               )
@@ -201,21 +191,15 @@ export default function ProjectsDashboard() {
           </tr>
         </thead>
         <tbody>
-          {filtered.map((project) => (
+          {filteredProjects.map((project) => (
             <tr key={project._id} className="border-b">
-              <td className="p-2 border border-primary-200 dark:border-secondary-700">
-                {project.name}
-              </td>
-              <td className="p-2 border border-primary-200 dark:border-secondary-700">
-                {project.link}
-              </td>
-              <td className="p-2 border border-primary-200 dark:border-secondary-700">
-                {project.createdAt}
-              </td>
-              <td className="p-2 border border-primary-200 dark:border-secondary-700">
+              <td className={tableCellClass}>{project.name}</td>
+              <td className={tableCellClass}>{project.link}</td>
+              <td className={tableCellClass}>{project.createdAt}</td>
+              <td className={tableCellClass}>
                 {project.completedAt || 'Ongoing'}
               </td>
-              <td className="p-2 border border-primary-200 dark:border-secondary-700 flex gap-2">
+              <td className={`${tableCellClass} flex gap-2`}>
                 <Button
                   onClick={() => handleEdit(project)}
                   variant="ghost"
