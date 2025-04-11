@@ -66,16 +66,14 @@ function MessageCard({
 
       <div className="grid grid-cols-[1fr_auto] items-start gap-2">
         <h2 className="text-lg font-bold tracking-tight">{msg.reason}</h2>
-        <div className="md:hidden">
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={handleDelete}
-            className="p-2 text-sm"
-          >
-            Delete
-          </Button>
-        </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleDelete}
+          className="p-2 text-sm"
+        >
+          Delete
+        </Button>
       </div>
 
       <p className="text-sm opacity-80 tracking-wide leading-snug">
