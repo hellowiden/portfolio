@@ -18,6 +18,8 @@ interface Message {
   budget?: string;
 }
 
+// === Utility ===
+
 const getPriorityColor = (reason: string, budget?: string) => {
   const lowerReason = reason.toLowerCase();
   if (lowerReason.includes('issue')) return 'bg-red-600';
@@ -33,6 +35,82 @@ const getPriorityColor = (reason: string, budget?: string) => {
   }
   return 'bg-green-500';
 };
+
+// === Message Card Component ===
+
+function MessageCard({
+  msg,
+  onDelete,
+}: {
+  msg: Message;
+  onDelete: (id: string) => void;
+}) {
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete(msg._id);
+  };
+
+  return (
+    <section
+      role="button"
+      tabIndex={0}
+      onClick={() => {}}
+      className="grid gap-3 p-6 w-full h-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-pointer hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow"
+    >
+      <div
+        className={`h-2 w-full rounded ${getPriorityColor(
+          msg.reason,
+          msg.budget
+        )}`}
+      />
+
+      <div className="grid grid-cols-[1fr_auto] items-start gap-2">
+        <h2 className="text-lg font-bold tracking-tight">{msg.reason}</h2>
+        <div className="md:hidden">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleDelete}
+            className="p-2 text-sm"
+          >
+            Delete
+          </Button>
+        </div>
+      </div>
+
+      <p className="text-sm opacity-80 tracking-wide leading-snug">
+        <strong>From:</strong> {msg.userName} ({msg.userEmail})
+      </p>
+
+      <p className="text-sm opacity-80 tracking-wide leading-snug">
+        <strong>Message:</strong> {msg.message}
+      </p>
+
+      {msg.message.startsWith('http') && (
+        <a
+          href={msg.message}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-primary-700 dark:text-secondary-200 underline"
+        >
+          View Attachment
+        </a>
+      )}
+
+      {msg.budget && (
+        <p className="text-sm opacity-80 tracking-wide leading-snug">
+          <strong>Budget:</strong> {msg.budget}
+        </p>
+      )}
+
+      <p className="text-xs opacity-60">
+        {new Date(msg.createdAt).toLocaleString()}
+      </p>
+    </section>
+  );
+}
+
+// === Main Page Component ===
 
 export default function Messages() {
   const [allMessages, setAllMessages] = useState<Message[]>([]);
@@ -100,67 +178,7 @@ export default function Messages() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredMessages.map((msg) => (
-          <section
-            key={msg._id}
-            onClick={() => {}}
-            role="button"
-            tabIndex={0}
-            className="grid gap-3 p-6 w-full h-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-pointer hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow"
-          >
-            <div
-              className={`h-2 w-full rounded ${getPriorityColor(
-                msg.reason,
-                msg.budget
-              )}`}
-            />
-
-            <div className="grid grid-cols-[1fr_auto] items-start gap-2">
-              <h2 className="text-lg font-bold tracking-tight">{msg.reason}</h2>
-
-              <div className="md:hidden">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeleteMessage(msg._id);
-                  }}
-                  className="p-2 text-sm"
-                >
-                  Delete
-                </Button>
-              </div>
-            </div>
-
-            <p className="text-sm opacity-80 tracking-wide leading-snug">
-              <strong>From:</strong> {msg.userName} ({msg.userEmail})
-            </p>
-
-            <p className="text-sm opacity-80 tracking-wide leading-snug">
-              <strong>Message:</strong> {msg.message}
-            </p>
-
-            {msg.message.startsWith('http') && (
-              <a
-                href={msg.message}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary-700 dark:text-secondary-200 underline"
-              >
-                View Attachment
-              </a>
-            )}
-
-            {msg.budget && (
-              <p className="text-sm opacity-80 tracking-wide leading-snug">
-                <strong>Budget:</strong> {msg.budget}
-              </p>
-            )}
-
-            <p className="text-xs opacity-60">
-              {new Date(msg.createdAt).toLocaleString()}
-            </p>
-          </section>
+          <MessageCard key={msg._id} msg={msg} onDelete={handleDeleteMessage} />
         ))}
       </div>
     </div>
