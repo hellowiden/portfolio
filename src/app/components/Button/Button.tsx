@@ -34,11 +34,15 @@ export default function Button({
   className,
   ...props
 }: ButtonProps) {
-  const base =
-    'rounded font-medium transition focus:outline-none focus:ring-0 disabled:opacity-50';
+  const base = `
+    rounded font-medium transition
+    focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500
+    disabled:opacity-50 disabled:cursor-not-allowed
+  `;
 
   return (
     <button
+      type="button"
       className={`${variantMap[variant]} ${sizeMap[size]} ${base} ${
         className ?? ''
       }`}
