@@ -98,65 +98,71 @@ export default function Messages() {
         onFilter={setFilteredMessages}
       />
 
-      {Object.entries(
-        filteredMessages.reduce((acc: Record<string, Message[]>, msg) => {
-          if (!acc[msg.reason]) acc[msg.reason] = [];
-          acc[msg.reason].push(msg);
-          return acc;
-        }, {})
-      ).map(([category, msgs]) => (
-        <div key={category} className="gap-6 grid">
-          <h2 className="text-xl font-semibold text-primary-800 dark:text-secondary-200">
-            {category}
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {msgs.map((msg) => (
-              <div
-                key={msg._id}
-                className="border border-primary-200 dark:border-secondary-700 p-5 rounded transition-all bg-primary-100 dark:bg-secondary-900 grid gap-4"
-              >
-                <hr
-                  className={`h-3 rounded ${getPriorityColor(
-                    msg.reason,
-                    msg.budget
-                  )}`}
-                />
-                <p className="text-lg">
-                  <strong>From:</strong> {msg.userName} ({msg.userEmail})
-                </p>
-                <p className="text-lg font-bold">
-                  <strong>Message:</strong> {msg.message}
-                </p>
-                {msg.message.startsWith('http') && (
-                  <a
-                    href={msg.message}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary-700 dark:text-secondary-200 underline"
-                  >
-                    View Attachment
-                  </a>
-                )}
-                {msg.budget && (
-                  <p className="text-lg font-bold">
-                    <strong>Budget:</strong> {msg.budget}
-                  </p>
-                )}
-                <p className="text-sm text-primary-200 dark:text-secondary-300">
-                  {new Date(msg.createdAt).toLocaleString()}
-                </p>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {filteredMessages.map((msg) => (
+          <section
+            key={msg._id}
+            onClick={() => {}}
+            role="button"
+            tabIndex={0}
+            className="grid gap-3 p-6 w-full h-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-pointer hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow"
+          >
+            <div
+              className={`h-2 w-full rounded ${getPriorityColor(
+                msg.reason,
+                msg.budget
+              )}`}
+            />
+
+            <div className="grid grid-cols-[1fr_auto] items-start gap-2">
+              <h2 className="text-lg font-bold tracking-tight">{msg.reason}</h2>
+
+              <div className="md:hidden">
                 <Button
-                  onClick={() => handleDeleteMessage(msg._id)}
-                  variant="danger"
+                  variant="ghost"
                   size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteMessage(msg._id);
+                  }}
+                  className="p-2 text-sm"
                 >
-                  Delete Message
+                  Delete
                 </Button>
               </div>
-            ))}
-          </div>
-        </div>
-      ))}
+            </div>
+
+            <p className="text-sm opacity-80 tracking-wide leading-snug">
+              <strong>From:</strong> {msg.userName} ({msg.userEmail})
+            </p>
+
+            <p className="text-sm opacity-80 tracking-wide leading-snug">
+              <strong>Message:</strong> {msg.message}
+            </p>
+
+            {msg.message.startsWith('http') && (
+              <a
+                href={msg.message}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary-700 dark:text-secondary-200 underline"
+              >
+                View Attachment
+              </a>
+            )}
+
+            {msg.budget && (
+              <p className="text-sm opacity-80 tracking-wide leading-snug">
+                <strong>Budget:</strong> {msg.budget}
+              </p>
+            )}
+
+            <p className="text-xs opacity-60">
+              {new Date(msg.createdAt).toLocaleString()}
+            </p>
+          </section>
+        ))}
+      </div>
     </div>
   );
 }
