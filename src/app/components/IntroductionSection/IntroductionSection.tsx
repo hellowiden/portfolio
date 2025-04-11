@@ -116,8 +116,8 @@ function ContentRow({
       {/* About Me Button */}
       <Button
         onClick={() => router.push('/about')}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onFocus={() => setIsHovered(true)}
+        onBlur={() => setIsHovered(false)}
         aria-label="About me"
         variant="ghost"
         size="sm"
