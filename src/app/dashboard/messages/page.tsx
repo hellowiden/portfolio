@@ -1,5 +1,3 @@
-//src/app/dashboard/messages/page.tsx
-
 // src/app/dashboard/messages/page.tsx
 
 'use client';
