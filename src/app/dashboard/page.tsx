@@ -15,6 +15,15 @@ type StatType = {
   experiences: number;
 };
 
+type Snapshot = {
+  date: string;
+  users: number;
+  onlineUsers: number;
+  messages: number;
+  projects: number;
+  experiences: number;
+};
+
 type TrendType = {
   label: string;
   path: string;
@@ -31,31 +40,77 @@ export default function Dashboard() {
     projects: 0,
     experiences: 0,
   });
+  const [trends, setTrends] = useState<TrendType[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchStats = async () => {
     setLoading(true);
     setError(null);
-    try {
-      const endpoints = ['users', 'messages', 'projects', 'experiences'];
-      const responses = await Promise.all(
-        endpoints.map((endpoint) => fetch(`/api/${endpoint}`))
-      );
 
-      if (responses.some((res) => !res.ok)) {
+    try {
+      const [usersRes, messagesRes, projectsRes, experiencesRes, trendsRes] =
+        await Promise.all([
+          fetch('/api/users'),
+          fetch('/api/messages'),
+          fetch('/api/projects'),
+          fetch('/api/experiences'),
+          fetch('/api/stats'),
+        ]);
+
+      if (
+        !usersRes.ok ||
+        !messagesRes.ok ||
+        !projectsRes.ok ||
+        !experiencesRes.ok ||
+        !trendsRes.ok
+      ) {
         throw new Error('One or more API calls failed');
       }
 
-      const data = await Promise.all(responses.map((res) => res.json()));
+      const [
+        usersData,
+        messagesData,
+        projectsData,
+        experiencesData,
+        trendsData,
+      ] = await Promise.all([
+        usersRes.json(),
+        messagesRes.json(),
+        projectsRes.json(),
+        experiencesRes.json(),
+        trendsRes.json(),
+      ]);
 
       setStats({
-        users: data[0]?.users?.length || 0,
-        onlineUsers: data[0]?.onlineUsers || 0,
-        messages: data[1]?.messages?.length || 0,
-        projects: data[2]?.projects?.length || 0,
-        experiences: data[3]?.experiences?.length || 0,
+        users: usersData.users?.length || 0,
+        onlineUsers: usersData.onlineUsers || 0,
+        messages: messagesData.messages?.length || 0,
+        projects: projectsData.projects?.length || 0,
+        experiences: experiencesData.experiences?.length || 0,
       });
+
+      const trendStats: Snapshot[] = trendsData.stats.reverse(); // Oldest to newest
+      const keys: (keyof StatType)[] = [
+        'users',
+        'messages',
+        'projects',
+        'experiences',
+      ];
+
+      const trendSet: TrendType[] = keys.map((key) => {
+        const label = capitalize(key);
+        const path = `/${key}`;
+        const data = trendStats.map((snap: Snapshot) => ({
+          value: snap[key] ?? 0,
+        }));
+        const current = data[data.length - 1]?.value ?? 0;
+        const previous = data[data.length - 2]?.value ?? 0;
+
+        return { label, path, current, previous, data };
+      });
+
+      setTrends(trendSet);
     } catch (err) {
       console.error('Dashboard fetch error:', err);
       setError('Failed to fetch stats. Try again later.');
@@ -67,21 +122,6 @@ export default function Dashboard() {
   useEffect(() => {
     fetchStats();
   }, []);
-
-  const trendMock = (key: keyof StatType, current: number): TrendType => {
-    const previous = Math.max(0, current - Math.floor(current * 0.25));
-    const path = key === 'users' ? '' : `/${key}`;
-    const label = key === 'users' ? 'Users' : capitalize(key);
-    const data = Array.from({ length: 7 }).map(() => ({
-      value: Math.floor(current * (0.8 + Math.random() * 0.4)),
-    }));
-
-    return { label, path, current, previous, data };
-  };
-
-  const trends = Object.entries(stats)
-    .filter(([key]) => key !== 'onlineUsers')
-    .map(([key, value]) => trendMock(key as keyof StatType, value));
 
   return (
     <div className="space-y-6">
