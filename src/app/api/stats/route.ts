@@ -7,11 +7,12 @@ import Project from '@/models/project';
 import Experience from '@/models/experience';
 import StatSnapshot from '@/models/statSnapshot';
 
-export async function GET(): Promise<NextResponse> {
+// GET: Return live stats and recent trend snapshots
+export async function GET() {
   try {
     await connectToDatabase();
 
-    // Current live stats
+    // Live stats
     const [users, onlineUsers, messages, projects, experiences] =
       await Promise.all([
         User.countDocuments(),
@@ -21,7 +22,7 @@ export async function GET(): Promise<NextResponse> {
         Experience.countDocuments(),
       ]);
 
-    // Trend snapshots for graphing
+    // Latest 7 trend snapshots for graphs
     const snapshots = await StatSnapshot.find().sort({ date: -1 }).limit(7);
 
     return NextResponse.json(
@@ -33,12 +34,52 @@ export async function GET(): Promise<NextResponse> {
           projects,
           experiences,
         },
-        trends: snapshots.reverse(),
+        trends: snapshots.reverse(), // oldest first
       },
       { status: 200 }
     );
   } catch (error) {
     console.error('Error fetching live stats and trends:', error);
+    return NextResponse.json({ error: 'Server error' }, { status: 500 });
+  }
+}
+
+// POST: Create daily snapshot if it doesn't exist yet
+export async function POST() {
+  try {
+    await connectToDatabase();
+
+    const [users, onlineUsers, messages, projects, experiences] =
+      await Promise.all([
+        User.countDocuments(),
+        User.countDocuments({ isOnline: true }),
+        Message.countDocuments(),
+        Project.countDocuments(),
+        Experience.countDocuments(),
+      ]);
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const existing = await StatSnapshot.findOne({ date: today });
+    if (existing) {
+      return NextResponse.json({
+        message: 'Snapshot already exists for today',
+      });
+    }
+
+    const snapshot = await StatSnapshot.create({
+      date: today,
+      users,
+      onlineUsers,
+      messages,
+      projects,
+      experiences,
+    });
+
+    return NextResponse.json({ message: 'Snapshot created', snapshot });
+  } catch (error) {
+    console.error('Error creating snapshot:', error);
     return NextResponse.json({ error: 'Server error' }, { status: 500 });
   }
 }

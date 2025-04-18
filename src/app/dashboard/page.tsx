@@ -49,48 +49,21 @@ export default function Dashboard() {
     setError(null);
 
     try {
-      const [usersRes, messagesRes, projectsRes, experiencesRes, trendsRes] =
-        await Promise.all([
-          fetch('/api/users'),
-          fetch('/api/messages'),
-          fetch('/api/projects'),
-          fetch('/api/experiences'),
-          fetch('/api/stats'),
-        ]);
+      const res = await fetch('/api/stats');
+      if (!res.ok) throw new Error('Failed to fetch dashboard data');
+      const data = await res.json();
 
-      if (
-        !usersRes.ok ||
-        !messagesRes.ok ||
-        !projectsRes.ok ||
-        !experiencesRes.ok ||
-        !trendsRes.ok
-      ) {
-        throw new Error('One or more API calls failed');
-      }
-
-      const [
-        usersData,
-        messagesData,
-        projectsData,
-        experiencesData,
-        trendsData,
-      ] = await Promise.all([
-        usersRes.json(),
-        messagesRes.json(),
-        projectsRes.json(),
-        experiencesRes.json(),
-        trendsRes.json(),
-      ]);
+      const live = data.liveStats;
+      const trendStats: Snapshot[] = data.trends;
 
       setStats({
-        users: usersData.users?.length || 0,
-        onlineUsers: usersData.onlineUsers || 0,
-        messages: messagesData.messages?.length || 0,
-        projects: projectsData.projects?.length || 0,
-        experiences: experiencesData.experiences?.length || 0,
+        users: live.users,
+        onlineUsers: live.onlineUsers,
+        messages: live.messages,
+        projects: live.projects,
+        experiences: live.experiences,
       });
 
-      const trendStats: Snapshot[] = trendsData.stats.reverse(); // Oldest to newest
       const keys: (keyof StatType)[] = [
         'users',
         'messages',
@@ -101,9 +74,7 @@ export default function Dashboard() {
       const trendSet: TrendType[] = keys.map((key) => {
         const label = capitalize(key);
         const path = `/${key}`;
-        const data = trendStats.map((snap: Snapshot) => ({
-          value: snap[key] ?? 0,
-        }));
+        const data = trendStats.map((snap) => ({ value: snap[key] ?? 0 }));
         const current = data[data.length - 1]?.value ?? 0;
         const previous = data[data.length - 2]?.value ?? 0;
 
