@@ -2,9 +2,7 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { AreaChart, Area, ResponsiveContainer, Tooltip } from 'recharts';
+import { useState, useEffect } from 'react';
 import Button from '@/app/components/Button/Button';
 
 type StatType = {
@@ -15,23 +13,6 @@ type StatType = {
   experiences: number;
 };
 
-type Snapshot = {
-  date: string;
-  users: number;
-  onlineUsers: number;
-  messages: number;
-  projects: number;
-  experiences: number;
-};
-
-type TrendType = {
-  label: string;
-  path: string;
-  current: number;
-  previous: number;
-  data: { value: number }[];
-};
-
 export default function Dashboard() {
   const [stats, setStats] = useState<StatType>({
     users: 0,
@@ -40,7 +21,6 @@ export default function Dashboard() {
     projects: 0,
     experiences: 0,
   });
-  const [trends, setTrends] = useState<TrendType[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -49,39 +29,24 @@ export default function Dashboard() {
     setError(null);
 
     try {
-      const res = await fetch('/api/stats');
-      if (!res.ok) throw new Error('Failed to fetch dashboard data');
-      const data = await res.json();
+      const endpoints = ['users', 'messages', 'projects', 'experiences'];
+      const responses = await Promise.all(
+        endpoints.map((endpoint) => fetch(`/api/${endpoint}`))
+      );
 
-      const live = data.liveStats;
-      const trendStats: Snapshot[] = data.trends;
+      if (responses.some((res) => !res.ok)) {
+        throw new Error('One or more API calls failed');
+      }
+
+      const data = await Promise.all(responses.map((res) => res.json()));
 
       setStats({
-        users: live.users,
-        onlineUsers: live.onlineUsers,
-        messages: live.messages,
-        projects: live.projects,
-        experiences: live.experiences,
+        users: data[0]?.users?.length || 0,
+        onlineUsers: data[0]?.onlineUsers || 0,
+        messages: data[1]?.messages?.length || 0,
+        projects: data[2]?.projects?.length || 0,
+        experiences: data[3]?.experiences?.length || 0,
       });
-
-      const keys: (keyof StatType)[] = [
-        'users',
-        'messages',
-        'projects',
-        'experiences',
-      ];
-
-      const trendSet: TrendType[] = keys.map((key) => {
-        const label = capitalize(key);
-        const path = `/${key}`;
-        const data = trendStats.map((snap) => ({ value: snap[key] ?? 0 }));
-        const current = data[data.length - 1]?.value ?? 0;
-        const previous = data[data.length - 2]?.value ?? 0;
-
-        return { label, path, current, previous, data };
-      });
-
-      setTrends(trendSet);
     } catch (err) {
       console.error('Dashboard fetch error:', err);
       setError('Failed to fetch stats. Try again later.');
@@ -92,8 +57,6 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchStats();
-    const interval = setInterval(fetchStats, 5000); // auto-refresh every 5s
-    return () => clearInterval(interval);
   }, []);
 
   return (
@@ -102,7 +65,7 @@ export default function Dashboard() {
         <div>
           <h1 className="text-3xl font-bold">Dashboard Overview</h1>
           <p className="text-muted-foreground text-sm">
-            System summary with trends and insights.
+            View system stats and refresh data as needed.
           </p>
         </div>
         <Button onClick={fetchStats} disabled={loading}>
@@ -117,10 +80,11 @@ export default function Dashboard() {
           title="Users Online"
           value={`${stats.onlineUsers}/${stats.users}`}
           subtext="Online / Total"
+          highlight
         />
-        {trends.map((trend) => (
-          <TrendCard key={trend.label} trend={trend} />
-        ))}
+        <StatCard title="Messages" value={stats.messages} />
+        <StatCard title="Projects" value={stats.projects} />
+        <StatCard title="Experiences" value={stats.experiences} />
       </div>
     </div>
   );
@@ -130,61 +94,24 @@ const StatCard = ({
   title,
   value,
   subtext,
+  highlight = false,
 }: {
   title: string;
-  value: string | number;
+  value: number | string;
   subtext?: string;
+  highlight?: boolean;
 }) => (
-  <div className="bg-primary-100 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded-xl p-4 shadow-sm flex flex-col gap-1">
+  <div className="bg-primary-50 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded-xl p-4 shadow-sm flex flex-col gap-1">
     <span className="text-sm font-medium text-muted-foreground">{title}</span>
-    <span className="text-3xl font-bold">{value}</span>
+    <span
+      className={`text-3xl font-bold ${
+        highlight ? 'text-green-600 dark:text-green-400' : ''
+      }`}
+    >
+      {value}
+    </span>
     {subtext && (
       <span className="text-xs text-muted-foreground">{subtext}</span>
     )}
   </div>
 );
-
-const TrendCard = ({ trend }: { trend: TrendType }) => {
-  const diff = trend.current - trend.previous;
-  const percentNum = trend.previous > 0 ? (diff / trend.previous) * 100 : 0;
-  const percentStr = percentNum.toFixed(1);
-  const isPositive = diff >= 0;
-
-  return (
-    <Link href={`/dashboard${trend.path}`}>
-      <div className="cursor-pointer bg-primary-100 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded-xl p-4 shadow-sm hover:shadow-md transition flex flex-col gap-2">
-        <div className="flex justify-between items-center">
-          <div className="text-sm font-medium text-muted-foreground">
-            {trend.label}
-          </div>
-          <div
-            className={`text-sm font-semibold ${
-              isPositive
-                ? 'text-green-600 dark:text-green-400'
-                : 'text-red-600 dark:text-red-400'
-            }`}
-          >
-            {isPositive ? '+' : '-'}
-            {Math.abs(parseFloat(percentStr))}%
-          </div>
-        </div>
-        <div className="text-3xl font-bold">{trend.current}</div>
-        <ResponsiveContainer width="100%" height={40}>
-          <AreaChart data={trend.data}>
-            <Tooltip contentStyle={{ display: 'none' }} />
-            <Area
-              type="monotone"
-              dataKey="value"
-              stroke="currentColor"
-              fill="currentColor"
-              strokeWidth={2}
-              fillOpacity={0.2}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-    </Link>
-  );
-};
-
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
