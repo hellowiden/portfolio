@@ -101,7 +101,7 @@ const StatCard = ({
   subtext?: string;
   highlight?: boolean;
 }) => (
-  <div className="bg-primary-100 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded-xl p-4 shadow-sm flex flex-col gap-1">
+  <div className="bg-primary-50 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded-xl p-4 shadow-sm flex flex-col gap-1">
     <span className="text-sm font-medium text-muted-foreground">{title}</span>
     <span
       className={`text-3xl font-bold ${
