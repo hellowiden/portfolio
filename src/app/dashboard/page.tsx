@@ -34,8 +34,9 @@ export default function Dashboard() {
         endpoints.map((endpoint) => fetch(`/api/${endpoint}`))
       );
 
-      if (responses.some((res) => !res.ok))
+      if (responses.some((res) => !res.ok)) {
         throw new Error('One or more API calls failed');
+      }
 
       const data = await Promise.all(responses.map((res) => res.json()));
 
@@ -59,39 +60,31 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="w-full grid gap-6 bg-primary-50 text-primary-900 dark:bg-secondary-900 dark:text-secondary-50">
-      <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-      <p className="text-lg">Welcome to the admin dashboard.</p>
-
-      <Button
-        variant="primary"
-        size="md"
-        onClick={fetchStats}
-        disabled={loading}
-      >
-        {loading ? 'Refreshing...' : 'Refresh Stats'}
-      </Button>
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <div>
+          <h1 className="text-3xl font-bold">Dashboard Overview</h1>
+          <p className="text-muted-foreground text-sm">
+            View system stats and refresh data as needed.
+          </p>
+        </div>
+        <Button onClick={fetchStats} disabled={loading}>
+          {loading ? 'Refreshing...' : 'Refresh Stats'}
+        </Button>
+      </div>
 
       {error && <p className="text-red-600 dark:text-red-400">{error}</p>}
 
-      {stats.users > 0 && (
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <StatCard
           title="Users Online"
-          value={`${stats.onlineUsers}/${stats.users} online`}
-          isText
+          value={`${stats.onlineUsers}/${stats.users}`}
+          subtext="Online / Total"
+          highlight
         />
-      )}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {Object.entries(stats)
-          .filter(([key]) => key !== 'onlineUsers')
-          .map(([key, value]) => (
-            <StatCard
-              key={key}
-              title={`Total ${capitalize(key)}`}
-              value={value}
-            />
-          ))}
+        <StatCard title="Messages" value={stats.messages} />
+        <StatCard title="Projects" value={stats.projects} />
+        <StatCard title="Experiences" value={stats.experiences} />
       </div>
     </div>
   );
@@ -100,18 +93,25 @@ export default function Dashboard() {
 const StatCard = ({
   title,
   value,
-  isText = false,
+  subtext,
+  highlight = false,
 }: {
   title: string;
   value: number | string;
-  isText?: boolean;
+  subtext?: string;
+  highlight?: boolean;
 }) => (
-  <div className="bg-primary-100 dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 p-6 rounded grid grid-rows-2 gap-2 place-items-center">
-    <h2 className="text-md font-semibold">{title}</h2>
-    <p className={`text-4xl font-bold ${isText ? 'text-center' : ''}`}>
+  <div className="bg-primary-100 dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded-xl p-4 shadow-sm flex flex-col gap-1">
+    <span className="text-sm font-medium text-muted-foreground">{title}</span>
+    <span
+      className={`text-3xl font-bold ${
+        highlight ? 'text-green-600 dark:text-green-400' : ''
+      }`}
+    >
       {value}
-    </p>
+    </span>
+    {subtext && (
+      <span className="text-xs text-muted-foreground">{subtext}</span>
+    )}
   </div>
 );
-
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
