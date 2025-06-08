@@ -11,15 +11,6 @@ export default function Footer() {
 
   return (
     <footer className="w-full relative overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-50 via-primary-100 to-primary-200 dark:from-secondary-900 dark:via-secondary-800 dark:to-secondary-700 opacity-90" />
-
-      {/* Animated Background Pattern */}
-      <div className="absolute inset-0 opacity-10 dark:opacity-5">
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary-500 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-secondary-500 rounded-full blur-3xl animate-pulse delay-1000" />
-      </div>
-
       {/* Main Content */}
       <div className="relative z-10 backdrop-blur-sm border-t border-primary-300/50 dark:border-secondary-600/50">
         {/* Toggle Button Section */}
