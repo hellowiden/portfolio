@@ -18,24 +18,6 @@ interface Message {
   budget?: string;
 }
 
-// === Utility ===
-
-const getPriorityColor = (reason: string, budget?: string) => {
-  const lowerReason = reason.toLowerCase();
-  if (lowerReason.includes('issue')) return 'bg-red-600';
-  if (lowerReason.includes('job') && budget) {
-    const budgetEnum: Record<string, string> = {
-      under_3000: 'bg-red-500',
-      '3000_4500': 'bg-orange-500',
-      '4500_6000': 'bg-yellow-500',
-      '6000_8000': 'bg-green-500',
-      '8000_plus': 'bg-blue-500',
-    };
-    return budgetEnum[budget] || 'bg-primary-300 dark:bg-secondary-600';
-  }
-  return 'bg-green-500';
-};
-
 // === Message Card Component ===
 
 function MessageCard({
@@ -50,58 +32,136 @@ function MessageCard({
     onDelete(msg._id);
   };
 
-  const textBlockClass = 'text-sm opacity-80 tracking-wide leading-snug';
+  const getPriorityInfo = (reason: string, budget?: string) => {
+    const lowerReason = reason.toLowerCase();
+    if (lowerReason.includes('issue')) {
+      return { color: 'bg-red-500', label: 'Urgent', icon: '🚨' };
+    }
+    if (lowerReason.includes('job') && budget) {
+      const budgetMap: Record<string, { color: string; label: string }> = {
+        under_3000: { color: 'bg-red-500', label: 'Low Budget' },
+        '3000_4500': { color: 'bg-orange-500', label: 'Medium-' },
+        '4500_6000': { color: 'bg-yellow-500', label: 'Medium' },
+        '6000_8000': { color: 'bg-green-500', label: 'High' },
+        '8000_plus': { color: 'bg-blue-500', label: 'Premium' },
+      };
+      return {
+        ...(budgetMap[budget] || { color: 'bg-gray-400', label: 'Standard' }),
+        icon: '💼',
+      };
+    }
+    return { color: 'bg-green-500', label: 'General', icon: '💬' };
+  };
+
+  const priorityInfo = getPriorityInfo(msg.reason, msg.budget);
+  const isUrl = msg.message.startsWith('http');
 
   return (
-    <section className="grid gap-3 p-6 w-full h-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md cursor-pointer hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow">
-      <div
-        className={`h-2 w-full rounded ${getPriorityColor(
-          msg.reason,
-          msg.budget
-        )}`}
-      />
+    <div className="group relative bg-white dark:bg-secondary-800 border border-primary-200 dark:border-secondary-700 rounded-xl shadow-sm hover:shadow-lg transition-all duration-200 hover:-translate-y-1 overflow-hidden cursor-pointer">
+      {/* Priority indicator bar */}
+      <div className={`h-1 w-full ${priorityInfo.color}`} />
 
-      <div className="grid grid-cols-[1fr_auto] items-start gap-2">
-        <h2 className="text-lg font-bold tracking-tight">{msg.reason}</h2>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={handleDelete}
-          className="p-2 text-sm"
-        >
-          Delete
-        </Button>
+      <div className="p-6">
+        {/* Header with priority badge and delete button */}
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center gap-3">
+            <div
+              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium text-white ${priorityInfo.color}`}
+            >
+              <span>{priorityInfo.icon}</span>
+              {priorityInfo.label}
+            </div>
+          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleDelete}
+            className="opacity-0 group-hover:opacity-100 transition-opacity duration-200 p-2 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20"
+          >
+            ✕
+          </Button>
+        </div>
+
+        {/* Main reason/subject */}
+        <h3 className="text-lg font-semibold text-primary-900 dark:text-secondary-50 mb-4 line-clamp-2">
+          {msg.reason}
+        </h3>
+
+        {/* User info card */}
+        <div className="bg-primary-50 dark:bg-secondary-700/50 rounded-lg p-3 mb-4">
+          <div className="flex items-center gap-2 mb-1">
+            <div className="w-8 h-8 bg-primary-200 dark:bg-secondary-600 rounded-full flex items-center justify-center text-sm font-medium">
+              {msg.userName.charAt(0).toUpperCase()}
+            </div>
+            <div>
+              <p className="font-medium text-sm text-primary-900 dark:text-secondary-50">
+                {msg.userName}
+              </p>
+              <p className="text-xs text-primary-600 dark:text-secondary-400">
+                {msg.userEmail}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Message content */}
+        <div className="mb-4">
+          <p className="text-sm text-primary-700 dark:text-secondary-300 leading-relaxed line-clamp-3">
+            {isUrl ? (
+              <a
+                href={msg.message}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline decoration-dotted underline-offset-2"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <span>📎</span>
+                View Attachment
+              </a>
+            ) : (
+              msg.message
+            )}
+          </p>
+        </div>
+
+        {/* Budget info */}
+        {msg.budget && (
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xs font-medium text-primary-600 dark:text-secondary-400 bg-primary-100 dark:bg-secondary-700 px-2 py-1 rounded-full">
+              💰 Budget: {msg.budget.replace('_', ' - ').replace('plus', '+')}
+            </span>
+          </div>
+        )}
+
+        {/* Footer with timestamp */}
+        <div className="flex items-center justify-between pt-3 border-t border-primary-100 dark:border-secondary-700">
+          <span className="text-xs text-primary-500 dark:text-secondary-500">
+            {new Date(msg.createdAt).toLocaleDateString('en-US', {
+              month: 'short',
+              day: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </span>
+
+          {/* Status indicator */}
+          <div
+            className={`flex items-center gap-1 text-xs ${
+              msg.isResolved
+                ? 'text-green-600 dark:text-green-400'
+                : 'text-orange-600 dark:text-orange-400'
+            }`}
+          >
+            <div
+              className={`w-2 h-2 rounded-full ${
+                msg.isResolved ? 'bg-green-500' : 'bg-orange-500'
+              }`}
+            />
+            {msg.isResolved ? 'Resolved' : 'Pending'}
+          </div>
+        </div>
       </div>
-
-      <p className={textBlockClass}>
-        <strong>From:</strong> {msg.userName} ({msg.userEmail})
-      </p>
-
-      <p className={textBlockClass}>
-        <strong>Message:</strong> {msg.message}
-      </p>
-
-      {msg.message.startsWith('http') && (
-        <a
-          href={msg.message}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary-700 dark:text-secondary-200 underline"
-        >
-          View Attachment
-        </a>
-      )}
-
-      {msg.budget && (
-        <p className={textBlockClass}>
-          <strong>Budget:</strong> {msg.budget}
-        </p>
-      )}
-
-      <p className="text-xs opacity-60">
-        {new Date(msg.createdAt).toLocaleString()}
-      </p>
-    </section>
+    </div>
   );
 }
 
