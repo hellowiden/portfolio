@@ -46,7 +46,7 @@ export default function Footer() {
               <div className="grid items-center p-6 pt-0 text-xs text-muted-foreground grid-cols-[auto_auto] gap-2">
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <MapPin size={14} />
-                  <span className="text-xs">Malmö, Sweden</span>
+                  <span className="text-xs">Halmstad, Sweden</span>
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Mail size={14} />
