@@ -5,10 +5,47 @@ import bcrypt from 'bcryptjs';
 import User from '@/models/user';
 import { connectToDatabase } from '@/libs/mongodb';
 import { getSession } from '@/libs/auth';
-import type { Session } from 'next-auth';
+
+// ---- AppSession (matches your next-auth augmentation) ----------------------
+type AppSession = {
+  user: {
+    id: string;
+    roles: string[];
+    name?: string | null;
+    email?: string | null;
+    image?: string | null;
+    isOnline: boolean;
+  };
+};
+
+// ---- runtime type guards (no `any`) ----------------------------------------
+function isString(v: unknown): v is string {
+  return typeof v === 'string';
+}
+function isStringArray(v: unknown): v is string[] {
+  return Array.isArray(v) && v.every(isString);
+}
+function hasProp<T extends string>(
+  obj: unknown,
+  prop: T
+): obj is Record<T, unknown> {
+  return typeof obj === 'object' && obj !== null && prop in obj;
+}
+function isAppSession(session: unknown): session is AppSession {
+  if (!hasProp(session, 'user')) return false;
+  const u = (session as { user: unknown }).user;
+  if (!hasProp(u, 'id') || !hasProp(u, 'roles')) return false;
+  const id = (u as Record<string, unknown>).id;
+  const roles = (u as Record<string, unknown>).roles;
+  return isString(id) && isStringArray(roles);
+}
+function assertHasUser(session: unknown): asserts session is AppSession {
+  if (!isAppSession(session)) {
+    throw new Response('Unauthorized', { status: 401 });
+  }
+}
 
 // ---- helpers ---------------------------------------------------------------
-
 function errorResponse(message: string, status: number): NextResponse {
   return NextResponse.json({ error: message }, { status });
 }
@@ -20,15 +57,14 @@ async function getParams(context: ParamsPromise) {
   return await context.params;
 }
 
-function isAdmin(session: Session): boolean {
-  const roles = session.user?.roles ?? [];
-  return Array.isArray(roles) && roles.includes('admin');
+function isAdmin(session: AppSession): boolean {
+  return session.user.roles.includes('admin');
 }
 
-async function requireSession(): Promise<Session> {
+async function requireSession(): Promise<AppSession> {
   const session = await getSession();
-  if (!session?.user?.id) throw new Response('Unauthorized', { status: 401 });
-  return session;
+  assertHasUser(session);
+  return session; // now strongly typed
 }
 
 /**
@@ -38,7 +74,7 @@ async function requireSession(): Promise<Session> {
  */
 function resolveTargetUserId(
   paramId: string | undefined,
-  session: Session
+  session: AppSession
 ): string | Response {
   const selfId = session.user.id;
   const requestedId = !paramId || paramId === 'me' ? selfId : paramId;
@@ -50,7 +86,6 @@ function resolveTargetUserId(
 }
 
 // ---- GET /api/users/[id] ---------------------------------------------------
-
 export async function GET(
   req: NextRequest,
   context: ParamsPromise
@@ -76,7 +111,6 @@ export async function GET(
 }
 
 // ---- PUT /api/users/[id] ---------------------------------------------------
-
 export async function PUT(
   req: NextRequest,
   context: ParamsPromise
@@ -134,6 +168,7 @@ export async function PUT(
     if (typeof roles !== 'undefined' && admin) updateFields.roles = roles;
     if (password) updateFields.password = await bcrypt.hash(password, 10);
 
+    // No-op short-circuit
     if (Object.keys(updateFields).length === 0) {
       const fresh = await User.findById(id).select('-password');
       return NextResponse.json(
@@ -160,7 +195,6 @@ export async function PUT(
 }
 
 // ---- DELETE /api/users/[id] ------------------------------------------------
-
 export async function DELETE(
   req: NextRequest,
   context: ParamsPromise
