@@ -1,5 +1,4 @@
-//src/app/profile/page.tsx
-
+// src/app/profile/page.tsx
 'use client';
 
 import { useState, useEffect, memo } from 'react';
@@ -59,6 +58,10 @@ export default function Profile() {
     );
   }
 
+  // ✅ Coerce nullable NextAuth fields to strings
+  const displayName = session.user.name ?? session.user.email ?? 'User';
+  const displayEmail = session.user.email ?? '';
+
   const handleDeleteAccount = async () => {
     if (!confirm('Are you sure you want to permanently delete your account?'))
       return;
@@ -73,9 +76,7 @@ export default function Profile() {
   const handleDeleteMessage = async (id: string) => {
     if (!confirm('Are you sure you want to delete this message?')) return;
     const res = await fetch(`/api/messages/${id}`, { method: 'DELETE' });
-    if (res.ok) {
-      setMessages((prev) => prev.filter((msg) => msg._id !== id));
-    }
+    if (res.ok) setMessages((prev) => prev.filter((msg) => msg._id !== id));
   };
 
   const handleEditMessage = (msg: UserMessage) => {
@@ -95,13 +96,12 @@ export default function Profile() {
     <>
       <section className="grid gap-6 p-4 sm:p-6 w-full bg-white dark:bg-secondary-800 text-primary-900 dark:text-secondary-50 border border-primary-200 dark:border-secondary-700 rounded-md hover:shadow-md hover:ring-1 hover:ring-primary-300 dark:hover:ring-offset-2 hover:ring-offset-2 transition-shadow">
         <div className="grid gap-4 grid-cols-1 sm:grid-cols-[auto_1fr_auto] items-start">
-          <ProfileAvatar name={session.user.name} />
+          {/* ✅ Now always a string */}
+          <ProfileAvatar name={displayName} />
 
           <div className="grid gap-1">
-            <h2 className="text-lg font-bold tracking-tight">
-              {session.user.name}
-            </h2>
-            <p className="text-sm opacity-80">{session.user.email}</p>
+            <h2 className="text-lg font-bold tracking-tight">{displayName}</h2>
+            <p className="text-sm opacity-80">{displayEmail}</p>
             <p className="text-sm">
               Status:{' '}
               <span
@@ -142,13 +142,14 @@ export default function Profile() {
           account, which will result in complete removal from our system.
         </p>
 
+        {/* ✅ Provide strict strings to modal */}
         <EditOwnProfileModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           user={{
             id: session.user.id,
-            name: session.user.name,
-            email: session.user.email,
+            name: displayName,
+            email: displayEmail,
           }}
           onSave={() => window.location.reload()}
         />
@@ -222,6 +223,7 @@ export default function Profile() {
   );
 }
 
+// Keep strict prop on the avatar; callers supply a string
 const ProfileAvatar = memo(({ name }: { name: string }) => (
   <div className="w-10 h-10 grid place-items-center rounded-full bg-primary-900 text-white dark:bg-secondary-50 dark:text-secondary-900 font-bold text-sm shadow">
     {name ? name.charAt(0).toUpperCase() : '?'}
