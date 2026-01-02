@@ -1,5 +1,15 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalEnv": [
+    "NEXTAUTH_SECRET",
+    "NEXTAUTH_URL",
+    "MONGODB_URI",
+    "DB_NAME",
+    "NEXTAUTH_COOKIE_DOMAIN",
+    "NEXT_PUBLIC_MARKETING_URL",
+    "NEXT_PUBLIC_DASHBOARD_URL",
+    "appName"
+  ],
   "tasks": {
     "build": {
       "dependsOn": [
