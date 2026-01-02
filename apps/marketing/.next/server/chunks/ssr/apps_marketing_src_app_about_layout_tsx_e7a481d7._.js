@@ -1,0 +1,3 @@
+module.exports=[71269,a=>{"use strict";var b=a.i(87924);function c({children:a}){return(0,b.jsx)("div",{className:"h-full container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-50 dark:bg-secondary-900 text-primary-900 dark:text-secondary-50 flex flex-col",children:(0,b.jsx)("main",{className:"flex-grow p-6",children:a})})}a.s(["default",()=>c])}];
+
+//# sourceMappingURL=apps_marketing_src_app_about_layout_tsx_e7a481d7._.js.map

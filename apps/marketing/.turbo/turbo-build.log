@@ -1,0 +1,51 @@
+
+> @portfolio/marketing@0.1.0 build
+> next build
+
+▲ Next.js 16.1.1 (Turbopack)
+- Environments: .env
+- Experiments (use with caution):
+  ✓ externalDir
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.8s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/17) ...
+  Generating static pages using 7 workers (4/17) 
+  Generating static pages using 7 workers (8/17) 
+  Generating static pages using 7 workers (12/17) 
+✓ Generating static pages using 7 workers (17/17) in 156.7ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ○ /about
+├ ƒ /api/auth/[...nextauth]
+├ ƒ /api/auth/user
+├ ƒ /api/experiences
+├ ƒ /api/experiences/[id]
+├ ƒ /api/messages
+├ ƒ /api/messages/[id]
+├ ƒ /api/projects
+├ ƒ /api/projects/[id]
+├ ƒ /api/stats
+├ ƒ /api/users
+├ ƒ /api/users/[id]
+├ ○ /contact
+├ ○ /experiences
+├ ƒ /experiences/[slug]
+├ ○ /legal
+├ ○ /login
+├ ○ /profile
+├ ○ /projects
+├ ƒ /projects/[slug]
+└ ○ /register
+
+
+ƒ Proxy (Middleware)
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

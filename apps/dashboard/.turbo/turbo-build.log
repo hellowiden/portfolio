@@ -1,0 +1,47 @@
+
+> @portfolio/dashboard@0.1.0 build
+> next build
+
+▲ Next.js 16.1.1 (Turbopack)
+- Environments: .env
+- Experiments (use with caution):
+  ✓ externalDir
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 3.4s
+  Running TypeScript ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/17) ...
+  Generating static pages using 7 workers (4/17) 
+  Generating static pages using 7 workers (8/17) 
+  Generating static pages using 7 workers (12/17) 
+✓ Generating static pages using 7 workers (17/17) in 176.6ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/auth/[...nextauth]
+├ ƒ /api/auth/user
+├ ƒ /api/experiences
+├ ƒ /api/experiences/[id]
+├ ƒ /api/messages
+├ ƒ /api/messages/[id]
+├ ƒ /api/projects
+├ ƒ /api/projects/[id]
+├ ƒ /api/stats
+├ ƒ /api/users
+├ ƒ /api/users/[id]
+├ ○ /dashboard
+├ ○ /dashboard/experiences
+├ ○ /dashboard/messages
+├ ○ /dashboard/projects
+├ ○ /dashboard/users
+├ ○ /login
+├ ○ /profile
+└ ○ /register
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+

@@ -1,0 +1,3 @@
+module.exports=[32685,a=>{"use strict";var b=a.i(87924);function c({children:a}){return(0,b.jsxs)("div",{className:"h-full container mx-auto border-x border-primary-200 dark:border-secondary-700 backdrop-blur-md bg-primary-50 dark:bg-secondary-900 text-primary-900 dark:text-secondary-50 flex flex-col",children:[(0,b.jsx)("header",{className:"px-4 py-3 sm:px-6 border-b border-primary-200 dark:border-secondary-700 bg-primary-200 dark:bg-secondary-800",children:(0,b.jsx)("h1",{className:"text-xl sm:text-2xl font-bold",children:"Profile Page"})}),(0,b.jsx)("main",{className:"flex-grow px-4 py-6 sm:px-6",children:a})]})}a.s(["default",()=>c])}];
+
+//# sourceMappingURL=apps_marketing_src_app_profile_layout_tsx_60f5b4a6._.js.map
