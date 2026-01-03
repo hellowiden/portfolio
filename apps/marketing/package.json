@@ -36,6 +36,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@portfolio/tailwind-config": "*",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/json-schema": "^7.0.15",
     "@types/node": "^25",
