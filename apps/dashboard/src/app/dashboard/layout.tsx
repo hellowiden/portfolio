@@ -4,22 +4,30 @@
 
 import { ReactNode, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Button from '@portfolio/ui/components/Button/Button';
 
 export default function Layout({ children }: { children: ReactNode }) {
   const { data: session, status } = useSession();
   const router = useRouter();
+  const pathname = usePathname();
   const isAdmin = session?.user?.roles?.includes('admin') ?? false;
+  const marketingBase = process.env.NEXT_PUBLIC_MARKETING_URL ?? '';
+  const marketingOrigin = marketingBase
+    ? marketingBase.replace(/\/$/, '')
+    : '';
+  const marketingLogin = marketingOrigin ? `${marketingOrigin}/login` : '/login';
+  const marketingHome = marketingOrigin ? `${marketingOrigin}/` : '/';
 
   useEffect(() => {
     if (status === 'unauthenticated') {
-      router.replace('/login');
+      const callbackUrl = encodeURIComponent(pathname || '/dashboard');
+      router.replace(`${marketingLogin}?callbackUrl=${callbackUrl}`);
     } else if (status === 'authenticated' && !isAdmin) {
-      router.replace('/');
+      router.replace(marketingHome);
     }
-  }, [status, isAdmin, router]);
+  }, [status, isAdmin, router, pathname, marketingLogin, marketingHome]);
 
   if (status === 'loading') {
     return null;

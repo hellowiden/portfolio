@@ -2,8 +2,9 @@
 
 'use client';
 
+import { Suspense } from 'react';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import AdBar from '@portfolio/ui/components/AdBar/AdBar';
 
@@ -12,7 +13,17 @@ import { useFormStatus } from '@portfolio/ui/hooks/auth/useFormStatus';
 import Button from '@portfolio/ui/components/Button/Button';
 
 export default function Login() {
+  return (
+    <Suspense fallback={null}>
+      <LoginForm />
+    </Suspense>
+  );
+}
+
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') || '/';
   const { formData, handleChange } = useLoginForm();
   const { error, setError, loading, setLoading } = useFormStatus();
 
@@ -24,14 +35,14 @@ export default function Login() {
     try {
       const result = await signIn('credentials', {
         redirect: false,
-        callbackUrl: '/',
+        callbackUrl,
         ...formData,
       });
 
       if (!result || result.error) {
         setError(result?.error || 'Invalid credentials');
       } else {
-        router.replace(result.url || '/');
+        router.replace(result?.url || callbackUrl);
         router.refresh();
       }
     } catch {

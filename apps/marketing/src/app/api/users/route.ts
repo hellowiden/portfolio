@@ -43,11 +43,18 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const userCount = await User.countDocuments();
+    const assignedRoles =
+      Array.isArray(roles) && roles.length > 0
+        ? roles
+        : userCount === 0
+        ? ['admin']
+        : ['user'];
     const newUser = await User.create({
       name,
       email,
       password: hashedPassword,
-      roles,
+      roles: assignedRoles,
     });
 
     return NextResponse.json(
