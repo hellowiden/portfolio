@@ -1,11 +1,6 @@
 // src/app/api/stats/route.ts
+import { connectToDatabase, User, Message, Project, Experience, StatSnapshot } from '@portfolio/database';
 import { NextResponse } from 'next/server';
-import { connectToDatabase } from '@portfolio/lib/mongodb';
-import User from '@portfolio/lib/models/user';
-import Message from '@portfolio/lib/models/message';
-import Project from '@portfolio/lib/models/project';
-import Experience from '@portfolio/lib/models/experience';
-import StatSnapshot from '@portfolio/lib/models/statSnapshot';
 
 // GET: Return live stats and recent trend snapshots
 export async function GET() {

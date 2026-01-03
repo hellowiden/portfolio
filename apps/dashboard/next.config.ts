@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
   experimental: {
     externalDir: true,
   },
-  transpilePackages: ['@portfolio/ui', '@portfolio/lib'],
+  transpilePackages: ['@portfolio/ui', '@portfolio/lib', '@portfolio/database'],
   outputFileTracingRoot: path.join(__dirname, '../../'),
   images: {
     remotePatterns: [

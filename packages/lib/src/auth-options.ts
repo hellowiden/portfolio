@@ -3,8 +3,7 @@ import type { NextAuthOptions, User as NextAuthUser, Session } from 'next-auth';
 import type { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
-import UserModel from './models/user';
-import { connectToDatabase } from './mongodb';
+import { connectToDatabase, User as UserModel } from '@portfolio/database';
 
 // Optional: narrow user objects coming from authorize()
 type AppUser = NextAuthUser & {

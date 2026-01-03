@@ -1,8 +1,7 @@
 // src/app/api/experiences/route.ts
+import { connectToDatabase, Experience } from '@portfolio/database';
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { connectToDatabase } from '@portfolio/lib/mongodb';
-import Experience from '@portfolio/lib/models/experience';
 
 // Centralized error response function
 function errorResponse(message: string, status: number): NextResponse {

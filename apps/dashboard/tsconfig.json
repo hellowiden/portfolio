@@ -32,6 +32,9 @@
       ],
       "@portfolio/lib/*": [
         "../../packages/lib/src/*"
+      ],
+      "@portfolio/database/*": [
+        "../../packages/database/src/*"
       ]
     },
     "types": [
@@ -43,6 +46,7 @@
     "src",
     "../../packages/ui/src",
     "../../packages/lib/src",
+    "../../packages/database/src",
     "**/*.d.ts",
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts"

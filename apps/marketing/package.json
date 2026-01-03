@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
+    "@portfolio/database": "*",
     "@portfolio/lib": "*",
     "@portfolio/ui": "*",
     "@types/animejs": "^3.1.13",

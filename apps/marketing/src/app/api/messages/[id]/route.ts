@@ -1,8 +1,7 @@
 //src/app/api/messages/id/route.ts
 
+import { connectToDatabase, Message } from '@portfolio/database';
 import { NextRequest, NextResponse } from 'next/server';
-import Message from '@portfolio/lib/models/message';
-import { connectToDatabase } from '@portfolio/lib/mongodb';
 import { getToken } from 'next-auth/jwt';
 
 interface AuthToken {

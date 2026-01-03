@@ -1,9 +1,8 @@
 // src/app/api/users/[id]/route.ts
 
+import { connectToDatabase, User } from '@portfolio/database';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import User from '@portfolio/lib/models/user';
-import { connectToDatabase } from '@portfolio/lib/mongodb';
 import { getSession } from '@portfolio/lib/auth';
 
 // ---- AppSession (matches your next-auth augmentation) ----------------------

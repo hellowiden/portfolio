@@ -8,6 +8,7 @@
     "NEXTAUTH_COOKIE_DOMAIN",
     "NEXT_PUBLIC_MARKETING_URL",
     "NEXT_PUBLIC_DASHBOARD_URL",
+    "DB_PROVIDER",
     "appName"
   ],
   "tasks": {

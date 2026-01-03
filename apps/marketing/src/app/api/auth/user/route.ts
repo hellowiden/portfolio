@@ -1,9 +1,8 @@
 //src/app/api/auth/user/route.ts
 
+import { connectToDatabase, User } from '@portfolio/database';
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { connectToDatabase } from '@portfolio/lib/mongodb';
-import User from '@portfolio/lib/models/user';
 
 // Centralized error response function
 function errorResponse(message: string, status: number): NextResponse {

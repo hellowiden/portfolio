@@ -1,9 +1,8 @@
 // src/app/api/projects/[id]/route.ts
 
+import { connectToDatabase, Project } from '@portfolio/database';
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { connectToDatabase } from '@portfolio/lib/mongodb';
-import Project from '@portfolio/lib/models/project';
 
 async function getParams(context: { params: Promise<{ id: string }> }) {
   await connectToDatabase();

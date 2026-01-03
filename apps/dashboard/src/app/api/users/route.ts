@@ -1,9 +1,8 @@
 // src/app/api/users/route.tsx
 
+import { connectToDatabase, User } from '@portfolio/database';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
-import User from '@portfolio/lib/models/user';
-import { connectToDatabase } from '@portfolio/lib/mongodb';
 
 // Centralized error response function
 function errorResponse(message: string, status: number): NextResponse {
