@@ -2,11 +2,11 @@
   "version": 2,
   "builds": [
     {
-      "src": "apps/marketing/next.config.ts",
+      "src": "apps/marketing/package.json",
       "use": "@vercel/next"
     },
     {
-      "src": "apps/dashboard/next.config.ts",
+      "src": "apps/dashboard/package.json",
       "use": "@vercel/next"
     }
   ],
