@@ -2,11 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -24,22 +20,12 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "src/*"
-      ],
-      "@portfolio/ui/*": [
-        "../../packages/ui/src/*"
-      ],
-      "@portfolio/lib/*": [
-        "../../packages/lib/src/*"
-      ],
-      "@portfolio/database/*": [
-        "../../packages/database/src/*"
-      ]
+      "@/*": ["src/*"],
+      "@portfolio/ui/*": ["../../packages/ui/src/*"],
+      "@portfolio/lib/*": ["../../packages/lib/src/*"],
+      "@portfolio/database/*": ["../../packages/database/src/*"]
     },
-    "types": [
-      "next-auth"
-    ]
+    "types": ["next-auth"]
   },
   "include": [
     "next-env.d.ts",
@@ -47,11 +33,7 @@
     "../../packages/ui/src",
     "../../packages/lib/src",
     "../../packages/database/src",
-    "**/*.d.ts",
-    ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts"
+    "**/*.d.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
