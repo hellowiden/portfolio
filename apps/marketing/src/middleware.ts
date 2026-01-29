@@ -4,26 +4,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
 export const config = {
-  matcher: [
-    '/',
-    '/dashboard/:path*',
-    '/about',
-    '/profile',
-    '/experiences/:path*',
-    '/login',
-    '/register',
-  ],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|api).*)'],
 };
 
-export async function proxy(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const { pathname } = req.nextUrl;
 
-  if (token && (pathname === '/login' || pathname === '/register')) {
+  const isAuthPage = pathname === '/login' || pathname === '/register';
+
+  if (token && isAuthPage) {
     return NextResponse.redirect(new URL('/', req.url));
   }
 
-  if (!token && !['/login', '/register'].includes(pathname)) {
+  // Profile is the only protected page on marketing
+  if (!token && pathname === '/profile') {
     return NextResponse.redirect(new URL('/login', req.url));
   }
 
