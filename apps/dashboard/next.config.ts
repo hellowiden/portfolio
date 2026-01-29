@@ -12,7 +12,8 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: path.join(__dirname, '../../'),
   assetPrefix: isProd ? '/dashboard' : undefined,
   async rewrites() {
-    const marketingUrl = process.env.NEXT_PUBLIC_MARKETING_URL || 'http://localhost:3000';
+    const marketingUrl =
+      process.env.NEXT_PUBLIC_MARKETING_URL || 'http://localhost:3000';
     return [
       {
         source: '/api/experiences',
