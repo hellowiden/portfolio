@@ -9,22 +9,19 @@
     "NEXT_PUBLIC_MARKETING_URL",
     "NEXT_PUBLIC_DASHBOARD_URL",
     "DB_PROVIDER",
-    "appName"
+    "appName",
+    "VERCEL_URL",
+    "VERCEL_ENV",
+    "NODE_ENV"
   ],
   "tasks": {
     "build": {
-      "dependsOn": [
-        "^build"
-      ],
-      "outputs": [
-        ".next/**",
-        "!.next/cache/**"
-      ]
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "!.next/cache/**"]
     },
     "lint": {
-      "dependsOn": [
-        "^lint"
-      ]
+      "dependsOn": ["^lint"]
     },
     "dev": {
       "cache": false
