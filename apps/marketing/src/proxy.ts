@@ -7,7 +7,7 @@ export const config = {
   matcher: ['/((?!_next/static|_next/image|favicon.ico|api).*)'],
 };
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET });
   const { pathname } = req.nextUrl;
 
