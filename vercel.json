@@ -1,23 +1,4 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "apps/marketing/package.json",
-      "use": "@vercel/next"
-    },
-    {
-      "src": "apps/dashboard/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(dashboard(?:/.*)?)",
-      "dest": "apps/dashboard/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "apps/marketing/$1"
-    }
-  ]
+  "cleanUrls": true
 }
